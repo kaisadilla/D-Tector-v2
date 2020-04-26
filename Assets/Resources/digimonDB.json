@@ -1,0 +1,9242 @@
+[
+	{
+		"number": "8",
+		"order": "1",
+		"name": "Agumon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "flames_1",
+		"element": "Fire",
+		"evolution": "Greymon",
+		"weight": "10",
+		"rarity": "Common",
+		"disabled": "false",
+		"baseLevel": "4",
+		"stats": {
+			"HP": "40",
+			"EN": "25",
+			"CR": "15",
+			"AB": "20"
+		}
+	},
+	{
+		"number": "9",
+		"order": "2",
+		"name": "Gabumon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "flames_1",
+		"element": "Ice",
+		"evolution": "Garurumon",
+		"weight": "10",
+		"rarity": "Common",
+		"baseLevel": "4",
+		"stats": {
+			"HP": "40",
+			"EN": "20",
+			"CR": "25",
+			"AB": "15"
+		}
+	},
+	{
+		"number": "10",
+		"order": "3",
+		"name": "Biyomon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "feathers_2",
+		"element": "Fire",
+		"evolution": "Birdramon",
+		"weight": "9",
+		"rarity": "Common",
+		"baseLevel": "4",
+		"stats": {
+			"HP": "35",
+			"EN": "20",
+			"CR": "15",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "11",
+		"order": "4",
+		"name": "Tentomon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "bright",
+		"element": "Wind",
+		"evolution": "Kabuterimon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "3",
+		"stats": {
+			"HP": "35",
+			"EN": "15",
+			"CR": "20",
+			"AB": "25"
+		}
+	},
+	{
+		"number": "13",
+		"order": "5",
+		"name": "Gomamon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "fish",
+		"element": "Ice",
+		"evolution": "Ikkakumon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "3",
+		"stats": {
+			"HP": "45",
+			"EN": "15",
+			"CR": "20",
+			"AB": "15"
+		}
+	},
+	{
+		"number": "12",
+		"order": "6",
+		"name": "Palmon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "leaves",
+		"element": "Wind",
+		"evolution": "Togemon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "4",
+		"stats": {
+			"HP": "40",
+			"EN": "20",
+			"CR": "20",
+			"AB": "20"
+		}
+	},
+	{
+		"number": "14",
+		"order": "7",
+		"name": "Patamon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "bubbles",
+		"element": "Light",
+		"evolution": "Angemon",
+		"weight": "5",
+		"rarity": "Common",
+		"baseLevel": "5",
+		"stats": {
+			"HP": "40",
+			"EN": "30",
+			"CR": "25",
+			"AB": "10"
+		}
+	},
+	{
+		"number": "93",
+		"order": "8",
+		"name": "Salamon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "labramon",
+		"element": "Light",
+		"evolution": "Gatomon",
+		"weight": "4",
+		"rarity": "Common",
+		"baseLevel": "4",
+		"stats": {
+			"HP": "35",
+			"EN": "10",
+			"CR": "15",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "234",
+		"order": "9",
+		"name": "Veemon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "thunder",
+		"element": "Thunder",
+		"evolution": "ExVeemon",
+		"weight": "9",
+		"rarity": "Common",
+		"baseLevel": "4",
+		"stats": {
+			"HP": "40",
+			"EN": "10",
+			"CR": "30",
+			"AB": "20"
+		}
+	},
+	{
+		"number": "237",
+		"order": "10",
+		"name": "Wormmon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "web",
+		"element": "Wind",
+		"evolution": "Stingmon",
+		"weight": "9",
+		"rarity": "Common",
+		"baseLevel": "4",
+		"stats": {
+			"HP": "40",
+			"EN": "15",
+			"CR": "15",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "235",
+		"order": "11",
+		"name": "Hawkmon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "feathers_2",
+		"element": "Wind",
+		"evolution": "Aquilamon",
+		"weight": "5",
+		"rarity": "Common",
+		"baseLevel": "5",
+		"stats": {
+			"HP": "50",
+			"EN": "15",
+			"CR": "30",
+			"AB": "10"
+		}
+	},
+	{
+		"number": "236",
+		"order": "12",
+		"name": "Armadillomon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "armadillomon",
+		"element": "Earth",
+		"evolution": "Ankylomon",
+		"weight": "5",
+		"rarity": "Common",
+		"baseLevel": "5",
+		"stats": {
+			"HP": "55",
+			"EN": "10",
+			"CR": "25",
+			"AB": "15"
+		}
+	},
+	{
+		"number": "360",
+		"order": "13",
+		"name": "Guilmon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "flames_1",
+		"element": "Fire",
+		"evolution": "Growlmon",
+		"weight": "8",
+		"rarity": "Common",
+		"baseLevel": "5",
+		"stats": {
+			"HP": "40",
+			"EN": "30",
+			"CR": "20",
+			"AB": "15"
+		}
+	},
+	{
+		"number": "361",
+		"order": "14",
+		"name": "Renamon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "leaves",
+		"element": "Light",
+		"evolution": "Kyubimon",
+		"weight": "5",
+		"rarity": "Common",
+		"baseLevel": "5",
+		"stats": {
+			"HP": "45",
+			"EN": "10",
+			"CR": "20",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "338",
+		"order": "15",
+		"name": "Terriermon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "gust",
+		"element": "Wind",
+		"evolution": "Gargomon",
+		"weight": "7",
+		"rarity": "Common",
+		"baseLevel": "4",
+		"stats": {
+			"HP": "35",
+			"EN": "25",
+			"CR": "25",
+			"AB": "15"
+		}
+	},
+	{
+		"number": "333",
+		"order": "16",
+		"name": "Lopmon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "bright",
+		"element": "Light",
+		"evolution": "Turuiemon",
+		"weight": "4",
+		"rarity": "Rare",
+		"baseLevel": "4",
+		"stats": {
+			"HP": "35",
+			"EN": "15",
+			"CR": "25",
+			"AB": "25"
+		}
+	},
+	{
+		"number": "391",
+		"order": "17",
+		"name": "Monodramon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "waves",
+		"element": "Wind",
+		"evolution": "Strikedramon",
+		"weight": "4",
+		"rarity": "Epic",
+		"baseLevel": "5",
+		"stats": {
+			"HP": "50",
+			"EN": "20",
+			"CR": "30",
+			"AB": "15"
+		}
+	},
+	{
+		"number": "369",
+		"order": "18",
+		"name": "Impmon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "bomb",
+		"element": "Dark",
+		"evolution": "Boogiemon",
+		"weight": "1",
+		"rarity": "Epic",
+		"baseLevel": "6",
+		"stats": {
+			"HP": "40",
+			"EN": "30",
+			"CR": "20",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "193",
+		"order": "19",
+		"name": "Geremon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "numemon",
+		"element": "Dark",
+		"evolution": "ShellNumemon",
+		"weight": "5",
+		"rarity": "Common",
+		"baseLevel": "2",
+		"stats": {
+			"HP": "30",
+			"EN": "10",
+			"CR": "20",
+			"AB": "25"
+		}
+	},
+	{
+		"number": "573",
+		"order": "20",
+		"name": "Liollmon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "kuwagamon",
+		"element": "Light",
+		"evolution": "Liamon",
+		"weight": "0",
+		"rarity": "Epic",
+		"baseLevel": "5",
+		"stats": {
+			"HP": "45",
+			"EN": "25",
+			"CR": "30",
+			"AB": "10"
+		}
+	},
+	{
+		"number": "201",
+		"order": "21",
+		"name": "Goburimon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "bones",
+		"element": "Earth",
+		"evolution": "Ogremon",
+		"weight": "5",
+		"rarity": "Rare",
+		"baseLevel": "5",
+		"stats": {
+			"HP": "50",
+			"EN": "25",
+			"CR": "20",
+			"AB": "15"
+		}
+	},
+	{
+		"number": "77",
+		"order": "22",
+		"name": "Gotsumon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "rock_small",
+		"element": "Earth",
+		"evolution": "Icemon",
+		"weight": "7",
+		"rarity": "Common",
+		"baseLevel": "4",
+		"stats": {
+			"HP": "45",
+			"EN": "20",
+			"CR": "25",
+			"AB": "10"
+		}
+	},
+	{
+		"number": "135",
+		"order": "23",
+		"name": "Kokuwamon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "thunderball",
+		"element": "Thunder",
+		"evolution": "Thundermon",
+		"weight": "7",
+		"rarity": "Common",
+		"baseLevel": "4",
+		"stats": {
+			"HP": "45",
+			"EN": "15",
+			"CR": "10",
+			"AB": "25"
+		}
+	},
+	{
+		"number": "81",
+		"order": "24",
+		"name": "Gizamon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "gizamon",
+		"element": "Water",
+		"evolution": "Shellmon",
+		"weight": "5",
+		"rarity": "Rare",
+		"baseLevel": "6",
+		"stats": {
+			"HP": "50",
+			"EN": "30",
+			"CR": "15",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "55",
+		"order": "25",
+		"name": "DemiDevimon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "garurumon",
+		"element": "Dark",
+		"evolution": "Devimon",
+		"weight": "6",
+		"rarity": "Rare",
+		"baseLevel": "4",
+		"stats": {
+			"HP": "35",
+			"EN": "25",
+			"CR": "25",
+			"AB": "15"
+		}
+	},
+	{
+		"number": "95",
+		"order": "26",
+		"name": "Chuumon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "dinobeemon",
+		"element": "Wood",
+		"evolution": "Sukamon",
+		"weight": "5",
+		"rarity": "Rare",
+		"baseLevel": "3",
+		"stats": {
+			"HP": "35",
+			"EN": "10",
+			"CR": "25",
+			"AB": "20"
+		}
+	},
+	{
+		"number": "103",
+		"order": "27",
+		"name": "Mushroomon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "bomb",
+		"element": "Wood",
+		"evolution": "Woodmon",
+		"weight": "8",
+		"rarity": "Common",
+		"baseLevel": "4",
+		"stats": {
+			"HP": "45",
+			"EN": "10",
+			"CR": "20",
+			"AB": "25"
+		}
+	},
+	{
+		"number": "171",
+		"order": "28",
+		"name": "Betamon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "fish",
+		"element": "Water",
+		"evolution": "Seadramon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "4",
+		"stats": {
+			"HP": "35",
+			"EN": "30",
+			"CR": "10",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "133",
+		"order": "29",
+		"name": "Candlemon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "flames_1",
+		"element": "Fire",
+		"evolution": "Wizardmon",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "5",
+		"stats": {
+			"HP": "40",
+			"EN": "25",
+			"CR": "20",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "38",
+		"order": "30",
+		"name": "Elecmon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "thunderball",
+		"element": "Thunder",
+		"evolution": "Tyrannomon",
+		"weight": "8",
+		"rarity": "Common",
+		"baseLevel": "5",
+		"stats": {
+			"HP": "45",
+			"EN": "25",
+			"CR": "15",
+			"AB": "25"
+		}
+	},
+	{
+		"number": "206",
+		"order": "31",
+		"name": "Keramon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "keramon",
+		"element": "Earth",
+		"evolution": "Kurisarimon",
+		"weight": "6",
+		"rarity": "Rare",
+		"baseLevel": "5",
+		"stats": {
+			"HP": "35",
+			"EN": "30",
+			"CR": "30",
+			"AB": "15"
+		}
+	},
+	{
+		"number": "176",
+		"order": "32",
+		"name": "DoKunemon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "web",
+		"element": "Wood",
+		"evolution": "Dokugumon",
+		"weight": "0",
+		"rarity": "Epic",
+		"baseLevel": "5",
+		"stats": {
+			"HP": "45",
+			"EN": "20",
+			"CR": "25",
+			"AB": "20"
+		}
+	},
+	{
+		"number": "150",
+		"order": "33",
+		"name": "Crabmon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "fish",
+		"element": "Water",
+		"evolution": "Coelamon",
+		"weight": "4",
+		"rarity": "Rare",
+		"baseLevel": "3",
+		"stats": {
+			"HP": "30",
+			"EN": "15",
+			"CR": "25",
+			"AB": "20"
+		}
+	},
+	{
+		"number": "105",
+		"order": "34",
+		"name": "Floramon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "leaves",
+		"element": "Wood",
+		"evolution": "Kiwimon",
+		"weight": "2",
+		"rarity": "Rare",
+		"baseLevel": "6",
+		"stats": {
+			"HP": "45",
+			"EN": "15",
+			"CR": "25",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "119",
+		"order": "35",
+		"name": "Kunemon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "web",
+		"element": "Dark",
+		"evolution": "Flymon",
+		"weight": "6",
+		"rarity": "Rare",
+		"baseLevel": "5",
+		"stats": {
+			"HP": "45",
+			"EN": "20",
+			"CR": "20",
+			"AB": "25"
+		}
+	},
+	{
+		"number": "385",
+		"order": "36",
+		"name": "Labramon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "labramon",
+		"element": "Fire",
+		"evolution": "Dobermon",
+		"weight": "0",
+		"rarity": "Epic",
+		"baseLevel": "5",
+		"stats": {
+			"HP": "40",
+			"EN": "25",
+			"CR": "20",
+			"AB": "25"
+		}
+	},
+	{
+		"number": "489",
+		"order": "37",
+		"name": "Kotemon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "kendo",
+		"element": "Metal",
+		"evolution": "Musyamon",
+		"weight": "0",
+		"rarity": "Epic",
+		"baseLevel": "5",
+		"stats": {
+			"HP": "40",
+			"EN": "25",
+			"CR": "25",
+			"AB": "20"
+		}
+	},
+	{
+		"number": "490",
+		"order": "38",
+		"name": "Bearmon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "bearmon",
+		"element": "Earth",
+		"evolution": "Grizzlymon",
+		"weight": "0",
+		"rarity": "Epic",
+		"baseLevel": "5",
+		"stats": {
+			"HP": "40",
+			"EN": "20",
+			"CR": "25",
+			"AB": "25"
+		}
+	},
+	{
+		"number": "577",
+		"order": "39",
+		"name": "Kudamon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "flames_1",
+		"element": "Light",
+		"evolution": "Reppamon",
+		"weight": "0",
+		"rarity": "Epic",
+		"baseLevel": "4",
+		"stats": {
+			"HP": "45",
+			"EN": "15",
+			"CR": "10",
+			"AB": "25"
+		}
+	},
+	{
+		"number": "157",
+		"order": "40",
+		"name": "Mamemon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "bomb",
+		"element": "Metal",
+		"evolution": "BigMamemon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "7",
+		"stats": {
+			"HP": "45",
+			"EN": "30",
+			"CR": "15",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "488",
+		"order": "41",
+		"name": "Monmon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "bones",
+		"element": "Earth",
+		"evolution": "Apemon",
+		"weight": "3",
+		"rarity": "Rare",
+		"baseLevel": "5",
+		"stats": {
+			"HP": "45",
+			"EN": "10",
+			"CR": "35",
+			"AB": "10"
+		}
+	},
+	{
+		"number": "453",
+		"order": "42",
+		"name": "Bokomon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "waves",
+		"element": "Light",
+		"evolution": "Drimogemon",
+		"weight": "0",
+		"rarity": "Legendary",
+		"baseLevel": "5",
+		"stats": {
+			"HP": "45",
+			"EN": "10",
+			"CR": "10",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "452",
+		"order": "43",
+		"name": "Neemon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "poop",
+		"element": "Dark",
+		"evolution": "Deputymon",
+		"weight": "0",
+		"rarity": "Legendary",
+		"baseLevel": "5",
+		"stats": {
+			"HP": "45",
+			"EN": "35",
+			"CR": "10",
+			"AB": "10"
+		}
+	},
+	{
+		"number": "349",
+		"order": "44",
+		"name": "DemiMeramon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "flames_1",
+		"element": "Dark",
+		"evolution": "Meramon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "3",
+		"stats": {
+			"HP": "25",
+			"EN": "25",
+			"CR": "10",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "47",
+		"order": "45",
+		"name": "Gazimon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "bearmon",
+		"element": "Wind",
+		"evolution": "Deltamon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "5",
+		"stats": {
+			"HP": "45",
+			"EN": "25",
+			"CR": "25",
+			"AB": "15"
+		}
+	},
+	{
+		"number": "463",
+		"order": "46",
+		"name": "Burgermon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "bearmon",
+		"element": "Light",
+		"evolution": "Nanimon",
+		"weight": "0",
+		"rarity": "Epic",
+		"baseLevel": "3",
+		"stats": {
+			"HP": "35",
+			"EN": "15",
+			"CR": "10",
+			"AB": "25"
+		}
+	},
+	{
+		"number": "328",
+		"order": "47",
+		"name": "Tsumemon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "venommyotismon",
+		"element": "Dark",
+		"evolution": "Devidramon",
+		"weight": "2",
+		"rarity": "Rare",
+		"baseLevel": "3",
+		"stats": {
+			"HP": "30",
+			"EN": "25",
+			"CR": "25",
+			"AB": "15"
+		}
+	},
+	{
+		"number": "181",
+		"order": "48",
+		"name": "Tsukaimon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "bubbles",
+		"element": "Light",
+		"evolution": "Piddomon",
+		"weight": "1",
+		"rarity": "Rare",
+		"baseLevel": "5",
+		"stats": {
+			"HP": "40",
+			"EN": "10",
+			"CR": "25",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "154",
+		"order": "49",
+		"name": "Tapirmon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "waves",
+		"element": "Wind",
+		"evolution": "Boarmon",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "8",
+		"stats": {
+			"HP": "50",
+			"EN": "15",
+			"CR": "20",
+			"AB": "40"
+		}
+	},
+	{
+		"number": "205",
+		"order": "50",
+		"name": "SnowGoburimon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "icedoll",
+		"element": "Ice",
+		"evolution": "Hyogamon",
+		"weight": "2",
+		"rarity": "Epic",
+		"baseLevel": "5",
+		"stats": {
+			"HP": "50",
+			"EN": "20",
+			"CR": "25",
+			"AB": "15"
+		}
+	},
+	{
+		"number": "399",
+		"order": "51",
+		"name": "Solarmon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "thunder",
+		"element": "Fire",
+		"evolution": "Guardromon",
+		"weight": "4",
+		"rarity": "Common",
+		"baseLevel": "4",
+		"stats": {
+			"HP": "40",
+			"EN": "30",
+			"CR": "20",
+			"AB": "10"
+		}
+	},
+	{
+		"number": "151",
+		"order": "52",
+		"name": "Syakomon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "wave",
+		"element": "Water",
+		"evolution": "Gesomon",
+		"weight": "3",
+		"rarity": "Common",
+		"baseLevel": "4",
+		"stats": {
+			"HP": "55",
+			"EN": "10",
+			"CR": "10",
+			"AB": "25"
+		}
+	},
+	{
+		"number": "175",
+		"order": "53",
+		"name": "Penguinmon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "fish",
+		"element": "Ice",
+		"evolution": "Dolphmon",
+		"weight": "3",
+		"rarity": "Common",
+		"baseLevel": "4",
+		"stats": {
+			"HP": "45",
+			"EN": "15",
+			"CR": "30",
+			"AB": "10"
+		}
+	},
+	{
+		"number": "204",
+		"order": "54",
+		"name": "Muchomon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "bearmon",
+		"element": "Wind",
+		"evolution": "Kokatorimon",
+		"weight": "3",
+		"rarity": "Common",
+		"baseLevel": "4",
+		"stats": {
+			"HP": "45",
+			"EN": "15",
+			"CR": "10",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "63",
+		"order": "55",
+		"name": "Otamamon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "wave",
+		"element": "Water",
+		"evolution": "Gekomon",
+		"weight": "3",
+		"rarity": "Common",
+		"baseLevel": "3",
+		"stats": {
+			"HP": "40",
+			"EN": "15",
+			"CR": "20",
+			"AB": "20"
+		}
+	},
+	{
+		"number": "178",
+		"order": "56",
+		"name": "Psychemon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "flames_1",
+		"element": "Ice",
+		"evolution": "Gururumon",
+		"weight": "1",
+		"rarity": "Epic",
+		"baseLevel": "5",
+		"stats": {
+			"HP": "45",
+			"EN": "20",
+			"CR": "25",
+			"AB": "15"
+		}
+	},
+	{
+		"number": "48",
+		"order": "57",
+		"name": "Pagumon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "bubbles",
+		"element": "Dark",
+		"evolution": "Raremon",
+		"weight": "5",
+		"rarity": "Common",
+		"baseLevel": "3",
+		"stats": {
+			"HP": "35",
+			"EN": "20",
+			"CR": "25",
+			"AB": "15"
+		}
+	},
+	{
+		"number": "183",
+		"order": "58",
+		"name": "ModokiBetamon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "bubbles",
+		"element": "Water",
+		"evolution": "Tuskmon",
+		"weight": "2",
+		"rarity": "Rare",
+		"baseLevel": "4",
+		"stats": {
+			"HP": "35",
+			"EN": "25",
+			"CR": "20",
+			"AB": "25"
+		}
+	},
+	{
+		"number": "114",
+		"order": "59",
+		"name": "Hagurumon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "thunder",
+		"element": "Metal",
+		"evolution": "Mekanorimon",
+		"weight": "4",
+		"rarity": "Common",
+		"baseLevel": "4",
+		"stats": {
+			"HP": "40",
+			"EN": "10",
+			"CR": "20",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "170",
+		"order": "60",
+		"name": "ToyAgumon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "toyagumon",
+		"element": "Metal",
+		"evolution": "ExTyrannomon",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "5",
+		"stats": {
+			"HP": "40",
+			"EN": "25",
+			"CR": "25",
+			"AB": "25"
+		}
+	},
+	{
+		"number": "511",
+		"order": "61",
+		"name": "Arkadimon (Rookie)",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "dinobeemon",
+		"element": "Dark",
+		"evolution": "Arkadimon (Champion)",
+		"weight": "0",
+		"rarity": "Legendary",
+		"baseLevel": "7",
+		"stats": {
+			"HP": "55",
+			"EN": "20",
+			"CR": "30",
+			"AB": "15"
+		}
+	},
+	{
+		"number": "359",
+		"order": "62",
+		"name": "Calumon",
+		"stage": "Rookie",
+		"spiritType": "None",
+		"abilityName": "bubbles",
+		"element": "Light",
+		"weight": "0",
+		"rarity": "Legendary",
+		"baseLevel": "2",
+		"stats": {
+			"HP": "30",
+			"EN": "10",
+			"CR": "15",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "16",
+		"order": "1",
+		"name": "Greymon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "big_flame",
+		"element": "Fire",
+		"evolution": "MetalGreymon",
+		"weight": "10",
+		"rarity": "Common",
+		"baseLevel": "18",
+		"stats": {
+			"HP": "70",
+			"EN": "45",
+			"CR": "25",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "18",
+		"order": "2",
+		"name": "Garurumon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "garurumon",
+		"element": "Ice",
+		"evolution": "WereGarurumon",
+		"weight": "10",
+		"rarity": "Common",
+		"baseLevel": "18",
+		"stats": {
+			"HP": "65",
+			"EN": "35",
+			"CR": "40",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "21",
+		"order": "3",
+		"name": "Birdramon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "flames_3",
+		"element": "Fire",
+		"evolution": "Garudamon",
+		"weight": "9",
+		"rarity": "Common",
+		"baseLevel": "17",
+		"stats": {
+			"HP": "60",
+			"EN": "40",
+			"CR": "20",
+			"AB": "45"
+		}
+	},
+	{
+		"number": "23",
+		"order": "4",
+		"name": "Kabuterimon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "kuwagamon",
+		"element": "Wind",
+		"evolution": "MegaKabuterimon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "15",
+		"stats": {
+			"HP": "60",
+			"EN": "25",
+			"CR": "30",
+			"AB": "40"
+		}
+	},
+	{
+		"number": "28",
+		"order": "5",
+		"name": "Ikkakumon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "dinobeemon",
+		"element": "Ice",
+		"evolution": "Zudomon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "16",
+		"stats": {
+			"HP": "80",
+			"EN": "25",
+			"CR": "35",
+			"AB": "20"
+		}
+	},
+	{
+		"number": "25",
+		"order": "6",
+		"name": "Togemon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "punch_2",
+		"element": "Wood",
+		"evolution": "Lillymon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "16",
+		"stats": {
+			"HP": "65",
+			"EN": "35",
+			"CR": "35",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "43",
+		"order": "7",
+		"name": "Angemon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "angemon",
+		"element": "Wind",
+		"evolution": "MagnaAngemon",
+		"weight": "5",
+		"rarity": "Common",
+		"baseLevel": "24",
+		"stats": {
+			"HP": "85",
+			"EN": "60",
+			"CR": "40",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "67",
+		"order": "8",
+		"name": "Gatomon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "gust",
+		"element": "Light",
+		"evolution": "Angewomon",
+		"weight": "4",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "65",
+			"EN": "20",
+			"CR": "50",
+			"AB": "50"
+		}
+	},
+	{
+		"number": "298",
+		"order": "9",
+		"name": "ExVeemon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "exveemon",
+		"element": "Thunder",
+		"evolution": "Paildramon",
+		"weight": "9",
+		"rarity": "Common",
+		"baseLevel": "17",
+		"stats": {
+			"HP": "65",
+			"EN": "25",
+			"CR": "55",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "299",
+		"order": "10",
+		"name": "Stingmon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "stingmon",
+		"element": "Wind",
+		"evolution": "Dinobeemon",
+		"weight": "9",
+		"rarity": "Common",
+		"baseLevel": "16",
+		"stats": {
+			"HP": "55",
+			"EN": "45",
+			"CR": "15",
+			"AB": "45"
+		}
+	},
+	{
+		"number": "300",
+		"order": "11",
+		"name": "Aquilamon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "feathers",
+		"element": "Wind",
+		"evolution": "Silphymon",
+		"weight": "5",
+		"rarity": "Common",
+		"baseLevel": "16",
+		"stats": {
+			"HP": "75",
+			"EN": "30",
+			"CR": "45",
+			"AB": "20"
+		}
+	},
+	{
+		"number": "301",
+		"order": "12",
+		"name": "Ankylomon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "steamroll_small",
+		"element": "Earth",
+		"evolution": "Shakkomon",
+		"weight": "5",
+		"rarity": "Common",
+		"baseLevel": "15",
+		"stats": {
+			"HP": "85",
+			"EN": "20",
+			"CR": "35",
+			"AB": "25"
+		}
+	},
+	{
+		"number": "163",
+		"order": "13",
+		"name": "Veedramon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "exveemon",
+		"element": "Thunder",
+		"evolution": "AeroVeedramon",
+		"weight": "5",
+		"rarity": "Rare",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "75",
+			"EN": "50",
+			"CR": "40",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "362",
+		"order": "14",
+		"name": "Growlmon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "big_flame",
+		"element": "Fire",
+		"evolution": "WarGrowlmon",
+		"weight": "8",
+		"rarity": "Common",
+		"baseLevel": "21",
+		"stats": {
+			"HP": "80",
+			"EN": "55",
+			"CR": "35",
+			"AB": "25"
+		}
+	},
+	{
+		"number": "363",
+		"order": "15",
+		"name": "Kyubimon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "kyubimon",
+		"element": "Light",
+		"evolution": "Taomon",
+		"weight": "5",
+		"rarity": "Common",
+		"baseLevel": "22",
+		"stats": {
+			"HP": "75",
+			"EN": "25",
+			"CR": "40",
+			"AB": "60"
+		}
+	},
+	{
+		"number": "339",
+		"order": "16",
+		"name": "Gargomon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "rockets_small_2",
+		"element": "Wind",
+		"evolution": "Rapidmon",
+		"weight": "7",
+		"rarity": "Common",
+		"baseLevel": "18",
+		"stats": {
+			"HP": "60",
+			"EN": "45",
+			"CR": "40",
+			"AB": "25"
+		}
+	},
+	{
+		"number": "395",
+		"order": "17",
+		"name": "Turuiemon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "shuriken",
+		"element": "Light",
+		"evolution": "Antylamon (Deva)",
+		"weight": "4",
+		"rarity": "Rare",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "70",
+			"EN": "30",
+			"CR": "40",
+			"AB": "50"
+		}
+	},
+	{
+		"number": "581",
+		"order": "18",
+		"name": "Wendigomon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "labramon",
+		"element": "Dark",
+		"evolution": "Antylamon (Virus)",
+		"weight": "3",
+		"rarity": "Epic",
+		"baseLevel": "22",
+		"stats": {
+			"HP": "80",
+			"EN": "35",
+			"CR": "50",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "427",
+		"order": "19",
+		"name": "Strikedramon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "strikedramon",
+		"element": "Wind",
+		"evolution": "Cyberdramon",
+		"weight": "4",
+		"rarity": "Epic",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "75",
+			"EN": "40",
+			"CR": "45",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "479",
+		"order": "20",
+		"name": "Boogiemon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "rhinokabuterimon",
+		"element": "Dark",
+		"evolution": "Phelesmon",
+		"weight": "2",
+		"rarity": "Epic",
+		"baseLevel": "16",
+		"stats": {
+			"HP": "60",
+			"EN": "40",
+			"CR": "30",
+			"AB": "40"
+		}
+	},
+	{
+		"number": "26",
+		"order": "21",
+		"name": "Numemon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "numemon",
+		"element": "Dark",
+		"weight": "9",
+		"rarity": "Common",
+		"baseLevel": "7",
+		"stats": {
+			"HP": "40",
+			"EN": "20",
+			"CR": "25",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "203",
+		"order": "22",
+		"name": "ShellNumemon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "poop",
+		"element": "Dark",
+		"evolution": "KingNumemon",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "9",
+		"stats": {
+			"HP": "55",
+			"EN": "25",
+			"CR": "30",
+			"AB": "20"
+		}
+	},
+	{
+		"number": "30",
+		"order": "23",
+		"name": "Leomon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "leomon",
+		"element": "Light",
+		"evolution": "GrapLeomon",
+		"weight": "7",
+		"rarity": "Common",
+		"baseLevel": "16",
+		"stats": {
+			"HP": "65",
+			"EN": "25",
+			"CR": "40",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "574",
+		"order": "24",
+		"name": "Liamon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "leomon",
+		"element": "Light",
+		"evolution": "LoaderLeomon",
+		"weight": "0",
+		"rarity": "Epic",
+		"baseLevel": "15",
+		"stats": {
+			"HP": "60",
+			"EN": "50",
+			"CR": "30",
+			"AB": "15"
+		}
+	},
+	{
+		"number": "31",
+		"order": "25",
+		"name": "Ogremon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "spiked_ball",
+		"element": "Earth",
+		"evolution": "Minotarumon",
+		"weight": "6",
+		"rarity": "Rare",
+		"baseLevel": "15",
+		"stats": {
+			"HP": "75",
+			"EN": "35",
+			"CR": "30",
+			"AB": "20"
+		}
+	},
+	{
+		"number": "187",
+		"order": "26",
+		"name": "Icemon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "azulongmon",
+		"element": "Earth",
+		"evolution": "Rockmon",
+		"weight": "6",
+		"rarity": "Rare",
+		"baseLevel": "14",
+		"stats": {
+			"HP": "55",
+			"EN": "30",
+			"CR": "35",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "162",
+		"order": "27",
+		"name": "Cyclonemon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "rock_big",
+		"element": "Earth",
+		"evolution": "Rockmon",
+		"weight": "5",
+		"rarity": "Rare",
+		"baseLevel": "17",
+		"stats": {
+			"HP": "65",
+			"EN": "25",
+			"CR": "45",
+			"AB": "40"
+		}
+	},
+	{
+		"number": "202",
+		"order": "28",
+		"name": "Thundermon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "thunderball",
+		"element": "Thunder",
+		"evolution": "Thunderbirdmon",
+		"weight": "6",
+		"rarity": "Rare",
+		"baseLevel": "12",
+		"stats": {
+			"HP": "50",
+			"EN": "30",
+			"CR": "25",
+			"AB": "40"
+		}
+	},
+	{
+		"number": "124",
+		"order": "29",
+		"name": "Starmon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "stars",
+		"element": "Metal",
+		"evolution": "SuperStarmon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "13",
+		"stats": {
+			"HP": "55",
+			"EN": "45",
+			"CR": "35",
+			"AB": "20"
+		}
+	},
+	{
+		"number": "15",
+		"order": "30",
+		"name": "Kuwagamon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "kuwagamon",
+		"element": "Wind",
+		"evolution": "Okuwamon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "15",
+		"stats": {
+			"HP": "60",
+			"EN": "25",
+			"CR": "40",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "17",
+		"order": "31",
+		"name": "Shellmon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "wave",
+		"element": "Water",
+		"evolution": "Whamon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "12",
+		"stats": {
+			"HP": "80",
+			"EN": "25",
+			"CR": "15",
+			"AB": "25"
+		}
+	},
+	{
+		"number": "180",
+		"order": "32",
+		"name": "MoriShellmon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "wave",
+		"element": "Water",
+		"evolution": "Scorpiomon",
+		"weight": "3",
+		"rarity": "Rare",
+		"baseLevel": "12",
+		"stats": {
+			"HP": "65",
+			"EN": "30",
+			"CR": "20",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "144",
+		"order": "33",
+		"name": "Ebidramon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "fish",
+		"element": "Water",
+		"evolution": "WaruSeadramon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "13",
+		"stats": {
+			"HP": "50",
+			"EN": "35",
+			"CR": "40",
+			"AB": "20"
+		}
+	},
+	{
+		"number": "32",
+		"order": "34",
+		"name": "Devimon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "ravemon",
+		"element": "Dark",
+		"evolution": "Myotismon",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "23",
+		"stats": {
+			"HP": "80",
+			"EN": "55",
+			"CR": "45",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "33",
+		"order": "35",
+		"name": "Frigimon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "icedoll",
+		"element": "Ice",
+		"evolution": "Monzaemon",
+		"weight": "8",
+		"rarity": "Common",
+		"baseLevel": "14",
+		"stats": {
+			"HP": "75",
+			"EN": "15",
+			"CR": "35",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "192",
+		"order": "36",
+		"name": "MudFrigimon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "punch",
+		"element": "Earth",
+		"evolution": "Pumpkinmon",
+		"weight": "4",
+		"rarity": "Rare",
+		"baseLevel": "14",
+		"stats": {
+			"HP": "70",
+			"EN": "20",
+			"CR": "30",
+			"AB": "40"
+		}
+	},
+	{
+		"number": "72",
+		"order": "37",
+		"name": "Gesomon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "fish",
+		"element": "Water",
+		"evolution": "MarineDevimon",
+		"weight": "8",
+		"rarity": "Common",
+		"baseLevel": "12",
+		"stats": {
+			"HP": "50",
+			"EN": "20",
+			"CR": "35",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "35",
+		"order": "38",
+		"name": "Sukamon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "poop",
+		"element": "Dark",
+		"evolution": "Etemon",
+		"weight": "4",
+		"rarity": "Rare",
+		"baseLevel": "10",
+		"stats": {
+			"HP": "50",
+			"EN": "25",
+			"CR": "20",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "164",
+		"order": "39",
+		"name": "Woodmon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "gust",
+		"element": "Wood",
+		"evolution": "Cherrymon",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "14",
+		"stats": {
+			"HP": "65",
+			"EN": "20",
+			"CR": "35",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "19",
+		"order": "40",
+		"name": "Seadramon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "wave",
+		"element": "Water",
+		"evolution": "MegaSeadramon",
+		"weight": "8",
+		"rarity": "Common",
+		"baseLevel": "17",
+		"stats": {
+			"HP": "65",
+			"EN": "45",
+			"CR": "20",
+			"AB": "45"
+		}
+	},
+	{
+		"number": "75",
+		"order": "41",
+		"name": "Wizardmon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "starbeam",
+		"element": "Metal",
+		"evolution": "Wisemon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "16",
+		"stats": {
+			"HP": "60",
+			"EN": "25",
+			"CR": "20",
+			"AB": "55"
+		}
+	},
+	{
+		"number": "51",
+		"order": "42",
+		"name": "Tyrannomon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "flames_big",
+		"element": "Dark",
+		"evolution": "MetalTyrannomon",
+		"weight": "4",
+		"rarity": "Rare",
+		"baseLevel": "18",
+		"stats": {
+			"HP": "75",
+			"EN": "35",
+			"CR": "45",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "62",
+		"order": "43",
+		"name": "Gekomon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "bearmon",
+		"element": "Wind",
+		"evolution": "ShogunGekomon",
+		"weight": "2",
+		"rarity": "Rare",
+		"baseLevel": "8",
+		"stats": {
+			"HP": "50",
+			"EN": "20",
+			"CR": "25",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "173",
+		"order": "44",
+		"name": "Guardromon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "rockets_small_1",
+		"element": "Metal",
+		"evolution": "Andromon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "15",
+		"stats": {
+			"HP": "65",
+			"EN": "25",
+			"CR": "40",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "66",
+		"order": "45",
+		"name": "Flymon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "gust",
+		"element": "Wind",
+		"evolution": "Okuwamon",
+		"weight": "2",
+		"rarity": "Rare",
+		"baseLevel": "13",
+		"stats": {
+			"HP": "55",
+			"EN": "35",
+			"CR": "25",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "45",
+		"order": "46",
+		"name": "Drimogemon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "kuwagamon",
+		"element": "Earth",
+		"evolution": "Giromon",
+		"weight": "6",
+		"rarity": "Rare",
+		"baseLevel": "14",
+		"stats": {
+			"HP": "60",
+			"EN": "30",
+			"CR": "35",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "70",
+		"order": "47",
+		"name": "Dokugumon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "kuwagamon",
+		"element": "Wind",
+		"evolution": "Arukenimon",
+		"weight": "2",
+		"rarity": "Rare",
+		"baseLevel": "14",
+		"stats": {
+			"HP": "45",
+			"EN": "40",
+			"CR": "40",
+			"AB": "20"
+		}
+	},
+	{
+		"number": "137",
+		"order": "48",
+		"name": "Deputymon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "rockets_small_1",
+		"element": "Metal",
+		"evolution": "Mummymon",
+		"weight": "7",
+		"rarity": "Common",
+		"baseLevel": "11",
+		"stats": {
+			"HP": "55",
+			"EN": "40",
+			"CR": "20",
+			"AB": "20"
+		}
+	},
+	{
+		"number": "491",
+		"order": "49",
+		"name": "Hookmon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "rockets_small_2",
+		"element": "Metal",
+		"evolution": "Mummymon",
+		"weight": "0",
+		"rarity": "Legendary",
+		"baseLevel": "11",
+		"stats": {
+			"HP": "55",
+			"EN": "20",
+			"CR": "40",
+			"AB": "20"
+		}
+	},
+	{
+		"number": "129",
+		"order": "50",
+		"name": "Coelamon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "fish",
+		"element": "Water",
+		"evolution": "Scorpiomon",
+		"weight": "3",
+		"rarity": "Common",
+		"baseLevel": "13",
+		"stats": {
+			"HP": "50",
+			"EN": "35",
+			"CR": "40",
+			"AB": "25"
+		}
+	},
+	{
+		"number": "102",
+		"order": "51",
+		"name": "Kiwimon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "chibikiwi",
+		"element": "Wood",
+		"evolution": "Blossomon",
+		"weight": "3",
+		"rarity": "Common",
+		"baseLevel": "12",
+		"stats": {
+			"HP": "50",
+			"EN": "35",
+			"CR": "25",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "182",
+		"order": "52",
+		"name": "Ninjamon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "kendo",
+		"element": "Dark",
+		"evolution": "Blossomon",
+		"weight": "5",
+		"rarity": "Rare",
+		"baseLevel": "11",
+		"stats": {
+			"HP": "45",
+			"EN": "50",
+			"CR": "30",
+			"AB": "10"
+		}
+	},
+	{
+		"number": "487",
+		"order": "53",
+		"name": "Kogamon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "kendo",
+		"element": "Dark",
+		"evolution": "Cherrymon",
+		"weight": "3",
+		"rarity": "Rare",
+		"baseLevel": "11",
+		"stats": {
+			"HP": "45",
+			"EN": "30",
+			"CR": "50",
+			"AB": "10"
+		}
+	},
+	{
+		"number": "68",
+		"order": "54",
+		"name": "Nanimon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "kuwagamon",
+		"element": "Earth",
+		"evolution": "BomberNanimon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "12",
+		"stats": {
+			"HP": "55",
+			"EN": "25",
+			"CR": "20",
+			"AB": "40"
+		}
+	},
+	{
+		"number": "225",
+		"order": "55",
+		"name": "Kurisarimon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "kurisarimon",
+		"element": "Earth",
+		"evolution": "Infermon",
+		"weight": "4",
+		"rarity": "Rare",
+		"baseLevel": "16",
+		"stats": {
+			"HP": "60",
+			"EN": "35",
+			"CR": "35",
+			"AB": "45"
+		}
+	},
+	{
+		"number": "397",
+		"order": "56",
+		"name": "BlackGatomon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "flames_1",
+		"element": "Dark",
+		"evolution": "LadyDevimon",
+		"weight": "2",
+		"rarity": "Epic",
+		"baseLevel": "18",
+		"stats": {
+			"HP": "60",
+			"EN": "40",
+			"CR": "40",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "392",
+		"order": "57",
+		"name": "Dobermon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "flames_2",
+		"element": "Dark",
+		"evolution": "Cerberusmon",
+		"weight": "0",
+		"rarity": "Epic",
+		"baseLevel": "16",
+		"stats": {
+			"HP": "60",
+			"EN": "20",
+			"CR": "45",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "120",
+		"order": "58",
+		"name": "Musyamon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "kamas",
+		"element": "Wind",
+		"evolution": "Asuramon",
+		"weight": "0",
+		"rarity": "Epic",
+		"baseLevel": "15",
+		"stats": {
+			"HP": "55",
+			"EN": "40",
+			"CR": "40",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "493",
+		"order": "59",
+		"name": "Grizzlymon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "shuriken",
+		"element": "Earth",
+		"evolution": "Pandamon",
+		"weight": "0",
+		"rarity": "Epic",
+		"baseLevel": "15",
+		"stats": {
+			"HP": "70",
+			"EN": "25",
+			"CR": "35",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "492",
+		"order": "60",
+		"name": "Dinohyumon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "kamas",
+		"element": "Metal",
+		"evolution": "Knightmon",
+		"weight": "0",
+		"rarity": "Epic",
+		"baseLevel": "15",
+		"stats": {
+			"HP": "60",
+			"EN": "25",
+			"CR": "40",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "578",
+		"order": "61",
+		"name": "Reppamon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "shuriken",
+		"element": "Light",
+		"evolution": "Chirinmon",
+		"weight": "0",
+		"rarity": "Epic",
+		"baseLevel": "17",
+		"stats": {
+			"HP": "65",
+			"EN": "25",
+			"CR": "50",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "139",
+		"order": "62",
+		"name": "BigMamemon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "bomb",
+		"element": "Metal",
+		"evolution": "MetalMamemon",
+		"weight": "4",
+		"rarity": "Common",
+		"baseLevel": "16",
+		"stats": {
+			"HP": "90",
+			"EN": "30",
+			"CR": "20",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "134",
+		"order": "63",
+		"name": "Apemon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "bones",
+		"element": "Earth",
+		"evolution": "Andromon",
+		"weight": "5",
+		"rarity": "Common",
+		"baseLevel": "17",
+		"stats": {
+			"HP": "70",
+			"EN": "30",
+			"CR": "45",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "117",
+		"order": "64",
+		"name": "Vilemon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "grapleomon",
+		"element": "Dark",
+		"evolution": "Garbagemon",
+		"weight": "2",
+		"rarity": "Common",
+		"baseLevel": "8",
+		"stats": {
+			"HP": "35",
+			"EN": "40",
+			"CR": "20",
+			"AB": "25"
+		}
+	},
+	{
+		"number": "29",
+		"order": "65",
+		"name": "Unimon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "thunder",
+		"element": "Light",
+		"evolution": "Hippogriffomon",
+		"weight": "2",
+		"rarity": "Common",
+		"baseLevel": "14",
+		"stats": {
+			"HP": "50",
+			"EN": "35",
+			"CR": "35",
+			"AB": "40"
+		}
+	},
+	{
+		"number": "58",
+		"order": "66",
+		"name": "Vegiemon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "vegiemon",
+		"element": "Wood",
+		"evolution": "Pumpkinmon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "13",
+		"stats": {
+			"HP": "55",
+			"EN": "35",
+			"CR": "30",
+			"AB": "25"
+		}
+	},
+	{
+		"number": "111",
+		"order": "67",
+		"name": "RedVegiemon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "vegiemon",
+		"element": "Wood",
+		"evolution": "ShogunGekomon",
+		"weight": "3",
+		"rarity": "Common",
+		"baseLevel": "14",
+		"stats": {
+			"HP": "50",
+			"EN": "30",
+			"CR": "30",
+			"AB": "40"
+		}
+	},
+	{
+		"number": "34",
+		"order": "68",
+		"name": "Mojyamon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "icedoll",
+		"element": "Ice",
+		"evolution": "Piximon",
+		"weight": "5",
+		"rarity": "Rare",
+		"disabled": "true",
+		"baseLevel": "13",
+		"stats": {
+			"HP": "65",
+			"EN": "10",
+			"CR": "35",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "167",
+		"order": "69",
+		"name": "JungleMojyamon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "bones",
+		"element": "Earth",
+		"evolution": "Jagamon",
+		"weight": "2",
+		"rarity": "Rare",
+		"baseLevel": "13",
+		"stats": {
+			"HP": "70",
+			"EN": "10",
+			"CR": "40",
+			"AB": "10"
+		}
+	},
+	{
+		"number": "22",
+		"order": "70",
+		"name": "Meramon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "flames_3",
+		"element": "Fire",
+		"evolution": "SkullMeramon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "16",
+		"stats": {
+			"HP": "65",
+			"EN": "35",
+			"CR": "25",
+			"AB": "45"
+		}
+	},
+	{
+		"number": "161",
+		"order": "71",
+		"name": "Deltamon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "big_flame",
+		"element": "Earth",
+		"evolution": "Orochimon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "17",
+		"stats": {
+			"HP": "70",
+			"EN": "40",
+			"CR": "40",
+			"AB": "20"
+		}
+	},
+	{
+		"number": "80",
+		"order": "72",
+		"name": "DarkTyrannomon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "metalgarurumon",
+		"element": "Dark",
+		"evolution": "Gigadramon",
+		"weight": "5",
+		"rarity": "Rare",
+		"baseLevel": "17",
+		"stats": {
+			"HP": "75",
+			"EN": "35",
+			"CR": "35",
+			"AB": "25"
+		}
+	},
+	{
+		"number": "123",
+		"order": "73",
+		"name": "Tortomon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "gigasmon",
+		"element": "Earth",
+		"evolution": "Jagamon",
+		"weight": "3",
+		"rarity": "Rare",
+		"baseLevel": "16",
+		"stats": {
+			"HP": "80",
+			"EN": "20",
+			"CR": "40",
+			"AB": "20"
+		}
+	},
+	{
+		"number": "85",
+		"order": "74",
+		"name": "Tuskmon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "gigasmon",
+		"element": "Earth",
+		"evolution": "Triceramon",
+		"weight": "6",
+		"rarity": "Rare",
+		"baseLevel": "18",
+		"stats": {
+			"HP": "75",
+			"EN": "30",
+			"CR": "45",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "408",
+		"order": "75",
+		"name": "BlackGrowlmon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "big_flame",
+		"element": "Fire",
+		"evolution": "BlackWarGrowlmon",
+		"weight": "3",
+		"rarity": "Epic",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "80",
+			"EN": "60",
+			"CR": "30",
+			"AB": "20"
+		}
+	},
+	{
+		"number": "417",
+		"order": "76",
+		"name": "Youkomon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "kyubimon",
+		"element": "Light",
+		"evolution": "Doumon",
+		"weight": "3",
+		"rarity": "Epic",
+		"baseLevel": "21",
+		"stats": {
+			"HP": "75",
+			"EN": "20",
+			"CR": "35",
+			"AB": "65"
+		}
+	},
+	{
+		"number": "421",
+		"order": "77",
+		"name": "BlackGargomon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "rockets_small_2",
+		"element": "Wind",
+		"evolution": "BlackRapidmon",
+		"weight": "3",
+		"rarity": "Epic",
+		"baseLevel": "17",
+		"stats": {
+			"HP": "60",
+			"EN": "45",
+			"CR": "45",
+			"AB": "20"
+		}
+	},
+	{
+		"number": "73",
+		"order": "78",
+		"name": "Raremon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "garurumon",
+		"element": "Dark",
+		"evolution": "Dragomon",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "15",
+		"stats": {
+			"HP": "75",
+			"EN": "25",
+			"CR": "25",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "130",
+		"order": "79",
+		"name": "Octomon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "fish",
+		"element": "Water",
+		"evolution": "Dragomon",
+		"weight": "2",
+		"rarity": "Rare",
+		"baseLevel": "13",
+		"stats": {
+			"HP": "55",
+			"EN": "45",
+			"CR": "30",
+			"AB": "25"
+		}
+	},
+	{
+		"number": "86",
+		"order": "80",
+		"name": "Snimon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "snimon",
+		"element": "Wind",
+		"evolution": "JewelBeemon",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "14",
+		"stats": {
+			"HP": "55",
+			"EN": "35",
+			"CR": "35",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "37",
+		"order": "82",
+		"name": "Bakemon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "waves_2",
+		"element": "Dark",
+		"evolution": "Phantomon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "13",
+		"stats": {
+			"HP": "45",
+			"EN": "45",
+			"CR": "15",
+			"AB": "40"
+		}
+	},
+	{
+		"number": "213",
+		"order": "83",
+		"name": "Soulmon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "waves_2",
+		"element": "Dark",
+		"evolution": "IceDevimon",
+		"weight": "2",
+		"rarity": "Rare",
+		"baseLevel": "14",
+		"stats": {
+			"HP": "60",
+			"EN": "50",
+			"CR": "30",
+			"AB": "10"
+		}
+	},
+	{
+		"number": "113",
+		"order": "84",
+		"name": "Tankmon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "happy_missile",
+		"element": "Metal",
+		"evolution": "Tankdramon",
+		"weight": "6",
+		"rarity": "Legendary",
+		"baseLevel": "18",
+		"stats": {
+			"HP": "75",
+			"EN": "45",
+			"CR": "35",
+			"AB": "25"
+		}
+	},
+	{
+		"number": "217",
+		"order": "85",
+		"name": "Hyogamon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "icedoll",
+		"element": "Ice",
+		"evolution": "IceLeomon",
+		"weight": "5",
+		"rarity": "Epic",
+		"baseLevel": "15",
+		"stats": {
+			"HP": "65",
+			"EN": "30",
+			"CR": "40",
+			"AB": "25"
+		}
+	},
+	{
+		"number": "112",
+		"order": "86",
+		"name": "Mekanorimon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "rockets_small_1",
+		"element": "Metal",
+		"evolution": "Datamon",
+		"weight": "6",
+		"rarity": "Rare",
+		"baseLevel": "14",
+		"stats": {
+			"HP": "60",
+			"EN": "30",
+			"CR": "30",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "218",
+		"order": "87",
+		"name": "Piddomon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "angemon",
+		"element": "Light",
+		"evolution": "Pegasusmon",
+		"weight": "1",
+		"rarity": "Epic",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "70",
+			"EN": "25",
+			"CR": "35",
+			"AB": "55"
+		}
+	},
+	{
+		"number": "69",
+		"order": "88",
+		"name": "Devidramon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "imperialdramon",
+		"element": "Dark",
+		"evolution": "Mephistomon",
+		"weight": "3",
+		"rarity": "Rare",
+		"baseLevel": "22",
+		"stats": {
+			"HP": "80",
+			"EN": "35",
+			"CR": "40",
+			"AB": "50"
+		}
+	},
+	{
+		"number": "382",
+		"order": "89",
+		"name": "Doggymon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "labramon",
+		"element": "Dark",
+		"evolution": "Cerberusmon",
+		"weight": "0",
+		"rarity": "Rare",
+		"baseLevel": "11",
+		"stats": {
+			"HP": "50",
+			"EN": "20",
+			"CR": "35",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "179",
+		"order": "90",
+		"name": "Gururumon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "garurumon",
+		"element": "Ice",
+		"evolution": "MachGaogamon",
+		"weight": "1",
+		"rarity": "Epic",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "75",
+			"EN": "40",
+			"CR": "45",
+			"AB": "25"
+		}
+	},
+	{
+		"number": "189",
+		"order": "91",
+		"name": "Airdramon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "gust",
+		"element": "Wind",
+		"evolution": "Megadramon",
+		"weight": "6",
+		"rarity": "Rare",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "70",
+			"EN": "45",
+			"CR": "35",
+			"AB": "40"
+		}
+	},
+	{
+		"number": "160",
+		"order": "92",
+		"name": "ExTyrannomon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "rhinokabuterimon",
+		"element": "Metal",
+		"evolution": "MetalTyrannomon",
+		"weight": "4",
+		"rarity": "Rare",
+		"baseLevel": "17",
+		"stats": {
+			"HP": "65",
+			"EN": "35",
+			"CR": "35",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "567",
+		"order": "93",
+		"name": "Gladimon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "kendo",
+		"element": "Metal",
+		"evolution": "Knightmon",
+		"weight": "1",
+		"rarity": "Epic",
+		"baseLevel": "13",
+		"stats": {
+			"HP": "55",
+			"EN": "30",
+			"CR": "35",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "208",
+		"order": "94",
+		"name": "Yanmamon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "kuwagamon",
+		"element": "Wind",
+		"evolution": "Dinobeemon",
+		"weight": "6",
+		"rarity": "Rare",
+		"baseLevel": "12",
+		"stats": {
+			"HP": "50",
+			"EN": "35",
+			"CR": "35",
+			"AB": "20"
+		}
+	},
+	{
+		"number": "211",
+		"order": "95",
+		"name": "SandYanmamon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "kuwagamon",
+		"element": "Earth",
+		"evolution": "Okuwamon",
+		"weight": "4",
+		"rarity": "Rare",
+		"baseLevel": "12",
+		"stats": {
+			"HP": "50",
+			"EN": "20",
+			"CR": "40",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "145",
+		"order": "96",
+		"name": "Gorillamon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "punch",
+		"element": "Earth",
+		"evolution": "Volcamon",
+		"weight": "5",
+		"rarity": "Common",
+		"baseLevel": "16",
+		"stats": {
+			"HP": "75",
+			"EN": "15",
+			"CR": "35",
+			"AB": "40"
+		}
+	},
+	{
+		"number": "50",
+		"order": "97",
+		"name": "Kokatorimon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "kyubimon",
+		"element": "Fire",
+		"evolution": "Karatenmon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "17",
+		"stats": {
+			"HP": "85",
+			"EN": "35",
+			"CR": "35",
+			"AB": "20"
+		}
+	},
+	{
+		"number": "568",
+		"order": "99",
+		"name": "Kenkimon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "ravemon",
+		"element": "Metal",
+		"evolution": "Bulbmon",
+		"weight": "4",
+		"rarity": "Rare",
+		"disabled": "true",
+		"baseLevel": "17",
+		"stats": {
+			"HP": "70",
+			"EN": "35",
+			"CR": "35",
+			"AB": "45"
+		}
+	},
+	{
+		"number": "482",
+		"order": "100",
+		"name": "Mikemon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "ravemon",
+		"element": "Light",
+		"evolution": "Beastmon",
+		"weight": "0",
+		"rarity": "Epic",
+		"baseLevel": "19",
+		"stats": {
+			"HP": "65",
+			"EN": "40",
+			"CR": "45",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "200",
+		"order": "101",
+		"name": "FlareLizardmon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "flames_2",
+		"element": "Fire",
+		"evolution": "MetalGreymon",
+		"weight": "3",
+		"rarity": "Rare",
+		"baseLevel": "16",
+		"stats": {
+			"HP": "60",
+			"EN": "35",
+			"CR": "20",
+			"AB": "50"
+		}
+	},
+	{
+		"number": "216",
+		"order": "102",
+		"name": "DarkLizardmon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "flames_2",
+		"element": "Dark",
+		"evolution": "MetalTyrannomon",
+		"weight": "3",
+		"rarity": "Rare",
+		"baseLevel": "16",
+		"stats": {
+			"HP": "60",
+			"EN": "50",
+			"CR": "20",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "184",
+		"order": "103",
+		"name": "Saberdramon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "flames_3",
+		"element": "Fire",
+		"evolution": "Gigadramon",
+		"weight": "2",
+		"rarity": "Rare",
+		"baseLevel": "21",
+		"stats": {
+			"HP": "70",
+			"EN": "45",
+			"CR": "25",
+			"AB": "55"
+		}
+	},
+	{
+		"number": "94",
+		"order": "104",
+		"name": "Parrotmon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "feathers",
+		"element": "Wind",
+		"evolution": "Crowmon",
+		"weight": "2",
+		"rarity": "Epic",
+		"baseLevel": "14",
+		"stats": {
+			"HP": "60",
+			"EN": "25",
+			"CR": "35",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "147",
+		"order": "105",
+		"name": "Roachmon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "kuwagamon",
+		"element": "Dark",
+		"evolution": "MegaKabuterimon",
+		"weight": "3",
+		"rarity": "Epic",
+		"baseLevel": "12",
+		"stats": {
+			"HP": "55",
+			"EN": "15",
+			"CR": "25",
+			"AB": "45"
+		}
+	},
+	{
+		"number": "481",
+		"order": "106",
+		"name": "Salamandermon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "flames_2",
+		"element": "Fire",
+		"evolution": "Asuramon",
+		"weight": "3",
+		"rarity": "Rare",
+		"baseLevel": "13",
+		"stats": {
+			"HP": "45",
+			"EN": "30",
+			"CR": "35",
+			"AB": "40"
+		}
+	},
+	{
+		"number": "478",
+		"order": "107",
+		"name": "Blimpmon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "waves_2",
+		"element": "Metal",
+		"evolution": "Bulbmon",
+		"weight": "0",
+		"rarity": "Epic",
+		"baseLevel": "18",
+		"stats": {
+			"HP": "100",
+			"EN": "35",
+			"CR": "25",
+			"AB": "15"
+		}
+	},
+	{
+		"number": "172",
+		"order": "108",
+		"name": "Clockmon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "waves_2",
+		"element": "Metal",
+		"evolution": "Datamon",
+		"weight": "0",
+		"rarity": "Legendary",
+		"baseLevel": "14",
+		"stats": {
+			"HP": "60",
+			"EN": "30",
+			"CR": "25",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "100",
+		"order": "109",
+		"name": "Divermon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "wave",
+		"element": "Water",
+		"evolution": "MarineDevimon",
+		"weight": "2",
+		"rarity": "Epic",
+		"baseLevel": "13",
+		"stats": {
+			"HP": "60",
+			"EN": "20",
+			"CR": "35",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "486",
+		"order": "110",
+		"name": "Fangmon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "saberleomon",
+		"element": "Wind",
+		"evolution": "Cerberusmon",
+		"weight": "2",
+		"rarity": "Epic",
+		"baseLevel": "15",
+		"stats": {
+			"HP": "50",
+			"EN": "20",
+			"CR": "60",
+			"AB": "20"
+		}
+	},
+	{
+		"number": "517",
+		"order": "111",
+		"name": "Witchmon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "stars",
+		"element": "Dark",
+		"evolution": "Beastmon",
+		"weight": "1",
+		"rarity": "Epic",
+		"baseLevel": "17",
+		"stats": {
+			"HP": "60",
+			"EN": "45",
+			"CR": "25",
+			"AB": "45"
+		}
+	},
+	{
+		"number": "128",
+		"order": "112",
+		"name": "Dolphmon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "wave",
+		"element": "Water",
+		"evolution": "Whamon",
+		"weight": "5",
+		"rarity": "Rare",
+		"baseLevel": "16",
+		"stats": {
+			"HP": "75",
+			"EN": "15",
+			"CR": "35",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "511",
+		"order": "113",
+		"name": "Arkadimon (Champion)",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "grankuwagamon",
+		"element": "Dark",
+		"evolution": "Arkadimon (Perfect)",
+		"weight": "0",
+		"rarity": "Legendary",
+		"baseLevel": "23",
+		"stats": {
+			"HP": "90",
+			"EN": "40",
+			"CR": "55",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "396",
+		"order": "114",
+		"name": "Tinmon",
+		"stage": "Champion",
+		"spiritType": "None",
+		"abilityName": "starbeam",
+		"element": "Metal",
+		"evolution": "Datamon",
+		"weight": "0",
+		"rarity": "Legendary",
+		"baseLevel": "12",
+		"stats": {
+			"HP": "50",
+			"EN": "30",
+			"CR": "25",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "54",
+		"order": "1",
+		"name": "MetalGreymon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "missiles_1",
+		"element": "Fire",
+		"evolution": "WarGreymon",
+		"weight": "10",
+		"rarity": "Common",
+		"baseLevel": "35",
+		"stats": {
+			"HP": "105",
+			"EN": "65",
+			"CR": "40",
+			"AB": "55"
+		}
+	},
+	{
+		"number": "56",
+		"order": "2",
+		"name": "WereGarurumon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "punch",
+		"element": "Ice",
+		"evolution": "MetalGarurumon",
+		"weight": "10",
+		"rarity": "Common",
+		"baseLevel": "35",
+		"stats": {
+			"HP": "95",
+			"EN": "50",
+			"CR": "70",
+			"AB": "50"
+		}
+	},
+	{
+		"number": "65",
+		"order": "3",
+		"name": "Garudamon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "punch",
+		"element": "Fire",
+		"evolution": "Phoenixmon",
+		"weight": "9",
+		"rarity": "Common",
+		"baseLevel": "33",
+		"stats": {
+			"HP": "85",
+			"EN": "55",
+			"CR": "45",
+			"AB": "65"
+		}
+	},
+	{
+		"number": "87",
+		"order": "4",
+		"name": "MegaKabuterimon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "grankuwagamon",
+		"element": "Wind",
+		"evolution": "HerculesKabuterimon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "29",
+		"stats": {
+			"HP": "80",
+			"EN": "40",
+			"CR": "50",
+			"AB": "60"
+		}
+	},
+	{
+		"number": "82",
+		"order": "5",
+		"name": "Zudomon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "zudomon",
+		"element": "Ice",
+		"evolution": "Vikemon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "31",
+		"stats": {
+			"HP": "120",
+			"EN": "40",
+			"CR": "50",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "78",
+		"order": "6",
+		"name": "Lillymon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "lillymon",
+		"element": "Wood",
+		"evolution": "Rosemon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "32",
+		"stats": {
+			"HP": "85",
+			"EN": "55",
+			"CR": "55",
+			"AB": "55"
+		}
+	},
+	{
+		"number": "88",
+		"order": "7",
+		"name": "MagnaAngemon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "magnaangemon",
+		"element": "Wind",
+		"evolution": "Seraphimon",
+		"weight": "5",
+		"rarity": "Common",
+		"baseLevel": "46",
+		"stats": {
+			"HP": "130",
+			"EN": "80",
+			"CR": "60",
+			"AB": "50"
+		}
+	},
+	{
+		"number": "84",
+		"order": "8",
+		"name": "Angewomon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "arrows_2",
+		"element": "Light",
+		"evolution": "Ophanimon",
+		"weight": "4",
+		"rarity": "Common",
+		"baseLevel": "39",
+		"stats": {
+			"HP": "110",
+			"EN": "40",
+			"CR": "65",
+			"AB": "70"
+		}
+	},
+	{
+		"number": "49",
+		"order": "9",
+		"name": "SkullGreymon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "missiles_1",
+		"element": "Dark",
+		"evolution": "BlackWarGreymon",
+		"weight": "6",
+		"rarity": "Rare",
+		"baseLevel": "40",
+		"stats": {
+			"HP": "110",
+			"EN": "70",
+			"CR": "70",
+			"AB": "50"
+		}
+	},
+	{
+		"number": "302",
+		"order": "10",
+		"name": "Paildramon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "spikes",
+		"element": "Thunder",
+		"evolution": "Imperialdramon",
+		"weight": "9",
+		"rarity": "Common",
+		"baseLevel": "33",
+		"stats": {
+			"HP": "100",
+			"EN": "40",
+			"CR": "65",
+			"AB": "45"
+		}
+	},
+	{
+		"number": "303",
+		"order": "11",
+		"name": "Dinobeemon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "dinobeemon",
+		"element": "Wind",
+		"evolution": "GranKuwagamon",
+		"weight": "9",
+		"rarity": "Common",
+		"baseLevel": "32",
+		"stats": {
+			"HP": "95",
+			"EN": "60",
+			"CR": "30",
+			"AB": "60"
+		}
+	},
+	{
+		"number": "304",
+		"order": "12",
+		"name": "Silphymon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "silphymon",
+		"element": "Wind",
+		"evolution": "Valkyrimon",
+		"weight": "5",
+		"rarity": "Common",
+		"baseLevel": "30",
+		"stats": {
+			"HP": "100",
+			"EN": "45",
+			"CR": "55",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "305",
+		"order": "13",
+		"name": "Shakkoumon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "garurumon",
+		"element": "Earth",
+		"evolution": "Lampmon",
+		"weight": "5",
+		"rarity": "Common",
+		"baseLevel": "29",
+		"stats": {
+			"HP": "115",
+			"EN": "35",
+			"CR": "45",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "165",
+		"order": "14",
+		"name": "AeroVeedramon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "arukenimon",
+		"element": "Thunder",
+		"evolution": "UlforceVeedramon",
+		"weight": "5",
+		"rarity": "Rare",
+		"baseLevel": "37",
+		"stats": {
+			"HP": "110",
+			"EN": "65",
+			"CR": "55",
+			"AB": "45"
+		}
+	},
+	{
+		"number": "484",
+		"order": "15",
+		"name": "JewelBeemon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "unknown_3",
+		"element": "Wind",
+		"evolution": "MegaGargomon",
+		"weight": "6",
+		"rarity": "Rare",
+		"baseLevel": "33",
+		"stats": {
+			"HP": "75",
+			"EN": "75",
+			"CR": "30",
+			"AB": "75"
+		}
+	},
+	{
+		"number": "364",
+		"order": "16",
+		"name": "WarGrowlmon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "wargrowlmon",
+		"element": "Fire",
+		"evolution": "Gallantmon",
+		"weight": "8",
+		"rarity": "Common",
+		"baseLevel": "40",
+		"stats": {
+			"HP": "115",
+			"EN": "75",
+			"CR": "55",
+			"AB": "45"
+		}
+	},
+	{
+		"number": "365",
+		"order": "17",
+		"name": "Taomon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "taomon",
+		"element": "Light",
+		"evolution": "Sakuyamon",
+		"weight": "5",
+		"rarity": "Common",
+		"baseLevel": "42",
+		"stats": {
+			"HP": "110",
+			"EN": "50",
+			"CR": "65",
+			"AB": "80"
+		}
+	},
+	{
+		"number": "340",
+		"order": "18",
+		"name": "Rapidmon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "rockets_big",
+		"element": "Wind",
+		"evolution": "MegaGargomon",
+		"weight": "7",
+		"rarity": "Common",
+		"baseLevel": "35",
+		"stats": {
+			"HP": "100",
+			"EN": "60",
+			"CR": "55",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "335",
+		"order": "19",
+		"name": "Antylamon (Deva)",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "antylamon",
+		"element": "Light",
+		"evolution": "Kerpymon (Good)",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "41",
+		"stats": {
+			"HP": "125",
+			"EN": "40",
+			"CR": "55",
+			"AB": "70"
+		}
+	},
+	{
+		"number": "335",
+		"order": "20",
+		"name": "Antylamon (Virus)",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "antylamon",
+		"element": "Dark",
+		"evolution": "Kerpymon (Evil)",
+		"weight": "3",
+		"rarity": "Rare",
+		"baseLevel": "38",
+		"stats": {
+			"HP": "120",
+			"EN": "40",
+			"CR": "75",
+			"AB": "40"
+		}
+	},
+	{
+		"number": "222",
+		"order": "21",
+		"name": "Cyberdramon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "cyberdramon",
+		"element": "Wind",
+		"evolution": "Justimon",
+		"weight": "4",
+		"rarity": "Epic",
+		"baseLevel": "37",
+		"stats": {
+			"HP": "110",
+			"EN": "55",
+			"CR": "65",
+			"AB": "45"
+		}
+	},
+	{
+		"number": "480",
+		"order": "22",
+		"name": "Phelesmon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "gulfmon",
+		"element": "Dark",
+		"evolution": "Beelzemon",
+		"weight": "2",
+		"rarity": "Epic",
+		"baseLevel": "32",
+		"stats": {
+			"HP": "90",
+			"EN": "55",
+			"CR": "40",
+			"AB": "55"
+		}
+	},
+	{
+		"number": "505",
+		"order": "23",
+		"name": "KingNumemon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "poop",
+		"element": "Dark",
+		"weight": "5",
+		"rarity": "Rare",
+		"baseLevel": "25",
+		"stats": {
+			"HP": "75",
+			"EN": "25",
+			"CR": "35",
+			"AB": "55"
+		}
+	},
+	{
+		"number": "573",
+		"order": "24",
+		"name": "PlatinumSukamon",
+		"stage": "none",
+		"spiritType": "None",
+		"abilityName": "poop",
+		"element": "Dark",
+		"weight": "5",
+		"rarity": "Rare",
+		"baseLevel": "26",
+		"stats": {
+			"HP": "80",
+			"EN": "50",
+			"CR": "40",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "424",
+		"order": "25",
+		"name": "GrapLeomon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "grapleomon",
+		"element": "Light",
+		"evolution": "BanchoLeomon",
+		"weight": "7",
+		"rarity": "Common",
+		"baseLevel": "33",
+		"stats": {
+			"HP": "100",
+			"EN": "35",
+			"CR": "65",
+			"AB": "55"
+		}
+	},
+	{
+		"number": "574",
+		"order": "26",
+		"name": "LoaderLeomon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "millenniummon",
+		"element": "Light",
+		"evolution": "SaberLeomon",
+		"weight": "4",
+		"rarity": "Epic",
+		"baseLevel": "34",
+		"stats": {
+			"HP": "100",
+			"EN": "75",
+			"CR": "50",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "146",
+		"order": "27",
+		"name": "Minotarumon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "megidramon",
+		"element": "Earth",
+		"evolution": "Marsmon",
+		"weight": "6",
+		"rarity": "Rare",
+		"baseLevel": "29",
+		"stats": {
+			"HP": "90",
+			"EN": "50",
+			"CR": "40",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "122",
+		"order": "28",
+		"name": "Rockmon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "rock_big",
+		"element": "Earth",
+		"evolution": "ElDoradimon",
+		"weight": "7",
+		"rarity": "Common",
+		"baseLevel": "33",
+		"stats": {
+			"HP": "130",
+			"EN": "30",
+			"CR": "50",
+			"AB": "40"
+		}
+	},
+	{
+		"number": "485",
+		"order": "29",
+		"name": "Thunderbirdmon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "thunder",
+		"element": "Thunder",
+		"evolution": "Azulongmon",
+		"weight": "7",
+		"rarity": "Common",
+		"baseLevel": "36",
+		"stats": {
+			"HP": "105",
+			"EN": "50",
+			"CR": "45",
+			"AB": "70"
+		}
+	},
+	{
+		"number": "398",
+		"order": "30",
+		"name": "SuperStarmon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "stars",
+		"element": "Metal",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "26",
+		"stats": {
+			"HP": "85",
+			"EN": "60",
+			"CR": "40",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "126",
+		"order": "31",
+		"name": "Okuwamon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "unknown_2",
+		"element": "Wind",
+		"evolution": "GranKuwagamon",
+		"weight": "4",
+		"rarity": "Rare",
+		"baseLevel": "29",
+		"stats": {
+			"HP": "95",
+			"EN": "30",
+			"CR": "60",
+			"AB": "45"
+		}
+	},
+	{
+		"number": "44",
+		"order": "32",
+		"name": "Whamon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "wave",
+		"element": "Water",
+		"evolution": "Plesiomon",
+		"weight": "4",
+		"rarity": "Rare",
+		"baseLevel": "33",
+		"stats": {
+			"HP": "150",
+			"EN": "40",
+			"CR": "25",
+			"AB": "40"
+		}
+	},
+	{
+		"number": "52",
+		"order": "33",
+		"name": "Piximon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "labramon",
+		"element": "Water",
+		"evolution": "MarineAngemon",
+		"weight": "3",
+		"rarity": "Common",
+		"baseLevel": "30",
+		"stats": {
+			"HP": "80",
+			"EN": "40",
+			"CR": "40",
+			"AB": "70"
+		}
+	},
+	{
+		"number": "196",
+		"order": "34",
+		"name": "WaruSeadramon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "wave",
+		"element": "Water",
+		"evolution": "Pukumon",
+		"weight": "3",
+		"rarity": "Common",
+		"baseLevel": "34",
+		"stats": {
+			"HP": "95",
+			"EN": "50",
+			"CR": "65",
+			"AB": "45"
+		}
+	},
+	{
+		"number": "60",
+		"order": "35",
+		"name": "Vademon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "vademon",
+		"element": "Metal",
+		"evolution": "Ebemon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "27",
+		"stats": {
+			"HP": "80",
+			"EN": "55",
+			"CR": "35",
+			"AB": "45"
+		}
+	},
+	{
+		"number": "57",
+		"order": "36",
+		"name": "Digitamamon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "waves_2",
+		"element": "Dark",
+		"evolution": "Devitamamon",
+		"weight": "4",
+		"rarity": "Common",
+		"baseLevel": "28",
+		"stats": {
+			"HP": "85",
+			"EN": "50",
+			"CR": "40",
+			"AB": "50"
+		}
+	},
+	{
+		"number": "20",
+		"order": "37",
+		"name": "Monochromon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "gigasmon",
+		"element": "Earth",
+		"evolution": "Spinomon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "31",
+		"stats": {
+			"HP": "105",
+			"EN": "40",
+			"CR": "55",
+			"AB": "40"
+		}
+	},
+	{
+		"number": "59",
+		"order": "38",
+		"name": "Myotismon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "myotismon",
+		"element": "Dark",
+		"evolution": "VenomMyotismon",
+		"weight": "5",
+		"rarity": "Rare",
+		"baseLevel": "41",
+		"stats": {
+			"HP": "125",
+			"EN": "70",
+			"CR": "55",
+			"AB": "40"
+		}
+	},
+	{
+		"number": "518",
+		"order": "39",
+		"name": "NeoDevimon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "malomyotismon",
+		"element": "Dark",
+		"evolution": "Daemon (Cloaked)",
+		"weight": "5",
+		"rarity": "Rare",
+		"baseLevel": "38",
+		"stats": {
+			"HP": "105",
+			"EN": "40",
+			"CR": "65",
+			"AB": "70"
+		}
+	},
+	{
+		"number": "575",
+		"order": "40",
+		"name": "IceLeomon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "leomon",
+		"element": "Ice",
+		"evolution": "Vikemon",
+		"weight": "4",
+		"rarity": "Rare",
+		"baseLevel": "31",
+		"stats": {
+			"HP": "100",
+			"EN": "35",
+			"CR": "55",
+			"AB": "50"
+		}
+	},
+	{
+		"number": "131",
+		"order": "41",
+		"name": "MarineDevimon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "wave",
+		"element": "Water",
+		"evolution": "Leviamon",
+		"weight": "8",
+		"rarity": "Common",
+		"baseLevel": "34",
+		"stats": {
+			"HP": "95",
+			"EN": "40",
+			"CR": "60",
+			"AB": "60"
+		}
+	},
+	{
+		"number": "46",
+		"order": "42",
+		"name": "Etemon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "etemon",
+		"element": "Wood",
+		"evolution": "MetalEtemon",
+		"weight": "7",
+		"rarity": "Common",
+		"baseLevel": "30",
+		"stats": {
+			"HP": "95",
+			"EN": "40",
+			"CR": "45",
+			"AB": "55"
+		}
+	},
+	{
+		"number": "107",
+		"order": "43",
+		"name": "Cherrymon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "tree_2",
+		"element": "Wood",
+		"evolution": "Puppetmon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "32",
+		"stats": {
+			"HP": "120",
+			"EN": "30",
+			"CR": "50",
+			"AB": "45"
+		}
+	},
+	{
+		"number": "83",
+		"order": "44",
+		"name": "MegaSeadramon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "unknown_2",
+		"element": "Water",
+		"evolution": "MetalSeadramon",
+		"weight": "5",
+		"rarity": "Common",
+		"baseLevel": "35",
+		"stats": {
+			"HP": "95",
+			"EN": "65",
+			"CR": "30",
+			"AB": "65"
+		}
+	},
+	{
+		"number": "565",
+		"order": "45",
+		"name": "Wisemon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "stars",
+		"element": "Metal",
+		"evolution": "Piedmon",
+		"weight": "2",
+		"rarity": "Epic",
+		"baseLevel": "35",
+		"stats": {
+			"HP": "90",
+			"EN": "40",
+			"CR": "35",
+			"AB": "80"
+		}
+	},
+	{
+		"number": "190",
+		"order": "46",
+		"name": "MetalTyrannomon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "kazemon",
+		"element": "Metal",
+		"evolution": "Machinedramon",
+		"weight": "6",
+		"rarity": "Rare",
+		"baseLevel": "36",
+		"stats": {
+			"HP": "110",
+			"EN": "50",
+			"CR": "60",
+			"AB": "40"
+		}
+	},
+	{
+		"number": "64",
+		"order": "47",
+		"name": "ShogunGekomon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "dreaper",
+		"element": "Wind",
+		"evolution": "Boltmon",
+		"weight": "5",
+		"rarity": "Rare",
+		"baseLevel": "30",
+		"stats": {
+			"HP": "110",
+			"EN": "35",
+			"CR": "40",
+			"AB": "45"
+		}
+	},
+	{
+		"number": "24",
+		"order": "48",
+		"name": "Andromon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "missiles_2",
+		"element": "Metal",
+		"evolution": "HiAndromon",
+		"weight": "8",
+		"rarity": "Common",
+		"baseLevel": "29",
+		"stats": {
+			"HP": "100",
+			"EN": "40",
+			"CR": "50",
+			"AB": "40"
+		}
+	},
+	{
+		"number": "121",
+		"order": "49",
+		"name": "Kimeramon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "kimeramon",
+		"element": "Dark",
+		"evolution": "Millenniummon",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "28",
+		"stats": {
+			"HP": "90",
+			"EN": "50",
+			"CR": "40",
+			"AB": "50"
+		}
+	},
+	{
+		"number": "324",
+		"order": "50",
+		"name": "Arukenimon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "arukenimon",
+		"element": "Wood",
+		"evolution": "Parasimon",
+		"weight": "7",
+		"rarity": "Common",
+		"baseLevel": "32",
+		"stats": {
+			"HP": "85",
+			"EN": "60",
+			"CR": "60",
+			"AB": "40"
+		}
+	},
+	{
+		"number": "325",
+		"order": "51",
+		"name": "Mummymon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "pharaoh",
+		"element": "Earth",
+		"evolution": "Pharaohmon",
+		"weight": "7",
+		"rarity": "Common",
+		"baseLevel": "29",
+		"stats": {
+			"HP": "90",
+			"EN": "60",
+			"CR": "40",
+			"AB": "40"
+		}
+	},
+	{
+		"number": "100",
+		"order": "52",
+		"name": "Scorpiomon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "wave",
+		"element": "Water",
+		"evolution": "SkullScorpiomon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "28",
+		"stats": {
+			"HP": "85",
+			"EN": "45",
+			"CR": "55",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "104",
+		"order": "53",
+		"name": "Blossomon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "lillymon",
+		"element": "Wood",
+		"evolution": "Murmukusmon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "31",
+		"stats": {
+			"HP": "110",
+			"EN": "50",
+			"CR": "35",
+			"AB": "50"
+		}
+	},
+	{
+		"number": "401",
+		"order": "54",
+		"name": "BomberNanimon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "bomb",
+		"element": "Metal",
+		"evolution": "PileVolcamon",
+		"weight": "2",
+		"rarity": "Epic",
+		"baseLevel": "24",
+		"stats": {
+			"HP": "75",
+			"EN": "35",
+			"CR": "30",
+			"AB": "65"
+		}
+	},
+	{
+		"number": "71",
+		"order": "55",
+		"name": "Mammothmon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "grapleomon",
+		"element": "Earth",
+		"evolution": "SkullMammothmon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "33",
+		"stats": {
+			"HP": "100",
+			"EN": "40",
+			"CR": "70",
+			"AB": "40"
+		}
+	},
+	{
+		"number": "329",
+		"order": "56",
+		"name": "Infermon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "infermon",
+		"element": "Earth",
+		"evolution": "Diaboromon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "36",
+		"stats": {
+			"HP": "100",
+			"EN": "50",
+			"CR": "55",
+			"AB": "65"
+		}
+	},
+	{
+		"number": "116",
+		"order": "57",
+		"name": "LadyDevimon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "myotismon",
+		"element": "Dark",
+		"evolution": "Lilithmon",
+		"weight": "4",
+		"rarity": "Rare",
+		"baseLevel": "38",
+		"stats": {
+			"HP": "105",
+			"EN": "50",
+			"CR": "70",
+			"AB": "55"
+		}
+	},
+	{
+		"number": "152",
+		"order": "58",
+		"name": "Dragomon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "goldramon",
+		"element": "Water",
+		"evolution": "Ghoulmon",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "43",
+		"stats": {
+			"HP": "125",
+			"EN": "45",
+			"CR": "60",
+			"AB": "70"
+		}
+	},
+	{
+		"number": "500",
+		"order": "59",
+		"name": "Kyukimon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "kyubimon",
+		"element": "Light",
+		"evolution": "Magnadramon",
+		"weight": "5",
+		"rarity": "Rare",
+		"baseLevel": "40",
+		"stats": {
+			"HP": "60",
+			"EN": "75",
+			"CR": "75",
+			"AB": "75"
+		}
+	},
+	{
+		"number": "413",
+		"order": "60",
+		"name": "Cerberusmon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "flames_big",
+		"element": "Dark",
+		"evolution": "Anubismon",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "32",
+		"stats": {
+			"HP": "80",
+			"EN": "35",
+			"CR": "65",
+			"AB": "55"
+		}
+	},
+	{
+		"number": "148",
+		"order": "61",
+		"name": "Asuramon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "flames_3",
+		"element": "Fire",
+		"evolution": "Zanbamon",
+		"weight": "4",
+		"rarity": "Common",
+		"baseLevel": "36",
+		"stats": {
+			"HP": "90",
+			"EN": "70",
+			"CR": "40",
+			"AB": "70"
+		}
+	},
+	{
+		"number": "389",
+		"order": "62",
+		"name": "Karatenmon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "birds",
+		"element": "Wind",
+		"evolution": "Ravemon",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "36",
+		"stats": {
+			"HP": "85",
+			"EN": "75",
+			"CR": "75",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "415",
+		"order": "63",
+		"name": "Volcamon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "missiles_3",
+		"element": "Fire",
+		"evolution": "PileVolcamon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "36",
+		"stats": {
+			"HP": "100",
+			"EN": "50",
+			"CR": "60",
+			"AB": "60"
+		}
+	},
+	{
+		"number": "174",
+		"order": "64",
+		"name": "Knightmon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "kendo",
+		"element": "Metal",
+		"evolution": "Gallantmon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "31",
+		"stats": {
+			"HP": "110",
+			"EN": "25",
+			"CR": "55",
+			"AB": "50"
+		}
+	},
+	{
+		"number": "576",
+		"order": "65",
+		"name": "Chirinmon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "snimon",
+		"element": "Light",
+		"evolution": "Kentaurosmon",
+		"weight": "2",
+		"rarity": "Rare",
+		"baseLevel": "35",
+		"stats": {
+			"HP": "100",
+			"EN": "40",
+			"CR": "75",
+			"AB": "50"
+		}
+	},
+	{
+		"number": "158",
+		"order": "66",
+		"name": "MetalMamemon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "bomb_small",
+		"element": "Metal",
+		"evolution": "PrinceMamemon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "29",
+		"stats": {
+			"HP": "95",
+			"EN": "60",
+			"CR": "20",
+			"AB": "60"
+		}
+	},
+	{
+		"number": "159",
+		"order": "67",
+		"name": "Giromon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "bomb",
+		"element": "Metal",
+		"evolution": "HiAndromon",
+		"weight": "5",
+		"rarity": "Common",
+		"baseLevel": "32",
+		"stats": {
+			"HP": "95",
+			"EN": "70",
+			"CR": "60",
+			"AB": "20"
+		}
+	},
+	{
+		"number": "221",
+		"order": "68",
+		"name": "Tekkamon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "bomb",
+		"element": "Metal",
+		"evolution": "Reapermon",
+		"weight": "2",
+		"rarity": "Rare",
+		"baseLevel": "32",
+		"stats": {
+			"HP": "95",
+			"EN": "55",
+			"CR": "50",
+			"AB": "45"
+		}
+	},
+	{
+		"number": "108",
+		"order": "69",
+		"name": "Garbagemon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "poop",
+		"element": "Metal",
+		"weight": "5",
+		"rarity": "Common",
+		"baseLevel": "24",
+		"stats": {
+			"HP": "65",
+			"EN": "40",
+			"CR": "35",
+			"AB": "55"
+		}
+	},
+	{
+		"number": "507",
+		"order": "70",
+		"name": "Hippogriffomon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "hippogriffomon",
+		"element": "Wind",
+		"evolution": "Gryphonmon",
+		"weight": "3",
+		"rarity": "Common",
+		"baseLevel": "34",
+		"stats": {
+			"HP": "105",
+			"EN": "55",
+			"CR": "40",
+			"AB": "60"
+		}
+	},
+	{
+		"number": "76",
+		"order": "71",
+		"name": "Pumpkinmon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "mephistomon",
+		"element": "Wood",
+		"evolution": "Boltmon",
+		"weight": "4",
+		"rarity": "Common",
+		"baseLevel": "33",
+		"stats": {
+			"HP": "90",
+			"EN": "55",
+			"CR": "55",
+			"AB": "55"
+		}
+	},
+	{
+		"number": "74",
+		"order": "72",
+		"name": "SkullMeramon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "murmukusmon",
+		"element": "Metal",
+		"evolution": "Boltmon",
+		"weight": "3",
+		"rarity": "Common",
+		"baseLevel": "33",
+		"stats": {
+			"HP": "100",
+			"EN": "50",
+			"CR": "70",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "142",
+		"order": "73",
+		"name": "BlueMeramon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "flames_3",
+		"element": "Fire",
+		"evolution": "Boltmon",
+		"weight": "3",
+		"rarity": "Common",
+		"baseLevel": "31",
+		"stats": {
+			"HP": "90",
+			"EN": "50",
+			"CR": "35",
+			"AB": "65"
+		}
+	},
+	{
+		"number": "383",
+		"order": "74",
+		"name": "Orochimon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "flames_3",
+		"element": "Metal",
+		"evolution": "Quetzalmon",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "39",
+		"stats": {
+			"HP": "115",
+			"EN": "70",
+			"CR": "65",
+			"AB": "40"
+		}
+	},
+	{
+		"number": "387",
+		"order": "75",
+		"name": "Mephistomon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "mephistomon",
+		"element": "Dark",
+		"evolution": "Gulfmon",
+		"weight": "7",
+		"rarity": "Common",
+		"baseLevel": "38",
+		"stats": {
+			"HP": "105",
+			"EN": "70",
+			"CR": "45",
+			"AB": "55"
+		}
+	},
+	{
+		"number": "409",
+		"order": "76",
+		"name": "BlackWarGrowlmon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "wargrowlmon",
+		"element": "Fire",
+		"evolution": "ChaosGallantmon",
+		"weight": "3",
+		"rarity": "Epic",
+		"baseLevel": "38",
+		"stats": {
+			"HP": "115",
+			"EN": "85",
+			"CR": "45",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "418",
+		"order": "77",
+		"name": "Doumon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "taomon",
+		"element": "Light",
+		"evolution": "Kuzuhamon",
+		"weight": "3",
+		"rarity": "Epic",
+		"baseLevel": "40",
+		"stats": {
+			"HP": "110",
+			"EN": "40",
+			"CR": "55",
+			"AB": "90"
+		}
+	},
+	{
+		"number": "422",
+		"order": "78",
+		"name": "BlackRapidmon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "rockets_big",
+		"element": "Wind",
+		"evolution": "BlackMegaGargomon",
+		"weight": "3",
+		"rarity": "Epic",
+		"baseLevel": "33",
+		"stats": {
+			"HP": "100",
+			"EN": "60",
+			"CR": "60",
+			"AB": "20"
+		}
+	},
+	{
+		"number": "371",
+		"order": "79",
+		"name": "Mihiramon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "labramon",
+		"element": "Wind",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "37",
+		"stats": {
+			"HP": "105",
+			"EN": "50",
+			"CR": "60",
+			"AB": "60"
+		}
+	},
+	{
+		"number": "381",
+		"order": "80",
+		"name": "Majiramon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "grankuwagamon",
+		"element": "Wind",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "41",
+		"stats": {
+			"HP": "115",
+			"EN": "65",
+			"CR": "50",
+			"AB": "65"
+		}
+	},
+	{
+		"number": "372",
+		"order": "81",
+		"name": "Sandiramon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "goldramon",
+		"element": "Earth",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "37",
+		"stats": {
+			"HP": "110",
+			"EN": "45",
+			"CR": "65",
+			"AB": "55"
+		}
+	},
+	{
+		"number": "376",
+		"order": "82",
+		"name": "Indramon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "imperialdramon",
+		"element": "Dark",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "38",
+		"stats": {
+			"HP": "135",
+			"EN": "50",
+			"CR": "40",
+			"AB": "50"
+		}
+	},
+	{
+		"number": "374",
+		"order": "83",
+		"name": "Pajiramon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "arrows",
+		"element": "Light",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "34",
+		"stats": {
+			"HP": "100",
+			"EN": "55",
+			"CR": "55",
+			"AB": "45"
+		}
+	},
+	{
+		"number": "379",
+		"order": "84",
+		"name": "Makuramon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "lucemon",
+		"element": "Metal",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "33",
+		"stats": {
+			"HP": "90",
+			"EN": "55",
+			"CR": "50",
+			"AB": "55"
+		}
+	},
+	{
+		"number": "373",
+		"order": "85",
+		"name": "Sinduramon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "feathers_2",
+		"element": "Wind",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "31",
+		"stats": {
+			"HP": "90",
+			"EN": "55",
+			"CR": "35",
+			"AB": "60"
+		}
+	},
+	{
+		"number": "380",
+		"order": "86",
+		"name": "Caturamon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "garurumon",
+		"element": "Water",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "39",
+		"stats": {
+			"HP": "115",
+			"EN": "60",
+			"CR": "60",
+			"AB": "45"
+		}
+	},
+	{
+		"number": "378",
+		"order": "87",
+		"name": "Vikaralamon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "stingmon",
+		"element": "Wood",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "40",
+		"stats": {
+			"HP": "125",
+			"EN": "35",
+			"CR": "75",
+			"AB": "55"
+		}
+	},
+	{
+		"number": "377",
+		"order": "88",
+		"name": "Kumbhiramon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "leaves",
+		"element": "Ice",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "29",
+		"stats": {
+			"HP": "85",
+			"EN": "60",
+			"CR": "35",
+			"AB": "45"
+		}
+	},
+	{
+		"number": "375",
+		"order": "89",
+		"name": "Vajramon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "infermon",
+		"element": "Dark",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "36",
+		"stats": {
+			"HP": "125",
+			"EN": "40",
+			"CR": "55",
+			"AB": "45"
+		}
+	},
+	{
+		"number": "27",
+		"order": "90",
+		"name": "Monzaemon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "toyagumon",
+		"element": "Wind",
+		"evolution": "WaruMonzaemon",
+		"weight": "7",
+		"rarity": "Common",
+		"baseLevel": "28",
+		"stats": {
+			"HP": "90",
+			"EN": "35",
+			"CR": "50",
+			"AB": "50"
+		}
+	},
+	{
+		"number": "419",
+		"order": "91",
+		"name": "Pandamon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "bright",
+		"element": "Wood",
+		"weight": "5",
+		"rarity": "Common",
+		"baseLevel": "29",
+		"stats": {
+			"HP": "80",
+			"EN": "45",
+			"CR": "45",
+			"AB": "60"
+		}
+	},
+	{
+		"number": "79",
+		"order": "92",
+		"name": "Phantomon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "cyberdramon",
+		"element": "Dark",
+		"evolution": "MetalPhantomon",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "36",
+		"stats": {
+			"HP": "95",
+			"EN": "70",
+			"CR": "30",
+			"AB": "65"
+		}
+	},
+	{
+		"number": "136",
+		"order": "93",
+		"name": "IceDevimon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "grizzlymon",
+		"element": "Ice",
+		"evolution": "SkullSatamon",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "42",
+		"stats": {
+			"HP": "120",
+			"EN": "65",
+			"CR": "70",
+			"AB": "45"
+		}
+	},
+	{
+		"number": "577",
+		"order": "94",
+		"name": "Tankdramon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "missiles_4",
+		"element": "Metal",
+		"evolution": "Raidenmon",
+		"weight": "5",
+		"rarity": "Epic",
+		"baseLevel": "36",
+		"stats": {
+			"HP": "125",
+			"EN": "65",
+			"CR": "45",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "53",
+		"order": "95",
+		"name": "Datamon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "missiles_5",
+		"element": "Metal",
+		"evolution": "Machinedramon",
+		"weight": "7",
+		"rarity": "Common",
+		"baseLevel": "27",
+		"stats": {
+			"HP": "85",
+			"EN": "50",
+			"CR": "35",
+			"AB": "50"
+		}
+	},
+	{
+		"number": "285",
+		"order": "96",
+		"name": "Pegasusmon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "pyramid",
+		"element": "Light",
+		"evolution": "SlashAngemon",
+		"weight": "5",
+		"rarity": "Epic",
+		"baseLevel": "35",
+		"stats": {
+			"HP": "110",
+			"EN": "30",
+			"CR": "50",
+			"AB": "75"
+		}
+	},
+	{
+		"number": "125",
+		"order": "97",
+		"name": "Triceramon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "hiandromon",
+		"element": "Earth",
+		"evolution": "Cannondramon",
+		"weight": "7",
+		"rarity": "Common",
+		"baseLevel": "33",
+		"stats": {
+			"HP": "110",
+			"EN": "35",
+			"CR": "60",
+			"AB": "45"
+		}
+	},
+	{
+		"number": "578",
+		"order": "98",
+		"name": "MachGaogamon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "lobomon",
+		"element": "Ice",
+		"evolution": "MirageGaogamon",
+		"weight": "4",
+		"rarity": "Epic",
+		"baseLevel": "34",
+		"stats": {
+			"HP": "105",
+			"EN": "55",
+			"CR": "65",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "140",
+		"order": "99",
+		"name": "Megadramon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "millenniummon",
+		"element": "Fire",
+		"evolution": "Megidramon",
+		"weight": "8",
+		"rarity": "Rare",
+		"baseLevel": "38",
+		"stats": {
+			"HP": "100",
+			"EN": "70",
+			"CR": "50",
+			"AB": "60"
+		}
+	},
+	{
+		"number": "220",
+		"order": "100",
+		"name": "Gigadramon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "millenniummon",
+		"element": "Metal",
+		"evolution": "Goldramon",
+		"weight": "7",
+		"rarity": "Rare",
+		"baseLevel": "38",
+		"stats": {
+			"HP": "100",
+			"EN": "55",
+			"CR": "55",
+			"AB": "70"
+		}
+	},
+	{
+		"number": "506",
+		"order": "101",
+		"name": "Darcmon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "arrows_2",
+		"element": "Light",
+		"evolution": "Ophanimon",
+		"weight": "2",
+		"rarity": "Legendary",
+		"baseLevel": "40",
+		"stats": {
+			"HP": "110",
+			"EN": "60",
+			"CR": "60",
+			"AB": "60"
+		}
+	},
+	{
+		"number": "477",
+		"order": "102",
+		"name": "Beastmon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "garurumon",
+		"element": "Dark",
+		"evolution": "Barbamon",
+		"weight": "0",
+		"rarity": "Legendary",
+		"baseLevel": "34",
+		"stats": {
+			"HP": "90",
+			"EN": "50",
+			"CR": "60",
+			"AB": "60"
+		}
+	},
+	{
+		"number": "579",
+		"order": "103",
+		"name": "Yatagaramon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "gust",
+		"element": "Wind",
+		"evolution": "Eaglemon",
+		"weight": "2",
+		"rarity": "Rare",
+		"baseLevel": "30",
+		"stats": {
+			"HP": "95",
+			"EN": "40",
+			"CR": "50",
+			"AB": "50"
+		}
+	},
+	{
+		"number": "106",
+		"order": "104",
+		"name": "Deramon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "leaves",
+		"element": "Wood",
+		"evolution": "Rosemon",
+		"weight": "2",
+		"rarity": "Rare",
+		"baseLevel": "26",
+		"stats": {
+			"HP": "95",
+			"EN": "35",
+			"CR": "35",
+			"AB": "45"
+		}
+	},
+	{
+		"number": "149",
+		"order": "105",
+		"name": "Jagamon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "rock_small",
+		"element": "Earth",
+		"evolution": "Spinomon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "28",
+		"stats": {
+			"HP": "135",
+			"EN": "25",
+			"CR": "40",
+			"AB": "25"
+		}
+	},
+	{
+		"number": "429",
+		"order": "106",
+		"name": "Locomon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "clouds_black",
+		"element": "Metal",
+		"evolution": "GranLocomon",
+		"weight": "1",
+		"rarity": "Legendary",
+		"baseLevel": "36",
+		"stats": {
+			"HP": "155",
+			"EN": "20",
+			"CR": "70",
+			"AB": "20"
+		}
+	},
+	{
+		"number": "215",
+		"order": "107",
+		"name": "MasterTyrannomon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "kuwagamon",
+		"element": "Dark",
+		"evolution": "Goldramon",
+		"weight": "3",
+		"rarity": "Rare",
+		"baseLevel": "33",
+		"stats": {
+			"HP": "115",
+			"EN": "50",
+			"CR": "50",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "494",
+		"order": "108",
+		"name": "Bulbmon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "steamroll_small",
+		"element": "Metal",
+		"evolution": "Apocalymon",
+		"weight": "2",
+		"rarity": "Rare",
+		"baseLevel": "30",
+		"stats": {
+			"HP": "105",
+			"EN": "35",
+			"CR": "40",
+			"AB": "55"
+		}
+	},
+	{
+		"number": "219",
+		"order": "109",
+		"name": "Brachiomon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "unknown_2",
+		"element": "Earth",
+		"evolution": "Cannondramon",
+		"weight": "2",
+		"rarity": "Rare",
+		"baseLevel": "36",
+		"stats": {
+			"HP": "125",
+			"EN": "45",
+			"CR": "60",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "502",
+		"order": "110",
+		"name": "Assaultmon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "rockets_small_1",
+		"element": "Metal",
+		"evolution": "Gundramon",
+		"weight": "4",
+		"rarity": "Rare",
+		"baseLevel": "32",
+		"stats": {
+			"HP": "100",
+			"EN": "60",
+			"CR": "50",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "524",
+		"order": "111",
+		"name": "Betsumon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "numemon",
+		"element": "Light",
+		"weight": "0",
+		"rarity": "Legendary",
+		"baseLevel": "25",
+		"stats": {
+			"HP": "85",
+			"EN": "35",
+			"CR": "50",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "511",
+		"order": "112",
+		"name": "Arkadimon (Perfect)",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "justimon",
+		"element": "Dark",
+		"evolution": "Arkadimon (Mega)",
+		"weight": "0",
+		"rarity": "Legendary",
+		"baseLevel": "45",
+		"stats": {
+			"HP": "135",
+			"EN": "60",
+			"CR": "70",
+			"AB": "50"
+		}
+	},
+	{
+		"number": "580",
+		"order": "113",
+		"name": "Mistymon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "labramon",
+		"element": "Fire",
+		"evolution": "BanchoLeomon",
+		"weight": "0",
+		"rarity": "Legendary",
+		"baseLevel": "33",
+		"stats": {
+			"HP": "95",
+			"EN": "35",
+			"CR": "60",
+			"AB": "60"
+		}
+	},
+	{
+		"number": "999",
+		"order": "1",
+		"name": "WarGreymon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "wargreymon",
+		"element": "Fire",
+		"evolution": "Omnimon",
+		"weight": "10",
+		"rarity": "Common",
+		"baseLevel": "55",
+		"stats": {
+			"HP": "160",
+			"EN": "90",
+			"CR": "60",
+			"AB": "70"
+		}
+	},
+	{
+		"number": "999",
+		"order": "2",
+		"name": "MetalGarurumon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "metalgarurumon",
+		"element": "Ice",
+		"evolution": "Omnimon",
+		"weight": "10",
+		"rarity": "Common",
+		"baseLevel": "55",
+		"stats": {
+			"HP": "145",
+			"EN": "85",
+			"CR": "85",
+			"AB": "65"
+		}
+	},
+	{
+		"number": "999",
+		"order": "3",
+		"name": "Phoenixmon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "feathers_2",
+		"element": "Fire",
+		"evolution": "Ornismon",
+		"weight": "9",
+		"rarity": "Common",
+		"baseLevel": "53",
+		"stats": {
+			"HP": "160",
+			"EN": "75",
+			"CR": "60",
+			"AB": "85"
+		}
+	},
+	{
+		"number": "999",
+		"order": "4",
+		"name": "HerculesKabuterimon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "dreaper",
+		"element": "Wind",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "50",
+		"stats": {
+			"HP": "140",
+			"EN": "50",
+			"CR": "75",
+			"AB": "80"
+		}
+	},
+	{
+		"number": "999",
+		"order": "5",
+		"name": "Vikemon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "steamroll_big",
+		"element": "Ice",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "52",
+		"stats": {
+			"HP": "190",
+			"EN": "55",
+			"CR": "70",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "999",
+		"order": "6",
+		"name": "Rosemon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "arukenimon",
+		"element": "Wood",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "54",
+		"stats": {
+			"HP": "155",
+			"EN": "75",
+			"CR": "75",
+			"AB": "75"
+		}
+	},
+	{
+		"number": "999",
+		"order": "7",
+		"name": "BlackWarGreymon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "wargreymon",
+		"element": "Thunder",
+		"weight": "6",
+		"rarity": "Rare",
+		"baseLevel": "57",
+		"stats": {
+			"HP": "170",
+			"EN": "85",
+			"CR": "85",
+			"AB": "50"
+		}
+	},
+	{
+		"number": "999",
+		"order": "8",
+		"name": "Imperialdramon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "imperialdramon",
+		"element": "Thunder",
+		"evolution": "Imperialdramon (Fighter)",
+		"weight": "9",
+		"rarity": "Common",
+		"baseLevel": "58",
+		"stats": {
+			"HP": "170",
+			"EN": "65",
+			"CR": "90",
+			"AB": "85"
+		}
+	},
+	{
+		"number": "999",
+		"order": "9",
+		"name": "GranKuwagamon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "grankuwagamon",
+		"element": "Wind",
+		"weight": "9",
+		"rarity": "Common",
+		"baseLevel": "53",
+		"stats": {
+			"HP": "150",
+			"EN": "85",
+			"CR": "55",
+			"AB": "85"
+		}
+	},
+	{
+		"number": "999",
+		"order": "10",
+		"name": "Valkyrimon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "arrows",
+		"element": "Wind",
+		"weight": "5",
+		"rarity": "Common",
+		"baseLevel": "50",
+		"stats": {
+			"HP": "160",
+			"EN": "60",
+			"CR": "70",
+			"AB": "50"
+		}
+	},
+	{
+		"number": "999",
+		"order": "11",
+		"name": "Lampmon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "kuwagamon",
+		"element": "Earth",
+		"weight": "5",
+		"rarity": "Common",
+		"baseLevel": "48",
+		"stats": {
+			"HP": "170",
+			"EN": "50",
+			"CR": "65",
+			"AB": "50"
+		}
+	},
+	{
+		"number": "999",
+		"order": "12",
+		"name": "UlforceVeedramon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "ornismon",
+		"element": "Thunder",
+		"weight": "5",
+		"rarity": "Rare",
+		"baseLevel": "63",
+		"stats": {
+			"HP": "180",
+			"EN": "100",
+			"CR": "80",
+			"AB": "60"
+		}
+	},
+	{
+		"number": "999",
+		"order": "13",
+		"name": "Gallantmon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "gallantmon",
+		"element": "Fire",
+		"evolution": "Gallantmon (Crimson)",
+		"weight": "8",
+		"rarity": "Common",
+		"baseLevel": "59",
+		"stats": {
+			"HP": "160",
+			"EN": "100",
+			"CR": "75",
+			"AB": "65"
+		}
+	},
+	{
+		"number": "999",
+		"order": "14",
+		"name": "Sakuyamon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "sakuyamon",
+		"element": "Light",
+		"weight": "5",
+		"rarity": "Common",
+		"baseLevel": "65",
+		"stats": {
+			"HP": "180",
+			"EN": "60",
+			"CR": "90",
+			"AB": "110"
+		}
+	},
+	{
+		"number": "999",
+		"order": "15",
+		"name": "MegaGargomon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "missiles_5",
+		"element": "Wind",
+		"weight": "7",
+		"rarity": "Common",
+		"baseLevel": "55",
+		"stats": {
+			"HP": "155",
+			"EN": "90",
+			"CR": "80",
+			"AB": "55"
+		}
+	},
+	{
+		"number": "999",
+		"order": "16",
+		"name": "Justimon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "justimon",
+		"element": "Wind",
+		"evolution": "LordKnightmon",
+		"weight": "4",
+		"rarity": "Epic",
+		"baseLevel": "57",
+		"stats": {
+			"HP": "165",
+			"EN": "80",
+			"CR": "85",
+			"AB": "60"
+		}
+	},
+	{
+		"number": "999",
+		"order": "17",
+		"name": "Beelzemon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "rockets_small_2",
+		"element": "Dark",
+		"evolution": "Beelzemon (Blast)",
+		"weight": "2",
+		"rarity": "Epic",
+		"baseLevel": "52",
+		"stats": {
+			"HP": "145",
+			"EN": "75",
+			"CR": "60",
+			"AB": "75"
+		}
+	},
+	{
+		"number": "999",
+		"order": "18",
+		"name": "Megidramon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "megidramon",
+		"element": "Fire",
+		"weight": "4",
+		"rarity": "Rare",
+		"baseLevel": "60",
+		"stats": {
+			"HP": "170",
+			"EN": "95",
+			"CR": "60",
+			"AB": "80"
+		}
+	},
+	{
+		"number": "999",
+		"order": "19",
+		"name": "BanchoLeomon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "leomon",
+		"element": "Light",
+		"weight": "2",
+		"rarity": "Epic",
+		"baseLevel": "53",
+		"stats": {
+			"HP": "160",
+			"EN": "55",
+			"CR": "85",
+			"AB": "75"
+		}
+	},
+	{
+		"number": "999",
+		"order": "20",
+		"name": "SaberLeomon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "saberleomon",
+		"element": "Light",
+		"weight": "8",
+		"rarity": "Common",
+		"baseLevel": "55",
+		"stats": {
+			"HP": "160",
+			"EN": "95",
+			"CR": "80",
+			"AB": "50"
+		}
+	},
+	{
+		"number": "999",
+		"order": "21",
+		"name": "Plesiomon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "ancientmermaimon",
+		"element": "Water",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "54",
+		"stats": {
+			"HP": "220",
+			"EN": "55",
+			"CR": "35",
+			"AB": "55"
+		}
+	},
+	{
+		"number": "999",
+		"order": "22",
+		"name": "MarineAngemon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "love",
+		"element": "Water",
+		"weight": "10",
+		"rarity": "Common",
+		"baseLevel": "48",
+		"stats": {
+			"HP": "140",
+			"EN": "60",
+			"CR": "60",
+			"AB": "80"
+		}
+	},
+	{
+		"number": "999",
+		"order": "23",
+		"name": "Pukumon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "fish",
+		"element": "Water",
+		"weight": "4",
+		"rarity": "Common",
+		"baseLevel": "48",
+		"stats": {
+			"HP": "145",
+			"EN": "50",
+			"CR": "90",
+			"AB": "50"
+		}
+	},
+	{
+		"number": "999",
+		"order": "24",
+		"name": "Ebemon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "lucemon",
+		"element": "Metal",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "47",
+		"stats": {
+			"HP": "135",
+			"EN": "90",
+			"CR": "40",
+			"AB": "60"
+		}
+	},
+	{
+		"number": "999",
+		"order": "25",
+		"name": "Devitamamon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "dinobeemon",
+		"element": "Dark",
+		"weight": "2",
+		"rarity": "Rare",
+		"baseLevel": "49",
+		"stats": {
+			"HP": "150",
+			"EN": "70",
+			"CR": "50",
+			"AB": "70"
+		}
+	},
+	{
+		"number": "999",
+		"order": "26",
+		"name": "VenomMyotismon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "venommyotismon",
+		"element": "Dark",
+		"evolution": "MaloMyotismon",
+		"weight": "6",
+		"rarity": "Rare",
+		"baseLevel": "60",
+		"stats": {
+			"HP": "170",
+			"EN": "85",
+			"CR": "80",
+			"AB": "60"
+		}
+	},
+	{
+		"number": "999",
+		"order": "27",
+		"name": "Daemon (Cloaked)",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "clouds_black",
+		"element": "Dark",
+		"evolution": "Daemon (Ultimate)",
+		"weight": "0",
+		"rarity": "Legendary",
+		"baseLevel": "56",
+		"stats": {
+			"HP": "150",
+			"EN": "70",
+			"CR": "65",
+			"AB": "95"
+		}
+	},
+	{
+		"number": "999",
+		"order": "28",
+		"name": "MetalEtemon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "etemon",
+		"element": "Wood",
+		"weight": "7",
+		"rarity": "Common",
+		"baseLevel": "50",
+		"stats": {
+			"HP": "140",
+			"EN": "60",
+			"CR": "70",
+			"AB": "80"
+		}
+	},
+	{
+		"number": "999",
+		"order": "29",
+		"name": "KingEtemon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "kingetemon",
+		"element": "Wood",
+		"weight": "5",
+		"rarity": "Rare",
+		"baseLevel": "68",
+		"stats": {
+			"HP": "180",
+			"EN": "60",
+			"CR": "90",
+			"AB": "120"
+		}
+	},
+	{
+		"number": "999",
+		"order": "30",
+		"name": "Puppetmon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "arbormon",
+		"element": "Wood",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "53",
+		"stats": {
+			"HP": "150",
+			"EN": "55",
+			"CR": "80",
+			"AB": "70"
+		}
+	},
+	{
+		"number": "999",
+		"order": "31",
+		"name": "MetalSeadramon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "goldramon",
+		"element": "Water",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "55",
+		"stats": {
+			"HP": "140",
+			"EN": "95",
+			"CR": "50",
+			"AB": "95"
+		}
+	},
+	{
+		"number": "999",
+		"order": "32",
+		"name": "Piedmon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "angemon",
+		"element": "Metal",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "57",
+		"stats": {
+			"HP": "155",
+			"EN": "65",
+			"CR": "45",
+			"AB": "120"
+		}
+	},
+	{
+		"number": "999",
+		"order": "33",
+		"name": "Machinedramon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "grankuwagamon",
+		"element": "Metal",
+		"evolution": "Chaosdramon",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "59",
+		"stats": {
+			"HP": "180",
+			"EN": "75",
+			"CR": "90",
+			"AB": "60"
+		}
+	},
+	{
+		"number": "999",
+		"order": "34",
+		"name": "HiAndromon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "hiandromon",
+		"element": "Metal",
+		"evolution": "Craniamon",
+		"weight": "7",
+		"rarity": "Common",
+		"baseLevel": "53",
+		"stats": {
+			"HP": "145",
+			"EN": "80",
+			"CR": "80",
+			"AB": "70"
+		}
+	},
+	{
+		"number": "999",
+		"order": "35",
+		"name": "Millenniummon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "millenniummon",
+		"element": "Metal",
+		"evolution": "ZeedMillenniummon",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "63",
+		"stats": {
+			"HP": "200",
+			"EN": "75",
+			"CR": "65",
+			"AB": "90"
+		}
+	},
+	{
+		"number": "999",
+		"order": "36",
+		"name": "Parasimon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "zeedmillenniummon",
+		"element": "Wood",
+		"weight": "7",
+		"rarity": "Rare",
+		"baseLevel": "52",
+		"stats": {
+			"HP": "145",
+			"EN": "80",
+			"CR": "80",
+			"AB": "60"
+		}
+	},
+	{
+		"number": "999",
+		"order": "37",
+		"name": "Pharaohmon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "pyramid",
+		"element": "Earth",
+		"weight": "7",
+		"rarity": "Rare",
+		"baseLevel": "56",
+		"stats": {
+			"HP": "170",
+			"EN": "80",
+			"CR": "70",
+			"AB": "70"
+		}
+	},
+	{
+		"number": "999",
+		"order": "38",
+		"name": "SkullScorpiomon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "pincers",
+		"element": "Water",
+		"weight": "7",
+		"rarity": "Common",
+		"baseLevel": "47",
+		"stats": {
+			"HP": "130",
+			"EN": "65",
+			"CR": "80",
+			"AB": "45"
+		}
+	},
+	{
+		"number": "999",
+		"order": "39",
+		"name": "Murmukusmon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "murmukusmon",
+		"element": "Wood",
+		"weight": "8",
+		"rarity": "Common",
+		"baseLevel": "63",
+		"stats": {
+			"HP": "180",
+			"EN": "100",
+			"CR": "50",
+			"AB": "100"
+		}
+	},
+	{
+		"number": "999",
+		"order": "40",
+		"name": "SkullMammothmon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "saberleomon",
+		"element": "Earth",
+		"weight": "4",
+		"rarity": "Common",
+		"baseLevel": "51",
+		"stats": {
+			"HP": "160",
+			"EN": "55",
+			"CR": "90",
+			"AB": "55"
+		}
+	},
+	{
+		"number": "999",
+		"order": "41",
+		"name": "Magnadramon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "shinegreymon",
+		"element": "Light",
+		"weight": "6",
+		"rarity": "Rare",
+		"baseLevel": "65",
+		"stats": {
+			"HP": "140",
+			"EN": "100",
+			"CR": "100",
+			"AB": "100"
+		}
+	},
+	{
+		"number": "999",
+		"order": "42",
+		"name": "Diaboromon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "missiles_4",
+		"element": "Earth",
+		"evolution": "Armageddemon",
+		"weight": "6",
+		"rarity": "Rare",
+		"baseLevel": "58",
+		"stats": {
+			"HP": "150",
+			"EN": "70",
+			"CR": "80",
+			"AB": "100"
+		}
+	},
+	{
+		"number": "999",
+		"order": "43",
+		"name": "Ghoulmon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "unknown_2",
+		"element": "Dark",
+		"weight": "8",
+		"rarity": "Common",
+		"baseLevel": "61",
+		"stats": {
+			"HP": "180",
+			"EN": "50",
+			"CR": "75",
+			"AB": "105"
+		}
+	},
+	{
+		"number": "999",
+		"order": "44",
+		"name": "Anubismon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "pyramid",
+		"element": "Dark",
+		"weight": "7",
+		"rarity": "Common",
+		"baseLevel": "65",
+		"stats": {
+			"HP": "190",
+			"EN": "85",
+			"CR": "80",
+			"AB": "85"
+		}
+	},
+	{
+		"number": "999",
+		"order": "45",
+		"name": "Zanbamon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "ravemon",
+		"element": "Wind",
+		"weight": "7",
+		"rarity": "Common",
+		"baseLevel": "53",
+		"stats": {
+			"HP": "145",
+			"EN": "85",
+			"CR": "75",
+			"AB": "75"
+		}
+	},
+	{
+		"number": "999",
+		"order": "46",
+		"name": "Ravemon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "ravemon",
+		"element": "Wind",
+		"weight": "7",
+		"rarity": "Epic",
+		"baseLevel": "56",
+		"stats": {
+			"HP": "155",
+			"EN": "85",
+			"CR": "90",
+			"AB": "60"
+		}
+	},
+	{
+		"number": "999",
+		"order": "47",
+		"name": "PileVolcamon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "missiles_3",
+		"element": "Fire",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "53",
+		"stats": {
+			"HP": "160",
+			"EN": "60",
+			"CR": "75",
+			"AB": "75"
+		}
+	},
+	{
+		"number": "999",
+		"order": "48",
+		"name": "PrinceMamemon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "dinobeemon",
+		"element": "Metal",
+		"weight": "4",
+		"rarity": "Rare",
+		"baseLevel": "49",
+		"stats": {
+			"HP": "125",
+			"EN": "110",
+			"CR": "30",
+			"AB": "70"
+		}
+	},
+	{
+		"number": "999",
+		"order": "49",
+		"name": "Gryphonmon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "zephyrmon",
+		"element": "Wind",
+		"weight": "5",
+		"rarity": "Common",
+		"baseLevel": "53",
+		"stats": {
+			"HP": "150",
+			"EN": "70",
+			"CR": "60",
+			"AB": "80"
+		}
+	},
+	{
+		"number": "999",
+		"order": "50",
+		"name": "Boltmon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "boltmon",
+		"element": "Metal",
+		"weight": "7",
+		"rarity": "Common",
+		"baseLevel": "53",
+		"stats": {
+			"HP": "160",
+			"EN": "65",
+			"CR": "95",
+			"AB": "45"
+		}
+	},
+	{
+		"number": "999",
+		"order": "51",
+		"name": "Gulfmon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "gulfmon",
+		"element": "Dark",
+		"weight": "8",
+		"rarity": "Common",
+		"baseLevel": "60",
+		"stats": {
+			"HP": "210",
+			"EN": "90",
+			"CR": "60",
+			"AB": "75"
+		}
+	},
+	{
+		"number": "999",
+		"order": "52",
+		"name": "Goldramon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "goldramon",
+		"element": "Wood",
+		"weight": "8",
+		"rarity": "Common",
+		"baseLevel": "64",
+		"stats": {
+			"HP": "200",
+			"EN": "80",
+			"CR": "80",
+			"AB": "80"
+		}
+	},
+	{
+		"number": "999",
+		"order": "53",
+		"name": "Reapermon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "velgemon",
+		"element": "Metal",
+		"weight": "7",
+		"rarity": "Common",
+		"baseLevel": "52",
+		"stats": {
+			"HP": "145",
+			"EN": "60",
+			"CR": "70",
+			"AB": "95"
+		}
+	},
+	{
+		"number": "999",
+		"order": "54",
+		"name": "ChaosGallantmon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "gallantmon",
+		"element": "Fire",
+		"weight": "3",
+		"rarity": "Epic",
+		"baseLevel": "56",
+		"stats": {
+			"HP": "160",
+			"EN": "120",
+			"CR": "55",
+			"AB": "40"
+		}
+	},
+	{
+		"number": "999",
+		"order": "55",
+		"name": "Kuzuhamon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "sakuyamon",
+		"element": "Light",
+		"weight": "3",
+		"rarity": "Epic",
+		"baseLevel": "62",
+		"stats": {
+			"HP": "180",
+			"EN": "40",
+			"CR": "60",
+			"AB": "135"
+		}
+	},
+	{
+		"number": "999",
+		"order": "56",
+		"name": "BlackMegaGargomon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "missiles_5",
+		"element": "Wind",
+		"weight": "3",
+		"rarity": "Epic",
+		"baseLevel": "52",
+		"stats": {
+			"HP": "155",
+			"EN": "100",
+			"CR": "55",
+			"AB": "45"
+		}
+	},
+	{
+		"number": "999",
+		"order": "90",
+		"name": "WaruMonzaemon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "ravemon",
+		"element": "Dark",
+		"weight": "6",
+		"rarity": "Common",
+		"baseLevel": "44",
+		"stats": {
+			"HP": "130",
+			"EN": "50",
+			"CR": "70",
+			"AB": "70"
+		}
+	},
+	{
+		"number": "999",
+		"order": "57",
+		"name": "GranLocomon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "cyberdramon",
+		"element": "Metal",
+		"weight": "0",
+		"rarity": "Legendary",
+		"baseLevel": "55",
+		"stats": {
+			"HP": "230",
+			"EN": "35",
+			"CR": "100",
+			"AB": "35"
+		}
+	},
+	{
+		"number": "999",
+		"order": "58",
+		"name": "Babamon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "unknown_3",
+		"element": "Wind",
+		"weight": "5",
+		"rarity": "Common",
+		"baseLevel": "50",
+		"stats": {
+			"HP": "120",
+			"EN": "75",
+			"CR": "65",
+			"AB": "80"
+		}
+	},
+	{
+		"number": "999",
+		"order": "59",
+		"name": "Jijimon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "unknown_3",
+		"element": "Earth",
+		"weight": "5",
+		"rarity": "Common",
+		"baseLevel": "50",
+		"stats": {
+			"HP": "130",
+			"EN": "95",
+			"CR": "50",
+			"AB": "65"
+		}
+	},
+	{
+		"number": "999",
+		"order": "60",
+		"name": "MetalPhantomon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "kurisarimon",
+		"element": "Dark",
+		"weight": "6",
+		"rarity": "Rare",
+		"baseLevel": "60",
+		"stats": {
+			"HP": "170",
+			"EN": "100",
+			"CR": "50",
+			"AB": "90"
+		}
+	},
+	{
+		"number": "999",
+		"order": "61",
+		"name": "SkullSatamon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "megidramon",
+		"element": "Dark",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "68",
+		"stats": {
+			"HP": "210",
+			"EN": "90",
+			"CR": "110",
+			"AB": "65"
+		}
+	},
+	{
+		"number": "999",
+		"order": "62",
+		"name": "Marsmon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "metalgarurumon",
+		"element": "Fire",
+		"weight": "3",
+		"rarity": "Rare",
+		"baseLevel": "59",
+		"stats": {
+			"HP": "170",
+			"EN": "80",
+			"CR": "75",
+			"AB": "60"
+		}
+	},
+	{
+		"number": "999",
+		"order": "63",
+		"name": "ElDoradimon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "gigasmon",
+		"element": "Earth",
+		"weight": "0",
+		"rarity": "Legendary",
+		"baseLevel": "65",
+		"stats": {
+			"HP": "280",
+			"EN": "35",
+			"CR": "55",
+			"AB": "45"
+		}
+	},
+	{
+		"number": "999",
+		"order": "64",
+		"name": "Spinomon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "gigasmon",
+		"element": "Earth",
+		"weight": "2",
+		"rarity": "Rare",
+		"baseLevel": "48",
+		"stats": {
+			"HP": "150",
+			"EN": "50",
+			"CR": "85",
+			"AB": "50"
+		}
+	},
+	{
+		"number": "999",
+		"order": "65",
+		"name": "Quetzalmon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "shinegreymon",
+		"element": "Metal",
+		"weight": "6",
+		"rarity": "Rare",
+		"baseLevel": "66",
+		"stats": {
+			"HP": "180",
+			"EN": "120",
+			"CR": "85",
+			"AB": "65"
+		}
+	},
+	{
+		"number": "999",
+		"order": "66",
+		"name": "Cannondramon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "missiles_3",
+		"element": "Earth",
+		"weight": "6",
+		"rarity": "Rare",
+		"baseLevel": "58",
+		"stats": {
+			"HP": "170",
+			"EN": "85",
+			"CR": "85",
+			"AB": "55"
+		}
+	},
+	{
+		"number": "999",
+		"order": "66",
+		"name": "MirageGaogamon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "beelzemon_blast",
+		"element": "Ice",
+		"weight": "2",
+		"rarity": "Epic",
+		"baseLevel": "57",
+		"stats": {
+			"HP": "170",
+			"EN": "70",
+			"CR": "105",
+			"AB": "50"
+		}
+	},
+	{
+		"number": "999",
+		"order": "67",
+		"name": "Eaglemon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "feathers",
+		"element": "Wind",
+		"weight": "5",
+		"rarity": "Rare",
+		"baseLevel": "50",
+		"stats": {
+			"HP": "140",
+			"EN": "65",
+			"CR": "75",
+			"AB": "70"
+		}
+	},
+	{
+		"number": "999",
+		"order": "68",
+		"name": "Raidenmon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "missiles_4",
+		"element": "Metal",
+		"weight": "5",
+		"rarity": "Rare",
+		"baseLevel": "50",
+		"stats": {
+			"HP": "160",
+			"EN": "75",
+			"CR": "65",
+			"AB": "50"
+		}
+	},
+	{
+		"number": "999",
+		"order": "69",
+		"name": "MetalPirannimon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "fish",
+		"element": "Metal",
+		"weight": "0",
+		"rarity": "none",
+		"disabled": "true",
+		"baseLevel": "48",
+		"stats": {
+			"HP": "130",
+			"EN": "60",
+			"CR": "90",
+			"AB": "55"
+		}
+	},
+	{
+		"number": "999",
+		"order": "70",
+		"name": "SlashAngemon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "kendogarurumon",
+		"element": "Light",
+		"weight": "3",
+		"rarity": "Epic",
+		"baseLevel": "55",
+		"stats": {
+			"HP": "160",
+			"EN": "50",
+			"CR": "70",
+			"AB": "100"
+		}
+	},
+	{
+		"number": "999",
+		"order": "71",
+		"name": "Gundramon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "rockets_small_2",
+		"element": "Metal",
+		"weight": "0",
+		"rarity": "none",
+		"disabled": "true",
+		"baseLevel": "52",
+		"stats": {
+			"HP": "145",
+			"EN": "90",
+			"CR": "70",
+			"AB": "60"
+		}
+	},
+	{
+		"number": "999",
+		"order": "72",
+		"name": "Arkadimon (Mega)",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "ancientmegatheriummon",
+		"element": "Dark",
+		"weight": "0",
+		"rarity": "Legendary",
+		"baseLevel": "70",
+		"stats": {
+			"HP": "220",
+			"EN": "100",
+			"CR": "115",
+			"AB": "75"
+		}
+	},
+	{
+		"number": "999",
+		"order": "73",
+		"name": "Fujinmon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "wargrowlmon",
+		"element": "Metal",
+		"weight": "0",
+		"rarity": "Epic",
+		"baseLevel": "62",
+		"stats": {
+			"HP": "150",
+			"EN": "60",
+			"CR": "90",
+			"AB": "90"
+		}
+	},
+	{
+		"number": "999",
+		"order": "74",
+		"name": "Raijinmon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "missiles_5",
+		"element": "Metal",
+		"weight": "0",
+		"rarity": "Epic",
+		"baseLevel": "62",
+		"stats": {
+			"HP": "150",
+			"EN": "120",
+			"CR": "60",
+			"AB": "60"
+		}
+	},
+	{
+		"number": "999",
+		"order": "75",
+		"name": "Suijinmon",
+		"stage": "Mega",
+		"spiritType": "None",
+		"abilityName": "missiles_5",
+		"element": "Metal",
+		"weight": "0",
+		"rarity": "Epic",
+		"baseLevel": "62",
+		"stats": {
+			"HP": "210",
+			"EN": "60",
+			"CR": "60",
+			"AB": "60"
+		}
+	},
+	{
+		"number": "999",
+		"order": "1",
+		"name": "Azulongmon",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "azulongmon",
+		"element": "Wind",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "80",
+		"stats": {
+			"HP": "250",
+			"EN": "80",
+			"CR": "80",
+			"AB": "140"
+		}
+	},
+	{
+		"number": "999",
+		"order": "2",
+		"name": "Baihumon",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "baihumon",
+		"element": "Water",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "80",
+		"stats": {
+			"HP": "250",
+			"EN": "80",
+			"CR": "140",
+			"AB": "80"
+		}
+	},
+	{
+		"number": "999",
+		"order": "3",
+		"name": "Zhuqiaomon",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "zhuqiaomon",
+		"element": "Fire",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "80",
+		"stats": {
+			"HP": "250",
+			"EN": "140",
+			"CR": "80",
+			"AB": "80"
+		}
+	},
+	{
+		"number": "999",
+		"order": "4",
+		"name": "Ebonwumon",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "ebonwumon",
+		"element": "Wood",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "80",
+		"stats": {
+			"HP": "250",
+			"EN": "100",
+			"CR": "100",
+			"AB": "100"
+		}
+	},
+	{
+		"number": "999",
+		"order": "5",
+		"name": "Ornismon",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "ornismon",
+		"element": "Wind",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "78",
+		"stats": {
+			"HP": "240",
+			"EN": "85",
+			"CR": "75",
+			"AB": "125"
+		}
+	},
+	{
+		"number": "999",
+		"order": "6",
+		"name": "Duskmon",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "duskmon",
+		"element": "Dark",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "70",
+		"stats": {
+			"HP": "180",
+			"EN": "130",
+			"CR": "100",
+			"AB": "70"
+		}
+	},
+	{
+		"number": "999",
+		"order": "7",
+		"name": "Velgemon",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "velgemon",
+		"element": "Dark",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "85",
+		"stats": {
+			"HP": "250",
+			"EN": "160",
+			"CR": "125",
+			"AB": "80"
+		}
+	},
+	{
+		"number": "999",
+		"order": "8",
+		"name": "Seraphimon",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "seraphimon",
+		"element": "Light",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "75",
+		"stats": {
+			"HP": "200",
+			"EN": "120",
+			"CR": "100",
+			"AB": "70"
+		}
+	},
+	{
+		"number": "999",
+		"order": "9",
+		"name": "Ophanimon",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "ophanimon",
+		"element": "Light",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "75",
+		"stats": {
+			"HP": "180",
+			"EN": "80",
+			"CR": "100",
+			"AB": "130"
+		}
+	},
+	{
+		"number": "999",
+		"order": "10",
+		"name": "Kerpymon (Evil)",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "kerpymon_evil",
+		"element": "Dark",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "75",
+		"stats": {
+			"HP": "230",
+			"EN": "70",
+			"CR": "120",
+			"AB": "70"
+		}
+	},
+	{
+		"number": "999",
+		"order": "11",
+		"name": "Kerpymon (Blast)",
+		"stage": "none",
+		"spiritType": "None",
+		"abilityName": "kerpymon_evil",
+		"element": "Dark",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "95",
+		"stats": {
+			"HP": "350",
+			"EN": "100",
+			"CR": "150",
+			"AB": "100"
+		}
+	},
+	{
+		"number": "999",
+		"order": "12",
+		"name": "Kerpymon (Good)",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "kerpymon_good",
+		"element": "Light",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "75",
+		"stats": {
+			"HP": "230",
+			"EN": "60",
+			"CR": "85",
+			"AB": "115"
+		}
+	},
+	{
+		"number": "999",
+		"order": "13",
+		"name": "Imperialdramon (Fighter)",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "imperialdramon_fighter",
+		"element": "Thunder",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "72",
+		"stats": {
+			"HP": "210",
+			"EN": "75",
+			"CR": "105",
+			"AB": "100"
+		}
+	},
+	{
+		"number": "999",
+		"order": "14",
+		"name": "ShadowSeraphimon",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "seraphimon",
+		"element": "Dark",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "80",
+		"stats": {
+			"HP": "260",
+			"EN": "150",
+			"CR": "100",
+			"AB": "50"
+		}
+	},
+	{
+		"number": "999",
+		"order": "15",
+		"name": "Omnimon",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "omnimon",
+		"element": "Light",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "75",
+		"stats": {
+			"HP": "200",
+			"EN": "110",
+			"CR": "100",
+			"AB": "90"
+		}
+	},
+	{
+		"number": "999",
+		"order": "16",
+		"name": "Gallantmon (Crimson)",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "gallantmon_crimson",
+		"element": "Fire",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "75",
+		"stats": {
+			"HP": "210",
+			"EN": "130",
+			"CR": "85",
+			"AB": "75"
+		}
+	},
+	{
+		"number": "999",
+		"order": "17",
+		"name": "Dynasmon",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "dynasmon",
+		"element": "Light",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "82",
+		"stats": {
+			"HP": "220",
+			"EN": "90",
+			"CR": "80",
+			"AB": "150"
+		}
+	},
+	{
+		"number": "999",
+		"order": "18",
+		"name": "LordKnightmon",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "lordknightmon",
+		"element": "Wind",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "78",
+		"stats": {
+			"HP": "190",
+			"EN": "70",
+			"CR": "140",
+			"AB": "115"
+		}
+	},
+	{
+		"number": "999",
+		"order": "19",
+		"name": "Kentaurosmon",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "ophanimon",
+		"element": "Light",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "75",
+		"stats": {
+			"HP": "215",
+			"EN": "70",
+			"CR": "125",
+			"AB": "90"
+		}
+	},
+	{
+		"number": "999",
+		"order": "20",
+		"name": "Alphamon",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "imperialdramon",
+		"element": "Thunder",
+		"weight": "0",
+		"rarity": "Epic",
+		"baseLevel": "76",
+		"stats": {
+			"HP": "200",
+			"EN": "100",
+			"CR": "100",
+			"AB": "110"
+		}
+	},
+	{
+		"number": "999",
+		"order": "21",
+		"name": "Craniamon",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "metalkabuterimon",
+		"element": "Metal",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "77",
+		"stats": {
+			"HP": "210",
+			"EN": "75",
+			"CR": "120",
+			"AB": "120"
+		}
+	},
+	{
+		"number": "999",
+		"order": "22",
+		"name": "Chaosdramon",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "loweemon",
+		"element": "Metal",
+		"weight": "5",
+		"rarity": "Boss",
+		"baseLevel": "74",
+		"stats": {
+			"HP": "230",
+			"EN": "90",
+			"CR": "105",
+			"AB": "70"
+		}
+	},
+	{
+		"number": "999",
+		"order": "23",
+		"name": "Apocalymon",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "apocalymon",
+		"element": "Dark",
+		"weight": "0",
+		"rarity": "Rare",
+		"baseLevel": "70",
+		"stats": {
+			"HP": "190",
+			"EN": "75",
+			"CR": "85",
+			"AB": "100"
+		}
+	},
+	{
+		"number": "999",
+		"order": "24",
+		"name": "MaloMyotismon",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "malomyotismon",
+		"element": "Dark",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "78",
+		"stats": {
+			"HP": "225",
+			"EN": "130",
+			"CR": "110",
+			"AB": "70"
+		}
+	},
+	{
+		"number": "999",
+		"order": "25",
+		"name": "Armageddemon",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "armageddemon",
+		"element": "Earth",
+		"weight": "5",
+		"rarity": "Boss",
+		"baseLevel": "75",
+		"stats": {
+			"HP": "200",
+			"EN": "90",
+			"CR": "100",
+			"AB": "125"
+		}
+	},
+	{
+		"number": "999",
+		"order": "26",
+		"name": "Moon=Millenniummon",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "waves_2",
+		"element": "Dark",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "70",
+		"stats": {
+			"HP": "300",
+			"EN": "50",
+			"CR": "50",
+			"AB": "100"
+		}
+	},
+	{
+		"number": "999",
+		"order": "27",
+		"name": "ZeedMillenniummon",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "zeedmillenniummon",
+		"element": "Dark",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "88",
+		"stats": {
+			"HP": "270",
+			"EN": "90",
+			"CR": "100",
+			"AB": "140"
+		}
+	},
+	{
+		"number": "999",
+		"order": "28",
+		"name": "Daemon (Ultimate)",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "ancientgreymon",
+		"element": "Dark",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "76",
+		"stats": {
+			"HP": "200",
+			"EN": "80",
+			"CR": "80",
+			"AB": "130"
+		}
+	},
+	{
+		"number": "999",
+		"order": "29",
+		"name": "Lucemon",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "lucemon",
+		"element": "Dark",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "72",
+		"stats": {
+			"HP": "170",
+			"EN": "110",
+			"CR": "55",
+			"AB": "110"
+		}
+	},
+	{
+		"number": "999",
+		"order": "30",
+		"name": "Lucemon (Chaos)",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "lucemon_chaos",
+		"element": "Dark",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "80",
+		"stats": {
+			"HP": "215",
+			"EN": "110",
+			"CR": "95",
+			"AB": "120"
+		}
+	},
+	{
+		"number": "999",
+		"order": "31",
+		"name": "Lucemon (Satan)",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "lucemon_satan",
+		"element": "Dark",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "88",
+		"stats": {
+			"HP": "265",
+			"EN": "110",
+			"CR": "95",
+			"AB": "130"
+		}
+	},
+	{
+		"number": "999",
+		"order": "32",
+		"name": "Beelzemon (Blast)",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "beelzemon_blast",
+		"element": "Dark",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "71",
+		"stats": {
+			"HP": "195",
+			"EN": "100",
+			"CR": "80",
+			"AB": "100"
+		}
+	},
+	{
+		"number": "999",
+		"order": "33",
+		"name": "Lilithmon",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "myotismon",
+		"element": "Dark",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "78",
+		"stats": {
+			"HP": "210",
+			"EN": "105",
+			"CR": "120",
+			"AB": "95"
+		}
+	},
+	{
+		"number": "999",
+		"order": "34",
+		"name": "Belphemon",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "metalgarurumon",
+		"element": "Dark",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "75",
+		"stats": {
+			"HP": "270",
+			"EN": "65",
+			"CR": "95",
+			"AB": "75"
+		}
+	},
+	{
+		"number": "999",
+		"order": "35",
+		"name": "Leviamon",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "snimon",
+		"element": "Dark",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "70",
+		"stats": {
+			"HP": "200",
+			"EN": "80",
+			"CR": "100",
+			"AB": "100"
+		}
+	},
+	{
+		"number": "999",
+		"order": "36",
+		"name": "Barbamon",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "keramon",
+		"element": "Dark",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "76",
+		"stats": {
+			"HP": "220",
+			"EN": "70",
+			"CR": "130",
+			"AB": "70"
+		}
+	},
+	{
+		"number": "999",
+		"order": "1",
+		"name": "Flamedramon",
+		"stage": "Armor",
+		"element": "Fire",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "240",
+			"EN": "160",
+			"CR": "120",
+			"AB": "80"
+		}
+	},
+	{
+		"number": "999",
+		"order": "2",
+		"name": "Raidramon",
+		"stage": "Armor",
+		"element": "Thunder",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "260",
+			"EN": "100",
+			"CR": "140",
+			"AB": "140"
+		}
+	},
+	{
+		"number": "999",
+		"order": "3",
+		"name": "Halsemon",
+		"stage": "Armor",
+		"element": "Wind",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "260",
+			"EN": "70",
+			"CR": "135",
+			"AB": "135"
+		}
+	},
+	{
+		"number": "999",
+		"order": "4",
+		"name": "Shurimon",
+		"stage": "Armor",
+		"element": "Metal",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "230",
+			"EN": "100",
+			"CR": "160",
+			"AB": "100"
+		}
+	},
+	{
+		"number": "999",
+		"order": "5",
+		"name": "Digmon",
+		"stage": "Armor",
+		"element": "Earth",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "220",
+			"EN": "80",
+			"CR": "200",
+			"AB": "100"
+		}
+	},
+	{
+		"number": "999",
+		"order": "6",
+		"name": "Submarimon",
+		"stage": "Armor",
+		"element": "Water",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "270",
+			"EN": "120",
+			"CR": "150",
+			"AB": "70"
+		}
+	},
+	{
+		"number": "999",
+		"order": "7",
+		"name": "Seasarmon",
+		"stage": "Armor",
+		"spiritType": "None",
+		"abilityName": "flames_2",
+		"element": "Light",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "250",
+			"EN": "85",
+			"CR": "100",
+			"AB": "170"
+		}
+	},
+	{
+		"number": "999",
+		"order": "8",
+		"name": "Nefertimon",
+		"stage": "Armor",
+		"element": "Light",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "250",
+			"EN": "150",
+			"CR": "70",
+			"AB": "150"
+		}
+	},
+	{
+		"number": "999",
+		"order": "9",
+		"name": "Sethmon",
+		"stage": "Armor",
+		"element": "Wind",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "260",
+			"EN": "80",
+			"CR": "200",
+			"AB": "80"
+		}
+	},
+	{
+		"number": "999",
+		"order": "10",
+		"name": "Yasyamon",
+		"stage": "Armor",
+		"element": "Wood",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "230",
+			"EN": "50",
+			"CR": "180",
+			"AB": "140"
+		}
+	},
+	{
+		"number": "999",
+		"order": "11",
+		"name": "Honeybeemon",
+		"stage": "Armor",
+		"element": "Wind",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "180",
+			"EN": "120",
+			"CR": "130",
+			"AB": "180"
+		}
+	},
+	{
+		"number": "999",
+		"order": "12",
+		"name": "Depthmon",
+		"stage": "Armor",
+		"element": "Water",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "210",
+			"EN": "95",
+			"CR": "150",
+			"AB": "125"
+		}
+	},
+	{
+		"number": "999",
+		"order": "13",
+		"name": "Sagittarimon",
+		"stage": "Armor",
+		"element": "Light",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "320",
+			"EN": "125",
+			"CR": "80",
+			"AB": "70"
+		}
+	},
+	{
+		"number": "999",
+		"order": "14",
+		"name": "Gargoylemon",
+		"stage": "Armor",
+		"element": "Light",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "280",
+			"EN": "80",
+			"CR": "135",
+			"AB": "125"
+		}
+	},
+	{
+		"number": "999",
+		"order": "15",
+		"name": "Kangarumon",
+		"stage": "Armor",
+		"element": "Earth",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "270",
+			"EN": "85",
+			"CR": "160",
+			"AB": "85"
+		}
+	},
+	{
+		"number": "999",
+		"order": "16",
+		"name": "Magnamon",
+		"stage": "Armor",
+		"element": "Metal",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "250",
+			"EN": "160",
+			"CR": "160",
+			"AB": "80"
+		}
+	},
+	{
+		"number": "999",
+		"order": "17",
+		"name": "Allomon",
+		"stage": "Armor",
+		"element": "Earth",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "280",
+			"EN": "160",
+			"CR": "135",
+			"AB": "30"
+		}
+	},
+	{
+		"number": "999",
+		"order": "18",
+		"name": "Rinkmon",
+		"stage": "Armor",
+		"element": "Metal",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "230",
+			"EN": "40",
+			"CR": "165",
+			"AB": "165"
+		}
+	},
+	{
+		"number": "999",
+		"order": "19",
+		"name": "Flybeemon",
+		"stage": "Armor",
+		"element": "Wind",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "190",
+			"EN": "100",
+			"CR": "80",
+			"AB": "200"
+		}
+	},
+	{
+		"number": "999",
+		"order": "20",
+		"name": "Orcamon",
+		"stage": "Armor",
+		"element": "Water",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "290",
+			"EN": "75",
+			"CR": "75",
+			"AB": "150"
+		}
+	},
+	{
+		"number": "999",
+		"order": "21",
+		"name": "Moosemon",
+		"stage": "Armor",
+		"element": "Light",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "260",
+			"EN": "30",
+			"CR": "120",
+			"AB": "210"
+		}
+	},
+	{
+		"number": "999",
+		"order": "22",
+		"name": "Harpymon",
+		"stage": "Armor",
+		"element": "Light",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "220",
+			"EN": "135",
+			"CR": "135",
+			"AB": "135"
+		}
+	},
+	{
+		"number": "999",
+		"order": "23",
+		"name": "Toucanmon",
+		"stage": "Armor",
+		"element": "Wind",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "165",
+			"EN": "70",
+			"CR": "300",
+			"AB": "85"
+		}
+	},
+	{
+		"number": "999",
+		"order": "24",
+		"name": "Peacockmon",
+		"stage": "Armor",
+		"element": "Wind",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "190",
+			"EN": "115",
+			"CR": "130",
+			"AB": "145"
+		}
+	},
+	{
+		"number": "999",
+		"order": "25",
+		"name": "Boarmon",
+		"stage": "Armor",
+		"element": "Fire",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "260",
+			"EN": "75",
+			"CR": "170",
+			"AB": "140"
+		}
+	},
+	{
+		"number": "999",
+		"order": "26",
+		"name": "Sepikmon",
+		"stage": "Armor",
+		"element": "Wood",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "220",
+			"EN": "250",
+			"CR": "100",
+			"AB": "50"
+		}
+	},
+	{
+		"number": "999",
+		"order": "27",
+		"name": "Pteramon",
+		"stage": "Armor",
+		"element": "Metal",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "260",
+			"EN": "170",
+			"CR": "65",
+			"AB": "145"
+		}
+	},
+	{
+		"number": "999",
+		"order": "28",
+		"name": "Frogmon",
+		"stage": "Armor",
+		"element": "Water",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "240",
+			"EN": "115",
+			"CR": "115",
+			"AB": "115"
+		}
+	},
+	{
+		"number": "999",
+		"order": "29",
+		"name": "Sheepmon",
+		"stage": "Armor",
+		"element": "Wood",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "290",
+			"EN": "120",
+			"CR": "120",
+			"AB": "80"
+		}
+	},
+	{
+		"number": "999",
+		"order": "30",
+		"name": "Seahomon",
+		"stage": "Armor",
+		"element": "Water",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "205",
+			"EN": "175",
+			"CR": "75",
+			"AB": "175"
+		}
+	},
+	{
+		"number": "999",
+		"order": "31",
+		"name": "Chamelemon",
+		"stage": "Armor",
+		"element": "Earth",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "260",
+			"EN": "105",
+			"CR": "140",
+			"AB": "105"
+		}
+	},
+	{
+		"number": "999",
+		"order": "32",
+		"name": "Elephantmon",
+		"stage": "Armor",
+		"element": "Wind",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "320",
+			"EN": "65",
+			"CR": "145",
+			"AB": "105"
+		}
+	},
+	{
+		"number": "999",
+		"order": "33",
+		"name": "Baromon",
+		"stage": "Armor",
+		"element": "Fire",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "250",
+			"EN": "140",
+			"CR": "90",
+			"AB": "140"
+		}
+	},
+	{
+		"number": "999",
+		"order": "34",
+		"name": "Stegomon",
+		"stage": "Armor",
+		"element": "Metal",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "280",
+			"EN": "80",
+			"CR": "140",
+			"AB": "130"
+		}
+	},
+	{
+		"number": "999",
+		"order": "35",
+		"name": "Pipismon",
+		"stage": "Armor",
+		"element": "Wind",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "220",
+			"EN": "100",
+			"CR": "80",
+			"AB": "180"
+		}
+	},
+	{
+		"number": "999",
+		"order": "36",
+		"name": "Ponchomon",
+		"stage": "Armor",
+		"element": "Wood",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "250",
+			"EN": "110",
+			"CR": "200",
+			"AB": "70"
+		}
+	},
+	{
+		"number": "999",
+		"order": "37",
+		"name": "Mothmon",
+		"stage": "Armor",
+		"element": "Wind",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "215",
+			"EN": "180",
+			"CR": "60",
+			"AB": "180"
+		}
+	},
+	{
+		"number": "999",
+		"order": "38",
+		"name": "Mantaraymon",
+		"stage": "Armor",
+		"element": "Water",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "235",
+			"EN": "100",
+			"CR": "150",
+			"AB": "150"
+		}
+	},
+	{
+		"number": "999",
+		"order": "39",
+		"name": "Manbomon",
+		"stage": "Armor",
+		"element": "Water",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "240",
+			"EN": "75",
+			"CR": "160",
+			"AB": "120"
+		}
+	},
+	{
+		"number": "999",
+		"order": "40",
+		"name": "Prairiemon",
+		"stage": "Armor",
+		"element": "Wood",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "240",
+			"EN": "100",
+			"CR": "150",
+			"AB": "135"
+		}
+	},
+	{
+		"number": "999",
+		"order": "41",
+		"name": "Rhinomon",
+		"stage": "Armor",
+		"element": "Metal",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "290",
+			"EN": "100",
+			"CR": "130",
+			"AB": "100"
+		}
+	},
+	{
+		"number": "999",
+		"order": "42",
+		"name": "Lynxmon",
+		"stage": "Armor",
+		"element": "Fire",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "250",
+			"EN": "85",
+			"CR": "135",
+			"AB": "135"
+		}
+	},
+	{
+		"number": "999",
+		"order": "43",
+		"name": "Rabbitmon",
+		"stage": "Armor",
+		"element": "Wind",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "230",
+			"EN": "100",
+			"CR": "135",
+			"AB": "135"
+		}
+	},
+	{
+		"number": "999",
+		"order": "44",
+		"name": "Swanmon",
+		"stage": "Armor",
+		"element": "Wind",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "250",
+			"EN": "120",
+			"CR": "125",
+			"AB": "120"
+		}
+	},
+	{
+		"number": "999",
+		"order": "45",
+		"name": "Kabukimon",
+		"stage": "Armor",
+		"element": "Wind",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "245",
+			"EN": "145",
+			"CR": "140",
+			"AB": "105"
+		}
+	},
+	{
+		"number": "999",
+		"order": "46",
+		"name": "Butterflymon",
+		"stage": "Armor",
+		"element": "Wind",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "195",
+			"EN": "145",
+			"CR": "145",
+			"AB": "145"
+		}
+	},
+	{
+		"number": "999",
+		"order": "47",
+		"name": "Tylomon",
+		"stage": "Armor",
+		"element": "Water",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "215",
+			"EN": "120",
+			"CR": "140",
+			"AB": "160"
+		}
+	},
+	{
+		"number": "999",
+		"order": "48",
+		"name": "Oryxmon",
+		"stage": "Armor",
+		"element": "Earth",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "275",
+			"EN": "95",
+			"CR": "125",
+			"AB": "135"
+		}
+	},
+	{
+		"number": "999",
+		"order": "49",
+		"name": "Opossumon",
+		"stage": "Armor",
+		"element": "Wind",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "245",
+			"EN": "105",
+			"CR": "125",
+			"AB": "145"
+		}
+	},
+	{
+		"number": "999",
+		"order": "50",
+		"name": "Maildramon",
+		"stage": "Armor",
+		"element": "Metal",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "270",
+			"EN": "90",
+			"CR": "140",
+			"AB": "140"
+		}
+	},
+	{
+		"number": "999",
+		"order": "51",
+		"name": "Shadramon",
+		"stage": "Armor",
+		"element": "Fire",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "260",
+			"EN": "130",
+			"CR": "95",
+			"AB": "140"
+		}
+	},
+	{
+		"number": "999",
+		"order": "52",
+		"name": "Togemogumon",
+		"stage": "Armor",
+		"element": "Earth",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "280",
+			"EN": "140",
+			"CR": "130",
+			"AB": "70"
+		}
+	},
+	{
+		"number": "999",
+		"order": "53",
+		"name": "Aurumon",
+		"stage": "Armor",
+		"element": "Wind",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "200",
+			"EN": "140",
+			"CR": "115",
+			"AB": "140"
+		}
+	},
+	{
+		"number": "999",
+		"order": "54",
+		"name": "Nohemon",
+		"stage": "Armor",
+		"element": "Wind",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "230",
+			"EN": "115",
+			"CR": "125",
+			"AB": "125"
+		}
+	},
+	{
+		"number": "999",
+		"order": "55",
+		"name": "Searchmon",
+		"stage": "Armor",
+		"element": "Metal",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "240",
+			"EN": "90",
+			"CR": "140",
+			"AB": "140"
+		}
+	},
+	{
+		"number": "999",
+		"order": "56",
+		"name": "Archelomon",
+		"stage": "Armor",
+		"element": "Metal",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "240",
+			"EN": "130",
+			"CR": "120",
+			"AB": "130"
+		}
+	},
+	{
+		"number": "999",
+		"order": "57",
+		"name": "Bullmon",
+		"stage": "Armor",
+		"element": "Earth",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "275",
+			"EN": "95",
+			"CR": "140",
+			"AB": "90"
+		}
+	},
+	{
+		"number": "999",
+		"order": "58",
+		"name": "FlameWizardmon",
+		"stage": "Armor",
+		"element": "Fire",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "230",
+			"EN": "125",
+			"CR": "65",
+			"AB": "175"
+		}
+	},
+	{
+		"number": "999",
+		"order": "59",
+		"name": "Bucchiemon",
+		"stage": "Armor",
+		"element": "Wind",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "220",
+			"EN": "140",
+			"CR": "130",
+			"AB": "140"
+		}
+	},
+	{
+		"number": "999",
+		"order": "60",
+		"name": "Kongoumon",
+		"stage": "Armor",
+		"element": "Metal",
+		"weight": "0",
+		"rarity": "Common",
+		"baseLevel": "20",
+		"stats": {
+			"HP": "320",
+			"EN": "80",
+			"CR": "120",
+			"AB": "115"
+		}
+	},
+	{
+		"number": "999",
+		"order": "11",
+		"name": "Agunimon",
+		"stage": "Spirit",
+		"spiritType": "Human",
+		"abilityName": "agunimon",
+		"element": "Fire",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "270",
+			"EN": "160",
+			"CR": "90",
+			"AB": "150"
+		}
+	},
+	{
+		"number": "999",
+		"order": "12",
+		"name": "BurningGreymon",
+		"stage": "Spirit",
+		"spiritType": "Animal",
+		"abilityName": "burninggreymon",
+		"element": "Fire",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "270",
+			"EN": "160",
+			"CR": "90",
+			"AB": "150"
+		}
+	},
+	{
+		"number": "999",
+		"order": "13",
+		"name": "Lobomon",
+		"stage": "Spirit",
+		"spiritType": "Human",
+		"abilityName": "lobomon",
+		"element": "Light",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "260",
+			"EN": "100",
+			"CR": "155",
+			"AB": "155"
+		}
+	},
+	{
+		"number": "999",
+		"order": "14",
+		"name": "KendoGarurumon",
+		"stage": "Spirit",
+		"spiritType": "Animal",
+		"abilityName": "kendogarurumon",
+		"element": "Light",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "260",
+			"EN": "100",
+			"CR": "155",
+			"AB": "155"
+		}
+	},
+	{
+		"number": "999",
+		"order": "15",
+		"name": "Beetlemon",
+		"stage": "Spirit",
+		"spiritType": "Human",
+		"abilityName": "beetlemon",
+		"element": "Thunder",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "280",
+			"EN": "80",
+			"CR": "140",
+			"AB": "170"
+		}
+	},
+	{
+		"number": "999",
+		"order": "16",
+		"name": "MetalKabuterimon",
+		"stage": "Spirit",
+		"spiritType": "Animal",
+		"abilityName": "metalkabuterimon",
+		"element": "Thunder",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "280",
+			"EN": "80",
+			"CR": "140",
+			"AB": "170"
+		}
+	},
+	{
+		"number": "999",
+		"order": "17",
+		"name": "Kazemon",
+		"stage": "Spirit",
+		"spiritType": "Human",
+		"abilityName": "kazemon",
+		"element": "Wind",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "240",
+			"EN": "110",
+			"CR": "150",
+			"AB": "170"
+		}
+	},
+	{
+		"number": "999",
+		"order": "18",
+		"name": "Zephyrmon",
+		"stage": "Spirit",
+		"spiritType": "Animal",
+		"abilityName": "zephyrmon",
+		"element": "Wind",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "240",
+			"EN": "110",
+			"CR": "150",
+			"AB": "170"
+		}
+	},
+	{
+		"number": "999",
+		"order": "19",
+		"name": "Kumamon",
+		"stage": "Spirit",
+		"spiritType": "Human",
+		"abilityName": "kumamon",
+		"element": "Ice",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "220",
+			"EN": "160",
+			"CR": "170",
+			"AB": "120"
+		}
+	},
+	{
+		"number": "999",
+		"order": "20",
+		"name": "Korikakumon",
+		"stage": "Spirit",
+		"spiritType": "Animal",
+		"abilityName": "korikakumon",
+		"element": "Ice",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "300",
+			"EN": "120",
+			"CR": "170",
+			"AB": "80"
+		}
+	},
+	{
+		"number": "999",
+		"order": "21",
+		"name": "Loweemon",
+		"stage": "Spirit",
+		"spiritType": "Human",
+		"abilityName": "loweemon",
+		"element": "Dark",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "240",
+			"EN": "160",
+			"CR": "160",
+			"AB": "110"
+		}
+	},
+	{
+		"number": "999",
+		"order": "22",
+		"name": "KaiserLeomon",
+		"stage": "Spirit",
+		"spiritType": "Animal",
+		"abilityName": "kaiserleomon",
+		"element": "Dark",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "240",
+			"EN": "160",
+			"CR": "160",
+			"AB": "110"
+		}
+	},
+	{
+		"number": "999",
+		"order": "23",
+		"name": "Grumblemon",
+		"stage": "Spirit",
+		"spiritType": "Human",
+		"abilityName": "grumblemon",
+		"element": "Earth",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "260",
+			"EN": "140",
+			"CR": "200",
+			"AB": "70"
+		}
+	},
+	{
+		"number": "999",
+		"order": "24",
+		"name": "Gigasmon",
+		"stage": "Spirit",
+		"spiritType": "Animal",
+		"abilityName": "gigasmon",
+		"element": "Earth",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "280",
+			"EN": "120",
+			"CR": "200",
+			"AB": "70"
+		}
+	},
+	{
+		"number": "999",
+		"order": "25",
+		"name": "Arbormon",
+		"stage": "Spirit",
+		"spiritType": "Human",
+		"abilityName": "arbormon",
+		"element": "Wood",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "240",
+			"EN": "120",
+			"CR": "190",
+			"AB": "120"
+		}
+	},
+	{
+		"number": "999",
+		"order": "26",
+		"name": "Petaldramon",
+		"stage": "Spirit",
+		"spiritType": "Animal",
+		"abilityName": "petaldramon",
+		"element": "Wood",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "280",
+			"EN": "110",
+			"CR": "150",
+			"AB": "130"
+		}
+	},
+	{
+		"number": "999",
+		"order": "27",
+		"name": "Mercurymon",
+		"stage": "Spirit",
+		"spiritType": "Human",
+		"abilityName": "mercurymon",
+		"element": "Metal",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "260",
+			"EN": "165",
+			"CR": "80",
+			"AB": "165"
+		}
+	},
+	{
+		"number": "999",
+		"order": "28",
+		"name": "Sephirothmon",
+		"stage": "Spirit",
+		"spiritType": "Animal",
+		"abilityName": "sephirothmon",
+		"element": "Metal",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "280",
+			"EN": "160",
+			"CR": "70",
+			"AB": "160"
+		}
+	},
+	{
+		"number": "999",
+		"order": "29",
+		"name": "Lanamon",
+		"stage": "Spirit",
+		"spiritType": "Human",
+		"abilityName": "lanamon",
+		"element": "Water",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "200",
+			"EN": "170",
+			"CR": "100",
+			"AB": "200"
+		}
+	},
+	{
+		"number": "999",
+		"order": "30",
+		"name": "Calmaramon",
+		"stage": "Spirit",
+		"spiritType": "Animal",
+		"abilityName": "calmaramon",
+		"element": "Water",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "220",
+			"EN": "160",
+			"CR": "100",
+			"AB": "190"
+		}
+	},
+	{
+		"number": "999",
+		"order": "31",
+		"name": "Aldamon",
+		"stage": "Spirit",
+		"spiritType": "Hybrid",
+		"abilityName": "aldamon",
+		"element": "Fire",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "320",
+			"EN": "190",
+			"CR": "120",
+			"AB": "170"
+		}
+	},
+	{
+		"number": "999",
+		"order": "32",
+		"name": "Beowolfmon",
+		"stage": "Spirit",
+		"spiritType": "Hybrid",
+		"abilityName": "beowolfmon",
+		"element": "Light",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "300",
+			"EN": "110",
+			"CR": "195",
+			"AB": "195"
+		}
+	},
+	{
+		"number": "999",
+		"order": "33",
+		"name": "RhinoKabuterimon",
+		"stage": "Spirit",
+		"spiritType": "Hybrid",
+		"abilityName": "rhinokabuterimon",
+		"element": "Thunder",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "350",
+			"EN": "110",
+			"CR": "160",
+			"AB": "180"
+		}
+	},
+	{
+		"number": "999",
+		"order": "34",
+		"name": "JetSilphymon",
+		"stage": "Spirit",
+		"spiritType": "Hybrid",
+		"abilityName": "jetsilphymon",
+		"element": "Wind",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "270",
+			"EN": "150",
+			"CR": "170",
+			"AB": "210"
+		}
+	},
+	{
+		"number": "999",
+		"order": "35",
+		"name": "Daipenmon",
+		"stage": "Spirit",
+		"spiritType": "Hybrid",
+		"abilityName": "icedoll",
+		"element": "Ice",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "285",
+			"EN": "180",
+			"CR": "200",
+			"AB": "135"
+		}
+	},
+	{
+		"number": "999",
+		"order": "36",
+		"name": "Rhihimon",
+		"stage": "Spirit",
+		"spiritType": "Hybrid",
+		"abilityName": "rhihimon",
+		"element": "Dark",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "300",
+			"EN": "180",
+			"CR": "180",
+			"AB": "140"
+		}
+	},
+	{
+		"number": "999",
+		"order": "37",
+		"name": "Volcdramon",
+		"stage": "Spirit",
+		"spiritType": "Hybrid",
+		"abilityName": "shinegreymon",
+		"element": "Earth",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "350",
+			"EN": "150",
+			"CR": "210",
+			"AB": "90"
+		}
+	},
+	{
+		"number": "999",
+		"order": "38",
+		"name": "Merukimon",
+		"stage": "Spirit",
+		"spiritType": "Hybrid",
+		"abilityName": "trees_2",
+		"element": "Wood",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "330",
+			"EN": "140",
+			"CR": "200",
+			"AB": "130"
+		}
+	},
+	{
+		"number": "999",
+		"order": "39",
+		"name": "Leopardmon",
+		"stage": "Spirit",
+		"spiritType": "Hybrid",
+		"abilityName": "stars",
+		"element": "Metal",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "320",
+			"EN": "190",
+			"CR": "100",
+			"AB": "190"
+		}
+	},
+	{
+		"number": "999",
+		"order": "40",
+		"name": "Mermaidmon",
+		"stage": "Spirit",
+		"spiritType": "Hybrid",
+		"abilityName": "goldramon",
+		"element": "Water",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "260",
+			"EN": "190",
+			"CR": "110",
+			"AB": "240"
+		}
+	},
+	{
+		"number": "999",
+		"order": "1",
+		"name": "AncientGreymon",
+		"stage": "Spirit",
+		"spiritType": "Ancient",
+		"abilityName": "ancientgreymon",
+		"element": "Fire",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "50",
+		"stats": {
+			"HP": "220",
+			"EN": "200",
+			"CR": "160",
+			"AB": "80"
+		}
+	},
+	{
+		"number": "999",
+		"order": "2",
+		"name": "AncientGarurumon",
+		"stage": "Spirit",
+		"spiritType": "Ancient",
+		"abilityName": "ancientgarurumon",
+		"element": "Light",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "50",
+		"stats": {
+			"HP": "220",
+			"EN": "160",
+			"CR": "200",
+			"AB": "80"
+		}
+	},
+	{
+		"number": "999",
+		"order": "3",
+		"name": "AncientBeetlemon",
+		"stage": "Spirit",
+		"spiritType": "Ancient",
+		"abilityName": "ancientbeetlemon",
+		"element": "Thunder",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "50",
+		"stats": {
+			"HP": "220",
+			"EN": "80",
+			"CR": "200",
+			"AB": "160"
+		}
+	},
+	{
+		"number": "999",
+		"order": "4",
+		"name": "AncientIrismon",
+		"stage": "Spirit",
+		"spiritType": "Ancient",
+		"abilityName": "ancientirismon",
+		"element": "Wind",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "50",
+		"stats": {
+			"HP": "220",
+			"EN": "60",
+			"CR": "180",
+			"AB": "200"
+		}
+	},
+	{
+		"number": "999",
+		"order": "5",
+		"name": "AncientMegatheriummon",
+		"stage": "Spirit",
+		"spiritType": "Ancient",
+		"abilityName": "ancientmegatheriummon",
+		"element": "Ice",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "50",
+		"stats": {
+			"HP": "300",
+			"EN": "100",
+			"CR": "110",
+			"AB": "150"
+		}
+	},
+	{
+		"number": "999",
+		"order": "6",
+		"name": "AncientSphinxmon",
+		"stage": "Spirit",
+		"spiritType": "Ancient",
+		"abilityName": "ancientsphinxmon",
+		"element": "Dark",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "50",
+		"stats": {
+			"HP": "220",
+			"EN": "200",
+			"CR": "40",
+			"AB": "200"
+		}
+	},
+	{
+		"number": "999",
+		"order": "7",
+		"name": "AncientVolcamon",
+		"stage": "Spirit",
+		"spiritType": "Ancient",
+		"abilityName": "ancientvolcamon",
+		"element": "Earth",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "50",
+		"stats": {
+			"HP": "250",
+			"EN": "140",
+			"CR": "200",
+			"AB": "70"
+		}
+	},
+	{
+		"number": "999",
+		"order": "8",
+		"name": "AncientTrojamon",
+		"stage": "Spirit",
+		"spiritType": "Ancient",
+		"abilityName": "ancienttrojamon",
+		"element": "Wood",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "50",
+		"stats": {
+			"HP": "220",
+			"EN": "140",
+			"CR": "200",
+			"AB": "100"
+		}
+	},
+	{
+		"number": "999",
+		"order": "9",
+		"name": "AncientWisemon",
+		"stage": "Spirit",
+		"spiritType": "Ancient",
+		"abilityName": "ancientwisemon",
+		"element": "Metal",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "50",
+		"stats": {
+			"HP": "220",
+			"EN": "150",
+			"CR": "90",
+			"AB": "200"
+		}
+	},
+	{
+		"number": "999",
+		"order": "10",
+		"name": "AncientMermaimon",
+		"stage": "Spirit",
+		"spiritType": "Ancient",
+		"abilityName": "ancientmermaimon",
+		"element": "Water",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "50",
+		"stats": {
+			"HP": "180",
+			"EN": "135",
+			"CR": "95",
+			"AB": "250"
+		}
+	},
+	{
+		"number": "999",
+		"order": "41",
+		"name": "KaiserGreymon",
+		"stage": "Spirit",
+		"spiritType": "Fusion",
+		"abilityName": "kaisergreymon",
+		"element": "Fire",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "360",
+			"EN": "240",
+			"CR": "170",
+			"AB": "200"
+		}
+	},
+	{
+		"number": "999",
+		"order": "42",
+		"name": "MagnaGarurumon",
+		"stage": "Spirit",
+		"spiritType": "Fusion",
+		"abilityName": "magnagarurumon",
+		"element": "Light",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "360",
+			"EN": "170",
+			"CR": "220",
+			"AB": "220"
+		}
+	},
+	{
+		"number": "999",
+		"order": "43",
+		"name": "Susanoomon",
+		"stage": "Spirit",
+		"spiritType": "Fusion",
+		"abilityName": "susanoomon",
+		"element": "Light",
+		"weight": "0",
+		"rarity": "Boss",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "400",
+			"EN": "280",
+			"CR": "280",
+			"AB": "280"
+		}
+	},
+	{
+		"number": "999",
+		"order": "44",
+		"name": "Flamemon",
+		"stage": "Spirit",
+		"spiritType": "Child",
+		"abilityName": "flames_1",
+		"weight": "0",
+		"rarity": "none",
+		"disabled": "true",
+		"baseLevel": "100",
+		"stats": {
+			"HP": "180",
+			"EN": "90",
+			"CR": "90",
+			"AB": "90"
+		}
+	}
+]
