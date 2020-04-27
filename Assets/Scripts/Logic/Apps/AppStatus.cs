@@ -12,7 +12,6 @@ namespace Kaisa.Digivice {
 
         private GameManager gm;
         private AudioManager audioMgr;
-        private SpriteDatabase spriteDB;
 
         private int currentScreen = 0;
 
@@ -32,7 +31,6 @@ namespace Kaisa.Digivice {
         public void Initialize(GameManager gm) {
             this.gm = gm;
             audioMgr = gm.audioMgr;
-            spriteDB = gm.spriteDB;
             StartApp();
         }
         public void InputA() {
@@ -96,11 +94,9 @@ namespace Kaisa.Digivice {
                 case 4:
                 case 5:
                 case 6:
-                    int dockNumber = currentScreen - 2;
-                    Sprite dockDigimon = spriteDB.GetDigimonSprite(gm.LoadedGame.GetDockDigimon(dockNumber));
-                    if (dockDigimon == null) dockDigimon = spriteDB.status_ddockEmpty;
-                    screenDisplay.sprite = gm.spriteDB.status_ddock[dockNumber - 1]; //24x24
-                    SpriteBuilder digimon = gm.CreateSprite("Digimon", screenDisplay.transform, 24, 24, 4, 8, dockDigimon); 
+                    int dockNumber = currentScreen - 3;
+                    screenDisplay.sprite = gm.spriteDB.status_ddock[dockNumber];
+                    gm.CreateSpriteForDDock(dockNumber, screenDisplay.transform);
                     break;
             }
         }

@@ -122,27 +122,33 @@ namespace Kaisa.Digivice {
         public float WinPercentage {
             get => TotalWins / (float)TotalBattles;
         }
-        public string GetDockDigimon(int dock) {
+        /// <summary>
+        /// Note: DDocks are stored on values 0 to 3, even if they are called 1 to 4 in-game.
+        /// </summary>
+        public string GetDDockDigimon(int dock) {
             return EncryptedPlayerPrefs.GetString("s" + slot + "_dock" + dock);
         }
-        public void SetDockDigimon(int dock, string digimon) {
+        /// <summary>
+        /// Note: DDocks are stored on values 0 to 3, even if they are called 1 to 4 in-game.
+        /// </summary>
+        public void SetDDockDigimon(int dock, string digimon) {
             EncryptedPlayerPrefs.SetString("s" + slot + "_dock" + dock, digimon);
         }
         public bool IsDigimonUnlocked(string digimon) {
-            return !(GetDigimonLevel(digimon) == 0);
+            return !(GetDigimonLevel(digimon) == -1);
             /*if(PlayerPrefs.GetInt("s" + slot + "_digimon_" + digimon + "_unlocked") == 1) {
                 return true;
             }
             return false;*/
         }
         /// <summary>
-        /// Level 0 means locked, level 1 means unlocked, levels beyond 1 add levels to that digimon (i.e. level 3 means the digimon has 2 extra levels)
+        /// Level -1 means locked, level 0 and up mean unlocked, and represent the extra level of the Digimon.
         /// </summary>
         public void SetDigimonLevel(string digimon, int level) {
             EncryptedPlayerPrefs.SetInt("s" + slot + "_digimon_" + digimon + "_level", level);
         }
         /// <summary>
-        /// Level 0 means locked, level 1 means unlocked, levels beyond 1 add levels to that digimon (i.e. level 3 means the digimon has 2 extra levels)
+        /// Level -1 means locked, level 0 and up mean unlocked, and represent the extra level of the Digimon.
         /// </summary>
         public int GetDigimonLevel(string digimon) {
             return EncryptedPlayerPrefs.GetInt("s" + slot + "_digimon_" + digimon + "_level");

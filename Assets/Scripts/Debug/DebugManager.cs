@@ -127,7 +127,7 @@ namespace Kaisa.Digivice {
                 return "All Digimon have been unlocked.";
             }
             if (command.StartsWith("/lockAllDigimon")) {
-                gm.Database.UnlockAllDigimon();
+                gm.Database.LockAllDigimon();
                 return "All Digimon have been locked.";
             }
 

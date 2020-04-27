@@ -80,10 +80,12 @@ namespace Kaisa.Digivice {
         public void LockInput() => inputMgr.inhibitInput = true;
         public void UnlockInput() => inputMgr.inhibitInput = false;
 
+        public Transform MainScreenTransform => screenMgr.screenDisplay.transform;
+
         #region Create Screen Elements
-        public IScreenElement CreateScreenElement(GameObject element, Transform parent, string name = "") {
+        public ScreenElement CreateScreenElement(GameObject element, Transform parent, string name = "") {
             GameObject go = Instantiate(element, parent);
-            IScreenElement goClass = go.GetComponent<IScreenElement>();
+            ScreenElement goClass = go.GetComponent<ScreenElement>();
             if (name != "") goClass.SetName(name);
             return goClass;
         }
@@ -115,6 +117,18 @@ namespace Kaisa.Digivice {
             goClass.SetFont(font);
             goClass.SetAlignment(alignment);
             return goClass;
+        }
+
+        public SpriteBuilder CreateSpriteForDDock(int ddock, Transform parent) {
+            Sprite dockDigimon = spriteDB.GetDigimonSprite(Database.GetDDockDigimon(ddock));
+            if (dockDigimon == null) dockDigimon = spriteDB.status_ddockEmpty;
+            return CreateSprite($"DigimonDDock{ddock}", parent, 24, 24, 4, 8, dockDigimon);
+        }
+        #endregion
+
+        #region Animations
+        public void PlayAnimation(IEnumerator coroutine) {
+            StartCoroutine(coroutine);
         }
         #endregion
     }

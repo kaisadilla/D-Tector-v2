@@ -115,8 +115,8 @@ namespace Kaisa.Digivice {
         /// Returns the actual level of this Digimon controlled by the player, based on the player level, and the extra level of the Digimon stored in the Saved Game.
         /// </summary>
         /// <param name="playerLevel">The level of the player.</param>
-        /// <param name="digimonExtraLevel">The extra level of the Digimon stored in the Saved Game, not the actual level of the Digimon.</param>
-        public int GetFriendlyLevel(int playerLevel, int digimonExtraLevel) {
+        /// <param name="digimonExtraLevel">The extra level value of the Digimon stored in the Saved Game, not the actual level of the Digimon.</param>
+        public int GetFriendlyLevel(int digimonExtraLevel, int playerLevel = 100) {
             if (stage == Stage.Spirit) {
                 if (spiritType == SpiritType.Ancient) {
                     return (playerLevel < 20) ? 20 : playerLevel; //Returns the level of the player, but at a minimum level of 20.
@@ -127,7 +127,7 @@ namespace Kaisa.Digivice {
                 return (playerLevel < 10) ? 10 : playerLevel; //Returns the level of the player, but at a minimum level of 10.
             }
 
-            return baseLevel + digimonExtraLevel - 1;
+            return baseLevel + digimonExtraLevel;
         }
         /// <summary>
         /// Returns the chance that this Digimon will obey, based on the player level.
@@ -186,15 +186,12 @@ namespace Kaisa.Digivice {
         /// <param name="digimonExtraLevel">The extra level of the Digimon stored in the Saved Game, not the actual level of the Digimon.</param>
         /// <returns></returns>
         public CombatStats GetFriendlyStats(int playerLevel, int digimonExtraLevel) {
-            int friendlyLevel = GetFriendlyLevel(playerLevel, digimonExtraLevel);
-
-            int currentExtraLevel = friendlyLevel - baseLevel;
             int maxExtraLevel = MaxExtraLevel;
 
-            int HP = GetStatAsFriendly(stats.HP, currentExtraLevel, maxExtraLevel);
-            int EN = GetStatAsFriendly(stats.EN, currentExtraLevel, maxExtraLevel);
-            int CR = GetStatAsFriendly(stats.CR, currentExtraLevel, maxExtraLevel);
-            int AB = GetStatAsFriendly(stats.AB, currentExtraLevel, maxExtraLevel);
+            int HP = GetStatAsFriendly(stats.HP, digimonExtraLevel, maxExtraLevel);
+            int EN = GetStatAsFriendly(stats.EN, digimonExtraLevel, maxExtraLevel);
+            int CR = GetStatAsFriendly(stats.CR, digimonExtraLevel, maxExtraLevel);
+            int AB = GetStatAsFriendly(stats.AB, digimonExtraLevel, maxExtraLevel);
 
             return new CombatStats(HP, EN, CR, AB);
         }
@@ -260,9 +257,12 @@ namespace Kaisa.Digivice {
             return Mathf.RoundToInt(riggedStat);
         }
         private int GetStatAsFriendly(int stat, int currentExtraLevel, int maxExtraLevel) {
+            if (currentExtraLevel == 0) return stat;
+            int actualLevel = GetFriendlyLevel(currentExtraLevel);
+            int actualExtraLevel = baseLevel + maxExtraLevel;
             //This formula makes every digimon have mostly round numbers at its max level.
             //This interpolates the stat between 100% (when it has 0 extra levels) and 150% (when it has the maximum amount of extra levels).
-            float multiplier = 1.5f * (currentExtraLevel / maxExtraLevel);
+            float multiplier = 1.5f * (actualLevel / (float)actualExtraLevel);
             float riggedStat = stat * multiplier;
 
             return Mathf.CeilToInt(riggedStat);

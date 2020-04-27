@@ -86,6 +86,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8b44a7fc550c9f40acf46b42fa1b6fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flickPeriod: 0
-  elementImage: {fileID: 114406394579659918}
+  rectangle: {fileID: 114406394579659918}
   screenColor: {r: 0.5058824, g: 0.5764706, b: 0.4627451, a: 1}

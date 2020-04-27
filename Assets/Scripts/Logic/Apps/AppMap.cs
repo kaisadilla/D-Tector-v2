@@ -140,65 +140,59 @@ namespace Kaisa.Digivice {
                 else if (dir == Direction.Right) newSector = currentSector.CircularAdd(1, 3);
                 else return;
 
-                Sprite mapCurrentSprite = spriteDB.GetMapSectorSprites(currentMap)[currentSector];
-                SpriteBuilder sMapCurrent = gm.CreateSprite("AnimCurrentSector", screenDisplay.transform, posX: 0, posY: 0, sprite: mapCurrentSprite);
-
-                Sprite mapNewSprite = spriteDB.GetMapSectorSprites(currentMap)[newSector];
-                SpriteBuilder sMapNew = gm.CreateSprite("AnimNewSector", screenDisplay.transform, sprite: mapNewSprite);
+                Direction animDirection = Direction.Left;
 
                 if (dir == Direction.Left) {
                     if (currentSector == 0) {
-                        sMapNew.PlaceOutside(Direction.Right);
-                        StartCoroutine(AnimateMap(Direction.Left, sMapCurrent, sMapNew));
+                        animDirection = Direction.Left;
                     }
                     else if (currentSector == 1) {
-                        sMapNew.PlaceOutside(Direction.Up);
-                        StartCoroutine(AnimateMap(Direction.Down, sMapCurrent, sMapNew));
+                        animDirection = Direction.Down;
                     }
                     else if (currentSector == 2) {
-                        sMapNew.PlaceOutside(Direction.Left);
-                        StartCoroutine(AnimateMap(Direction.Right, sMapCurrent, sMapNew));
+                        animDirection = Direction.Right;
                     }
                     else if (currentSector == 3) {
-                        sMapNew.PlaceOutside(Direction.Down);
-                        StartCoroutine(AnimateMap(Direction.Up, sMapCurrent, sMapNew));
+                        animDirection = Direction.Up;
                     }
                 }
                 else if (dir == Direction.Right) {
                     if (currentSector == 0) {
-                        sMapNew.PlaceOutside(Direction.Down);
-                        StartCoroutine(AnimateMap(Direction.Up, sMapCurrent, sMapNew));
+                        animDirection = Direction.Up;
                     }
                     else if (currentSector == 1) {
-                        sMapNew.PlaceOutside(Direction.Right);
-                        StartCoroutine(AnimateMap(Direction.Left, sMapCurrent, sMapNew));
+                        animDirection = Direction.Left;
                     }
                     else if (currentSector == 2) {
-                        sMapNew.PlaceOutside(Direction.Up);
-                        StartCoroutine(AnimateMap(Direction.Down, sMapCurrent, sMapNew));
+                        animDirection = Direction.Down;
                     }
                     else if (currentSector == 3) {
-                        sMapNew.PlaceOutside(Direction.Left);
-                        StartCoroutine(AnimateMap(Direction.Right, sMapCurrent, sMapNew));
+                        animDirection = Direction.Right;
                     }
                 }
-
+                StartCoroutine(AnimateMap(animDirection, currentMap, currentSector, newSector));
                 currentSector = newSector;
             }
         }
 
-        private IEnumerator AnimateMap(Direction dir, SpriteBuilder sSprite1, SpriteBuilder sSprite2) {
+        private IEnumerator AnimateMap(Direction dir, int currentMap, int currentSector, int newSector) {
             gm.LockInput();
+            Sprite mapCurrentSprite = spriteDB.GetMapSectorSprites(currentMap)[currentSector];
+            SpriteBuilder sMapCurrent = gm.CreateSprite("AnimCurrentSector", gm.MainScreenTransform, posX: 0, posY: 0, sprite: mapCurrentSprite);
+
+            Sprite mapNewSprite = spriteDB.GetMapSectorSprites(currentMap)[newSector];
+            SpriteBuilder sMapNew = gm.CreateSprite("AnimNewSector", gm.MainScreenTransform, sprite: mapNewSprite);
+            sMapNew.PlaceOutside(dir.OppositeDirection());
 
             float animDuration = 1.5f;
             for(int i = 0; i < 32; i++) {
-                sSprite1.gameObject.MoveSprite(dir);
-                sSprite2.gameObject.MoveSprite(dir);
+                sMapCurrent.MoveSprite(dir);
+                sMapNew.MoveSprite(dir);
                 yield return new WaitForSeconds(animDuration / 32f);
             }
 
-            sSprite1.Dispose();
-            sSprite2.Dispose();
+            sMapCurrent.Dispose();
+            sMapNew.Dispose();
 
             UpdateScreen();
             gm.UnlockInput();

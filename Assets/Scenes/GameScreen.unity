@@ -1067,6 +1067,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  blackBars: {fileID: 21300206, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
   mainMenu:
   - {fileID: 21300000, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
   - {fileID: 21300002, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
@@ -1138,6 +1139,17 @@ MonoBehaviour:
   - {fileID: 21300104, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
   - {fileID: 21300106, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
   - {fileID: 21300108, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
+  elementNames:
+  - {fileID: 21300232, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
+  - {fileID: 21300234, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
+  - {fileID: 21300236, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
+  - {fileID: 21300238, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
+  - {fileID: 21300240, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
+  - {fileID: 21300242, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
+  - {fileID: 21300244, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
+  - {fileID: 21300246, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
+  - {fileID: 21300248, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
+  - {fileID: 21300250, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
   arrows: {fileID: 21300204, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
   invertedArrows: {fileID: 21300276, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
   database_pages:
@@ -4520,8 +4532,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2122903409}
-  - component: {fileID: 2122903411}
   - component: {fileID: 2122903410}
+  - component: {fileID: 2122903411}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -4654,6 +4666,11 @@ MonoBehaviour:
   source: {fileID: 2122903410}
   buttonA: {fileID: 8300000, guid: 1eba5b3364767e1478fe9052beeb0c0a, type: 3}
   buttonB: {fileID: 8300000, guid: fc4911b7a2ab5fb4a9672a09918eee37, type: 3}
+  charHappy: {fileID: 8300000, guid: 5cffea2d8d240484289be06abecaa287, type: 3}
+  charHappyLong: {fileID: 8300000, guid: a89f42dd6d16a394994214fbda68a6ab, type: 3}
+  charSad: {fileID: 8300000, guid: 3e05c5d8b554b2e4c92f285d4b66a742, type: 3}
+  charSadLong: {fileID: 8300000, guid: e2c11d3d382a2ce45ab0907e7e1d97fd, type: 3}
+  changeDock: {fileID: 8300000, guid: 9157ec63df6601844adfe3c2ed6f38aa, type: 3}
 --- !u!1 &2135575797
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,24 +6,12 @@ using UnityEngine.UI;
 using Kaisa.Digivice.Extensions;
 
 namespace Kaisa.Digivice {
-    public class TextBoxBuilder : MonoBehaviour, IScreenElement {
+    public class TextBoxBuilder : ScreenElement {
         [SerializeField] private Text textField;
+        [SerializeField] private ContentSizeFitter fitter;
         [SerializeField] private Font fRegular;
         [SerializeField] private Font fBig;
-
-        //IScreenElement methods:
-        public void Dispose() => Destroy(gameObject);
-        public void SetActive(bool active) => gameObject.SetActive(active);
-        public void SetName(string name) => gameObject.name = name;
-        public void SetPosition(int x, int y) {
-            gameObject.PlaceInPosition(x, y);
-        }
-        public void SetPosition(Vector2Int pos) => SetPosition(pos.x, pos.y);
-        public void SetSize(int width, int height) {
-            width *= Constants.PixelSize;
-            height *= Constants.PixelSize;
-            gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(width, height);
-        }
+        [SerializeField] private Font fSmall;
 
         //Specific methods:
         public string Text {
@@ -38,15 +26,23 @@ namespace Kaisa.Digivice {
                 case DFont.Big:
                     textField.font = fBig;
                     break;
+                case DFont.Small:
+                    textField.font = fSmall;
+                    break;
             }
         }
         public void SetAlignment(TextAnchor alignment) {
             textField.alignment = alignment;
         }
+
+        public void SetFitSizeToContent(bool val) {
+            fitter.gameObject.SetActive(val);
+        }
     }
 
     public enum DFont {
         Regular,
-        Big
+        Big,
+        Small
     }
 }

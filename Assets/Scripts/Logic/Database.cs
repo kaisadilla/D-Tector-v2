@@ -78,27 +78,25 @@ namespace Kaisa.Digivice {
         public void SetDigimonLevel(string name, int level) => SetDigimonLevel(GetDigimon(name), level);
         public void SetDigimonLevel(Digimon digimon, int level) {
             if (digimon == null) return;
-            //Check if the level being stored is higher than the maximum.
-            int maxExtraLevel = digimon.MaxExtraLevel + 1;
+            //Check if the level being stored is higher than the maximum or lower than -1. Note that -1 means the Digimon is locked.
+            int maxExtraLevel = digimon.MaxExtraLevel;
             if (level > maxExtraLevel) level = maxExtraLevel;
-            if (level < 0) level = 0;
+            if (level < -1) level = -1;
 
             gm.LoadedGame.SetDigimonLevel(digimon.name, level);
         }
 
         public int GetDigimonLevel(string name) => gm.LoadedGame.GetDigimonLevel(name);
-        public int GetDigimonLevel(Digimon digimon) => GetDigimonLevel(digimon.name);
 
         public bool IsDigimonUnlocked(string name) => gm.LoadedGame.IsDigimonUnlocked(name);
-        public bool IsDigimonUnlocked(Digimon digimon) => gm.LoadedGame.IsDigimonUnlocked(digimon.name);
 
         public void UnlockDigimon(string name) {
-            if (!IsDigimonUnlocked(name)) gm.LoadedGame.SetDigimonLevel(name, 1);
+            if (!IsDigimonUnlocked(name)) gm.LoadedGame.SetDigimonLevel(name, 0);
         }
-        public void UnlockDigimon(Digimon digimon) => UnlockDigimon(digimon.name);
         public void UnlockDigimonCode(string name) => gm.LoadedGame.SetDigimonCodeUnlocked(name, true);
-        public void UnlockDigimonCode(Digimon digimon) => UnlockDigimonCode(digimon.name);
-
+        public bool IsDigimonCodeUnlocked(string name) {
+            return gm.LoadedGame.GetDigimonCodeUnlocked(name);
+        }
         public void UnlockAllDigimon() {
             foreach(Digimon d in DigimonDB) {
                 UnlockDigimon(d.name);
@@ -106,7 +104,7 @@ namespace Kaisa.Digivice {
         }
         public void LockAllDigimon() {
             foreach (Digimon d in DigimonDB) {
-                SetDigimonLevel(d.name, 0);
+                SetDigimonLevel(d.name, -1);
             }
         }
         /// <summary>
@@ -114,7 +112,7 @@ namespace Kaisa.Digivice {
         /// </summary>
         public bool OwnsDigimonInStage(Stage stage) {
             foreach(Digimon d in DigimonDB) {
-                if(d.stage == stage && IsDigimonUnlocked(d)) {
+                if(d.stage == stage && IsDigimonUnlocked(d.name)) {
                     return true;
                 }
             }
@@ -123,7 +121,7 @@ namespace Kaisa.Digivice {
 
         public bool OwnsSpiritDigimonOfElement(Element element) {
             foreach (Digimon d in DigimonDB) {
-                if (d.stage == Stage.Spirit && d.spiritType != SpiritType.Fusion && d.element == element && IsDigimonUnlocked(d)) {
+                if (d.stage == Stage.Spirit && d.spiritType != SpiritType.Fusion && d.element == element && IsDigimonUnlocked(d.name)) {
                     return true;
                 }
             }
@@ -131,7 +129,7 @@ namespace Kaisa.Digivice {
         }
         public bool OwnsFusionSpiritDigimon() {
             foreach (Digimon d in DigimonDB) {
-                if (d.stage == Stage.Spirit && d.spiritType == SpiritType.Fusion && IsDigimonUnlocked(d)) {
+                if (d.stage == Stage.Spirit && d.spiritType == SpiritType.Fusion && IsDigimonUnlocked(d.name)) {
                     return true;
                 }
             }
@@ -139,12 +137,18 @@ namespace Kaisa.Digivice {
         }
 
         public bool IsInDock(string digimon) {
-            for(int i = 1; i <= 4; i++) {
-                if (gm.LoadedGame.GetDockDigimon(i) == digimon) {
+            for(int i = 0; i < 4; i++) {
+                if (gm.LoadedGame.GetDDockDigimon(i) == digimon) {
                     return true;
                 }
             }
             return false;
+        }
+
+        public string GetDDockDigimon(int ddock) => gm.LoadedGame.GetDDockDigimon(ddock);
+        public void SetDDockDigimon(int ddock, string digimon) {
+            if (ddock > 3) return; //The player only has 4 D-Docks.
+            gm.LoadedGame.SetDDockDigimon(ddock, digimon);
         }
     }
 }

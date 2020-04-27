@@ -18,6 +18,8 @@ public class SpriteDatabase : MonoBehaviour {
     public Sprite[] jp = new Sprite[10];
     public Sprite[] tommy = new Sprite[10];
     public Sprite[] koichi = new Sprite[10];
+    [Header("Generic")]
+    public Sprite blackBars;
     [Header("Menus")]
     public Sprite[] mainMenu = new Sprite[7];
     [Header("Map")]
@@ -39,6 +41,7 @@ public class SpriteDatabase : MonoBehaviour {
     public Sprite[] database_sections = new Sprite[8];
     public Sprite database_spirit_fusion;
     public Sprite[] elements = new Sprite[10];
+    public Sprite[] elementNames = new Sprite[10];
     public Sprite arrows;
     public Sprite invertedArrows;
     public Sprite[] database_pages = new Sprite[3];
