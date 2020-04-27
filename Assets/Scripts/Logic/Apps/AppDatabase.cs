@@ -98,7 +98,8 @@ namespace Kaisa.Digivice {
             }
             else if (currentScreen == ScreenDatabase.Pages) {
                 //TODO: Let the player choose DDock for a Digimon already in a DDock, and make it just swap those DDocks.
-                if(digimonIsInDDock) {
+                //Armor and Hybrid Digimon can't be put in DDocks.
+                if(menuIndex >= 5 || digimonIsInDDock) {
                     audioMgr.PlayButtonB();
                 }
                 else {
