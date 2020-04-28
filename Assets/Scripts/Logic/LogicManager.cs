@@ -50,6 +50,10 @@ namespace Kaisa.Digivice {
                     audioMgr.PlayButtonA();
                     OpenDatabase();
                 }
+                else if (currentMainMenu == MainMenu.Digits) {
+                    audioMgr.PlayButtonA();
+                    OpenDigits();
+                }
             }
             else if (currentScreen == Screen.App) {
                 loadedApp.InputA();
@@ -195,6 +199,10 @@ namespace Kaisa.Digivice {
         private void OpenDatabase() {
             currentScreen = Screen.App;
             loadedApp = AppDatabase.LoadApp(gm);
+        }
+        private void OpenDigits() {
+            currentScreen = Screen.App;
+            loadedApp = AppDigits.LoadApp(gm);
         }
     }
 }

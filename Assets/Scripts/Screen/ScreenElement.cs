@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Kaisa.Digivice {
     public abstract class ScreenElement : MonoBehaviour {
+        public Image background;
         public int Width {
             get => (int)(gameObject.GetComponent<RectTransform>().sizeDelta.x / Constants.PixelSize);
         }
@@ -21,6 +23,14 @@ namespace Kaisa.Digivice {
         public virtual void Dispose() => Destroy(gameObject);
         public void SetActive(bool active) => gameObject.SetActive(active);
         public void SetName(string name) => gameObject.name = name;
+
+        /// <summary>
+        /// Sets whether the element's background is transparent or not.
+        /// </summary>
+        /// <param name="val">The value of transparency.</param>
+        public void SetTransparent(bool val) {
+            background.enabled = val;
+        }
         /// <summary>
         /// Sets the size (in digivice pixels) of the rectangle.
         /// </summary>
@@ -69,5 +79,7 @@ namespace Kaisa.Digivice {
         private void SetRotation(int x, int y, int z) {
             gameObject.transform.localRotation = Quaternion.Euler(x, y, z);
         }
+
+        public abstract void InvertColors(bool val);
     }
 }

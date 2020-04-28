@@ -9,23 +9,28 @@ using Newtonsoft.Json.Linq;
 namespace Kaisa.Digivice {
     public class Database {
         private GameManager gm;
-        public Digimon[] DigimonDB { get; private set; }
-
+        public Digimon[] Digimons { get; private set; }
+        public Dictionary<string, string> DigiCodes { get; private set; }
         public Database(GameManager gm) {
             this.gm = gm;
             LoadDatabase();
         }
 
+        public void LoadDatabase() {
+            LoadDigimonDB();
+            LoadDigiCodeDB();
+        }
+
         /// <summary>
         /// Loads all the Digimon that are not marked as "disabled" from the json database.
         /// </summary>
-        public void LoadDatabase() {
+        private void LoadDigimonDB() {
             string digimonDBJson = ((TextAsset)Resources.Load("digimonDB")).text;
             JArray dbArray = JArray.Parse(digimonDBJson);
 
             List<Digimon> tempList = new List<Digimon>();
 
-            for(int i = 0; i < dbArray.Count; i++) {
+            for (int i = 0; i < dbArray.Count; i++) {
                 Digimon d = dbArray[i].ToObject<Digimon>();
 
                 if (!d.disabled) {
@@ -33,12 +38,17 @@ namespace Kaisa.Digivice {
                 }
             }
 
-            DigimonDB = tempList.ToArray();
+            Digimons = tempList.ToArray();
+        }
+
+        private void LoadDigiCodeDB() {
+            string digiCode = ((TextAsset)Resources.Load("codeDB")).text;
+            DigiCodes = JsonConvert.DeserializeObject<Dictionary<string, string>>(digiCode);
         }
 
         public Digimon GetDigimon(string name) {
-            foreach (Digimon d in DigimonDB) {
-                if (d.name == name) {
+            foreach (Digimon d in Digimons) {
+                if (d.name.ToLower() == name.ToLower()) {
                     return d;
                 }
             }
@@ -54,7 +64,7 @@ namespace Kaisa.Digivice {
             List<float> weightList = new List<float>();
             float totalWeight = 0f;
             //Populate the 'candidates' list with all eligible digimon, and store their individual weights and the total weight.
-            foreach (Digimon d in DigimonDB) {
+            foreach (Digimon d in Digimons) {
                 if (!d.disabled && d.baseLevel >= (playerLevel - threshold) && d.baseLevel <= (playerLevel + threshold)) {
                     candidates.Add(d);
                     float thisWeight = (1.1f - (Mathf.Abs(playerLevel - d.baseLevel) / (float)threshold)) * d.weight;
@@ -98,12 +108,12 @@ namespace Kaisa.Digivice {
             return gm.LoadedGame.GetDigimonCodeUnlocked(name);
         }
         public void UnlockAllDigimon() {
-            foreach(Digimon d in DigimonDB) {
+            foreach(Digimon d in Digimons) {
                 UnlockDigimon(d.name);
             }
         }
         public void LockAllDigimon() {
-            foreach (Digimon d in DigimonDB) {
+            foreach (Digimon d in Digimons) {
                 SetDigimonLevel(d.name, -1);
             }
         }
@@ -111,7 +121,7 @@ namespace Kaisa.Digivice {
         /// Returns true if the player has unlocked, at least, one digimon in that stage.
         /// </summary>
         public bool OwnsDigimonInStage(Stage stage) {
-            foreach(Digimon d in DigimonDB) {
+            foreach(Digimon d in Digimons) {
                 if(d.stage == stage && IsDigimonUnlocked(d.name)) {
                     return true;
                 }
@@ -120,7 +130,7 @@ namespace Kaisa.Digivice {
         }
 
         public bool OwnsSpiritDigimonOfElement(Element element) {
-            foreach (Digimon d in DigimonDB) {
+            foreach (Digimon d in Digimons) {
                 if (d.stage == Stage.Spirit && d.spiritType != SpiritType.Fusion && d.element == element && IsDigimonUnlocked(d.name)) {
                     return true;
                 }
@@ -128,7 +138,7 @@ namespace Kaisa.Digivice {
             return false;
         }
         public bool OwnsFusionSpiritDigimon() {
-            foreach (Digimon d in DigimonDB) {
+            foreach (Digimon d in Digimons) {
                 if (d.stage == Stage.Spirit && d.spiritType == SpiritType.Fusion && IsDigimonUnlocked(d.name)) {
                     return true;
                 }
@@ -149,6 +159,22 @@ namespace Kaisa.Digivice {
         public void SetDDockDigimon(int ddock, string digimon) {
             if (ddock > 3) return; //The player only has 4 D-Docks.
             gm.LoadedGame.SetDDockDigimon(ddock, digimon);
+        }
+
+        public string GetDigimonFromCode(string code) {
+            DigiCodes.TryGetValue(code.ToUpper(), out string digimon);
+            return digimon;
+        }
+
+        public bool TryGetCodeOfDigimon(string digimon, out string code) {
+            foreach(KeyValuePair<string, string> kv in DigiCodes) {
+                if(kv.Value == digimon) {
+                    code = kv.Key;
+                    return true;
+                }
+            }
+            code = "";
+            return false;
         }
     }
 }

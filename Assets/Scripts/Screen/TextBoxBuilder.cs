@@ -13,6 +13,21 @@ namespace Kaisa.Digivice {
         [SerializeField] private Font fBig;
         [SerializeField] private Font fSmall;
 
+        public new int Width {
+            get => (int)(textField.rectTransform.sizeDelta.x / Constants.PixelSize);
+        }
+
+        public override void InvertColors(bool val) {
+            if(val) {
+                textField.color = Constants.backgroundColor;
+                background.color = Constants.activeColor;
+            }
+            else {
+                textField.color = Constants.activeColor;
+                background.color = Constants.backgroundColor;
+            }
+        }
+
         //Specific methods:
         public string Text {
             get => textField.text;
@@ -36,7 +51,8 @@ namespace Kaisa.Digivice {
         }
 
         public void SetFitSizeToContent(bool val) {
-            fitter.gameObject.SetActive(val);
+            fitter.enabled = val;
+            background.rectTransform.sizeDelta = new Vector2(Width, background.rectTransform.sizeDelta.y);
         }
     }
 

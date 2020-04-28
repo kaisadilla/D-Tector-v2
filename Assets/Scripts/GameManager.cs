@@ -98,7 +98,7 @@ namespace Kaisa.Digivice {
             goClass.SetPosition(posX, posY);
             return goClass;
         }
-        public RectangleBuilder CreateRectangle(string name, Transform parent, int width = 1, int height = 1, int posX = 0, int posY = 0, int flickPeriod = 0) {
+        public RectangleBuilder CreateRectangle(string name, Transform parent, int width = 1, int height = 1, int posX = 0, int posY = 0, float flickPeriod = 0f) {
             GameObject go = Instantiate(pRectangle, parent);
             RectangleBuilder goClass = go.GetComponent<RectangleBuilder>();
             goClass.SetName(name);

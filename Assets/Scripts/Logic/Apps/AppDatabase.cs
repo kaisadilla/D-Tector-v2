@@ -4,6 +4,7 @@ using Kaisa.Digivice.Extensions;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -36,6 +37,7 @@ namespace Kaisa.Digivice {
         //Data pages
         private int pageIndex = 0; //This is restricted to 0 or 1, or sometimes 2 when the player can see the code of the Digimon.
         private Digimon pageDigimon;
+        private GameObject digimonNameSign;
         //DDock list / display
         private int ddockIndex = 0;
 
@@ -205,9 +207,15 @@ namespace Kaisa.Digivice {
         }
 
         private void DrawScreen() {
-            StopAllCoroutines(); //This has to be called before the SpriteBuilder of the digimon being animated is destroyed.
+            //Stop all coroutines, except if the digimon name sign has a value and we are still in the 'Pages' screen.
+            if(!(digimonNameSign != null && currentScreen == ScreenDatabase.Pages)) {
+                StopAllCoroutines();
+            }
+            //Destroy all children, except the ones called 'NameSign' if we are in the 'Pages' screen.
             foreach (Transform child in screenDisplay.transform) {
-                Destroy(child.gameObject);
+                if (!(currentScreen == ScreenDatabase.Pages && child.name == "NameSign")) {
+                    Destroy(child.gameObject);
+                }
             }
 
             if (currentScreen == ScreenDatabase.Menu) {
@@ -224,7 +232,7 @@ namespace Kaisa.Digivice {
             else if (currentScreen == ScreenDatabase.Gallery) {
                 string displayDigimon = galleryList[galleryIndex];
                 digimonIsInDDock = gm.Database.IsInDock(displayDigimon);
-                screenDisplay.sprite = (digimonIsInDDock) ? gm.spriteDB.invertedArrows : gm.spriteDB.arrows;
+                screenDisplay.sprite = (digimonIsInDDock) ? gm.spriteDB.invertedArrowsSmall : gm.spriteDB.arrowsSmall;
 
                 Sprite spriteRegular = gm.spriteDB.GetDigimonSprite(displayDigimon, SpriteAction.Default);
                 Sprite spriteAlt = gm.spriteDB.GetDigimonSprite(displayDigimon, SpriteAction.Attack);
@@ -239,10 +247,13 @@ namespace Kaisa.Digivice {
                 StartCoroutine(AnimateSprite(builder, spriteRegular, spriteAlt));
             }
             else if (currentScreen == ScreenDatabase.Pages) {
-                string name = string.Format("{0:000} {1}", pageDigimon.number, pageDigimon.name);
-                TextBoxBuilder nameBuilder = gm.CreateTextBox("Name", screenDisplay.transform, name, DFont.Big, 32, 7, 32, 0);
-                nameBuilder.SetFitSizeToContent(true);
-                StartCoroutine(AnimateName(nameBuilder));
+                if(digimonNameSign == null) {
+                    string name = string.Format("{0:000} {1}", pageDigimon.number, pageDigimon.name);
+                    TextBoxBuilder nameBuilder = gm.CreateTextBox("NameSign", screenDisplay.transform, name, DFont.Big, 32, 7, 32, 0);
+                    nameBuilder.SetFitSizeToContent(true);
+                    digimonNameSign = nameBuilder.gameObject;
+                    StartCoroutine(AnimateName(nameBuilder));
+                }
 
                 int playerLevel = gm.LoadedGame.PlayerLevel;
                 int digimonExtraLevel = gm.LoadedGame.GetDigimonLevel(pageDigimon.name);
@@ -264,8 +275,9 @@ namespace Kaisa.Digivice {
                     gm.CreateTextBox("Ability", screenDisplay.transform, stats.AB.ToString(), DFont.Regular, 15, 5, 16, 25, TextAnchor.UpperRight);
                 }
                 else if (pageIndex == 2) {
-                    //Build code page.
-                    //screenDisplay.sprite = gm.spriteDB.database_pages[2];
+                    screenDisplay.sprite = gm.spriteDB.database_pages[2];
+                    gm.Database.TryGetCodeOfDigimon(pageDigimon.name, out string code);
+                    gm.CreateTextBox("Code", screenDisplay.transform, code, DFont.Big, 30, 8, 2, 23, TextAnchor.UpperRight);
                 }
             }
             else if (currentScreen == ScreenDatabase.DDockList) {
@@ -302,7 +314,7 @@ namespace Kaisa.Digivice {
             galleryList.Clear();
             //Regular galleries.
             if (menuIndex < 6) {
-                foreach (Digimon d in gm.Database.DigimonDB) {
+                foreach (Digimon d in gm.Database.Digimons) {
                     if ((int)d.stage == menuIndex && gm.LoadedGame.IsDigimonUnlocked(d.name)) {
                         galleryList.Add(d.name);
                     }
@@ -312,7 +324,7 @@ namespace Kaisa.Digivice {
             else if (menuIndex == 6) {
                 //If an element is chosen.
                 if(spiritMenuIndex < 10) {
-                    foreach (Digimon d in gm.Database.DigimonDB) {
+                    foreach (Digimon d in gm.Database.Digimons) {
                         if ((int)d.stage == menuIndex && (int)d.element == spiritMenuIndex && d.spiritType != SpiritType.Fusion && gm.LoadedGame.IsDigimonUnlocked(d.name)) {
                             galleryList.Add(d.name);
                         }
@@ -320,7 +332,7 @@ namespace Kaisa.Digivice {
                 }
                 //If fusion is chosen.
                 if (spiritMenuIndex == 10) {
-                    foreach (Digimon d in gm.Database.DigimonDB) {
+                    foreach (Digimon d in gm.Database.Digimons) {
                         if ((int)d.stage == menuIndex && d.spiritType == SpiritType.Fusion && gm.LoadedGame.IsDigimonUnlocked(d.name)) {
                             galleryList.Add(d.name);
                         }
@@ -427,6 +439,7 @@ namespace Kaisa.Digivice {
         }
 
         private IEnumerator AnimateName(TextBoxBuilder builder) {
+            yield return null; //Wait for the next frame so the builder's text fitter has adjusted the component's Width.
             int goWidth = builder.Width;
 
             while (true) {

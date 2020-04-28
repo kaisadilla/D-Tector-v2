@@ -29,10 +29,11 @@ namespace Kaisa.Digivice {
             input.text = "";
         }
         public string AnalyzeCommand(string command) {
-            if (command.StartsWith("/currentSlot")) {
+            command = command.ToLower();
+            if (command.StartsWith("/currentslot")) {
                 return "Current slot: " + gm.LoadedGame.Slot;
             }
-            if (command.StartsWith("/checkSlot")) {
+            if (command.StartsWith("/checkslot")) {
                 string[] args = command.Split(' ');
                 if (args.Length == 2) {
                     try {
@@ -44,37 +45,37 @@ namespace Kaisa.Digivice {
                 }
                 return "Invalid number of parameters.";
             }
-            if (command.StartsWith("/gameName")) {
+            if (command.StartsWith("/gamename")) {
                 return "Game name: " + gm.LoadedGame.Name;
             }
-            if (command.StartsWith("/gameCharacter")) {
+            if (command.StartsWith("/gamecharacter")) {
                 return "Character: " + gm.LoadedGame.Name;
             }
-            if (command.StartsWith("/currentMap")) {
+            if (command.StartsWith("/currentmap")) {
                 return "Current map: " + gm.LoadedGame.CurrentMap;
             }
-            if (command.StartsWith("/currentArea")) {
+            if (command.StartsWith("/currentarea")) {
                 return "Current area: " + gm.LoadedGame.CurrentArea;
             }
-            if (command.StartsWith("/currentDistance")) {
+            if (command.StartsWith("/currentdistance")) {
                 return "Current distance: " + gm.LoadedGame.CurrentDistance;
             }
-            if (command.StartsWith("/totalSteps")) {
+            if (command.StartsWith("/totalsteps")) {
                 return "Steps: " + gm.LoadedGame.Steps;
             }
-            if (command.StartsWith("/stepsToNextEvent")) {
+            if (command.StartsWith("/stepstonextevent")) {
                 return "Steps until the next event: " + gm.LoadedGame.StepsToNextEvent;
             }
-            if (command.StartsWith("/playerExperience")) {
+            if (command.StartsWith("/playerexperience")) {
                 return "Player experience: " + gm.LoadedGame.PlayerExperience;
             }
-            if (command.StartsWith("/playerSpiritPower")) {
+            if (command.StartsWith("/playerspiritpower")) {
                 return "Player spirit power: " + gm.LoadedGame.SpiritPower;
             }
-            if (command.StartsWith("/totalWins")) {
+            if (command.StartsWith("/totalwins")) {
                 return "Total wins: " + gm.LoadedGame.TotalWins;
             }
-            if (command.StartsWith("/getDigimonLevel")) {
+            if (command.StartsWith("/getdigimonlevel")) {
                 string[] args = command.Split(' ');
                 if (args.Length == 2) {
                     if (gm.Database.GetDigimon(args[1]) == null) return "Digimon not found.";
@@ -82,7 +83,7 @@ namespace Kaisa.Digivice {
                 }
                 return "Invalid parameters. Expected (string)digimonName";
             }
-            if (command.StartsWith("/isAreaCompleted")) {
+            if (command.StartsWith("/isareacompleted")) {
                 string[] args = command.Split(' ');
                 if (args.Length == 3) {
                     try {
@@ -95,7 +96,7 @@ namespace Kaisa.Digivice {
                 return "Invalid parameters. Expected (int)map, (int)area";
             }
 
-            if (command.StartsWith("/addSpiritPower")) {
+            if (command.StartsWith("/addspiritpower")) {
                 string[] args = command.Split(' ');
                 if (args.Length == 2) {
                     try {
@@ -108,7 +109,7 @@ namespace Kaisa.Digivice {
                 }
                 return "Invalid parameters. Expected (int)amount";
             }
-            if (command.StartsWith("/setDigimonLevel")) {
+            if (command.StartsWith("/setdigimonlevel")) {
                 string[] args = command.Split(' ');
                 if (args.Length == 3) {
                     if (gm.Database.GetDigimon(args[1]) == null) return "Digimon not found.";
@@ -120,15 +121,33 @@ namespace Kaisa.Digivice {
                         return "Invalid number.";
                     }
                 }
-                return "Invalid parameters. Expected (string)digimonName, (int)level";
+                return "Invalid parameters. Expected (string)digimonName, (int)level.";
             }
-            if (command.StartsWith("/unlockAllDigimon")) {
+            if (command.StartsWith("/unlockalldigimon")) {
                 gm.Database.UnlockAllDigimon();
                 return "All Digimon have been unlocked.";
             }
-            if (command.StartsWith("/lockAllDigimon")) {
+            if (command.StartsWith("/lockalldigimon")) {
                 gm.Database.LockAllDigimon();
                 return "All Digimon have been locked.";
+            }
+            if (command.StartsWith("/setdigimoncodeunlocked")) {
+                string[] args = command.Split(' ');
+                if (args.Length == 3) {
+                    if (gm.Database.GetDigimon(args[1]) == null) return "Digimon not found.";
+                    if (args[2].ToLower() == "true") {
+                        gm.LoadedGame.SetDigimonCodeUnlocked(args[1], true);
+                        return "Code for " + args[1] + " unlocked set to: true.";
+                    }
+                    else if (args[2].ToLower() == "false") {
+                        gm.LoadedGame.SetDigimonCodeUnlocked(args[1], false);
+                        return "Code for " + args[1] + " unlocked set to: false.";
+                    }
+                    else {
+                        return "Invalid value. Value can only be 'true' or 'false'";
+                    }
+                }
+                return "Invalid parameters. Expected (string)digimonName, (true/false)unlocked.";
             }
 
             return "Invalid command.";

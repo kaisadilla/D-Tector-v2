@@ -217,7 +217,7 @@ namespace Kaisa.Digivice {
                     //If this area is the current area, use a flickering point to mark it. This point is drawn on top of the marker that indicates the area has been completed.
                     if (currentArea == i) {
                         Vector2Int markerPos = Constants.areaPositions[currentMap][i];
-                        currentAreaMarker = gm.CreateRectangle("CurrentAreaMarker", screenDisplay.transform, 2, 2, markerPos.x, markerPos.y, 250);
+                        currentAreaMarker = gm.CreateRectangle("CurrentAreaMarker", screenDisplay.transform, 2, 2, markerPos.x, markerPos.y, 0.25f);
                         markerPoints.Add(currentAreaMarker);
                     }
                 }
@@ -234,7 +234,7 @@ namespace Kaisa.Digivice {
             if (currentAreaMarker != null) currentAreaMarker.SetActive(false);
 
             //The marker that indicates the area that is being chosen.
-            hoveredMarker = gm.CreateRectangle("OptionMarker", screenDisplay.transform, 2, 2, flickPeriod: 250);
+            hoveredMarker = gm.CreateRectangle("OptionMarker", screenDisplay.transform, 2, 2, flickPeriod: 0.25f);
             hoveredAreaName = gm.CreateSprite("AreaName", screenDisplay.transform, 28, 5);
 
             if(currentMap == 0) {

@@ -20,6 +20,9 @@ public class SpriteDatabase : MonoBehaviour {
     public Sprite[] koichi = new Sprite[10];
     [Header("Generic")]
     public Sprite blackBars;
+    public Sprite arrows;
+    public Sprite arrowsSmall;
+    public Sprite invertedArrowsSmall;
     [Header("Menus")]
     public Sprite[] mainMenu = new Sprite[7];
     [Header("Map")]
@@ -42,10 +45,12 @@ public class SpriteDatabase : MonoBehaviour {
     public Sprite database_spirit_fusion;
     public Sprite[] elements = new Sprite[10];
     public Sprite[] elementNames = new Sprite[10];
-    public Sprite arrows;
-    public Sprite invertedArrows;
     public Sprite[] database_pages = new Sprite[3];
     public Sprite[] database_ddocks = new Sprite[4];
+    public Sprite[] database_searchOptions = new Sprite[3];
+    [Header("Digits")]
+    public Sprite digits_ok;
+    public Sprite digits_error;
 
     public Sprite[] GetCharacterSprites(GameChar character) {
         switch(character) {
