@@ -1,12 +1,8 @@
-﻿using System.Collections;
+﻿using Kaisa.Digivice.Extensions;
+using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
-using Kaisa.CircularTypes;
-using UnityEngine.Timeline;
-using Kaisa.Digivice.Extensions;
-using System;
 
 namespace Kaisa.Digivice {
     public class AppMap : MonoBehaviour, IDigiviceApp {
@@ -35,7 +31,7 @@ namespace Kaisa.Digivice {
         //ChoosingArea screen:
         private int hoveredArea;
         private RectangleBuilder hoveredMarker;
-        private SpriteBuilder hoveredAreaName;
+        private TextBoxBuilder hoveredAreaName;
         //ChoosingDistance screen:
         private SpriteBuilder distanceScreen;
 
@@ -61,7 +57,13 @@ namespace Kaisa.Digivice {
             LoadDataFromGame();
         }
         private void CloseApp(bool closeMenu) {
-            gm.logicMgr.FinalizeApp(closeMenu);
+            if(closeMenu) {
+                gm.logicMgr.FinalizeApp(Screen.Character);
+            }
+            else {
+
+                gm.logicMgr.FinalizeApp();
+            }
         }
 
         public void InputA() {
@@ -178,10 +180,10 @@ namespace Kaisa.Digivice {
         private IEnumerator AnimateMap(Direction dir, int currentMap, int currentSector, int newSector) {
             gm.LockInput();
             Sprite mapCurrentSprite = spriteDB.GetMapSectorSprites(currentMap)[currentSector];
-            SpriteBuilder sMapCurrent = gm.CreateSprite("AnimCurrentSector", gm.MainScreenTransform, posX: 0, posY: 0, sprite: mapCurrentSprite);
+            SpriteBuilder sMapCurrent = gm.BuildSprite("AnimCurrentSector", gm.MainScreenTransform, posX: 0, posY: 0, sprite: mapCurrentSprite);
 
             Sprite mapNewSprite = spriteDB.GetMapSectorSprites(currentMap)[newSector];
-            SpriteBuilder sMapNew = gm.CreateSprite("AnimNewSector", gm.MainScreenTransform, sprite: mapNewSprite);
+            SpriteBuilder sMapNew = gm.BuildSprite("AnimNewSector", gm.MainScreenTransform, sprite: mapNewSprite);
             sMapNew.PlaceOutside(dir.OppositeDirection());
 
             float animDuration = 1.5f;
@@ -211,13 +213,13 @@ namespace Kaisa.Digivice {
                 for(int i = firstArea; i <= firstArea + 2; i++) {
                     if(gm.DistanceMgr.GetAreaCompleted(currentMap, i)) {
                         Vector2Int markerPos = Constants.areaPositions[currentMap][i];
-                        RectangleBuilder marker = gm.CreateRectangle("Area" + i + "Marker", screenDisplay.transform, 2, 2, markerPos.x, markerPos.y);
+                        RectangleBuilder marker = gm.BuildRectangle("Area" + i + "Marker", screenDisplay.transform, 2, 2, markerPos.x, markerPos.y);
                         markerPoints.Add(marker);
                     }
                     //If this area is the current area, use a flickering point to mark it. This point is drawn on top of the marker that indicates the area has been completed.
                     if (currentArea == i) {
                         Vector2Int markerPos = Constants.areaPositions[currentMap][i];
-                        currentAreaMarker = gm.CreateRectangle("CurrentAreaMarker", screenDisplay.transform, 2, 2, markerPos.x, markerPos.y, 0.25f);
+                        currentAreaMarker = gm.BuildRectangle("CurrentAreaMarker", screenDisplay.transform, 2, 2, markerPos.x, markerPos.y, 0.25f);
                         markerPoints.Add(currentAreaMarker);
                     }
                 }
@@ -234,8 +236,8 @@ namespace Kaisa.Digivice {
             if (currentAreaMarker != null) currentAreaMarker.SetActive(false);
 
             //The marker that indicates the area that is being chosen.
-            hoveredMarker = gm.CreateRectangle("OptionMarker", screenDisplay.transform, 2, 2, flickPeriod: 0.25f);
-            hoveredAreaName = gm.CreateSprite("AreaName", screenDisplay.transform, 28, 5);
+            hoveredMarker = gm.BuildRectangle("OptionMarker", screenDisplay.transform, 2, 2, flickPeriod: 0.25f);
+            hoveredAreaName = gm.BuildTextBox("AreaName", screenDisplay.transform, "area", DFont.Small, 28, 5);
 
             if(currentMap == 0) {
                 hoveredArea = (currentSector == loadedGameSector) ? currentArea : currentSector * 3;
@@ -248,7 +250,7 @@ namespace Kaisa.Digivice {
                     hoveredAreaName.SetPosition(2, 26);
                 }
 
-                hoveredAreaName.SetSprite(spriteDB.GetMapAreaSprites(currentMap)[hoveredArea]);
+                hoveredAreaName.Text = string.Format("area{0:00}", hoveredArea + 1);
             }
         }
         private void NavigateAreas(Direction dir) {
@@ -260,7 +262,7 @@ namespace Kaisa.Digivice {
                     hoveredArea = hoveredArea.CircularAdd(1, (currentSector * 3) + 2, currentSector * 3);
                 }
                 hoveredMarker.SetPosition(Constants.areaPositions[currentMap][hoveredArea]);
-                hoveredAreaName.SetSprite(spriteDB.GetMapAreaSprites(currentMap)[hoveredArea]);
+                hoveredAreaName.Text = string.Format("area{0:00}", hoveredArea + 1);
             }
         }
         private void CloseAreaSelection() {
@@ -275,8 +277,8 @@ namespace Kaisa.Digivice {
             //If the area chosen is the area the player is already in, the distance will not change. Otherwise, get the distance for the new area.
             int areaDist = (hoveredArea == currentArea) ? gm.DistanceMgr.CurrentDistance : gm.DistanceMgr.Distances[currentMap][hoveredArea];
 
-            distanceScreen = gm.CreateSprite("DistanceScreen", screenDisplay.transform, sprite: spriteDB.map_distanceScreen);
-            gm.CreateTextBox("Distance", distanceScreen.transform, areaDist.ToString(), DFont.Regular, 25, 5, 6, 25, TextAnchor.UpperRight);
+            distanceScreen = gm.BuildSprite("DistanceScreen", screenDisplay.transform, sprite: spriteDB.map_distanceScreen);
+            gm.BuildTextBox("Distance", distanceScreen.transform, areaDist.ToString(), DFont.Regular, 25, 5, 6, 25, TextAnchor.UpperRight);
         }
 
         private void CloseViewDistance() {

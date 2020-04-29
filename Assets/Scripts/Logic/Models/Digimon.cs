@@ -1,8 +1,4 @@
-﻿using System;
-using System.CodeDom;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Kaisa.Digivice {
     public class Digimon {
@@ -33,7 +29,7 @@ namespace Kaisa.Digivice {
         {
             this.number = number;
             this.order = order;
-            this.name = name;
+            this.name = name.ToLower();
             this.stage = stage;
             this.spiritType = spiritType;
             this.abilityName = abilityName;

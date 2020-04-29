@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Kaisa.Digivice.Extensions;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
-using Kaisa.Digivice.Extensions;
 
 namespace Kaisa.Digivice {
     public class SpriteBuilder : ScreenElement {
@@ -18,6 +17,17 @@ namespace Kaisa.Digivice {
                 spriteImage.color = Constants.activeColor;
                 background.color = Constants.backgroundColor;
             }
+        }
+
+        public override void SetComponentPosition(int x, int y) {
+            spriteImage.gameObject.PlaceInPosition(x, y);
+
+        }
+        public override void SetComponentOffset(Vector2 offsetMin, Vector2 offsetMax) {
+            throw new NotImplementedException();
+            /*width *= Constants.PixelSize;
+            height *= Constants.PixelSize;
+            spriteImage.rectTransform.sizeDelta = new Vector2(width, height);*/
         }
 
         public void SetSprite(Sprite sprite) {

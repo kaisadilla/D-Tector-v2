@@ -54,6 +54,15 @@ namespace Kaisa.Digivice {
             fitter.enabled = val;
             background.rectTransform.sizeDelta = new Vector2(Width, background.rectTransform.sizeDelta.y);
         }
+
+        public override void SetComponentPosition(int x, int y) {
+            textField.gameObject.PlaceInPosition(x, y);
+
+        }
+        public override void SetComponentOffset(Vector2 offsetMin, Vector2 offsetMax) {
+            textField.rectTransform.offsetMin = new Vector2(offsetMin.x * Constants.PixelSize, offsetMin.y * Constants.PixelSize);
+            textField.rectTransform.offsetMax = new Vector2(offsetMax.x * Constants.PixelSize, offsetMax.y * Constants.PixelSize);
+        }
     }
 
     public enum DFont {

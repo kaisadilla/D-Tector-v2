@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Kaisa.Digivice {
     public static class Constants {
@@ -10,7 +7,7 @@ namespace Kaisa.Digivice {
         public const int PixelSize = 24;
         public const int ScreenWidth = 32;
         public const int ScreenHeight = 32;
-        public static readonly Color backgroundColor = new Color(129, 147, 118, 1);
+        public static readonly Color backgroundColor = new Color32(129, 147, 118, 255);
         public static readonly Color activeColor = Color.black;
 
         public static readonly Vector2Int[][] areaPositions = new Vector2Int[][] {

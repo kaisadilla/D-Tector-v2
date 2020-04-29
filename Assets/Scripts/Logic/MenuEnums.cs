@@ -16,7 +16,7 @@ namespace Kaisa.Digivice {
         App,
         GameMenu,
         GameRewardMenu,
-        GameTravelmenu
+        GameTravelMenu
     }
     public enum MainMenu {
         Map,

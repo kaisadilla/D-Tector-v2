@@ -29,7 +29,7 @@ namespace Kaisa.Digivice {
         /// </summary>
         /// <param name="val">The value of transparency.</param>
         public void SetTransparent(bool val) {
-            background.enabled = val;
+            background.enabled = !val;
         }
         /// <summary>
         /// Sets the size (in digivice pixels) of the rectangle.
@@ -43,6 +43,9 @@ namespace Kaisa.Digivice {
             gameObject.PlaceInPosition(x, y);
         }
         public void SetPosition(Vector2Int pos) => SetPosition(pos.x, pos.y);
+        public abstract void SetComponentOffset(Vector2 offsetMin, Vector2 offsetMax);
+        public abstract void SetComponentPosition(int x, int y);
+        public void SetComponentPosition(Vector2Int pos) => SetComponentPosition(pos.x, pos.y);
         public void PlaceOutside(Direction direction) {
             int coordinateUp = -Height;
             int coordinateDown = Constants.ScreenHeight;

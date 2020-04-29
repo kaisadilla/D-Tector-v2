@@ -54,7 +54,7 @@ namespace Kaisa.Digivice {
             InvokeRepeating("DrawScreen", 0, 0.05f); //The app screen is redrawn 20 times each second.
         }
         private void CloseApp() {
-            gm.logicMgr.FinalizeApp(false);
+            gm.logicMgr.FinalizeApp();
         }
 
         private void DrawScreen() {
@@ -67,15 +67,15 @@ namespace Kaisa.Digivice {
                     screenDisplay.sprite = gm.spriteDB.status_distance;
                     string distance = gm.DistanceMgr.CurrentDistance.ToString();
                     string steps = gm.DistanceMgr.TotalSteps.ToString();
-                    gm.CreateTextBox("TextDistance", screenDisplay.transform, distance, DFont.Regular, 31, 5, 0, 10, TextAnchor.UpperRight);
-                    gm.CreateTextBox("TextSteps", screenDisplay.transform, steps, DFont.Regular, 31, 5, 0, 26, TextAnchor.UpperRight);
+                    gm.BuildTextBox("TextDistance", screenDisplay.transform, distance, DFont.Regular, 31, 5, 0, 10, TextAnchor.UpperRight);
+                    gm.BuildTextBox("TextSteps", screenDisplay.transform, steps, DFont.Regular, 31, 5, 0, 26, TextAnchor.UpperRight);
                     break;
                 case 1:
                     screenDisplay.sprite = gm.spriteDB.status_level;
                     string level = gm.LoadedGame.PlayerLevel.ToString();
                     string spirits = gm.LoadedGame.SpiritPower.ToString();
-                    gm.CreateTextBox("TextLevel", screenDisplay.transform, level, DFont.Regular, 31, 5, 0, 10, TextAnchor.UpperRight);
-                    gm.CreateTextBox("TextSpirits", screenDisplay.transform, spirits, DFont.Regular, 31, 5, 0, 26, TextAnchor.UpperRight);
+                    gm.BuildTextBox("TextLevel", screenDisplay.transform, level, DFont.Regular, 31, 5, 0, 10, TextAnchor.UpperRight);
+                    gm.BuildTextBox("TextSpirits", screenDisplay.transform, spirits, DFont.Regular, 31, 5, 0, 26, TextAnchor.UpperRight);
                     break;
                 case 2:
                     screenDisplay.sprite = gm.spriteDB.status_victories;
@@ -87,8 +87,8 @@ namespace Kaisa.Digivice {
 
                     string victoryPerc = iVictoryPerc.ToString();
                     string winCount = gm.LoadedGame.SpiritPower.ToString();
-                    gm.CreateTextBox("TextLevel", screenDisplay.transform, victoryPerc, DFont.Regular, 24, 5, 0, 10, TextAnchor.UpperRight);
-                    gm.CreateTextBox("TextSpirits", screenDisplay.transform, winCount, DFont.Regular, 31, 5, 0, 26, TextAnchor.UpperRight);
+                    gm.BuildTextBox("TextLevel", screenDisplay.transform, victoryPerc, DFont.Regular, 24, 5, 0, 10, TextAnchor.UpperRight);
+                    gm.BuildTextBox("TextSpirits", screenDisplay.transform, winCount, DFont.Regular, 31, 5, 0, 26, TextAnchor.UpperRight);
                     break;
                 case 3:
                 case 4:
@@ -96,7 +96,7 @@ namespace Kaisa.Digivice {
                 case 6:
                     int dockNumber = currentScreen - 3;
                     screenDisplay.sprite = gm.spriteDB.status_ddock[dockNumber];
-                    gm.CreateSpriteForDDock(dockNumber, screenDisplay.transform);
+                    gm.BuildDDockSprite(dockNumber, screenDisplay.transform);
                     break;
             }
         }

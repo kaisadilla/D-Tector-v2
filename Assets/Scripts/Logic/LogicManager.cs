@@ -1,10 +1,8 @@
 ﻿//All menus should have their option set when they are open, not when they are closed (i.e. when you open the 'MainMenu', it is first set to be in the 'Map' tab).
 
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
 using Kaisa.Digivice.Extensions;
+using System;
+using UnityEngine;
 
 namespace Kaisa.Digivice {
     public class LogicManager : MonoBehaviour {
@@ -66,16 +64,18 @@ namespace Kaisa.Digivice {
                 }
                 else {
                     currentGameTravelMenu = 0;
-                    currentScreen = Screen.GameTravelmenu;
+                    currentScreen = Screen.GameTravelMenu;
                 }
             }
             else if (currentScreen == Screen.GameRewardMenu) {
                 audioMgr.PlayButtonA();
                 //Open whatever.
             }
-            else if (currentScreen == Screen.GameTravelmenu) {
-                audioMgr.PlayButtonA();
-                //Open whatever.
+            else if (currentScreen == Screen.GameTravelMenu) {
+                if (currentGameTravelMenu == GameTravelMenu.Maze) {
+                    audioMgr.PlayButtonA();
+                    OpenMaze();
+                }
             }
         }
 
@@ -98,7 +98,7 @@ namespace Kaisa.Digivice {
                 audioMgr.PlayButtonB();
                 currentScreen = Screen.GameMenu;
             }
-            else if (currentScreen == Screen.GameTravelmenu) {
+            else if (currentScreen == Screen.GameTravelMenu) {
                 audioMgr.PlayButtonB();
                 currentScreen = Screen.GameMenu;
             }
@@ -124,7 +124,7 @@ namespace Kaisa.Digivice {
                 audioMgr.PlayButtonA();
                 NavigateMenu(ref currentGameRewardMenu, Direction.Left);
             }
-            else if (currentScreen == Screen.GameTravelmenu) {
+            else if (currentScreen == Screen.GameTravelMenu) {
                 audioMgr.PlayButtonA();
                 NavigateMenu(ref currentGameTravelMenu, Direction.Left);
             }
@@ -150,7 +150,7 @@ namespace Kaisa.Digivice {
                 audioMgr.PlayButtonA();
                 NavigateMenu(ref currentGameRewardMenu, Direction.Right);
             }
-            else if (currentScreen == Screen.GameTravelmenu) {
+            else if (currentScreen == Screen.GameTravelMenu) {
                 audioMgr.PlayButtonA();
                 NavigateMenu(ref currentGameTravelMenu, Direction.Right);
             }
@@ -176,13 +176,8 @@ namespace Kaisa.Digivice {
                 menuEnum.SetNext();
             }
         }
-        public void FinalizeApp(bool closeMenu) {
-            if (closeMenu) {
-                currentScreen = Screen.Character;
-            }
-            else {
-                currentScreen = Screen.MainMenu;
-            }
+        public void FinalizeApp(Screen newScreen = Screen.MainMenu) {
+            currentScreen = newScreen;
             loadedApp.Dispose();
             loadedApp = null;
         }
@@ -203,6 +198,11 @@ namespace Kaisa.Digivice {
         private void OpenDigits() {
             currentScreen = Screen.App;
             loadedApp = AppDigits.LoadApp(gm);
+        }
+
+        private void OpenMaze() {
+            currentScreen = Screen.App;
+            loadedApp = AppMaze.LoadApp(gm);
         }
     }
 }

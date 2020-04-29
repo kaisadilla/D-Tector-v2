@@ -1,10 +1,7 @@
-﻿using System.Collections;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using Newtonsoft.Json;
-using Kaisa.Digivice;
-using System.Runtime.InteropServices;
-using Newtonsoft.Json.Linq;
 
 namespace Kaisa.Digivice {
     public class Database {
@@ -161,9 +158,11 @@ namespace Kaisa.Digivice {
             gm.LoadedGame.SetDDockDigimon(ddock, digimon);
         }
 
-        public string GetDigimonFromCode(string code) {
-            DigiCodes.TryGetValue(code.ToUpper(), out string digimon);
-            return digimon;
+        public bool TryGetDigimonFromCode(string code, out string digimon) {
+            if (DigiCodes.TryGetValue(code.ToUpper(), out digimon)) {
+                return true;
+            }
+            return false;
         }
 
         public bool TryGetCodeOfDigimon(string digimon, out string code) {

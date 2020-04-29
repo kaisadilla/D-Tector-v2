@@ -1,7 +1,4 @@
 ﻿using Kaisa.Digivice;
-using Kaisa.Digivice.Extensions;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,6 +22,17 @@ public class RectangleBuilder : ScreenElement {
     }
 
     //Specific methods:
+    /// <summary>
+    /// Sets whether the rectangle pixels' are active (true) or inactive (false).
+    /// </summary>
+    public void SetColor(bool activeColor) {
+        if(activeColor) {
+            rectangle.color = Constants.activeColor;
+        }
+        else {
+            rectangle.color = Constants.backgroundColor;
+        }
+    }
     /// <summary>
     /// Sets the speed (in seeconds) at which this rectangle flicks. A flick speed of 0 means that it will not flick.
     /// </summary>
@@ -65,4 +73,7 @@ public class RectangleBuilder : ScreenElement {
             }
         }
     }
+
+    public override void SetComponentOffset(Vector2 offsetMin, Vector2 offsetMax) { }
+    public override void SetComponentPosition(int x, int y) { }
 }

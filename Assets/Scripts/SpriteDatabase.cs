@@ -1,6 +1,4 @@
 ﻿using Kaisa.Digivice;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpriteDatabase : MonoBehaviour {
@@ -19,6 +17,8 @@ public class SpriteDatabase : MonoBehaviour {
     public Sprite[] tommy = new Sprite[10];
     public Sprite[] koichi = new Sprite[10];
     [Header("Generic")]
+    public Sprite emptySprite;
+    public Sprite blackScreen;
     public Sprite blackBars;
     public Sprite arrows;
     public Sprite arrowsSmall;
@@ -39,6 +39,8 @@ public class SpriteDatabase : MonoBehaviour {
     public Sprite[] game_sections = new Sprite[2];
     public Sprite[] games_reward = new Sprite[4];
     public Sprite[] games_travel = new Sprite[4];
+    public Sprite games_score;
+    public Sprite games_distance;
     [Header("Database")]
     [Tooltip("The last element of this array is the \"search tab\" of the database")]
     public Sprite[] database_sections = new Sprite[8];
@@ -51,6 +53,13 @@ public class SpriteDatabase : MonoBehaviour {
     [Header("Digits")]
     public Sprite digits_ok;
     public Sprite digits_error;
+    [Header("Animations")]
+    public Sprite givePowerBlack;
+    public Sprite givePowerWhite;
+    public Sprite giveMassivePowerBlack;
+    public Sprite giveMassivePowerWhite;
+    public Sprite acquireDigimon;
+    public Sprite dTector;
 
     public Sprite[] GetCharacterSprites(GameChar character) {
         switch(character) {
@@ -63,6 +72,7 @@ public class SpriteDatabase : MonoBehaviour {
         }
         return null;
     }
+
     /// <summary>
     /// Returns the sprite associated with the digimon and state given.
     /// </summary>
@@ -109,11 +119,11 @@ public class SpriteDatabase : MonoBehaviour {
 
         for(int x = 0; x < texture.width; x++) {
             for(int y = 0; y < texture.height; y++) {
-                if(texture.GetPixel(x, y) == new Color(0, 0, 0, 1)) {
-                    newTexture.SetPixel(x, y, new Color(0, 0, 0, 0));
+                if(texture.GetPixel(x, y) == Color.black) {
+                    newTexture.SetPixel(x, y, Color.clear);
                 }
                 else {
-                    newTexture.SetPixel(x, y, new Color(0, 0, 0, 1));
+                    newTexture.SetPixel(x, y, Color.black);
                 }
             }
         }

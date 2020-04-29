@@ -1,7 +1,6 @@
-﻿using System.Collections;
+﻿using Kaisa.Digivice.Extensions;
 using System.Collections.Generic;
 using UnityEngine;
-using Kaisa.Digivice.Extensions;
 
 namespace Kaisa.Digivice {
     public class SavedGame {
@@ -132,7 +131,7 @@ namespace Kaisa.Digivice {
         /// Note: DDocks are stored on values 0 to 3, even if they are called 1 to 4 in-game.
         /// </summary>
         public void SetDDockDigimon(int dock, string digimon) {
-            EncryptedPlayerPrefs.SetString("s" + slot + "_dock" + dock, digimon.ToLower());
+            EncryptedPlayerPrefs.SetString("s" + slot + "_dock" + dock, digimon);
         }
         public bool IsDigimonUnlocked(string digimon) {
             return !(GetDigimonLevel(digimon) == -1);
@@ -141,25 +140,25 @@ namespace Kaisa.Digivice {
         /// Level -1 means locked, level 0 and up mean unlocked, and represent the extra level of the Digimon.
         /// </summary>
         public void SetDigimonLevel(string digimon, int level) {
-            EncryptedPlayerPrefs.SetInt("s" + slot + "_digimon_" + digimon.ToLower() + "_level", level);
+            EncryptedPlayerPrefs.SetInt("s" + slot + "_digimon_" + digimon + "_level", level);
         }
         /// <summary>
         /// Level -1 means locked, level 0 and up mean unlocked, and represent the extra level of the Digimon.
         /// </summary>
         public int GetDigimonLevel(string digimon) {
-            return EncryptedPlayerPrefs.GetInt("s" + slot + "_digimon_" + digimon.ToLower() + "_level");
+            return EncryptedPlayerPrefs.GetInt("s" + slot + "_digimon_" + digimon + "_level");
         }
         /// <summary>
         /// Sets whether the player has unlocked the code for a digimon.
         /// </summary>
         public void SetDigimonCodeUnlocked(string digimon, bool value) {
-            EncryptedPlayerPrefs.SetInt("s" + slot + "_digimon_" + digimon.ToLower() + "_code", value ? 1 : 0);
+            EncryptedPlayerPrefs.SetInt("s" + slot + "_digimon_" + digimon + "_code", value ? 1 : 0);
         }
         /// <summary>
         /// Returns true if the player has unlocked the code for a digimon.
         /// </summary>
         public bool GetDigimonCodeUnlocked(string digimon) {
-            return EncryptedPlayerPrefs.GetInt("s" + slot + "_digimon_" + digimon.ToLower() + "_code") == 1;
+            return EncryptedPlayerPrefs.GetInt("s" + slot + "_digimon_" + digimon + "_code") == 1;
         }
         //Adventure: the player travels through different maps. Each map has a number of areas distributed between one or more sectors.
         /// <summary>

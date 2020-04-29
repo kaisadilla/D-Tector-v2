@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Kaisa.Digivice {
@@ -14,6 +13,8 @@ namespace Kaisa.Digivice {
         public AudioClip charHappyLong;
         public AudioClip charSad;
         public AudioClip charSadLong;
+        public AudioClip summonDigimon;
+        public AudioClip unlockDigimon;
         [Header("Database clips")]
         public AudioClip changeDock;
         public void PlayButtonA() {
@@ -25,6 +26,15 @@ namespace Kaisa.Digivice {
             source.clip = buttonB;
             source.Play();
             //AudioSource.PlayClipAtPoint(buttonB, Camera.main.transform.position);
+        }
+
+        public void PlayCharHappy() {
+            source.clip = charHappy;
+            source.Play();
+        }
+        public void PlayCharSad() {
+            source.clip = charSad;
+            source.Play();
         }
         public void PlaySound(AudioClip sound) {
             source.clip = sound;
@@ -38,5 +48,7 @@ namespace Kaisa.Digivice {
             yield return new WaitForSeconds(delay);
             PlaySound(sound);
         }
+
+        public bool IsSoundPlaying => source.isPlaying;
     }
 }
