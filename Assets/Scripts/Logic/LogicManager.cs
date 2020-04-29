@@ -22,7 +22,7 @@ namespace Kaisa.Digivice {
         public GameRewardMenu currentGameRewardMenu = GameRewardMenu.FindBattle;
         public GameTravelMenu currentGameTravelMenu = GameTravelMenu.SpeedRunner;
 
-        public IDigiviceApp loadedApp;
+        public App.DigiviceApp loadedApp;
 
         #region Input Management
         public void InputA() {
@@ -33,48 +33,52 @@ namespace Kaisa.Digivice {
             else if (currentScreen == Screen.MainMenu) {
                 if (currentMainMenu == MainMenu.Map) {
                     audioMgr.PlayButtonA();
-                    OpenMap();
+                    OpenApp(gm.pAppMap);
                 }
                 else if (currentMainMenu == MainMenu.Status) {
                     audioMgr.PlayButtonA();
-                    OpenStatus();
+                    OpenApp(gm.pAppStatus);
                 }
                 else if (currentMainMenu == MainMenu.Game) {
                     audioMgr.PlayButtonA();
                     currentGameMenu = 0;
-                    currentScreen = Screen.GameMenu;
+                    currentScreen = Screen.GamesMenu;
                 }
                 else if (currentMainMenu == MainMenu.Database) {
                     audioMgr.PlayButtonA();
-                    OpenDatabase();
+                    OpenApp(gm.pAppDatabase);
                 }
                 else if (currentMainMenu == MainMenu.Digits) {
                     audioMgr.PlayButtonA();
-                    OpenDigits();
+                    OpenApp(gm.pAppDigits);
                 }
             }
             else if (currentScreen == Screen.App) {
                 loadedApp.InputA();
             }
-            else if (currentScreen == Screen.GameMenu) {
+            else if (currentScreen == Screen.GamesMenu) {
                 audioMgr.PlayButtonA();
                 if (currentGameMenu == GameMenu.Reward) {
                     currentGameRewardMenu = 0;
-                    currentScreen = Screen.GameRewardMenu;
+                    currentScreen = Screen.GamesRewardMenu;
                 }
                 else {
                     currentGameTravelMenu = 0;
-                    currentScreen = Screen.GameTravelMenu;
+                    currentScreen = Screen.GamesTravelMenu;
                 }
             }
-            else if (currentScreen == Screen.GameRewardMenu) {
+            else if (currentScreen == Screen.GamesRewardMenu) {
                 audioMgr.PlayButtonA();
                 //Open whatever.
             }
-            else if (currentScreen == Screen.GameTravelMenu) {
-                if (currentGameTravelMenu == GameTravelMenu.Maze) {
+            else if (currentScreen == Screen.GamesTravelMenu) {
+                if (currentGameTravelMenu == GameTravelMenu.SpeedRunner) {
                     audioMgr.PlayButtonA();
-                    OpenMaze();
+                    OpenApp(gm.pAppSpeedRunner);
+                }
+                else if (currentGameTravelMenu == GameTravelMenu.Maze) {
+                    audioMgr.PlayButtonA();
+                    OpenApp(gm.pAppMaze);
                 }
             }
         }
@@ -90,17 +94,17 @@ namespace Kaisa.Digivice {
             else if (currentScreen == Screen.App) {
                 loadedApp.InputB();
             }
-            else if (currentScreen == Screen.GameMenu) {
+            else if (currentScreen == Screen.GamesMenu) {
                 audioMgr.PlayButtonB();
                 currentScreen = Screen.MainMenu;
             }
-            else if (currentScreen == Screen.GameRewardMenu) {
+            else if (currentScreen == Screen.GamesRewardMenu) {
                 audioMgr.PlayButtonB();
-                currentScreen = Screen.GameMenu;
+                currentScreen = Screen.GamesMenu;
             }
-            else if (currentScreen == Screen.GameTravelMenu) {
+            else if (currentScreen == Screen.GamesTravelMenu) {
                 audioMgr.PlayButtonB();
-                currentScreen = Screen.GameMenu;
+                currentScreen = Screen.GamesMenu;
             }
         }
 
@@ -116,15 +120,15 @@ namespace Kaisa.Digivice {
                 audioMgr.PlayButtonA();
                 NavigateMenu(ref currentMainMenu, Direction.Left);
             }
-            else if (currentScreen == Screen.GameMenu) {
+            else if (currentScreen == Screen.GamesMenu) {
                 audioMgr.PlayButtonA();
                 NavigateMenu(ref currentGameMenu, Direction.Left);
             }
-            else if (currentScreen == Screen.GameRewardMenu) {
+            else if (currentScreen == Screen.GamesRewardMenu) {
                 audioMgr.PlayButtonA();
                 NavigateMenu(ref currentGameRewardMenu, Direction.Left);
             }
-            else if (currentScreen == Screen.GameTravelMenu) {
+            else if (currentScreen == Screen.GamesTravelMenu) {
                 audioMgr.PlayButtonA();
                 NavigateMenu(ref currentGameTravelMenu, Direction.Left);
             }
@@ -142,15 +146,15 @@ namespace Kaisa.Digivice {
                 audioMgr.PlayButtonA();
                 NavigateMenu(ref currentMainMenu, Direction.Right);
             }
-            else if (currentScreen == Screen.GameMenu) {
+            else if (currentScreen == Screen.GamesMenu) {
                 audioMgr.PlayButtonA();
                 NavigateMenu(ref currentGameMenu, Direction.Right);
             }
-            else if (currentScreen == Screen.GameRewardMenu) {
+            else if (currentScreen == Screen.GamesRewardMenu) {
                 audioMgr.PlayButtonA();
                 NavigateMenu(ref currentGameRewardMenu, Direction.Right);
             }
-            else if (currentScreen == Screen.GameTravelMenu) {
+            else if (currentScreen == Screen.GamesTravelMenu) {
                 audioMgr.PlayButtonA();
                 NavigateMenu(ref currentGameTravelMenu, Direction.Right);
             }
@@ -182,27 +186,9 @@ namespace Kaisa.Digivice {
             loadedApp = null;
         }
 
-        private void OpenMap() {
+        private void OpenApp(GameObject appPrefab) {
             currentScreen = Screen.App;
-            loadedApp = AppMap.LoadApp(gm);
-        }
-
-        private void OpenStatus() {
-            currentScreen = Screen.App;
-            loadedApp = AppStatus.LoadApp(gm);
-        }
-        private void OpenDatabase() {
-            currentScreen = Screen.App;
-            loadedApp = AppDatabase.LoadApp(gm);
-        }
-        private void OpenDigits() {
-            currentScreen = Screen.App;
-            loadedApp = AppDigits.LoadApp(gm);
-        }
-
-        private void OpenMaze() {
-            currentScreen = Screen.App;
-            loadedApp = AppMaze.LoadApp(gm);
+            loadedApp = App.DigiviceApp.LoadApp(appPrefab, gm);
         }
     }
 }

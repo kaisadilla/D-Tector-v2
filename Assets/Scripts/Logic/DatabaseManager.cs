@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Kaisa.Digivice {
-    public class Database {
+    public class DatabaseManager {
         private GameManager gm;
         public Digimon[] Digimons { get; private set; }
         public Dictionary<string, string> DigiCodes { get; private set; }
-        public Database(GameManager gm) {
+        public DatabaseManager(GameManager gm) {
             this.gm = gm;
             LoadDatabase();
         }

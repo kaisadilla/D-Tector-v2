@@ -4,57 +4,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Kaisa.Digivice {
-    public class AppStatus : MonoBehaviour, IDigiviceApp {
-        [Header("UI Elements")]
-        [SerializeField]
-        private Image screenDisplay;
-
-        private GameManager gm;
-        private AudioManager audioMgr;
-
+namespace Kaisa.Digivice.App {
+    public class Status : DigiviceApp {
         private int currentScreen = 0;
 
-        //App Loader
-        public static AppStatus LoadApp(GameManager gm) {
-            GameObject appGO = Instantiate(gm.pAppStatus, gm.mainScreen.transform);
-            AppStatus appStatus = appGO.GetComponent<AppStatus>();
-            appStatus.Initialize(gm);
-            return appStatus;
+        public override void Dispose() {
+            CancelInvoke();
+            base.Dispose();
         }
 
-        //IDigiviceApp methods:
-        public void Dispose() {
-            CancelInvoke();
-            Destroy(gameObject);
-        }
-        public void Initialize(GameManager gm) {
-            this.gm = gm;
-            audioMgr = gm.audioMgr;
-            StartApp();
-        }
-        public void InputA() {
+        #region Input
+        public override void InputA() {
             audioMgr.PlayButtonB();
         }
-        public void InputB() {
+        public override void InputB() {
             audioMgr.PlayButtonB();
             CloseApp();
         }
-        public void InputLeft() {
+        public override void InputLeft() {
             audioMgr.PlayButtonA();
             currentScreen = currentScreen.CircularAdd(-1, 6);
         }
-        public void InputRight() {
+        public override void InputRight() {
             audioMgr.PlayButtonA();
             currentScreen = currentScreen.CircularAdd(1, 6);
         }
+        #endregion
 
-        //Specific methods:
-        private void StartApp() {
+        protected override void StartApp() {
             InvokeRepeating("DrawScreen", 0, 0.05f); //The app screen is redrawn 20 times each second.
-        }
-        private void CloseApp() {
-            gm.logicMgr.FinalizeApp();
         }
 
         private void DrawScreen() {

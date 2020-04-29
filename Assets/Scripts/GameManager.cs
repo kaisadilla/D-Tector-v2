@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Kaisa.Digivice {
@@ -10,6 +11,7 @@ namespace Kaisa.Digivice {
         public LogicManager logicMgr;
         public ScreenManager screenMgr;
         public SpriteDatabase spriteDB;
+        [SerializeField] private ShakeDetector shakeDetector;
 
         public GameObject mainScreen;
 
@@ -22,6 +24,7 @@ namespace Kaisa.Digivice {
         public GameObject pAppConnect;
 
         [Header("Games")]
+        public GameObject pAppSpeedRunner;
         public GameObject pAppMaze;
 
         [Header("Screen elements")]
@@ -31,18 +34,35 @@ namespace Kaisa.Digivice {
         public GameObject pTextBox;
 
         public PlayerCharacter playerChar;
-        public Database Database { get; private set; }
+        public DatabaseManager DatabaseMgr { get; private set; }
         public DistanceManager DistanceMgr { get; private set; }
         public SavedGame LoadedGame { get; private set; }
 
         public void Awake() {
             SetupManagers();
-            Database = new Database(this);
+            DatabaseMgr = new DatabaseManager(this);
             DistanceMgr = new DistanceManager(this);
         }
 
         public void Start() {
             LoadGame();
+        }
+
+        /// <summary>
+        /// Returns the corresponding app prefab based on the type of this app.
+        /// </summary>
+        /// <param name="app">The app class calling this.</param>
+        /// <returns></returns>
+        public GameObject GetAppPrefab(string appName) {
+            switch(appName) {
+                case "map":         return pAppMap;
+                case "status":      return pAppStatus;
+                case "database":    return pAppDatabase;
+                case "digits":      return pAppDigits;
+                case "maze":        return pAppSpeedRunner;
+                case "speedrunner": return pAppMaze;
+                default: return null;
+            }
         }
 
         public void DEBUGInitialize() {
@@ -57,6 +77,7 @@ namespace Kaisa.Digivice {
             logicMgr.AssignManagers(this);
             screenMgr.AssignManagers(this);
             debug.AssignManagers(this);
+            shakeDetector.AssignManagers(this);
         }
 
         private void LoadGame() {
@@ -74,6 +95,11 @@ namespace Kaisa.Digivice {
             //LoadedGame.SetAreaCompleted(0, 11, true);
         }
 
+        public void TakeAStep() {
+            DistanceMgr.TakeSteps(1); //Check for this.
+            DistanceMgr.ReduceDistance(1, out _);
+        }
+
         private void UpdateCharSprite() => playerChar.UpdateSprite(); //This should be done with a Task in PlayerCharacter, but I avoided installing the necessary plugins to make async Tasks work in this project.
 
         public Sprite[] PlayerCharSprites => spriteDB.GetCharacterSprites(LoadedGame.PlayerChar);
@@ -84,7 +110,7 @@ namespace Kaisa.Digivice {
         public void SetTappingEnabled(Direction dir, bool enabled, float speed = 0.15f) => inputMgr.SetTappingEnabled(dir, enabled, speed);
 
 
-        public Transform MainScreenTransform => screenMgr.screenDisplay.transform;
+        public Transform RootParent => screenMgr.screenDisplay.transform;
 
         public void SubmitGameScore(int score, int distance) {
             int oldDistance = DistanceMgr.CurrentDistance;
@@ -137,15 +163,15 @@ namespace Kaisa.Digivice {
         }
 
         public SpriteBuilder BuildDDockSprite(int ddock, Transform parent) {
-            Sprite dockDigimon = spriteDB.GetDigimonSprite(Database.GetDDockDigimon(ddock));
+            Sprite dockDigimon = spriteDB.GetDigimonSprite(DatabaseMgr.GetDDockDigimon(ddock));
             if (dockDigimon == null) dockDigimon = spriteDB.status_ddockEmpty;
             return BuildSprite($"DigimonDDock{ddock}", parent, 24, 24, 4, 8, dockDigimon);
         }
         #endregion
 
         #region Animations
-        public void PlayAnimation(IEnumerator coroutine) {
-            StartCoroutine(coroutine);
+        public void PlayAnimation(params IEnumerator[] animations) {
+            screenMgr.PlayAnimation(animations);
         }
         #endregion
     }

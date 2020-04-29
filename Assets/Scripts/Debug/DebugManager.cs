@@ -76,7 +76,7 @@ namespace Kaisa.Digivice {
             if (command.StartsWith("/getdigimonlevel")) {
                 string[] args = command.Split(' ');
                 if (args.Length == 2) {
-                    if (gm.Database.GetDigimon(args[1]) == null) return "Digimon not found.";
+                    if (gm.DatabaseMgr.GetDigimon(args[1]) == null) return "Digimon not found.";
                     return "Digimon " + args[1] + " level: " + gm.LoadedGame.GetDigimonLevel(args[1]);
                 }
                 return "Invalid parameters. Expected (string)digimonName";
@@ -110,7 +110,7 @@ namespace Kaisa.Digivice {
             if (command.StartsWith("/setdigimonlevel")) {
                 string[] args = command.Split(' ');
                 if (args.Length == 3) {
-                    if (gm.Database.GetDigimon(args[1]) == null) return "Digimon not found.";
+                    if (gm.DatabaseMgr.GetDigimon(args[1]) == null) return "Digimon not found.";
                     try {
                         gm.LoadedGame.SetDigimonLevel(args[1], int.Parse(args[2]));
                         return "Digimon " + args[1] + " level set to: " + gm.LoadedGame.GetDigimonLevel(args[1]);
@@ -122,17 +122,17 @@ namespace Kaisa.Digivice {
                 return "Invalid parameters. Expected (string)digimonName, (int)level.";
             }
             if (command.StartsWith("/unlockalldigimon")) {
-                gm.Database.UnlockAllDigimon();
+                gm.DatabaseMgr.UnlockAllDigimon();
                 return "All Digimon have been unlocked.";
             }
             if (command.StartsWith("/lockalldigimon")) {
-                gm.Database.LockAllDigimon();
+                gm.DatabaseMgr.LockAllDigimon();
                 return "All Digimon have been locked.";
             }
             if (command.StartsWith("/setdigimoncodeunlocked")) {
                 string[] args = command.Split(' ');
                 if (args.Length == 3) {
-                    if (gm.Database.GetDigimon(args[1]) == null) return "Digimon not found.";
+                    if (gm.DatabaseMgr.GetDigimon(args[1]) == null) return "Digimon not found.";
                     if (args[2].ToLower() == "true") {
                         gm.LoadedGame.SetDigimonCodeUnlocked(args[1], true);
                         return "Code for " + args[1] + " unlocked set to: true.";

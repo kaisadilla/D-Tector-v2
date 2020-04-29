@@ -4,69 +4,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Kaisa.Digivice {
-    public class AppMap : MonoBehaviour, IDigiviceApp {
-        private enum ScreenMap {
+namespace Kaisa.Digivice.App {
+    public class Map : DigiviceApp {
+        private enum ScreenMap { //TODO: Replace with an int.
             Map,
             ChoosingArea,
             ViewingDistance
         }
+        private ScreenMap currentScreen = ScreenMap.Map;
 
-        [Header("UI Elements")]
-        [SerializeField]
-        private Image screenDisplay;
-
-        private GameManager gm;
-        private AudioManager audioMgr;
-        private SpriteDatabase spriteDB;
-
+        //Map and area information.
         private int loadedGameSector; //The sector the player is already in, in the loaded game.
         //The map, sector and area the player is visualizing.
         private int currentMap; //The current map the player is in (i.e. standard map, area 13 map, royal knights' map...)
         private int currentSector; //The sector of the map, which is called 'map' in game.
         private int currentArea;
-        private ScreenMap currentScreen = ScreenMap.Map;
+
         //Map screen:
         private RectangleBuilder currentAreaMarker;
+
         //ChoosingArea screen:
         private int hoveredArea;
         private RectangleBuilder hoveredMarker;
         private TextBoxBuilder hoveredAreaName;
+
         //ChoosingDistance screen:
         private SpriteBuilder distanceScreen;
 
         private List<RectangleBuilder> markerPoints = new List<RectangleBuilder>();
 
-        public static AppMap LoadApp(GameManager gm) {
-            GameObject appGO = Instantiate(gm.pAppMap, gm.mainScreen.transform);
-            AppMap appMap = appGO.GetComponent<AppMap>();
-            appMap.Initialize(gm);
-            return appMap;
-        }
-        public void Initialize(GameManager gm) {
-            this.gm = gm;
-            audioMgr = gm.audioMgr;
-            spriteDB = gm.spriteDB;
-            StartApp();
-        }
-        public void Dispose() {
-            Destroy(gameObject);
-        }
-
-        private void StartApp() {
-            LoadDataFromGame();
-        }
-        private void CloseApp(bool closeMenu) {
-            if(closeMenu) {
-                gm.logicMgr.FinalizeApp(Screen.Character);
-            }
-            else {
-
-                gm.logicMgr.FinalizeApp();
-            }
-        }
-
-        public void InputA() {
+        #region Input
+        public override void InputA() {
             if (currentScreen == ScreenMap.Map) {
                 audioMgr.PlayButtonA();
                 OpenAreaSelection();
@@ -80,10 +48,10 @@ namespace Kaisa.Digivice {
                 ChooseArea();
             }
         }
-        public void InputB() {
+        public override void InputB() {
             if (currentScreen == ScreenMap.Map) {
                 audioMgr.PlayButtonB();
-                CloseApp(false);
+                CloseApp();
             }
             else if (currentScreen == ScreenMap.ChoosingArea) {
                 audioMgr.PlayButtonB();
@@ -94,34 +62,49 @@ namespace Kaisa.Digivice {
                 CloseViewDistance();
             }
         }
-        public void InputLeft() {
+        public override void InputLeft() {
             if (currentScreen == ScreenMap.Map) {
                 audioMgr.PlayButtonA();
                 NavigateMap(Direction.Left);
             }
-            else if(currentScreen == ScreenMap.ChoosingArea) {
+            else if (currentScreen == ScreenMap.ChoosingArea) {
                 audioMgr.PlayButtonA();
-                NavigateAreas(Direction.Left);
+                NavigateAreaSelection(Direction.Left);
             }
-            else if(currentScreen == ScreenMap.ViewingDistance) {
+            else if (currentScreen == ScreenMap.ViewingDistance) {
                 audioMgr.PlayButtonB();
             }
         }
-        public void InputRight() {
+        public override void InputRight() {
             if (currentScreen == ScreenMap.Map) {
                 audioMgr.PlayButtonA();
                 NavigateMap(Direction.Right);
             }
             else if (currentScreen == ScreenMap.ChoosingArea) {
                 audioMgr.PlayButtonA();
-                NavigateAreas(Direction.Right);
+                NavigateAreaSelection(Direction.Right);
             }
             else if (currentScreen == ScreenMap.ViewingDistance) {
                 audioMgr.PlayButtonB();
             }
         }
+        #endregion
 
-        private void LoadDataFromGame() {
+        protected override void StartApp() {
+            SetMapData();
+            DrawScreen();
+        }
+        private void DrawScreen() {
+            if (currentMap == 0) {
+                screenDisplay.sprite = gm.spriteDB.GetMapSectorSprites(currentMap)[currentSector];
+            }
+            DrawAreaMarkers();
+        }
+
+        /// <summary>
+        /// Retrieves and sets various parameters about the map.
+        /// </summary>
+        private void SetMapData() {
             currentMap = gm.DistanceMgr.CurrentMap;
             currentArea = gm.DistanceMgr.CurrentArea;
 
@@ -130,8 +113,6 @@ namespace Kaisa.Digivice {
                 currentSector = Mathf.FloorToInt(currentArea / 3f);
                 loadedGameSector = currentSector;
             }
-
-            UpdateScreen();
         }
 
         private void NavigateMap(Direction dir) {
@@ -172,46 +153,18 @@ namespace Kaisa.Digivice {
                         animDirection = Direction.Right;
                     }
                 }
-                StartCoroutine(AnimateMap(animDirection, currentMap, currentSector, newSector));
+                gm.PlayAnimation(gm.screenMgr.ATravelMap(animDirection, currentMap, currentSector, newSector));
                 currentSector = newSector;
             }
+            DrawScreen();
         }
 
-        private IEnumerator AnimateMap(Direction dir, int currentMap, int currentSector, int newSector) {
-            gm.LockInput();
-            Sprite mapCurrentSprite = spriteDB.GetMapSectorSprites(currentMap)[currentSector];
-            SpriteBuilder sMapCurrent = gm.BuildSprite("AnimCurrentSector", gm.MainScreenTransform, posX: 0, posY: 0, sprite: mapCurrentSprite);
-
-            Sprite mapNewSprite = spriteDB.GetMapSectorSprites(currentMap)[newSector];
-            SpriteBuilder sMapNew = gm.BuildSprite("AnimNewSector", gm.MainScreenTransform, sprite: mapNewSprite);
-            sMapNew.PlaceOutside(dir.OppositeDirection());
-
-            float animDuration = 1.5f;
-            for(int i = 0; i < 32; i++) {
-                sMapCurrent.MoveSprite(dir);
-                sMapNew.MoveSprite(dir);
-                yield return new WaitForSeconds(animDuration / 32f);
-            }
-
-            sMapCurrent.Dispose();
-            sMapNew.Dispose();
-
-            UpdateScreen();
-            gm.UnlockInput();
-        }
-        private void UpdateScreen() {
-            if(currentMap == 0) {
-                screenDisplay.sprite = spriteDB.GetMapSectorSprites(currentMap)[currentSector];
-            }
-            ShowCompleteAreas();
-        }
-        private void ShowCompleteAreas() {
+        private void DrawAreaMarkers() {
             ClearMarkers(); //Destroy all current markers.
-            //If sector is between 0 and 3, it is a sector of map 0, containing 3 areas.
-            if(currentSector >= 0 && currentSector <= 3) {
+            if(currentMap == 0) {
                 int firstArea = currentSector * 3;
-                for(int i = firstArea; i <= firstArea + 2; i++) {
-                    if(gm.DistanceMgr.GetAreaCompleted(currentMap, i)) {
+                for (int i = firstArea; i <= firstArea + 2; i++) {
+                    if (gm.DistanceMgr.GetAreaCompleted(currentMap, i)) {
                         Vector2Int markerPos = Constants.areaPositions[currentMap][i];
                         RectangleBuilder marker = gm.BuildRectangle("Area" + i + "Marker", screenDisplay.transform, 2, 2, markerPos.x, markerPos.y);
                         markerPoints.Add(marker);
@@ -225,7 +178,6 @@ namespace Kaisa.Digivice {
                 }
             }
         }
-
         private void ClearMarkers() {
             foreach (RectangleBuilder r in markerPoints) r.Dispose();
             markerPoints.Clear();
@@ -253,7 +205,7 @@ namespace Kaisa.Digivice {
                 hoveredAreaName.Text = string.Format("area{0:00}", hoveredArea + 1);
             }
         }
-        private void NavigateAreas(Direction dir) {
+        private void NavigateAreaSelection(Direction dir) {
             if(currentMap == 0) {
                 if(dir == Direction.Left) {
                     hoveredArea = hoveredArea.CircularAdd(-1, (currentSector * 3) + 2, currentSector * 3);
@@ -277,10 +229,9 @@ namespace Kaisa.Digivice {
             //If the area chosen is the area the player is already in, the distance will not change. Otherwise, get the distance for the new area.
             int areaDist = (hoveredArea == currentArea) ? gm.DistanceMgr.CurrentDistance : gm.DistanceMgr.Distances[currentMap][hoveredArea];
 
-            distanceScreen = gm.BuildSprite("DistanceScreen", screenDisplay.transform, sprite: spriteDB.map_distanceScreen);
+            distanceScreen = gm.BuildSprite("DistanceScreen", screenDisplay.transform, sprite: gm.spriteDB.map_distanceScreen);
             gm.BuildTextBox("Distance", distanceScreen.transform, areaDist.ToString(), DFont.Regular, 25, 5, 6, 25, TextAnchor.UpperRight);
         }
-
         private void CloseViewDistance() {
             currentScreen = ScreenMap.ChoosingArea;
             distanceScreen.Dispose();
@@ -288,7 +239,7 @@ namespace Kaisa.Digivice {
 
         private void ChooseArea() {
             if (hoveredArea != currentArea) gm.DistanceMgr.MoveToArea(currentMap, hoveredArea);
-            CloseApp(true);
+            CloseApp(Screen.Character);
         }
     }
 }

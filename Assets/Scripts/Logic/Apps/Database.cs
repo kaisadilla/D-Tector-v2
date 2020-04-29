@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Kaisa.Digivice {
-    public class AppDatabase : MonoBehaviour, IDigiviceApp {
-        private enum ScreenDatabase {
+namespace Kaisa.Digivice.App {
+    public class Database : DigiviceApp {
+        new protected static string appName = "database";
+
+        private enum ScreenDatabase { //TODO: Replace with an int
             Menu,
             Menu_Spirit,
             Gallery,
@@ -14,14 +16,7 @@ namespace Kaisa.Digivice {
             DDockList,
             DDockDisplay
         }
-
-        [Header("UI Elements")]
-        [SerializeField]
-        private Image screenDisplay;
-
-        private GameManager gm;
-        private AudioManager audioMgr;
-
+        //Current screen
         private ScreenDatabase _currentScreen = ScreenDatabase.Menu;
         private ScreenDatabase CurrentScreen {
             get => _currentScreen;
@@ -38,40 +33,28 @@ namespace Kaisa.Digivice {
             }
         }
         private int menuIndex = 0;
+
         //Gallery viewer
         private bool digimonIsInDDock = false;
         private List<string> galleryList = new List<string>(); //Stores the names of all Pokémon that must be shown in this gallery.
         private int galleryIndex = 0;
+
         //Hybrid gallery menu
         private int spiritMenuIndex = 0;
+
         //Data pages
         private int pageIndex = 0; //This is restricted to 0 or 1, or sometimes 2 when the player can see the code of the Digimon.
         private Digimon pageDigimon;
         private GameObject digimonNameSign;
-        //DDock list / display
+
+        //DDock list/display
         private int ddockIndex = 0;
 
-        //App Loader
-        public static AppDatabase LoadApp(GameManager gm) {
-            GameObject appGO = Instantiate(gm.pAppDatabase, gm.mainScreen.transform);
-            AppDatabase appMap = appGO.GetComponent<AppDatabase>();
-            appMap.Initialize(gm);
-            return appMap;
-        }
-
-        //IDigiviceApp Methods:
-        public void Dispose() {
-            Destroy(gameObject);
-        }
-        public void Initialize(GameManager gm) {
-            this.gm = gm;
-            audioMgr = gm.audioMgr;
-            StartApp();
-        }
-        public void InputA() {
+        #region Input
+        public override void InputA() {
             if (CurrentScreen == ScreenDatabase.Menu) {
                 if (menuIndex < 6) {
-                    if (gm.Database.OwnsDigimonInStage((Stage)menuIndex)) {
+                    if (gm.DatabaseMgr.OwnsDigimonInStage((Stage)menuIndex)) {
                         audioMgr.PlayButtonA();
                         OpenGallery();
                     }
@@ -86,7 +69,7 @@ namespace Kaisa.Digivice {
             }
             else if (CurrentScreen == ScreenDatabase.Menu_Spirit) {
                 if (spiritMenuIndex < 10) {
-                    if (gm.Database.OwnsSpiritDigimonOfElement((Element)spiritMenuIndex)) {
+                    if (gm.DatabaseMgr.OwnsSpiritDigimonOfElement((Element)spiritMenuIndex)) {
                         audioMgr.PlayButtonA();
                         OpenGallery();
                     }
@@ -95,7 +78,7 @@ namespace Kaisa.Digivice {
                     }
                 }
                 else {
-                    if (gm.Database.OwnsFusionSpiritDigimon()) {
+                    if (gm.DatabaseMgr.OwnsFusionSpiritDigimon()) {
                         audioMgr.PlayButtonA();
                         OpenGallery();
                     }
@@ -111,7 +94,7 @@ namespace Kaisa.Digivice {
             else if (CurrentScreen == ScreenDatabase.Pages) {
                 //TODO: Let the player choose DDock for a Digimon already in a DDock, and make it just swap those DDocks.
                 //Armor and Hybrid Digimon can't be put in DDocks.
-                if(menuIndex >= 5 || digimonIsInDDock) {
+                if (menuIndex >= 5 || digimonIsInDDock) {
                     audioMgr.PlayButtonB();
                 }
                 else {
@@ -127,7 +110,7 @@ namespace Kaisa.Digivice {
                 ChooseDDock();
             }
         }
-        public void InputB() {
+        public override void InputB() {
             if (CurrentScreen == ScreenDatabase.Menu) {
                 audioMgr.PlayButtonB();
                 CloseApp();
@@ -153,7 +136,7 @@ namespace Kaisa.Digivice {
                 CloseDDockDisplay();
             }
         }
-        public void InputLeft() {
+        public override void InputLeft() {
             if (CurrentScreen == ScreenDatabase.Menu) {
                 audioMgr.PlayButtonA();
                 NavigateStageMenu(Direction.Left);
@@ -180,7 +163,7 @@ namespace Kaisa.Digivice {
                 NavigateDDock(Direction.Left);
             }
         }
-        public void InputRight() {
+        public override void InputRight() {
             if (CurrentScreen == ScreenDatabase.Menu) {
                 audioMgr.PlayButtonA();
                 NavigateStageMenu(Direction.Right);
@@ -207,13 +190,10 @@ namespace Kaisa.Digivice {
                 NavigateDDock(Direction.Right);
             }
         }
+        #endregion
 
-        //Specific methods:
-        private void StartApp() {
+        protected override void StartApp() {
             DrawScreen();
-        }
-        private void CloseApp() {
-            gm.logicMgr.FinalizeApp();
         }
 
         private void DrawScreen() {
@@ -241,7 +221,7 @@ namespace Kaisa.Digivice {
             }
             else if (CurrentScreen == ScreenDatabase.Gallery) {
                 string displayDigimon = galleryList[galleryIndex];
-                digimonIsInDDock = gm.Database.IsInDock(displayDigimon);
+                digimonIsInDDock = gm.DatabaseMgr.IsInDock(displayDigimon);
                 screenDisplay.sprite = (digimonIsInDDock) ? gm.spriteDB.invertedArrowsSmall : gm.spriteDB.arrowsSmall;
 
                 Sprite spriteRegular = gm.spriteDB.GetDigimonSprite(displayDigimon, SpriteAction.Default);
@@ -286,7 +266,7 @@ namespace Kaisa.Digivice {
                 }
                 else if (pageIndex == 2) {
                     screenDisplay.sprite = gm.spriteDB.database_pages[2];
-                    gm.Database.TryGetCodeOfDigimon(pageDigimon.name, out string code);
+                    gm.DatabaseMgr.TryGetCodeOfDigimon(pageDigimon.name, out string code);
                     gm.BuildTextBox("Code", screenDisplay.transform, code, DFont.Big, 30, 8, 2, 23, TextAnchor.UpperRight);
                 }
             }
@@ -324,7 +304,7 @@ namespace Kaisa.Digivice {
             galleryList.Clear();
             //Regular galleries.
             if (menuIndex < 6) {
-                foreach (Digimon d in gm.Database.Digimons) {
+                foreach (Digimon d in gm.DatabaseMgr.Digimons) {
                     if ((int)d.stage == menuIndex && gm.LoadedGame.IsDigimonUnlocked(d.name)) {
                         galleryList.Add(d.name);
                     }
@@ -334,7 +314,7 @@ namespace Kaisa.Digivice {
             else if (menuIndex == 6) {
                 //If an element is chosen.
                 if(spiritMenuIndex < 10) {
-                    foreach (Digimon d in gm.Database.Digimons) {
+                    foreach (Digimon d in gm.DatabaseMgr.Digimons) {
                         if ((int)d.stage == menuIndex && (int)d.element == spiritMenuIndex && d.spiritType != SpiritType.Fusion && gm.LoadedGame.IsDigimonUnlocked(d.name)) {
                             galleryList.Add(d.name);
                         }
@@ -342,7 +322,7 @@ namespace Kaisa.Digivice {
                 }
                 //If fusion is chosen.
                 if (spiritMenuIndex == 10) {
-                    foreach (Digimon d in gm.Database.Digimons) {
+                    foreach (Digimon d in gm.DatabaseMgr.Digimons) {
                         if ((int)d.stage == menuIndex && d.spiritType == SpiritType.Fusion && gm.LoadedGame.IsDigimonUnlocked(d.name)) {
                             galleryList.Add(d.name);
                         }
@@ -377,13 +357,13 @@ namespace Kaisa.Digivice {
             pageIndex = 0;
 
             string displayDigimon = galleryList[galleryIndex];
-            pageDigimon = gm.Database.GetDigimon(displayDigimon);
+            pageDigimon = gm.DatabaseMgr.GetDigimon(displayDigimon);
 
             DrawScreen();
         }
 
         private void NavigatePages(Direction dir) {
-            int upperBound = (gm.Database.IsDigimonCodeUnlocked(pageDigimon.name)) ? 2 : 1;
+            int upperBound = (gm.DatabaseMgr.IsDigimonCodeUnlocked(pageDigimon.name)) ? 2 : 1;
 
             if (dir == Direction.Left) pageIndex = pageIndex.CircularAdd(-1, upperBound);
             else pageIndex = pageIndex.CircularAdd(1, upperBound);
@@ -425,8 +405,8 @@ namespace Kaisa.Digivice {
             DrawScreen();
         }
         private void ChooseDDock() {
-            gm.PlayAnimation(SwapDDock(ddockIndex, pageDigimon.name));
-            gm.Database.SetDDockDigimon(ddockIndex, pageDigimon.name);
+            gm.PlayAnimation(gm.screenMgr.ASwapDDock(ddockIndex, pageDigimon.name));
+            gm.DatabaseMgr.SetDDockDigimon(ddockIndex, pageDigimon.name);
             CloseDDockDisplay();
             CloseDDockList();
             ClosePages();
@@ -460,55 +440,6 @@ namespace Kaisa.Digivice {
                 }
                 yield return new WaitForSeconds(1.5f);
             }
-        }
-
-        private IEnumerator SwapDDock(int ddock, string newDigimon) {
-            gm.LockInput();
-
-            float animDuration = 1.5f;
-            Sprite newDigimonSprite = gm.spriteDB.GetDigimonSprite(newDigimon);
-            Sprite newDigimonSpriteCr = gm.spriteDB.GetDigimonSprite(newDigimon, SpriteAction.Crush);
-
-            audioMgr.PlaySound(audioMgr.changeDock);
-
-            SpriteBuilder bBlackBars = gm.BuildSprite("BlackBars", gm.MainScreenTransform, sprite: gm.spriteDB.blackBars);
-            bBlackBars.PlaceOutside(Direction.Down);
-            SpriteBuilder bDDock = gm.BuildSprite("DDock", gm.MainScreenTransform, sprite: gm.spriteDB.status_ddock[ddock]);
-            SpriteBuilder bDDockSprite = gm.BuildDDockSprite(ddock, bDDock.transform);
-
-            yield return new WaitForSeconds(0.75f);
-
-            for (int i = 0; i < 32; i++) {
-                bBlackBars.MoveSprite(Direction.Up);
-                bDDock.MoveSprite(Direction.Up);
-                yield return new WaitForSeconds(animDuration / 32f);
-            }
-
-            bDDockSprite.SetSprite(newDigimonSprite);
-            yield return new WaitForSeconds(0.75f);
-
-            for (int i = 0; i < 32; i++) {
-                bBlackBars.MoveSprite(Direction.Down);
-                bDDock.MoveSprite(Direction.Down);
-                yield return new WaitForSeconds(animDuration / 32f);
-            }
-
-            yield return new WaitForSeconds(0.5f);
-
-            StartCoroutine(audioMgr.PlaySoundAfterDelay(audioMgr.charHappy, 0.175f));
-            for(int i = 0; i < 5; i++) {
-                bDDockSprite.SetSprite(null);
-                yield return new WaitForSeconds(0.175f);
-                bDDockSprite.SetSprite(newDigimonSpriteCr);
-                yield return new WaitForSeconds(0.175f);
-            }
-
-            yield return new WaitForSeconds(0.5f);
-
-            bBlackBars.Dispose();
-            bDDock.Dispose();
-
-            gm.UnlockInput();
         }
         #endregion
     }

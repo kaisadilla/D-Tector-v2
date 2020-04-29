@@ -4,19 +4,17 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Kaisa.Digivice {
-    public class AppDigits : MonoBehaviour, IDigiviceApp {
-        [Header("UI Elements")]
-        [SerializeField]
-        private Image screenDisplay;
+namespace Kaisa.Digivice.App {
+    public class Digits : DigiviceApp {
+        new protected static string appName = "digits";
 
-        private GameManager gm;
-        private AudioManager audioMgr;
+        private int inputStatus = 0; //0: inputting, 1: ok?, 2: error, 3: success
+
         //UI
         private RectangleBuilder[] underscores = new RectangleBuilder[5];
         private TextBoxBuilder selectedInputDisplay;
         private TextBoxBuilder currentInputDisplay;
-        private int inputStatus = 0; //0: inputting, 1: ok?, 2: error, 3: success
+
         //Code info
         private byte selectedInput = 0x41;
         private Stack<byte> currentInput = new Stack<byte>();
@@ -25,23 +23,9 @@ namespace Kaisa.Digivice {
         private string SelectedInputString => ((char)selectedInput).ToString();
         private string CurrentInputString => Encoding.ASCII.GetString(currentInput.Reverse().ToArray());
 
-        //App Loader
-        public static AppDigits LoadApp(GameManager gm) {
-            GameObject appGO = Instantiate(gm.pAppDigits, gm.mainScreen.transform);
-            AppDigits app = appGO.GetComponent<AppDigits>();
-            app.Initialize(gm);
-            return app;
-        }
-
-        //IDigiviceApp Methods:
-        public void Dispose() => Destroy(gameObject);
-        public void Initialize(GameManager gm) {
-            this.gm = gm;
-            audioMgr = gm.audioMgr;
-            StartApp();
-        }
-        public void InputA() {
-            if(!InputIsFull) {
+        #region Input
+        public override void InputA() {
+            if (!InputIsFull) {
                 audioMgr.PlayButtonA();
                 currentInput.Push(selectedInput);
                 if (InputIsFull) inputStatus = 1; //If this byte made 5 characters.
@@ -56,7 +40,7 @@ namespace Kaisa.Digivice {
                 inputStatus = 0;
             }
         }
-        public void InputB() {
+        public override void InputB() {
             if (InputIsEmpty) {
                 audioMgr.PlayButtonB();
                 CloseApp();
@@ -67,8 +51,8 @@ namespace Kaisa.Digivice {
                 inputStatus = 0;
             }
         }
-        public void InputLeft() {
-            if(!InputIsFull) {
+        public override void InputLeft() {
+            if (!InputIsFull) {
                 audioMgr.PlayButtonA();
                 NavigateInput(Direction.Left);
             }
@@ -78,7 +62,7 @@ namespace Kaisa.Digivice {
                 inputStatus = 0;
             }
         }
-        public void InputRight() {
+        public override void InputRight() {
             if (!InputIsFull) {
                 audioMgr.PlayButtonA();
                 NavigateInput(Direction.Right);
@@ -89,8 +73,9 @@ namespace Kaisa.Digivice {
                 inputStatus = 0;
             }
         }
+        #endregion
 
-        private void StartApp() {
+        protected override void StartApp() {
             for (int i = 0; i < 5; i++) {
                 underscores[i] = gm.BuildRectangle($"Underscore{i}", screenDisplay.transform, 5, 1, 2 + (6 * i), 25);
             }
@@ -100,46 +85,14 @@ namespace Kaisa.Digivice {
             gm.SetTappingEnabled(Direction.Left, true, 0.1f);
             gm.SetTappingEnabled(Direction.Right, true, 0.1f);
         }
-        private void CloseApp() {
+        protected override void CloseApp(Screen goToMenu = Screen.MainMenu) {
             gm.SetTappingEnabled(Direction.Left, false);
             gm.SetTappingEnabled(Direction.Right, false);
-            gm.logicMgr.FinalizeApp();
+            base.CloseApp(goToMenu);
         }
-
-        private void NavigateInput(Direction dir) {
-            if(!InputIsFull) {
-                if (dir == Direction.Left) {
-                    if (selectedInput == 0x41) selectedInput = 0x39;
-                    else if (selectedInput == 0x30) selectedInput = 0x5A;
-                    else selectedInput--;
-                }
-                else {
-                    if (selectedInput == 0x5A) selectedInput = 0x30;
-                    else if (selectedInput == 0x39) selectedInput = 0x41;
-                    else selectedInput++;
-                }
-            }
-        }
-
-        private void CheckCode() {
-            if (gm.Database.TryGetDigimonFromCode(CurrentInputString, out string digimon)) {
-                gm.Database.UnlockDigimon(digimon);
-                gm.Database.UnlockDigimonCode(digimon);
-                CloseApp();
-                gm.screenMgr.PlayAnimation(
-                    gm.screenMgr.ASummonDigimon(digimon),
-                    gm.screenMgr.AUnlockDigimon(digimon),
-                    gm.screenMgr.ACharHappy());
-            }
-            else {
-                inputStatus = 2;
-            }
-        }
-
         private void Update() {
             UpdateScreen();
         }
-
         private void UpdateScreen() {
             currentInputDisplay.Text = CurrentInputString;
 
@@ -171,6 +124,36 @@ namespace Kaisa.Digivice {
                 }
             }
 
+        }
+
+        private void NavigateInput(Direction dir) {
+            if(!InputIsFull) {
+                if (dir == Direction.Left) {
+                    if (selectedInput == 0x41) selectedInput = 0x39;
+                    else if (selectedInput == 0x30) selectedInput = 0x5A;
+                    else selectedInput--;
+                }
+                else {
+                    if (selectedInput == 0x5A) selectedInput = 0x30;
+                    else if (selectedInput == 0x39) selectedInput = 0x41;
+                    else selectedInput++;
+                }
+            }
+        }
+
+        private void CheckCode() {
+            if (gm.DatabaseMgr.TryGetDigimonFromCode(CurrentInputString, out string digimon)) {
+                gm.DatabaseMgr.UnlockDigimon(digimon);
+                gm.DatabaseMgr.UnlockDigimonCode(digimon);
+                CloseApp();
+                gm.PlayAnimation(
+                    gm.screenMgr.ASummonDigimon(digimon),
+                    gm.screenMgr.AUnlockDigimon(digimon),
+                    gm.screenMgr.ACharHappy());
+            }
+            else {
+                inputStatus = 2;
+            }
         }
     }
 }

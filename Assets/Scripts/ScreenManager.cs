@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kaisa.Digivice.Extensions;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -54,17 +55,17 @@ namespace Kaisa.Digivice {
                     sprite = spriteDB.mainMenu[index];
                     SetScreenSprite(sprite);
                     break;
-                case Screen.GameMenu:
+                case Screen.GamesMenu:
                     index = (int)logicMgr.currentGameMenu;
                     sprite = spriteDB.game_sections[index];
                     SetScreenSprite(sprite);
                     break;
-                case Screen.GameRewardMenu:
+                case Screen.GamesRewardMenu:
                     index = (int)logicMgr.currentGameRewardMenu;
                     sprite = spriteDB.games_reward[index];
                     SetScreenSprite(sprite);
                     break;
-                case Screen.GameTravelMenu:
+                case Screen.GamesTravelMenu:
                     index = (int)logicMgr.currentGameTravelMenu;
                     sprite = spriteDB.games_travel[index];
                     SetScreenSprite(sprite);
@@ -209,6 +210,7 @@ namespace Kaisa.Digivice {
                 yield return new WaitForSeconds(0.5f);
             }
         }
+        //TODO: Make the screen exit after the player presses A.
         public IEnumerator AAwardDistance(int score, int distanceBefore, int distanceAfter) {
             Sprite sScore = spriteDB.games_score;
             Sprite sDistance = spriteDB.games_distance;
@@ -232,6 +234,70 @@ namespace Kaisa.Digivice {
             audioMgr.PlayCharHappy();
             tbDistance.Text = distanceAfter.ToString();
             yield return new WaitForSeconds(3f);
+        }
+
+        public IEnumerator ATravelMap(Direction dir, int currentMap, int currentSector, int newSector) {
+            Sprite mapCurrentSprite = spriteDB.GetMapSectorSprites(currentMap)[currentSector];
+            Sprite mapNewSprite = spriteDB.GetMapSectorSprites(currentMap)[newSector];
+
+            SpriteBuilder sMapCurrent = gm.BuildSprite("AnimCurrentSector", animParent, posX: 0, posY: 0, sprite: mapCurrentSprite);
+            SpriteBuilder sMapNew = gm.BuildSprite("AnimNewSector", animParent, sprite: mapNewSprite);
+            sMapNew.PlaceOutside(dir.OppositeDirection());
+
+            float animDuration = 1.5f;
+            for (int i = 0; i < 32; i++) {
+                sMapCurrent.MoveSprite(dir);
+                sMapNew.MoveSprite(dir);
+                yield return new WaitForSeconds(animDuration / 32f);
+            }
+
+            sMapCurrent.Dispose();
+            sMapNew.Dispose();
+        }
+
+        public IEnumerator ASwapDDock(int ddock, string newDigimon) {
+            float animDuration = 1.5f;
+            Sprite newDigimonSprite = spriteDB.GetDigimonSprite(newDigimon);
+            Sprite newDigimonSpriteCr = spriteDB.GetDigimonSprite(newDigimon, SpriteAction.Crush);
+
+            audioMgr.PlaySound(audioMgr.changeDock);
+
+            SpriteBuilder bBlackBars = gm.BuildSprite("BlackBars", animParent, sprite: gm.spriteDB.blackBars);
+            bBlackBars.PlaceOutside(Direction.Down);
+            SpriteBuilder bDDock = gm.BuildSprite("DDock", animParent, sprite: gm.spriteDB.status_ddock[ddock]);
+            SpriteBuilder bDDockSprite = gm.BuildDDockSprite(ddock, bDDock.transform);
+
+            yield return new WaitForSeconds(0.75f);
+
+            for (int i = 0; i < 32; i++) {
+                bBlackBars.MoveSprite(Direction.Up);
+                bDDock.MoveSprite(Direction.Up);
+                yield return new WaitForSeconds(animDuration / 32f);
+            }
+
+            bDDockSprite.SetSprite(newDigimonSprite);
+            yield return new WaitForSeconds(0.75f);
+
+            for (int i = 0; i < 32; i++) {
+                bBlackBars.MoveSprite(Direction.Down);
+                bDDock.MoveSprite(Direction.Down);
+                yield return new WaitForSeconds(animDuration / 32f);
+            }
+
+            yield return new WaitForSeconds(0.5f);
+
+            StartCoroutine(audioMgr.PlaySoundAfterDelay(audioMgr.charHappy, 0.175f));
+            for (int i = 0; i < 5; i++) {
+                bDDockSprite.SetSprite(null);
+                yield return new WaitForSeconds(0.175f);
+                bDDockSprite.SetSprite(newDigimonSpriteCr);
+                yield return new WaitForSeconds(0.175f);
+            }
+
+            yield return new WaitForSeconds(0.5f);
+
+            bBlackBars.Dispose();
+            bDDock.Dispose();
         }
     }
 }

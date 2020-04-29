@@ -3,23 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Kaisa.Digivice {
+namespace Kaisa.Digivice.App {
     /*IMPORTANT: Texture2D's origin (coords 0, 0) is in the lower left corner, but RectTransform's position origin is in the upper left corner.
      * Maze cells call "up" to the cell with a lower Y coordinate than them, but the Maze is rendered using the same origin as Texture2D.
      * This means that moving "up" in the maze is seen as moving "down" in the screen, and vice-versa.
      */
-    public class AppMaze : MonoBehaviour, IDigiviceApp {
-        [Header("UI Elements")]
-        [SerializeField]
-        private Image screenDisplay;
-
-        private GameManager gm;
-        private AudioManager audioMgr;
+    public class Maze : DigiviceApp {
+        new protected static string appName = "maze";
 
         //Current screen
         private int currentScreen = 0; //0: Start/cancel menu, 1: maze, 2: defeat, 3: victory
         private TextBoxBuilder[] tbOptions = new TextBoxBuilder[2];
         private int currentOption = 0;
+
         //Maze generation
         private const int MAZE_WIDTH = 10;
         private const int MAZE_HEIGHT = 8;
@@ -41,22 +37,8 @@ namespace Kaisa.Digivice {
         private int timeRemaining = 30; //After defeat, the time remaining must reach -1 for the player to close the app.
         private TextBoxBuilder tbTime;
 
-        //App Loader
-        public static AppMaze LoadApp(GameManager gm) {
-            GameObject appGO = Instantiate(gm.pAppMaze, gm.mainScreen.transform);
-            AppMaze app = appGO.GetComponent<AppMaze>();
-            app.Initialize(gm);
-            return app;
-        }
-
-        //IDigiviceApp Methods:
-        public void Dispose() => Destroy(gameObject);
-        public void Initialize(GameManager gm) {
-            this.gm = gm;
-            audioMgr = gm.audioMgr;
-            StartApp();
-        }
-        public void InputA() {
+        #region Input
+        public override void InputA() {
             if(currentScreen == 0) {
                 if (currentOption == 0) {
                     StartGame();
@@ -81,7 +63,7 @@ namespace Kaisa.Digivice {
                 CloseApp();
             }
         }
-        public void InputB() {
+        public override void InputB() {
             if(currentScreen == 0) {
                 audioMgr.PlayButtonB();
                 CloseApp();
@@ -101,7 +83,7 @@ namespace Kaisa.Digivice {
                 CloseApp();
             }
         }
-        public void InputLeft() {
+        public override void InputLeft() {
             if(currentScreen == 0) {
                 audioMgr.PlayButtonA();
                 currentOption = (currentOption == 0) ? 1 : 0;
@@ -113,7 +95,7 @@ namespace Kaisa.Digivice {
                 }
             }
         }
-        public void InputRight() {
+        public override void InputRight() {
             if (currentScreen == 0) {
                 audioMgr.PlayButtonA();
                 currentOption = (currentOption == 0) ? 1 : 0;
@@ -125,19 +107,17 @@ namespace Kaisa.Digivice {
                 }
             }
         }
+        #endregion
 
-        private void StartApp() {
+        protected override void StartApp() {
             DrawStartMenu();
-            //GenerateMaze();
-            //DrawMaze();
-            //StartGame();
         }
-        private void CloseApp() {
+        protected override void CloseApp(Screen goToMenu = Screen.MainMenu) {
             gm.SetTappingEnabled(Direction.Left, false);
             gm.SetTappingEnabled(Direction.Right, false);
             gm.SetTappingEnabled(Direction.Up, false);
             gm.SetTappingEnabled(Direction.Down, false);
-            gm.logicMgr.FinalizeApp(Screen.GameTravelMenu);
+            base.CloseApp(Screen.GamesTravelMenu);
         }
 
         private int CalculateDistanceReward() => 12 * timeRemaining;
