@@ -12,7 +12,7 @@ namespace Kaisa.Digivice.App {
         private const float THIS_DELTA_TIME = 0.005f;
 
         //Constants
-        private const int ROW_COUNT = 6;
+        private const int ROW_COUNT = 70;
         private const byte HAS_FIRST  = 0b001; //If the row has an asteroid on the first position.
         private const byte HAS_SECOND = 0b010;
         private const byte HAS_THIRD  = 0b100;
