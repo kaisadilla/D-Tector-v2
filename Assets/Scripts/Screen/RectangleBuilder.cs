@@ -1,4 +1,5 @@
 ﻿using Kaisa.Digivice;
+using Kaisa.Digivice.Extensions;
 using UnityEngine;
 using UnityEngine.UI;
 

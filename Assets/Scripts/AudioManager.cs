@@ -15,8 +15,13 @@ namespace Kaisa.Digivice {
         public AudioClip charSadLong;
         public AudioClip summonDigimon;
         public AudioClip unlockDigimon;
-        [Header("Database clips")]
+        [Header("Database")]
         public AudioClip changeDock;
+        [Header("Game - SpeedRunner")]
+        public AudioClip speedRunner_Start;
+        public AudioClip speedRunner_Asteroid;
+        public AudioClip speedRunner_Finish;
+        public AudioClip speedRunner_Crash;
         public void PlayButtonA() {
             source.clip = buttonA;
             source.Play();
@@ -47,6 +52,10 @@ namespace Kaisa.Digivice {
         public IEnumerator PlaySoundAfterDelay(AudioClip sound, float delay) {
             yield return new WaitForSeconds(delay);
             PlaySound(sound);
+        }
+
+        public void StopSound() {
+            source.Stop();
         }
 
         public bool IsSoundPlaying => source.isPlaying;

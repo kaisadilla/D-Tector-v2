@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Diagnostics.Tracing;
+using UnityEngine;
 
 namespace Kaisa.Digivice {
     public class InputManager : MonoBehaviour {
@@ -14,17 +15,14 @@ namespace Kaisa.Digivice {
         //Variables to control tapping the arrow buttons.
         private const float FIRST_TRIGGER_DELAY = 0.25f;
 
-        private bool tapping = false;
         //0: left, 1: right, 2: up, 3: down
         private bool[] tappingDirEnabled = new bool[] { false, false, false, false };
         private float[] tappingDirSpeed = new float[] { 0.15f, 0.15f, 0.15f, 0.15f };
-        private Direction tapDir;
+        private Direction tappingDirection;
         private float msUntilNextTrigger = FIRST_TRIGGER_DELAY; //The count until the next input trigger while tapping.
 
         private void Update() {
-            if(tapping) {
-                PointerDown(tapDir);
-            }
+            PointerDown(tappingDirection);
         }
 
         public void OnInputA() {
@@ -54,7 +52,10 @@ namespace Kaisa.Digivice {
             tappingDirSpeed[(int)dir] = speed;
         }
 
+        public Direction GetKeyBeingTapped() => tappingDirection;
+
         public void PointerDown(Direction dir) {
+            if (tappingDirection == Direction.none) return; //Don't do anything if nothing is being tapped.
             if (!GetTappingEnabled(dir)) return; //Don't do anything if tapping is not enabled.
 
             msUntilNextTrigger -= Time.deltaTime;
@@ -79,25 +80,29 @@ namespace Kaisa.Digivice {
         }
         //Note that A is "DOWN" and B is "UP".
         public void TapDown(string dir) {
-            tapping = true;
             switch(dir) {
                 case "LEFT":
-                    tapDir = Direction.Left;
+                    tappingDirection = Direction.Left;
                     break;
                 case "RIGHT":
-                    tapDir = Direction.Right;
+                    tappingDirection = Direction.Right;
                     break;
                 case "UP":
-                    tapDir = Direction.Up;
+                    tappingDirection = Direction.Up;
                     break;
                 case "DOWN":
-                    tapDir = Direction.Down;
+                    tappingDirection = Direction.Down;
                     break;
             }
         }
 
-        public void TapUp() {
-            tapping = false;
+        public void TapUp(string dir) {
+            //If the key being untapped is not the key currently being registered as tapped, ignore it.
+            if (dir == "LEFT" && tappingDirection != Direction.Left) return;
+            if (dir == "RIGHT" && tappingDirection != Direction.Right) return;
+            if (dir == "UP" && tappingDirection != Direction.Up) return;
+            if (dir == "DOWN" && tappingDirection != Direction.Down) return;
+            tappingDirection = Direction.none;
             msUntilNextTrigger = FIRST_TRIGGER_DELAY;
         }
     }

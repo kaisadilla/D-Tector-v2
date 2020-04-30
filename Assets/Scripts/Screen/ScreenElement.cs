@@ -17,11 +17,13 @@ namespace Kaisa.Digivice {
         public Vector2Int Position {
             get {
                 Vector2 pos = gameObject.GetComponent<RectTransform>().anchoredPosition;
-                return new Vector2Int((int)pos.x, (int)pos.y);
+                return new Vector2Int((int)(pos.x / Constants.PixelSize), (int)(-pos.y / Constants.PixelSize));
             }
         }
         public virtual void Dispose() => Destroy(gameObject);
         public void SetActive(bool active) => gameObject.SetActive(active);
+
+        public bool GetActive() => gameObject.activeSelf;
         public void SetName(string name) => gameObject.name = name;
 
         /// <summary>

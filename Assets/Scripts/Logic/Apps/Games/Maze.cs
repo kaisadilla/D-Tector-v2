@@ -59,7 +59,7 @@ namespace Kaisa.Digivice.App {
             }
             else if (currentScreen == 3) {
                 audioMgr.PlayButtonA();
-                gm.SubmitGameScore(timeRemaining, CalculateDistanceReward());
+                gm.SubmitGameScore(CalculateScore());
                 CloseApp();
             }
         }
@@ -79,7 +79,7 @@ namespace Kaisa.Digivice.App {
             }
             else if (currentScreen == 3) {
                 audioMgr.PlayButtonA();
-                gm.SubmitGameScore(timeRemaining, CalculateDistanceReward());
+                gm.SubmitGameScore(CalculateScore());
                 CloseApp();
             }
         }
@@ -120,7 +120,7 @@ namespace Kaisa.Digivice.App {
             base.CloseApp(Screen.GamesTravelMenu);
         }
 
-        private int CalculateDistanceReward() => 12 * timeRemaining;
+        private int CalculateScore() => 12 * timeRemaining;
 
         private void DrawStartMenu() {
             tbOptions[0] = gm.BuildTextBox("Start", screenDisplay.transform, "Start", DFont.Small, 28, 8, 2, 8, TextAnchor.UpperCenter);
@@ -240,7 +240,7 @@ namespace Kaisa.Digivice.App {
             //cellState.Length is always equal to the total amount of cells.
             while (visitedCells < cellPaths.Length) {
                 List<Direction> neighbors = new List<Direction>();
-                //binary bitwise operator &.
+                //binary bitwise operator &: takes two numbers as operands and does AND on every bit of two numbers.
                 if (stack.Peek().x > 0 && (cellPaths[NeighborIndex(stack.Peek(), Direction.Left)] & CELL_VISITED) == 0) {
                     neighbors.Add(Direction.Left);
                 }
@@ -253,7 +253,8 @@ namespace Kaisa.Digivice.App {
                 if (stack.Peek().y < MAZE_HEIGHT - 1 && (cellPaths[NeighborIndex(stack.Peek(), Direction.Down)] & CELL_VISITED) == 0) {
                     neighbors.Add(Direction.Down);
                 }
-
+                //binary bitwise operator |: takes two numbers as operands and does OR on every bit of two numbers.
+                //Using | instead of + makes it so adding a path that was already added does not change anything.
                 if (neighbors.Count != 0) {
                     Direction chosenNeighbor = neighbors[Random.Range(0, neighbors.Count)];
                     //Create path between this cell and the chosen neighbor.
@@ -378,7 +379,6 @@ namespace Kaisa.Digivice.App {
                 }
                 else if (timeRemaining == 1) {
                     timeRemaining--;
-                    Debug.Log($"Time is 1, now {timeRemaining}");
                     audioMgr.PlayButtonB();
                     currentScreen = 2;
 
@@ -388,7 +388,6 @@ namespace Kaisa.Digivice.App {
                 }
                 else if (timeRemaining == 0) {
                     timeRemaining--;
-                    Debug.Log($"Time is 0, now {timeRemaining}");
                 }
             }
         }

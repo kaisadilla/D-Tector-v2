@@ -7,7 +7,8 @@ namespace Kaisa.Digivice {
         Left,
         Right,
         Up,
-        Down
+        Down,
+        none
     }
 
     public enum Screen {

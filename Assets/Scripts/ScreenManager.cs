@@ -25,7 +25,7 @@ namespace Kaisa.Digivice {
         public Transform ScreenParent => screenDisplay.transform;
 
         /// <summary>
-        /// Player any number of animations, in a sequence.
+        /// Player any number of animations, in a sequence. Those animations are full screen and hide any other element in the screen.
         /// </summary>
         /// <param name="animations">The animations to be played.</param>
         public void PlayAnimation(params IEnumerator[] animations) => StartCoroutine(PlayAnimationCoroutine(animations));
@@ -44,6 +44,9 @@ namespace Kaisa.Digivice {
         }
 
         private void UpdateDisplay() {
+            //Don't do anything on screens that never use this display.
+            if (logicMgr.currentScreen == Screen.App) return;
+
             int index;
             Sprite sprite;
             switch(logicMgr.currentScreen) {

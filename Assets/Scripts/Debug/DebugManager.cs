@@ -4,7 +4,7 @@ using UnityEngine.UI;
 namespace Kaisa.Digivice {
     public class DebugManager : MonoBehaviour {
         [SerializeField]
-        private Text output;
+        private Text consoleOutput;
         [SerializeField]
         private InputField input;
 
@@ -13,12 +13,18 @@ namespace Kaisa.Digivice {
             this.gm = gm;
         }
         public void Write(string output) {
-            this.output.text += output;
+            consoleOutput.text += output;
         }
         public void Write(object output) => Write(output.ToString());
 
         public void WriteLine(string output) {
-            this.output.text += output + "\n";
+            if(consoleOutput.cachedTextGenerator.lines.Count > 9) {
+                consoleOutput.text = "";
+                /*foreach(var s in consoleOutput.cachedTextGenerator.lines) {
+                    consoleOutput.text = s.ToString();
+                }*/
+            }
+            consoleOutput.text += output + "\n";
         }
         public void WriteLine(object output) => WriteLine(output.ToString());
 

@@ -60,6 +60,12 @@ public class SpriteDatabase : MonoBehaviour {
     public Sprite giveMassivePowerWhite;
     public Sprite acquireDigimon;
     public Sprite dTector;
+    [Header("Game - SpeedRunner")]
+    public Sprite speedRunner_rocket;
+    public Sprite speedRunner_rocketExplosion;
+    public Sprite speedRunner_rocketAsteroid;
+    public Sprite speedRunner_rocketSpeedMark;
+    public Sprite speedRunner_rocketFinish;
 
     public Sprite[] GetCharacterSprites(GameChar character) {
         switch(character) {

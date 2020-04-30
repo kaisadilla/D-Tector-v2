@@ -8,6 +8,7 @@ namespace Kaisa.Digivice.App {
         [Header("UI Elements")]
         [SerializeField]
         protected Image screenDisplay;
+        protected Transform Parent => screenDisplay.transform;
 
         protected GameManager gm;
         protected AudioManager audioMgr;

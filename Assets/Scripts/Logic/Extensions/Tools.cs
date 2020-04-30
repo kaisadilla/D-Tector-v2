@@ -28,5 +28,22 @@ namespace Kaisa.Digivice.Extensions {
             Random rng = new Random();
             return rng.Next(array.Count());
         }
+
+        /// <summary>
+        /// Returns a copy of the array from the index position to the end.
+        /// </summary>
+        public static T[] SubArray<T>(this T[] array, int index) {
+            T[] subArray = new T[array.Length - index];
+            Array.Copy(array, index, subArray, 0, array.Length - index);
+            return subArray;
+        }
+        /// <summary>
+        /// Returns a sub array containing length elements from the original array, starting at index position.
+        /// </summary>
+        public static T[] SubArray<T>(this T[] array, int index, int length) {
+            T[] subArray = new T[length];
+            Array.Copy(array, index, subArray, 0, length);
+            return subArray;
+        }
     }
 }

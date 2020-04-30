@@ -28,6 +28,7 @@ namespace Kaisa.Digivice {
         public GameObject pAppMaze;
 
         [Header("Screen elements")]
+        public GameObject pContainer;
         public GameObject pSolidSprite;
         public GameObject pScreenSprite;
         public GameObject pRectangle;
@@ -42,6 +43,11 @@ namespace Kaisa.Digivice {
             SetupManagers();
             DatabaseMgr = new DatabaseManager(this);
             DistanceMgr = new DistanceManager(this);
+            /*if (Application.isMobilePlatform) { 
+                QualitySettings.vSyncCount = 0;
+                Application.targetFrameRate = 120;
+            }*/
+
         }
 
         public void Start() {
@@ -112,9 +118,9 @@ namespace Kaisa.Digivice {
 
         public Transform RootParent => screenMgr.screenDisplay.transform;
 
-        public void SubmitGameScore(int score, int distance) {
+        public void SubmitGameScore(int score) {
             int oldDistance = DistanceMgr.CurrentDistance;
-            DistanceMgr.ReduceDistance(distance, out _);
+            DistanceMgr.ReduceDistance(score, out _);
             int newDistance = DistanceMgr.CurrentDistance;
             screenMgr.PlayAnimation(screenMgr.AAwardDistance(score, oldDistance, newDistance));
         }
@@ -160,6 +166,15 @@ namespace Kaisa.Digivice {
         public Transform BuildBackground(Transform parent) {
             RectangleBuilder goClass = BuildRectangle("Parent", parent, 32, 32, activeColor: false);
             return goClass.transform;
+        }
+        public ContainerBuilder BuildContainer(string name, Transform parent, int width = 1, int height = 1, int posX = 0, int posY = 0, bool transparent = true) {
+            GameObject go = Instantiate(pContainer, parent);
+            ContainerBuilder goClass = go.GetComponent<ContainerBuilder>();
+            goClass.SetName(name);
+            goClass.SetSize(width, height);
+            goClass.SetPosition(posX, posY);
+            goClass.SetTransparent(transparent);
+            return goClass;
         }
 
         public SpriteBuilder BuildDDockSprite(int ddock, Transform parent) {
