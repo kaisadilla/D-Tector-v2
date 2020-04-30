@@ -878,7 +878,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 451025742}
-          m_MethodName: TapDown
+          m_MethodName: TapUp
           m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

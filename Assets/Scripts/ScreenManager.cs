@@ -44,9 +44,6 @@ namespace Kaisa.Digivice {
         }
 
         private void UpdateDisplay() {
-            //Don't do anything on screens that never use this display.
-            if (logicMgr.currentScreen == Screen.App) return;
-
             int index;
             Sprite sprite;
             switch(logicMgr.currentScreen) {
