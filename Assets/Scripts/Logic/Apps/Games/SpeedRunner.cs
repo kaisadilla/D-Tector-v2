@@ -1,6 +1,7 @@
 ﻿using Kaisa.Digivice.Extensions;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ namespace Kaisa.Digivice.App {
         private const float THIS_DELTA_TIME = 0.005f;
 
         //Constants
-        private const int ROW_COUNT = 70;
+        private const int ROW_COUNT = 6;
         private const byte HAS_FIRST  = 0b001; //If the row has an asteroid on the first position.
         private const byte HAS_SECOND = 0b010;
         private const byte HAS_THIRD  = 0b100;
@@ -105,6 +106,10 @@ namespace Kaisa.Digivice.App {
                 else if (gm.inputMgr.GetKeyBeingTapped() == Direction.Right) rocketPosition = 2;
                 else rocketPosition = 1;
                 //Set the visual position of the rocket.
+                #if UNITY_EDITOR
+                if(Input.GetKey(KeyCode.LeftArrow)) rocketPosition = 0;
+                if (Input.GetKey(KeyCode.RightArrow)) rocketPosition = 2;
+                #endif
             }
 
             rocket.SetPosition(8 * (rocketPosition + 1) - 1, rocket.Position.y);
@@ -164,9 +169,10 @@ namespace Kaisa.Digivice.App {
                         StartCoroutine(IAElevateRocket());
                     }
                 }
-
+                //If the current row is not the first one nor the finish row.
                 if(currentRow > 0 && currentRow < rowData.Length) {
                     int lowerRowY = rowY[GetVisualRowIndex(currentRow - 1)];
+                    //If the lower row is in a y position where it could crash with the rocket.
                     if (lowerRowY >= 20 && lowerRowY <= 29) {
                         if(IsAsteroidAtPos(currentRow - 1, rocketPosition)) {
                             audioMgr.PlaySound(audioMgr.speedRunner_Crash);
@@ -176,26 +182,45 @@ namespace Kaisa.Digivice.App {
                             rowY[0] = -6;
                             rowY[1] = -6;
 
-                            if (crashes < 2 && currentRow < rowData.Length) {
-                                StartCoroutine(IASpawnRocket(0.5f));
-                                rowsBeaten++;
-                                crashes++;
-                                rowData = rowData.SubArray(currentRow);
-                                currentRow = -1;
-                                currentSpeed = 0;
+                            _CrashRocket();
+                        }
+                    }
+                }
+                //If the finish row could collide with the rocket. In this situation, no more opportunities are given to the player.
+                else if (currentRow == rowData.Length) {
+                    if(finishY >= -6 && finishY < -1) {
+                        if (IsAsteroidAtPos(currentRow - 1, rocketPosition)) {
+                            audioMgr.PlaySound(audioMgr.speedRunner_Crash);
+                            rocket.SetSprite(gm.spriteDB.speedRunner_rocketExplosion);
 
-                                foreach (SpriteBuilder sb in speedMarks) {
-                                    sb.SetActive(false);
-                                }
-                            }
-                            else {
-                                StartCoroutine(IALoseGame());
-                            }
+                            gameStarted = false;
+                            rowY[0] = -6;
+                            rowY[1] = -6;
+
+                            StartCoroutine(IALoseGame());
                         }
                     }
                 }
                 visualRows[0].SetPosition(7, rowY[0]);
                 visualRows[1].SetPosition(7, rowY[1]);
+            }
+
+            void _CrashRocket() {
+                if (crashes < 2 && currentRow < rowData.Length) {
+                    StartCoroutine(IASpawnRocket(0.5f));
+                    rowsBeaten++;
+                    crashes++;
+                    rowData = rowData.SubArray(currentRow);
+                    currentRow = -1;
+                    currentSpeed = 0;
+
+                    foreach (SpriteBuilder sb in speedMarks) {
+                        sb.SetActive(false);
+                    }
+                }
+                else {
+                    StartCoroutine(IALoseGame());
+                }
             }
 
         }
