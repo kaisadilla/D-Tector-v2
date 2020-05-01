@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace Kaisa.Digivice.App {
     public abstract class DigiviceApp : MonoBehaviour {
+        protected string[] appArgs;
         [Header("UI Elements")]
         [SerializeField]
         protected Image screenDisplay;
@@ -14,15 +13,16 @@ namespace Kaisa.Digivice.App {
         protected AudioManager audioMgr;
 
         //AppLoader
-        public static DigiviceApp LoadApp(GameObject appPrefab, GameManager gm) {
+        public static DigiviceApp LoadApp(GameObject appPrefab, GameManager gm, params string[] appArgs) {
             GameObject appGO = Instantiate(appPrefab, gm.RootParent);
             DigiviceApp app = appGO.GetComponent<DigiviceApp>();
-            app.Initialize(gm);
+            app.Initialize(gm, appArgs);
             return app;
         }
 
-        public virtual void Initialize(GameManager gm) {
+        public virtual void Initialize(GameManager gm, string[] appArgs) {
             this.gm = gm;
+            this.appArgs = appArgs;
             audioMgr = gm.audioMgr;
             StartApp();
         }
@@ -36,6 +36,17 @@ namespace Kaisa.Digivice.App {
         protected abstract void StartApp();
         protected virtual void CloseApp(Screen goToMenu = Screen.MainMenu) {
             gm.logicMgr.FinalizeApp(goToMenu);
+        }
+
+        protected void SetScreen(Sprite sprite) => screenDisplay.sprite = sprite;
+
+        /// <summary>
+        /// Destroys all children gameObjects of this app.
+        /// </summary>
+        protected void ClearScreen() {
+            foreach (Transform child in screenDisplay.transform) {
+                Destroy(child.gameObject);
+            }
         }
     }
 }

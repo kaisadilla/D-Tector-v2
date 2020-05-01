@@ -17,6 +17,10 @@ namespace Kaisa.Digivice {
         public AudioClip unlockDigimon;
         [Header("Database")]
         public AudioClip changeDock;
+        [Header("Game - Battle")]
+        public AudioClip encounterDigimon;
+        public AudioClip encounterDigimonBoss;
+        public AudioClip launchAttack;
         [Header("Game - SpeedRunner")]
         public AudioClip speedRunner_Start;
         public AudioClip speedRunner_Asteroid;

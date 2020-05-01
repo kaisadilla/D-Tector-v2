@@ -1208,10 +1208,10 @@ MonoBehaviour:
   status_ddockEmpty: {fileID: 3445910035351170775, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
     type: 3}
   game_sections:
+  - {fileID: 6284239470604681365, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
   - {fileID: 8123010706715355889, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
   - {fileID: -6651610702307530636, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
   games_reward:
-  - {fileID: 6284239470604681365, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
   - {fileID: 5024109389668234944, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
   - {fileID: 6145096033512923143, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
   - {fileID: -6081816883619625749, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
@@ -1278,13 +1278,51 @@ MonoBehaviour:
     type: 3}
   givePowerWhite: {fileID: -8146644178066756174, guid: 1a7d672ab33564f4ea3128a67ae22fc2,
     type: 3}
-  giveMassivePowerBlack: {fileID: -2975087935681428075, guid: 1a7d672ab33564f4ea3128a67ae22fc2,
+  giveMassivePowerBlack: {fileID: 5603576840549540096, guid: 1a7d672ab33564f4ea3128a67ae22fc2,
     type: 3}
-  giveMassivePowerWhite: {fileID: 5603576840549540096, guid: 1a7d672ab33564f4ea3128a67ae22fc2,
+  giveMassivePowerWhite: {fileID: -2975087935681428075, guid: 1a7d672ab33564f4ea3128a67ae22fc2,
     type: 3}
   acquireDigimon: {fileID: 7699648647696747545, guid: 1a7d672ab33564f4ea3128a67ae22fc2,
     type: 3}
   dTector: {fileID: 741249282245206659, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
+  battle_mainMenu:
+  - {fileID: -7057440406585536591, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
+  - {fileID: 5748297659399780796, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
+  - {fileID: 3539336360140572889, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
+  - {fileID: -8967708414119613677, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
+  battle_combatMenu:
+  - {fileID: -6849740507688597531, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
+  - {fileID: -4343773014186329619, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
+  - {fileID: -6478231557394820056, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
+  - {fileID: -4710341830425121523, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
+  - {fileID: 6655304971113907562, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
+  battle_attackMenu:
+  - {fileID: -6232895521546326841, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
+  - {fileID: -8539235919378652893, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
+  - {fileID: -1711287652650103440, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
+  battle_energy:
+  - {fileID: 21300000, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
+  - {fileID: 21300002, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
+  - {fileID: 21300004, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
+  - {fileID: 21300006, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
+  - {fileID: 21300008, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
+  - {fileID: 21300010, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
+  - {fileID: 21300012, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
+  - {fileID: 21300014, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
+  - {fileID: 21300016, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
+  - {fileID: 21300018, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
+  - {fileID: 21300020, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
+  - {fileID: 21300022, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
+  - {fileID: 21300024, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
+  - {fileID: 21300026, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
+  - {fileID: 21300028, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
+  - {fileID: 21300030, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
+  - {fileID: 21300032, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
+  - {fileID: 21300034, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
+  - {fileID: 21300036, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
+  - {fileID: 21300038, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
+  battle_disobey: {fileID: 7637870703528583553, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
+    type: 3}
   speedRunner_rocket: {fileID: -8811113036543827653, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
     type: 3}
   speedRunner_rocketExplosion: {fileID: -6017092528987982444, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
@@ -2093,7 +2131,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'TODO: '
+  m_Text: 'TODO: MAKE SCREEN ELEMENT FUNCTIONS RETURN THEMSELVES SO PLAYER CAN APPEND
+    ANYN NUMBER OF FUNCTIONS IN A SINGLE STATEMENT.'
 --- !u!222 &743364983
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2375,6 +2414,8 @@ MonoBehaviour:
     type: 3}
   pAppCamp: {fileID: 0}
   pAppConnect: {fileID: 0}
+  pAppBattle: {fileID: 4770717216813437012, guid: d090104565e69b448b32531161cfd850,
+    type: 3}
   pAppSpeedRunner: {fileID: 4770717216813437012, guid: 402920bbc39067948a0a6d0ae0fcba32,
     type: 3}
   pAppMaze: {fileID: 4770717216813437012, guid: 7b11440a99e28564e956a39d56be5219,
@@ -2994,9 +3035,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentScreen: 0
   currentMainMenu: 0
-  currentGameMenu: 0
-  currentGameRewardMenu: 0
-  currentGameTravelMenu: 0
+  gamesMenuIndex: 0
+  gamesRewardMenuIndex: 0
+  gamesTravelMenuIndex: 0
   loadedApp: {fileID: 0}
 --- !u!4 &1317818422
 Transform:
@@ -5031,6 +5072,10 @@ MonoBehaviour:
   summonDigimon: {fileID: 8300000, guid: e9d1e2d040a85994caae3f63b2e919db, type: 3}
   unlockDigimon: {fileID: 8300000, guid: 3900c4734ba2a24439d641e9b164d4e4, type: 3}
   changeDock: {fileID: 8300000, guid: 9157ec63df6601844adfe3c2ed6f38aa, type: 3}
+  encounterDigimon: {fileID: 8300000, guid: c5fe563eb80e6a14cb53455573d73a23, type: 3}
+  encounterDigimonBoss: {fileID: 8300000, guid: fda6478b8139e8441a285d0a68e0f924,
+    type: 3}
+  launchAttack: {fileID: 8300000, guid: bc4a21d87f1def1498fbbcd40e17fc46, type: 3}
   speedRunner_Start: {fileID: 8300000, guid: 13e6f31494aa81b4f9c9a7d69d2c9891, type: 3}
   speedRunner_Asteroid: {fileID: 8300000, guid: 3b074abdc259c9a429ecd72a4af29622,
     type: 3}

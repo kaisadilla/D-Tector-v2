@@ -9,15 +9,15 @@ namespace Kaisa.Digivice {
     public abstract class ScreenElement : MonoBehaviour {
         public Image background;
         public int Width {
-            get => (int)(gameObject.GetComponent<RectTransform>().sizeDelta.x / Constants.PixelSize);
+            get => (int)(gameObject.GetComponent<RectTransform>().sizeDelta.x / Constants.PIXEL_SIZE);
         }
         public int Height {
-            get => (int)(gameObject.GetComponent<RectTransform>().sizeDelta.y / Constants.PixelSize);
+            get => (int)(gameObject.GetComponent<RectTransform>().sizeDelta.y / Constants.PIXEL_SIZE);
         }
         public Vector2Int Position {
             get {
                 Vector2 pos = gameObject.GetComponent<RectTransform>().anchoredPosition;
-                return new Vector2Int((int)(pos.x / Constants.PixelSize), (int)(-pos.y / Constants.PixelSize));
+                return new Vector2Int((int)(pos.x / Constants.PIXEL_SIZE), (int)(-pos.y / Constants.PIXEL_SIZE));
             }
         }
         public virtual void Dispose() => Destroy(gameObject);
@@ -36,23 +36,23 @@ namespace Kaisa.Digivice {
         /// <summary>
         /// Sets the size (in digivice pixels) of the rectangle.
         /// </summary>
-        public void SetSize(int width, int height) {
-            width *= Constants.PixelSize;
-            height *= Constants.PixelSize;
+        public virtual void SetSize(int width, int height) {
+            width *= Constants.PIXEL_SIZE;
+            height *= Constants.PIXEL_SIZE;
             gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(width, height);
         }
         public void SetPosition(int x, int y) {
             gameObject.PlaceInPosition(x, y);
         }
         public void SetPosition(Vector2Int pos) => SetPosition(pos.x, pos.y);
-        public abstract void SetComponentOffset(Vector2 offsetMin, Vector2 offsetMax);
+        //public abstract void SetComponentOffset(Vector2 offsetMin, Vector2 offsetMax);
         public abstract void SetComponentPosition(int x, int y);
         public void SetComponentPosition(Vector2Int pos) => SetComponentPosition(pos.x, pos.y);
         public void PlaceOutside(Direction direction) {
             int coordinateUp = -Height;
-            int coordinateDown = Constants.ScreenHeight;
+            int coordinateDown = Constants.SCREEN_HEIGHT;
             int coordinateLeft = -Width;
-            int coordinateRight = Constants.ScreenWidth;
+            int coordinateRight = Constants.SCREEN_WIDTH;
 
             switch (direction) {
                 case Direction.Up:
@@ -69,16 +69,9 @@ namespace Kaisa.Digivice {
                     break;
             }
         }
-        public void MoveSprite(Direction direction, int amount = 1) => gameObject.MoveSprite(direction, amount);
-
-        public void FlipHorizontal(bool flip) {
-            if (flip) SetRotation(0, 180, 0);
-            else SetRotation(0, 0, 0);
-        }
-
-        public void FlipVertical(bool flip) {
-            if (flip) SetRotation(180, 0, 0);
-            else SetRotation(0, 0, 0);
+        public ScreenElement MoveSprite(Direction direction, int amount = 1) {
+            gameObject.MoveSprite(direction, amount);
+            return this;
         }
 
         private void SetRotation(int x, int y, int z) {

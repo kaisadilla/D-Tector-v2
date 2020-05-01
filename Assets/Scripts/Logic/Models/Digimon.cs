@@ -108,25 +108,29 @@ namespace Kaisa.Digivice {
             else return 10;
         }
         /// <summary>
-        /// Returns the actual level of this Digimon controlled by the player, based on the player level, and the extra level of the Digimon stored in the Saved Game.
+        /// Returns the actual level of this Digimon controlled by the player, based and the extra level of the Digimon stored in the Saved Game.
         /// </summary>
-        /// <param name="playerLevel">The level of the player.</param>
         /// <param name="digimonExtraLevel">The extra level value of the Digimon stored in the Saved Game, not the actual level of the Digimon.</param>
-        public int GetFriendlyLevel(int digimonExtraLevel, int playerLevel = 100) {
+        public int GetFriendlyLevel(int digimonExtraLevel) {
+            return baseLevel + digimonExtraLevel;
+        }
+        /// Returns the level of the Digimon as a boss, based on the player level.
+        /// <param name="playerLevel">The level of the player.</param>
+        public int GetBossLevel(int playerLevel) {
             if (stage == Stage.Spirit) {
                 if (spiritType == SpiritType.Ancient) {
-                    return (playerLevel < 20) ? 20 : playerLevel; //Returns the level of the player, but at a minimum level of 20.
+                    float level = 20 + (playerLevel * 0.8f);
+                    return Mathf.RoundToInt(level);
                 }
                 return playerLevel;
             }
             else if (stage == Stage.Armor) {
                 return (playerLevel < 10) ? 10 : playerLevel; //Returns the level of the player, but at a minimum level of 10.
             }
-
-            return baseLevel + digimonExtraLevel;
+            return playerLevel;
         }
         /// <summary>
-        /// Returns the chance that this Digimon will obey, based on the player level.
+        /// Returns the chance that this Digimon will obey (between 0f and 1f), based on the player level.
         /// Note that, for this calculation, the original Digimon called by the player should be used, even if it has evolved
         /// </summary>
         /// <param name="playerLevel">The level of the player</param>
@@ -140,7 +144,7 @@ namespace Kaisa.Digivice {
             return obeyChance;
         }
         /// <summary>
-        /// Returns the chance that this Digimon will even attack.
+        /// Returns the chance that this Digimon will even attack (between 0f and 1f).
         /// </summary>
         /// <param name="playerLevel">The level of the player</param>
         public float GetAttackChance(int playerLevel) {
@@ -153,10 +157,12 @@ namespace Kaisa.Digivice {
             return attackChance;
         }
         /// <summary>
-        /// Returns the stats (HP, EN, CR, AB) of this Digimon as a boss, based on its level.
+        /// Returns the stats (HP, EN, CR, AB) of this Digimon as a boss, based on its level. Notice that some friendly Digimons, such as those that
+        /// are Spirit-Stage, use these stat.
         /// </summary>
-        /// <param name="bossLevel">The level of the boss. Usually this is the same as the level of the player.</param>
-        public CombatStats GetBossStats(int bossLevel) {
+        /// <param name="playerLevel">The level of the player</param>
+        public MutableCombatStats GetBossStats(int playerLevel) {
+            int bossLevel = GetBossLevel(playerLevel);
             int HP, EN, CR, AB;
             //If the Digimon is Hybrid, assign its stats using the formula(s) for Hybrid bosses.
             if (stage == Stage.Spirit) {
@@ -173,15 +179,14 @@ namespace Kaisa.Digivice {
                 AB = GetStatAsRegularBoss(stats.AB, bossLevel);
             }
 
-            return new CombatStats(HP, EN, CR, AB);
+            return new MutableCombatStats(HP, EN, CR, AB);
         }
         /// <summary>
         /// Returns the stats of a Digimon based on its actual level. This shouldn't be used for special Digimon such as Hybrid- or Armor-Stage Digimon.
         /// </summary>
-        /// <param name="playerLevel">The level of the player.</param>
         /// <param name="digimonExtraLevel">The extra level of the Digimon stored in the Saved Game, not the actual level of the Digimon.</param>
         /// <returns></returns>
-        public CombatStats GetFriendlyStats(int playerLevel, int digimonExtraLevel) {
+        public MutableCombatStats GetFriendlyStats(int digimonExtraLevel) {
             int maxExtraLevel = MaxExtraLevel;
 
             int HP = GetStatAsFriendly(stats.HP, digimonExtraLevel, maxExtraLevel);
@@ -189,7 +194,13 @@ namespace Kaisa.Digivice {
             int CR = GetStatAsFriendly(stats.CR, digimonExtraLevel, maxExtraLevel);
             int AB = GetStatAsFriendly(stats.AB, digimonExtraLevel, maxExtraLevel);
 
-            return new CombatStats(HP, EN, CR, AB);
+            return new MutableCombatStats(HP, EN, CR, AB);
+        }
+        /// <summary>
+        /// Returns a mutable copy of the regular stats of the Digimon.
+        /// </summary>
+        public MutableCombatStats GetRegularStats() {
+            return new MutableCombatStats(stats.HP, stats.EN, stats.CR, stats.AB);
         }
         /// <summary>
         /// Returns the chance of this Digimon to evolve, based on the player level and the amount of call points they spent to attempt the evolution.
@@ -237,12 +248,16 @@ namespace Kaisa.Digivice {
             float riggedStat;
 
             if(spiritType == SpiritType.Human) {
+                //25% of the stat, increasing up to 75% when the Digimon reaches level 100.
                 riggedStat = (0.25f + (0.005f * bossLevel)) * stat;
             }
             else if (spiritType == SpiritType.Ancient) {
-                riggedStat = (bossLevel / 100f) * stat;
+                //0% of the stat, increasing up to 100% when the Digimon reaches level 100.
+                riggedStat = (0.00f + (0.010f * bossLevel)) * stat;
+                //riggedStat = (0.2f + (0.008f * bossLevel)) * stat;
             }
             else {
+                //30% of the stat, increasing up to 100% when the Digimon reaches level 100.
                 riggedStat = (0.30f + (0.007f * bossLevel)) * stat;
             }
 
@@ -278,23 +293,64 @@ namespace Kaisa.Digivice {
             this.AB = AB;
         }
 
-        /// <summary>
-        /// Returns a mutable version of the CombatStats class. In this version, stats can be changed at runtime.
-        /// </summary>
-        public MutableStats MutableCopy() => new MutableStats(HP, EN, CR, AB);
+        public override string ToString() {
+            return $"HP: {HP}, EN: {EN}, CR: {CR}, AB: {AB}.";
+        }
     }
-
-    public class MutableStats {
+    public class MutableCombatStats {
         public int HP;
         public int EN;
         public int CR;
         public int AB;
 
-        public MutableStats(int HP, int EN, int CR, int AB) {
+        public MutableCombatStats(int HP, int EN, int CR, int AB) {
             this.HP = HP;
             this.EN = EN;
             this.CR = CR;
             this.AB = AB;
+        }
+
+        public override string ToString() {
+            return $"HP: {HP}, EN: {EN}, CR: {CR}, AB: {AB}.";
+        }
+
+        /// <summary>
+        /// Returns the damage of the attack, based solely on the index (0: energy, 1: crush, 2: ability).
+        /// </summary>
+        /// <param name="attackIndex">The index of the Attack.</param>
+        /// <returns></returns>
+        public int GetAttackDamage(int attackIndex) {
+            switch (attackIndex) {
+                case 0: return EN;
+                case 1: return CR;
+                case 2: return AB;
+                default: return 0;
+            }
+        }
+        /// <summary>
+        /// Returns the type of the energy based on its power. This is useful to determine the energy Sprite that will be used.
+        /// </summary>
+        public int GetEnergyType() {
+            if (EN < 20) return 0;
+            if (EN < 30) return 1;
+            if (EN < 45) return 2;
+            if (EN < 60) return 3;
+            if (EN < 75) return 4;
+            if (EN < 90) return 5;
+            if (EN < 105) return 6;
+            if (EN < 120) return 7;
+            if (EN < 135) return 8;
+            if (EN < 150) return 9;
+            if (EN < 165) return 10;
+            if (EN < 180) return 11;
+            if (EN < 195) return 12;
+            if (EN < 210) return 13;
+            if (EN < 225) return 14;
+            if (EN < 240) return 15;
+            if (EN < 255) return 16;
+            if (EN < 270) return 17;
+            if (EN < 285) return 18;
+            return 19;
         }
     }
 

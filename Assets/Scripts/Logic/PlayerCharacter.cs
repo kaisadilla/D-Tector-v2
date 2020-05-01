@@ -8,20 +8,18 @@ namespace Kaisa.Digivice {
     public class PlayerCharacter {
         public GameChar currentChar;
         public CharState currentState = CharState.Idle;
+
         /// <summary>
         /// 0-3: idle, 4-5: walking, 6: happy, 7: sad, 8: event, 9: evolving
         /// </summary>
-        public Sprite[] charSprites;
-
-        public Sprite CurrentSprite { get; private set; }
+        public int CurrentSprite { get; private set; }
 
         private bool usedAltSprite = false;
         private int lastValue = 0;
 
-        public PlayerCharacter(GameChar currentChar, Sprite[] charSprites) {
+        public PlayerCharacter(GameChar currentChar) {
             this.currentChar = currentChar;
-            this.charSprites = charSprites;
-            CurrentSprite = charSprites[0];
+            CurrentSprite = 0;
         }
 
         public void UpdateSprite() {
@@ -35,26 +33,26 @@ namespace Kaisa.Digivice {
                     if (Random.Range(0, 4) == 0) break;
 
                     lastValue = Random.Range(0, 4);
-                    CurrentSprite = charSprites[lastValue];
+                    CurrentSprite = lastValue;
                     break;
                 case CharState.Walking:
                     if(usedAltSprite) {
                         usedAltSprite = false;
-                        CurrentSprite = charSprites[4];
+                        CurrentSprite = 4;
                     }
                     else {
                         usedAltSprite = true;
-                        CurrentSprite = charSprites[5];
+                        CurrentSprite = 5;
                     }
                     break;
                 case CharState.Event:
                     if(usedAltSprite) {
                         usedAltSprite = false;
-                        CurrentSprite = charSprites[0];
+                        CurrentSprite = 0;
                     }
                     else {
                         usedAltSprite = true;
-                        CurrentSprite = charSprites[8];
+                        CurrentSprite = 8;
                     }
                     break;
             }

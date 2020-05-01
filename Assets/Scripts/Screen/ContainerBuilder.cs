@@ -9,7 +9,6 @@ namespace Kaisa.Digivice {
         [SerializeField]
         private RectMask2D mask;
         public override void InvertColors(bool val) => throw new System.NotImplementedException();
-        public override void SetComponentOffset(Vector2 offsetMin, Vector2 offsetMax) => throw new System.NotImplementedException();
         public override void SetComponentPosition(int x, int y) => throw new System.NotImplementedException();
         public void SetChildPosition(int index, int x, int y) {
             gameObject.transform.GetChild(index).gameObject.PlaceInPosition(x, y);

@@ -36,9 +36,7 @@ namespace Kaisa.Digivice.App {
         }
 
         private void DrawScreen() {
-            foreach(Transform child in screenDisplay.transform) {
-                Destroy(child.gameObject);
-            }
+            ClearScreen();
 
             switch(currentScreen) {
                 case 0:
@@ -50,21 +48,21 @@ namespace Kaisa.Digivice.App {
                     break;
                 case 1:
                     screenDisplay.sprite = gm.spriteDB.status_level;
-                    string level = gm.LoadedGame.PlayerLevel.ToString();
-                    string spirits = gm.LoadedGame.SpiritPower.ToString();
+                    string level = gm.logicMgr.GetPlayerLevel().ToString();
+                    string spirits = gm.logicMgr.SpiritPower.ToString();
                     gm.BuildTextBox("TextLevel", screenDisplay.transform, level, DFont.Regular, 31, 5, 0, 10, TextAnchor.UpperRight);
                     gm.BuildTextBox("TextSpirits", screenDisplay.transform, spirits, DFont.Regular, 31, 5, 0, 26, TextAnchor.UpperRight);
                     break;
                 case 2:
                     screenDisplay.sprite = gm.spriteDB.status_victories;
-                    float fVictoryPerc = gm.LoadedGame.WinPercentage;
-                    int iVictoryPerc = Mathf.RoundToInt(gm.LoadedGame.WinPercentage * 100);
+                    float fVictoryPerc = gm.logicMgr.WinPercentage;
+                    int iVictoryPerc = Mathf.RoundToInt(gm.logicMgr.WinPercentage * 100);
                     //The victory percentage is never 100% or 0%, unless the player has won or lost every single battle they've played.
                     if (iVictoryPerc == 100 && fVictoryPerc != 1f) iVictoryPerc = 99;
                     if (iVictoryPerc == 0 && fVictoryPerc != 0f) iVictoryPerc = 1;
 
                     string victoryPerc = iVictoryPerc.ToString();
-                    string winCount = gm.LoadedGame.SpiritPower.ToString();
+                    string winCount = gm.logicMgr.SpiritPower.ToString();
                     gm.BuildTextBox("TextLevel", screenDisplay.transform, victoryPerc, DFont.Regular, 24, 5, 0, 10, TextAnchor.UpperRight);
                     gm.BuildTextBox("TextSpirits", screenDisplay.transform, winCount, DFont.Regular, 31, 5, 0, 26, TextAnchor.UpperRight);
                     break;
@@ -72,9 +70,8 @@ namespace Kaisa.Digivice.App {
                 case 4:
                 case 5:
                 case 6:
-                    int dockNumber = currentScreen - 3;
-                    screenDisplay.sprite = gm.spriteDB.status_ddock[dockNumber];
-                    gm.BuildDDockSprite(dockNumber, screenDisplay.transform);
+                    int ddockNumber = currentScreen - 3;
+                    gm.BuildDDockSprite(ddockNumber, screenDisplay.transform);
                     break;
             }
         }

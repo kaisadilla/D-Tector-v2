@@ -54,7 +54,7 @@ namespace Kaisa.Digivice.App {
         public override void InputA() {
             if (CurrentScreen == ScreenDatabase.Menu) {
                 if (menuIndex < 6) {
-                    if (gm.DatabaseMgr.OwnsDigimonInStage((Stage)menuIndex)) {
+                    if (gm.OwnsDigimonInStage((Stage)menuIndex)) {
                         audioMgr.PlayButtonA();
                         OpenGallery();
                     }
@@ -69,7 +69,7 @@ namespace Kaisa.Digivice.App {
             }
             else if (CurrentScreen == ScreenDatabase.Menu_Spirit) {
                 if (spiritMenuIndex < 10) {
-                    if (gm.DatabaseMgr.OwnsSpiritDigimonOfElement((Element)spiritMenuIndex)) {
+                    if (gm.OwnsSpiritDigimonOfElement((Element)spiritMenuIndex)) {
                         audioMgr.PlayButtonA();
                         OpenGallery();
                     }
@@ -78,7 +78,7 @@ namespace Kaisa.Digivice.App {
                     }
                 }
                 else {
-                    if (gm.DatabaseMgr.OwnsFusionSpiritDigimon()) {
+                    if (gm.OwnsFusionSpiritDigimon()) {
                         audioMgr.PlayButtonA();
                         OpenGallery();
                     }
@@ -221,7 +221,7 @@ namespace Kaisa.Digivice.App {
             }
             else if (CurrentScreen == ScreenDatabase.Gallery) {
                 string displayDigimon = galleryList[galleryIndex];
-                digimonIsInDDock = gm.DatabaseMgr.IsInDock(displayDigimon);
+                digimonIsInDDock = gm.IsInDock(displayDigimon);
                 screenDisplay.sprite = (digimonIsInDDock) ? gm.spriteDB.invertedArrowsSmall : gm.spriteDB.arrowsSmall;
 
                 Sprite spriteRegular = gm.spriteDB.GetDigimonSprite(displayDigimon, SpriteAction.Default);
@@ -245,16 +245,27 @@ namespace Kaisa.Digivice.App {
                     StartCoroutine(AnimateName(nameBuilder));
                 }
 
-                int playerLevel = gm.LoadedGame.PlayerLevel;
-                int digimonExtraLevel = gm.LoadedGame.GetDigimonLevel(pageDigimon.name);
+                int playerLevel = gm.logicMgr.GetPlayerLevel();
+                int digimonExtraLevel = gm.logicMgr.GetDigimonExtraLevel(pageDigimon.name);
+                int realLevel;
 
-                string level = pageDigimon.GetFriendlyLevel(digimonExtraLevel, playerLevel).ToString();
-                CombatStats stats = pageDigimon.GetFriendlyStats(playerLevel, digimonExtraLevel);
+                MutableCombatStats stats;
+                //If the Digimon is Spirit- or Armor-Stage.
+                if (menuIndex == 5 || menuIndex == 6) {
+                    realLevel = pageDigimon.GetBossLevel(playerLevel);
+                    stats = pageDigimon.GetBossStats(playerLevel);
+                }
+                else {
+                    realLevel = pageDigimon.GetFriendlyLevel(digimonExtraLevel);
+                    stats = pageDigimon.GetFriendlyStats(digimonExtraLevel);
+                } 
+
+
                 int element = (int)pageDigimon.element;
 
                 if (pageIndex == 0) {
                     screenDisplay.sprite = gm.spriteDB.database_pages[0];
-                    gm.BuildTextBox("Level", screenDisplay.transform, level, DFont.Regular, 15, 5, 16, 9, TextAnchor.UpperRight);
+                    gm.BuildTextBox("Level", screenDisplay.transform, realLevel.ToString(), DFont.Regular, 15, 5, 16, 9, TextAnchor.UpperRight);
                     gm.BuildTextBox("HP", screenDisplay.transform, stats.HP.ToString(), DFont.Regular, 15, 5, 16, 17, TextAnchor.UpperRight);
                     gm.BuildSprite("Element", screenDisplay.transform, 30, 5, 1, 25, gm.spriteDB.elementNames[element]);
                 }
@@ -305,7 +316,7 @@ namespace Kaisa.Digivice.App {
             //Regular galleries.
             if (menuIndex < 6) {
                 foreach (Digimon d in gm.DatabaseMgr.Digimons) {
-                    if ((int)d.stage == menuIndex && gm.LoadedGame.IsDigimonUnlocked(d.name)) {
+                    if ((int)d.stage == menuIndex && gm.logicMgr.GetDigimonUnlocked(d.name)) {
                         galleryList.Add(d.name);
                     }
                 }
@@ -315,7 +326,7 @@ namespace Kaisa.Digivice.App {
                 //If an element is chosen.
                 if(spiritMenuIndex < 10) {
                     foreach (Digimon d in gm.DatabaseMgr.Digimons) {
-                        if ((int)d.stage == menuIndex && (int)d.element == spiritMenuIndex && d.spiritType != SpiritType.Fusion && gm.LoadedGame.IsDigimonUnlocked(d.name)) {
+                        if ((int)d.stage == menuIndex && (int)d.element == spiritMenuIndex && d.spiritType != SpiritType.Fusion && gm.logicMgr.GetDigimonUnlocked(d.name)) {
                             galleryList.Add(d.name);
                         }
                     }
@@ -323,7 +334,7 @@ namespace Kaisa.Digivice.App {
                 //If fusion is chosen.
                 if (spiritMenuIndex == 10) {
                     foreach (Digimon d in gm.DatabaseMgr.Digimons) {
-                        if ((int)d.stage == menuIndex && d.spiritType == SpiritType.Fusion && gm.LoadedGame.IsDigimonUnlocked(d.name)) {
+                        if ((int)d.stage == menuIndex && d.spiritType == SpiritType.Fusion && gm.logicMgr.GetDigimonUnlocked(d.name)) {
                             galleryList.Add(d.name);
                         }
                     }
@@ -363,7 +374,7 @@ namespace Kaisa.Digivice.App {
         }
 
         private void NavigatePages(Direction dir) {
-            int upperBound = (gm.DatabaseMgr.IsDigimonCodeUnlocked(pageDigimon.name)) ? 2 : 1;
+            int upperBound = (gm.logicMgr.GetDigimonCodeUnlocked(pageDigimon.name)) ? 2 : 1;
 
             if (dir == Direction.Left) pageIndex = pageIndex.CircularAdd(-1, upperBound);
             else pageIndex = pageIndex.CircularAdd(1, upperBound);
@@ -406,7 +417,7 @@ namespace Kaisa.Digivice.App {
         }
         private void ChooseDDock() {
             gm.PlayAnimation(gm.screenMgr.ASwapDDock(ddockIndex, pageDigimon.name));
-            gm.DatabaseMgr.SetDDockDigimon(ddockIndex, pageDigimon.name);
+            gm.logicMgr.SetDDockDigimon(ddockIndex, pageDigimon.name);
             CloseDDockDisplay();
             CloseDDockList();
             ClosePages();

@@ -143,8 +143,8 @@ namespace Kaisa.Digivice.App {
 
         private void CheckCode() {
             if (gm.DatabaseMgr.TryGetDigimonFromCode(CurrentInputString, out string digimon)) {
-                gm.DatabaseMgr.UnlockDigimon(digimon);
-                gm.DatabaseMgr.UnlockDigimonCode(digimon);
+                gm.logicMgr.SetDigimonUnlocked(digimon, true);
+                gm.logicMgr.SetDigimonCodeUnlocked(digimon, true);
                 CloseApp();
                 gm.PlayAnimation(
                     gm.screenMgr.ASummonDigimon(digimon),

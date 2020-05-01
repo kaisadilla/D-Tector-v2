@@ -36,8 +36,8 @@ public class SpriteDatabase : MonoBehaviour {
     public Sprite[] status_ddock = new Sprite[4];
     public Sprite status_ddockEmpty;
     [Header("Games")]
-    public Sprite[] game_sections = new Sprite[2];
-    public Sprite[] games_reward = new Sprite[4];
+    public Sprite[] game_sections = new Sprite[3];
+    public Sprite[] games_reward = new Sprite[3];
     public Sprite[] games_travel = new Sprite[4];
     public Sprite games_score;
     public Sprite games_distance;
@@ -60,6 +60,13 @@ public class SpriteDatabase : MonoBehaviour {
     public Sprite giveMassivePowerWhite;
     public Sprite acquireDigimon;
     public Sprite dTector;
+    [Header("Battle")]
+    public Sprite[] battle_mainMenu = new Sprite[4];
+    public Sprite[] battle_combatMenu = new Sprite[5];
+    public Sprite[] battle_attackMenu = new Sprite[3];
+    [Header("Battle Particles")]
+    public Sprite[] battle_energy = new Sprite[20];
+    public Sprite battle_disobey;
     [Header("Game - SpeedRunner")]
     public Sprite speedRunner_rocket;
     public Sprite speedRunner_rocketExplosion;

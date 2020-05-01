@@ -14,17 +14,17 @@ namespace Kaisa.Digivice {
         [SerializeField] private Font fSmall;
 
         public new int Width {
-            get => (int)(textField.rectTransform.sizeDelta.x / Constants.PixelSize);
+            get => (int)(textField.rectTransform.sizeDelta.x / Constants.PIXEL_SIZE);
         }
 
         public override void InvertColors(bool val) {
             if(val) {
-                textField.color = Constants.backgroundColor;
-                background.color = Constants.activeColor;
+                textField.color = Constants.BACKGROUND_COLOR;
+                background.color = Constants.ACTIVE_COLOR;
             }
             else {
-                textField.color = Constants.activeColor;
-                background.color = Constants.backgroundColor;
+                textField.color = Constants.ACTIVE_COLOR;
+                background.color = Constants.BACKGROUND_COLOR;
             }
         }
 
@@ -59,9 +59,9 @@ namespace Kaisa.Digivice {
             textField.gameObject.PlaceInPosition(x, y);
 
         }
-        public override void SetComponentOffset(Vector2 offsetMin, Vector2 offsetMax) {
-            textField.rectTransform.offsetMin = new Vector2(offsetMin.x * Constants.PixelSize, offsetMin.y * Constants.PixelSize);
-            textField.rectTransform.offsetMax = new Vector2(offsetMax.x * Constants.PixelSize, offsetMax.y * Constants.PixelSize);
+        public void SetComponentOffset(Vector2 offsetMin, Vector2 offsetMax) {
+            textField.rectTransform.offsetMin = new Vector2(offsetMin.x * Constants.PIXEL_SIZE, offsetMin.y * Constants.PIXEL_SIZE);
+            textField.rectTransform.offsetMax = new Vector2(offsetMax.x * Constants.PIXEL_SIZE, offsetMax.y * Constants.PIXEL_SIZE);
         }
     }
 

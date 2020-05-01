@@ -8,14 +8,14 @@ namespace Kaisa.Digivice.Extensions {
             go.PlaceInPosition((int)pos.x, (int)pos.y);
         }
         public static void PlaceInPosition(this GameObject go, int x, int y) {
-            go.GetComponent<RectTransform>().anchoredPosition = new Vector2(x * Constants.PixelSize, -y * Constants.PixelSize);
+            go.GetComponent<RectTransform>().anchoredPosition = new Vector2(x * Constants.PIXEL_SIZE, -y * Constants.PIXEL_SIZE);
         }
         /*
         public static void MovePosition(this GameObject go, int x, int y) {
             go.GetComponent<RectTransform>().anchoredPosition += new Vector2(x * Constants.PixelSize, -y * Constants.PixelSize);
         }*/
         public static void MoveSprite(this GameObject go, Direction direction, int amount = 1) {
-            int displacement = Constants.PixelSize * amount;
+            int displacement = Constants.PIXEL_SIZE * amount;
             switch(direction) {
                 case Direction.Up:
                     go.transform.localPosition += new Vector3(0, displacement, 0);

@@ -42,7 +42,7 @@ namespace Kaisa.Digivice.Extensions {
         public static void SetLast<T>(this ref T thisEnum) where T : struct {
             thisEnum = thisEnum.Last();
         }
-        public static Direction OppositeDirection(this Direction dir) {
+        public static Direction Opposite(this Direction dir) {
             switch(dir) {
                 case Direction.Left: return Direction.Right;
                 case Direction.Right: return Direction.Left;

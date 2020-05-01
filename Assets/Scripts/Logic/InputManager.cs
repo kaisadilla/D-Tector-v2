@@ -21,24 +21,53 @@ namespace Kaisa.Digivice {
         private Direction tappingDirection;
         private float msUntilNextTrigger = FIRST_TRIGGER_DELAY; //The count until the next input trigger while tapping.
 
+        private Direction lastKeyPressed = Direction.none;
+
         private void Update() {
             PointerDown(tappingDirection);
         }
 
         public void OnInputA() {
-            if(!inhibitInput) gm.logicMgr.InputA();
+            if (!inhibitInput) {
+                gm.logicMgr.InputA();
+                lastKeyPressed = Direction.Down;
+            }
         }
 
         public void OnInputB() {
-            if (!inhibitInput) gm.logicMgr.InputB();
+            if (!inhibitInput) {
+                gm.logicMgr.InputB();
+                lastKeyPressed = Direction.Up;
+            }
         }
 
         public void OnInputLeft() {
-            if (!inhibitInput) gm.logicMgr.InputLeft();
+            if (!inhibitInput) {
+                gm.logicMgr.InputLeft();
+                lastKeyPressed = Direction.Left;
+            }
         }
 
         public void OnInputRight() {
-            if (!inhibitInput) gm.logicMgr.InputRight();
+            if (!inhibitInput) {
+                gm.logicMgr.InputRight();
+                lastKeyPressed = Direction.Right;
+            }
+        }
+
+        /// <summary>
+        /// Consumes the key being stored and returns true if it's any of the keys passed as a parameter.
+        /// </summary>
+        public bool ConsumeLastKey(params Direction[] checkDir) {
+            Debug.Log($"Consumed key! LastKey: {lastKeyPressed}");
+            foreach(Direction d in checkDir) {
+                if (lastKeyPressed == d) {
+                    Debug.Log("Returning true!");
+                    lastKeyPressed = Direction.none;
+                    return true;
+                }
+            }
+            return false;
         }
 
         public bool GetTappingEnabled(Direction dir) {

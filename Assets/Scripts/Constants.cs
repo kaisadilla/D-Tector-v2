@@ -4,13 +4,16 @@ namespace Kaisa.Digivice {
     public static class Constants {
         public const string aesKey = "B8564DE248CF675C1F44586B4E87294F";
 
-        public const int PixelSize = 24;
-        public const int ScreenWidth = 32;
-        public const int ScreenHeight = 32;
-        public static readonly Color backgroundColor = new Color32(129, 147, 118, 255);
-        public static readonly Color activeColor = Color.black;
+        public const int PIXEL_SIZE = 24;
+        public const int SCREEN_WIDTH = 32;
+        public const int SCREEN_HEIGHT = 32;
 
-        public static readonly Vector2Int[][] areaPositions = new Vector2Int[][] {
+        public const int MAX_SPIRIT_POWER = 99;
+
+        public static readonly Color BACKGROUND_COLOR = new Color32(129, 147, 118, 255);
+        public static readonly Color ACTIVE_COLOR = Color.black;
+
+        public static readonly Vector2Int[][] AREA_POSITIONS = new Vector2Int[][] {
             new Vector2Int[] {
                 new Vector2Int(18, 21),
                 new Vector2Int(6, 27),

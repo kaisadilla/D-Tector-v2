@@ -237,6 +237,7 @@ namespace Kaisa.Digivice.App {
             stack.Push((0, 0));
             cellPaths[0] = CELL_VISITED;
             visitedCells++;
+
             //cellState.Length is always equal to the total amount of cells.
             while (visitedCells < cellPaths.Length) {
                 List<Direction> neighbors = new List<Direction>();

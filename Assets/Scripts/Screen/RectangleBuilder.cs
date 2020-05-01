@@ -13,12 +13,12 @@ public class RectangleBuilder : ScreenElement {
 
     public override void InvertColors(bool val) {
         if (val) {
-            rectangle.color = Constants.backgroundColor;
-            background.color = Constants.activeColor;
+            rectangle.color = Constants.BACKGROUND_COLOR;
+            background.color = Constants.ACTIVE_COLOR;
         }
         else {
-            rectangle.color = Constants.activeColor;
-            background.color = Constants.backgroundColor;
+            rectangle.color = Constants.ACTIVE_COLOR;
+            background.color = Constants.BACKGROUND_COLOR;
         }
     }
 
@@ -28,10 +28,10 @@ public class RectangleBuilder : ScreenElement {
     /// </summary>
     public void SetColor(bool activeColor) {
         if(activeColor) {
-            rectangle.color = Constants.activeColor;
+            rectangle.color = Constants.ACTIVE_COLOR;
         }
         else {
-            rectangle.color = Constants.backgroundColor;
+            rectangle.color = Constants.BACKGROUND_COLOR;
         }
     }
     /// <summary>
@@ -75,6 +75,5 @@ public class RectangleBuilder : ScreenElement {
         }
     }
 
-    public override void SetComponentOffset(Vector2 offsetMin, Vector2 offsetMax) { }
     public override void SetComponentPosition(int x, int y) { }
 }

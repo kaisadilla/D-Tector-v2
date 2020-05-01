@@ -1,6 +1,8 @@
 ﻿using Kaisa.Digivice.Extensions;
 using System;
 using System.Collections;
+using System.Net.NetworkInformation;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,12 +33,16 @@ namespace Kaisa.Digivice {
         public void PlayAnimation(params IEnumerator[] animations) => StartCoroutine(PlayAnimationCoroutine(animations));
         private IEnumerator PlayAnimationCoroutine(params IEnumerator[] animations) {
             gm.LockInput();
-            foreach(IEnumerator a in animations) {
-                animParent = gm.BuildBackground(ScreenParent);
+            foreach (IEnumerator a in animations) {
+                animParent = gm.BuildContainer("Anim Parent", ScreenParent, 32, 32, transparent: false).transform;
                 yield return a;
                 Destroy(animParent.gameObject);
             }
             gm.UnlockInput();
+        }
+
+        private void ClearParent() {
+            foreach (Transform child in animParent) Destroy(child);
         }
 
         private void Update() {
@@ -46,9 +52,9 @@ namespace Kaisa.Digivice {
         private void UpdateDisplay() {
             int index;
             Sprite sprite;
-            switch(logicMgr.currentScreen) {
+            switch (logicMgr.currentScreen) {
                 case Screen.Character:
-                    SetScreenSprite(gm.playerChar.CurrentSprite);
+                    SetScreenSprite(gm.PlayerCharSprites[gm.CurrentPlayerCharSprite]);
                     break;
                 case Screen.MainMenu:
                     index = (int)logicMgr.currentMainMenu;
@@ -56,17 +62,17 @@ namespace Kaisa.Digivice {
                     SetScreenSprite(sprite);
                     break;
                 case Screen.GamesMenu:
-                    index = (int)logicMgr.currentGameMenu;
+                    index = logicMgr.gamesMenuIndex;
                     sprite = spriteDB.game_sections[index];
                     SetScreenSprite(sprite);
                     break;
                 case Screen.GamesRewardMenu:
-                    index = (int)logicMgr.currentGameRewardMenu;
+                    index = logicMgr.gamesRewardMenuIndex;
                     sprite = spriteDB.games_reward[index];
                     SetScreenSprite(sprite);
                     break;
                 case Screen.GamesTravelMenu:
-                    index = (int)logicMgr.currentGameTravelMenu;
+                    index = logicMgr.gamesTravelMenuIndex;
                     sprite = spriteDB.games_travel[index];
                     SetScreenSprite(sprite);
                     break;
@@ -80,7 +86,6 @@ namespace Kaisa.Digivice {
             screenDisplay.sprite = sprite;
         }
 
-        #region Animations
         public IEnumerator ASummonDigimon(string digimon) {
             Sprite sDigimon = spriteDB.GetDigimonSprite(digimon);
             Sprite sDigimonCr = spriteDB.GetDigimonSprite(digimon, SpriteAction.Crush);
@@ -100,7 +105,7 @@ namespace Kaisa.Digivice {
                 yield return new WaitForSeconds(0.15f);
             }
 
-            for(int i = 0; i < 4; i++) {
+            for (int i = 0; i < 4; i++) {
                 sbBlackScreen.SetSprite(sPowerBlack);
                 yield return new WaitForSeconds(0.15f);
                 sbBlackScreen.SetSprite(sBlackScreen);
@@ -115,7 +120,7 @@ namespace Kaisa.Digivice {
             sbDigimon.SetSprite(sDigimon);
             yield return new WaitForSeconds(0.15f);
 
-            for(int i = 0; i < 2; i++) {
+            for (int i = 0; i < 2; i++) {
                 sbBlackScreen.SetTransparent(true);
                 sbBlackScreen.SetSprite(sPowerWhite);
                 yield return new WaitForSeconds(0.15f);
@@ -143,7 +148,6 @@ namespace Kaisa.Digivice {
             yield return new WaitForSeconds(0.75f);
             //yield return new WaitUntil(() => !audioMgr.IsSoundPlaying);
         }
-
         public IEnumerator AUnlockDigimon(string digimon) {
             Sprite sDigimon = spriteDB.GetDigimonSprite(digimon);
             Sprite sCurtain = spriteDB.acquireDigimon;
@@ -158,12 +162,12 @@ namespace Kaisa.Digivice {
 
             yield return new WaitForSeconds(0.15f);
 
-            for(int i = 0; i < 32; i++) {
+            for (int i = 0; i < 32; i++) {
                 sbCurtain.MoveSprite(Direction.Up);
                 yield return new WaitForSeconds(1.5f / 32);
 
             }
-            for(int i = 0; i < 32; i++) {
+            for (int i = 0; i < 32; i++) {
                 sbCurtain.MoveSprite(Direction.Up);
                 sbDigimon.MoveSprite(Direction.Up);
                 yield return new WaitForSeconds(1.5f / 32);
@@ -179,7 +183,7 @@ namespace Kaisa.Digivice {
 
             yield return new WaitForSeconds(0.30f);
 
-            for(int i = 0; i < 5; i++) {
+            for (int i = 0; i < 5; i++) {
                 sbPower.SetActive(true);
                 yield return new WaitForSeconds(0.15f);
                 sbPower.SetActive(false);
@@ -188,13 +192,10 @@ namespace Kaisa.Digivice {
 
             yield return new WaitForSeconds(0.45f);
         }
-        #endregion
-
         public IEnumerator ACharHappy() {
             yield return ACharHappyShort();
             yield return ACharHappyShort();
         }
-
         public IEnumerator ACharHappyShort() {
             Sprite charIdle = gm.PlayerCharSprites[0];
             Sprite charHappy = gm.PlayerCharSprites[6];
@@ -212,6 +213,8 @@ namespace Kaisa.Digivice {
         }
         //TODO: Make the screen exit after the player presses A.
         public IEnumerator AAwardDistance(int score, int distanceBefore, int distanceAfter) {
+            //yield return null;
+            //gm.inputMgr.ConsumeLastKey(Direction.Up, Direction.Down);
             Sprite sScore = spriteDB.games_score;
             Sprite sDistance = spriteDB.games_distance;
 
@@ -233,16 +236,17 @@ namespace Kaisa.Digivice {
 
             audioMgr.PlayCharHappy();
             tbDistance.Text = distanceAfter.ToString();
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(2f);
+            //gm.UnlockInput();
+            //yield return new WaitUntil(() => gm.inputMgr.ConsumeLastKey(Direction.Up, Direction.Down));
         }
-
         public IEnumerator ATravelMap(Direction dir, int currentMap, int currentSector, int newSector) {
             Sprite mapCurrentSprite = spriteDB.GetMapSectorSprites(currentMap)[currentSector];
             Sprite mapNewSprite = spriteDB.GetMapSectorSprites(currentMap)[newSector];
 
             SpriteBuilder sMapCurrent = gm.BuildSprite("AnimCurrentSector", animParent, posX: 0, posY: 0, sprite: mapCurrentSprite);
             SpriteBuilder sMapNew = gm.BuildSprite("AnimNewSector", animParent, sprite: mapNewSprite);
-            sMapNew.PlaceOutside(dir.OppositeDirection());
+            sMapNew.PlaceOutside(dir.Opposite());
 
             float animDuration = 1.5f;
             for (int i = 0; i < 32; i++) {
@@ -254,7 +258,6 @@ namespace Kaisa.Digivice {
             sMapCurrent.Dispose();
             sMapNew.Dispose();
         }
-
         public IEnumerator ASwapDDock(int ddock, string newDigimon) {
             float animDuration = 1.5f;
             Sprite newDigimonSprite = spriteDB.GetDigimonSprite(newDigimon);
@@ -299,5 +302,187 @@ namespace Kaisa.Digivice {
             bBlackBars.Dispose();
             bDDock.Dispose();
         }
+        #region Battle animations
+        public IEnumerator AEncounterEnemy(string digimon) {
+            Sprite sDigimon = spriteDB.GetDigimonSprite(digimon);
+            Sprite sDigimonAt = spriteDB.GetDigimonSprite(digimon, SpriteAction.Attack);
+            Sprite sGivePower = spriteDB.givePowerWhite;
+
+            SpriteBuilder sbDigimon = gm.BuildSprite("Enemy", animParent, 24, 24, 4, 4, sDigimon);
+            sbDigimon.FlipHorizontal(true);
+            sbDigimon.SetActive(false);
+            SpriteBuilder sbGivePower = gm.BuildSprite("Power", animParent, sprite: sGivePower, transparent: true);
+            sbGivePower.SetActive(false);
+
+            for (int i = 0; i < 3; i++) {
+                yield return new WaitForSeconds(0.5f);
+                sbGivePower.SetActive(true);
+                yield return new WaitForSeconds(0.1f);
+                sbGivePower.SetActive(false);
+            }
+
+            yield return new WaitForSeconds(0.5f);
+            sbGivePower.SetActive(true);
+
+            for (int i = 0; i < 2; i++) {
+                yield return new WaitForSeconds(0.25f);
+                sbDigimon.SetActive(false);
+                sbGivePower.SetActive(true);
+                yield return new WaitForSeconds(0.1f);
+                sbDigimon.SetActive(true);
+                sbGivePower.SetActive(false);
+            }
+
+            yield return new WaitForSeconds(0.25f);
+            sbDigimon.SetActive(false);
+            sbGivePower.SetActive(true);
+
+            yield return new WaitForSeconds(0.1f);
+            sbGivePower.SetActive(false);
+
+            yield return new WaitForSeconds(0.35f);
+            audioMgr.PlaySound(audioMgr.encounterDigimon);
+            sbDigimon.SetActive(true);
+
+            yield return new WaitForSeconds(0.35f);
+            sbDigimon.SetSprite(sDigimonAt);
+            yield return new WaitForSeconds(0.6f);
+            sbDigimon.SetSprite(sDigimon);
+            yield return new WaitForSeconds(0.6f);
+            sbDigimon.SetSprite(sDigimonAt);
+            yield return new WaitForSeconds(1f);
+        }
+        public IEnumerator AEncounterBoss(string digimon) {
+            Sprite sDigimon = spriteDB.GetDigimonSprite(digimon);
+            Sprite sDigimonAt = spriteDB.GetDigimonSprite(digimon, SpriteAction.Attack);
+            Sprite sGivePower = spriteDB.giveMassivePowerWhite;
+
+            SpriteBuilder sbDigimon = gm.BuildSprite("Enemy", animParent, 24, 24, 4, 4, sDigimon);
+            sbDigimon.FlipHorizontal(true);
+            sbDigimon.SetActive(false);
+            SpriteBuilder sbGivePower = gm.BuildSprite("MassivePower", animParent, sprite: sGivePower, transparent: true);
+            sbGivePower.SetActive(false);
+
+            yield return new WaitForSeconds(0.5f);
+            sbGivePower.SetActive(true);
+            yield return new WaitForSeconds(0.1f);
+            sbGivePower.SetActive(false);
+            audioMgr.PlaySound(audioMgr.encounterDigimonBoss);
+            for (int i = 0; i < 3; i++) {
+                yield return new WaitForSeconds(0.5f);
+                sbGivePower.SetActive(true);
+                yield return new WaitForSeconds(0.1f);
+                sbGivePower.SetActive(false);
+            }
+
+            sbDigimon.SetActive(true);
+
+            for (int i = 0; i < 2; i++) {
+                yield return new WaitForSeconds(0.25f);
+                sbGivePower.SetActive(true);
+                yield return new WaitForSeconds(0.1f);
+                sbGivePower.SetActive(false);
+            }
+
+            yield return new WaitForSeconds(0.25f);
+            sbDigimon.SetActive(false);
+            yield return new WaitForSeconds(0.15f);
+            sbDigimon.SetActive(true);
+
+            yield return new WaitForSeconds(0.5f);
+            sbDigimon.SetSprite(sDigimonAt);
+            yield return new WaitForSeconds(0.5f);
+            sbDigimon.SetSprite(sDigimon);
+            yield return new WaitForSeconds(0.5f);
+            sbDigimon.SetSprite(sDigimonAt);
+            yield return new WaitForSeconds(0.75f);
+
+        }
+        public IEnumerator ADisplayTurn(
+                string friendlyDigimon, int friendlyAttack, int friendlyEnergy,
+                string enemyDigimon, int enemyAttack, int enemyEnergy,
+                int winner, bool disobeyed, int loserHPbefore) {
+            Sprite[] friendlySprites = new Sprite[] {
+                spriteDB.GetDigimonSprite(friendlyDigimon),
+                spriteDB.GetDigimonSprite(friendlyDigimon, SpriteAction.Attack),
+                spriteDB.GetDigimonSprite(friendlyDigimon, SpriteAction.Crush),
+                spriteDB.battle_energy[friendlyEnergy],
+                spriteDB.GetAbilitySprite(gm.DatabaseMgr.GetDigimon(friendlyDigimon).abilityName)
+            };
+            Sprite[] enemySprites = new Sprite[] {
+                spriteDB.GetDigimonSprite(enemyDigimon),
+                spriteDB.GetDigimonSprite(enemyDigimon, SpriteAction.Attack),
+                spriteDB.GetDigimonSprite(enemyDigimon, SpriteAction.Crush),
+                spriteDB.battle_energy[enemyEnergy],
+                spriteDB.GetAbilitySprite(gm.DatabaseMgr.GetDigimon(enemyDigimon).abilityName)
+            };
+            Debug.Log("Friendly energy: " + friendlyEnergy);
+
+            ContainerBuilder friendlyAtkSprite = gm.BuildContainer("FriendlyAttack", animParent, 32, 32, 0, 0, false);
+            friendlyAtkSprite.PlaceOutside(Direction.Right);
+            ContainerBuilder enemyAtkSprite = gm.BuildContainer("EnemyAttack", animParent, 32, 32, 0, 0, false);
+            enemyAtkSprite.PlaceOutside(Direction.Left);
+
+            yield return PALaunchAttack(friendlySprites, friendlyAttack, false, disobeyed);
+            yield return PALaunchAttack(enemySprites, enemyAttack, true, false);
+        }
+        //TODO: FIX VARIOUS INSTANCES OF ENEMIES ATTACKING AND LOOKING AT THE WRONG WAY.
+        private IEnumerator PALaunchAttack(Sprite[] digimonSprites, int attack, bool isEnemy, bool disobeyed) {
+            Direction launchDir = isEnemy ? Direction.Right : Direction.Left;
+            SpriteBuilder sbAttack = gm.BuildSprite("Attack", animParent);
+            SpriteBuilder sbDigimon = gm.BuildSprite("Attacker", animParent, 24, 24, 4, 4, digimonSprites[0]);
+            sbAttack.SetComponentSize(24, 24);
+
+            sbAttack.SnapComponentToSide(launchDir, true);
+            sbDigimon.FlipHorizontal(isEnemy);
+            sbAttack.FlipHorizontal(isEnemy);
+
+            if (attack != 3) {
+                //Show exclamation mark.
+                if(disobeyed) {
+                    yield return new WaitForSeconds(0.1f);
+                    SpriteBuilder sbDisobey = gm.BuildSprite("Disobey", animParent, 3, 9, 1, 1, spriteDB.battle_disobey);
+                    yield return new WaitForSeconds(0.3f);
+                    sbDisobey.Dispose();
+                }
+                yield return new WaitForSeconds(0.2f);
+                sbDigimon.MoveSprite(launchDir.Opposite(), 3);
+                sbAttack.MoveSprite(launchDir.Opposite(), 3);
+            }
+            if (attack == 0 || attack == 2) {
+                sbDigimon.SetSprite(digimonSprites[1]);
+                sbAttack.SetSprite((attack == 0) ? digimonSprites[3] : digimonSprites[4]);
+                Debug.Log("DigiSprite: " + (digimonSprites[3] == null));
+
+                audioMgr.PlaySound(audioMgr.launchAttack);
+                for(int i = 0; i < 38; i++) {
+                    sbAttack.MoveSprite(launchDir);
+                    yield return new WaitForSeconds(2f / 38);
+                }
+                yield return new WaitForSeconds(0.3f);
+            }
+            else if (attack == 1) {
+                sbDigimon.SetSprite(digimonSprites[2]);
+
+                audioMgr.PlaySound(audioMgr.launchAttack);
+                for(int i = 0; i < 7; i++) {
+                    gm.BuildSprite($"Crush{i}", animParent, 24, 24, 4, 4, digimonSprites[2]).FlipHorizontal(isEnemy).MoveSprite(launchDir, 4 * i);
+                    yield return new WaitForSeconds(0.9f / 7);
+                }
+                yield return new WaitForSeconds(1.5f);
+            }
+            else if (attack == 3) {
+                for(int i = 0; i < 2; i++) {
+                    yield return new WaitForSeconds(0.65f);
+                    sbDigimon.FlipHorizontal(true);
+                    yield return new WaitForSeconds(0.65f);
+                    sbDigimon.FlipHorizontal(false);
+                }
+            }
+            ClearParent();
+            //yield return new WaitForSeconds(0.2f);
+        }
+        #endregion
+
     }
 }

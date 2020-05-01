@@ -165,13 +165,13 @@ namespace Kaisa.Digivice.App {
                 int firstArea = currentSector * 3;
                 for (int i = firstArea; i <= firstArea + 2; i++) {
                     if (gm.DistanceMgr.GetAreaCompleted(currentMap, i)) {
-                        Vector2Int markerPos = Constants.areaPositions[currentMap][i];
+                        Vector2Int markerPos = Constants.AREA_POSITIONS[currentMap][i];
                         RectangleBuilder marker = gm.BuildRectangle("Area" + i + "Marker", screenDisplay.transform, 2, 2, markerPos.x, markerPos.y);
                         markerPoints.Add(marker);
                     }
                     //If this area is the current area, use a flickering point to mark it. This point is drawn on top of the marker that indicates the area has been completed.
                     if (currentArea == i) {
-                        Vector2Int markerPos = Constants.areaPositions[currentMap][i];
+                        Vector2Int markerPos = Constants.AREA_POSITIONS[currentMap][i];
                         currentAreaMarker = gm.BuildRectangle("CurrentAreaMarker", screenDisplay.transform, 2, 2, markerPos.x, markerPos.y, 0.25f);
                         markerPoints.Add(currentAreaMarker);
                     }
@@ -193,7 +193,7 @@ namespace Kaisa.Digivice.App {
 
             if(currentMap == 0) {
                 hoveredArea = (currentSector == loadedGameSector) ? currentArea : currentSector * 3;
-                hoveredMarker.SetPosition(Constants.areaPositions[currentMap][hoveredArea]);
+                hoveredMarker.SetPosition(Constants.AREA_POSITIONS[currentMap][hoveredArea]);
 
                 if (currentSector == 0 || currentSector == 3) {
                     hoveredAreaName.SetPosition(2, 1);
@@ -213,7 +213,7 @@ namespace Kaisa.Digivice.App {
                 else {
                     hoveredArea = hoveredArea.CircularAdd(1, (currentSector * 3) + 2, currentSector * 3);
                 }
-                hoveredMarker.SetPosition(Constants.areaPositions[currentMap][hoveredArea]);
+                hoveredMarker.SetPosition(Constants.AREA_POSITIONS[currentMap][hoveredArea]);
                 hoveredAreaName.Text = string.Format("area{0:00}", hoveredArea + 1);
             }
         }

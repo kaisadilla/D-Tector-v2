@@ -27,35 +27,6 @@ namespace Kaisa.Digivice {
             return (EncryptedPlayerPrefs.GetInt("s" + candidateSlot) == 1);
         }
 
-        //Indirect variables: these are variables that are calculated from other variables stored.
-        /// <summary>
-        /// Returns the level of a player based on its experience.
-        /// </summary>
-        public int PlayerLevel {
-            get {
-                int playerXP = PlayerExperience;
-                if (playerXP == 0) return 1;
-
-                float level = Mathf.Pow(playerXP, 1f / 3f);
-                return Mathf.FloorToInt(level);
-            }
-        }
-        /// <summary>
-        /// Returns the amount of experience the player earns from winning a game.
-        /// </summary>
-        /// <param name="enemyLevel">The level of the enemy Digimon.</param>
-        /// <returns></returns>
-        public int ExperienceGained(int enemyLevel) {
-            int playerLevel = PlayerLevel;
-
-            //Original formula: ((((Mathf.Pow(enemyLevel, 2)) / 5f) * ((Mathf.Pow((2f * enemyLevel) + 10f, 2.5f) / Mathf.Pow((enemyLevel + playerLevel + 10), 2.5f)))) + 1) * 0.75f;
-            float a = Mathf.Pow(enemyLevel, 2) / 5f; // 1/5th of the square power of the enemy level.
-            float b = Mathf.Pow((2f * enemyLevel) + 10f, 2.5f); // 2x the enemy level + 10, raised to the power of 2.5.
-            float c = Mathf.Pow(enemyLevel + playerLevel + 10, 2.5f); // Enemy level + player level + 10, raised to the power of 2.5.
-            float expGained = ((a * (b / c)) + 1) * 0.75f;
-
-            return Mathf.CeilToInt(expGained);
-        }
         //Direct variables: these are variables that are directly stored in the PlayerPrefs.
         public bool SlotExists {
             get => (EncryptedPlayerPrefs.GetInt("s" + slot) == 1);
@@ -88,28 +59,34 @@ namespace Kaisa.Digivice {
             get => EncryptedPlayerPrefs.GetInt("s" + slot + "_nextEncounter");
             set => EncryptedPlayerPrefs.SetInt("s" + slot + "_nextEncounter", value);
         }
-        /*public int PlayerLevel {
-            get => EncryptedPlayerPrefs.GetInt("s" + slot + "_playerLevel");
-            set => EncryptedPlayerPrefs.SetInt("s" + slot + "_playerLevel", value);
-        }*/
         public int PlayerExperience {
             get => EncryptedPlayerPrefs.GetInt("s" + slot + "_playerExperience");
             set => EncryptedPlayerPrefs.SetInt("s" + slot + "_playerExperience", value);
         }
-        /// <summary>
-        /// The current amount of Spirit Power the player has.
-        /// The method AddSpiritPower() is provided to modify this value.
-        /// </summary>
         public int SpiritPower {
             get => EncryptedPlayerPrefs.GetInt("s" + slot + "_spiritPower");
-            set {
-                if (value > 99) value = 99;
-                if (value < 0) value = 0;
-                EncryptedPlayerPrefs.SetInt("s" + slot + "_spiritPower", value);
-            }
+            set => EncryptedPlayerPrefs.SetInt("s" + slot + "_spiritPower", value);
         }
 
-        public void AddSpiritPower(int val) => SpiritPower += val;
+        public void SetRandomSeed(int index, int value) {
+            EncryptedPlayerPrefs.SetInt($"s{slot}_seed{index}", value);
+        }
+        public int GetRandomSeed(int index) {
+            return EncryptedPlayerPrefs.GetInt($"s{slot}_seed{index}");
+        }
+
+        public bool IsLeaverBusterActive {
+            get => EncryptedPlayerPrefs.GetInt($"s{slot}_leaverBuster") == 1;
+            set => EncryptedPlayerPrefs.SetInt($"s{slot}_leaverBuster", value ? 1 : 0);
+        }
+        public int LeaverBusterExpLoss {
+            get => EncryptedPlayerPrefs.GetInt($"s{slot}_leaverBusterExpLoss");
+            set => EncryptedPlayerPrefs.SetInt($"s{slot}_leaverBusterExpLoss", value);
+        }
+        public string LeaverBusterDigimonLoss {
+            get => EncryptedPlayerPrefs.GetString($"s{slot}_leaverBusterDigimonLoss");
+            set => EncryptedPlayerPrefs.SetString($"s{slot}_leaverBusterDigimonLoss", value);
+        }
         public int TotalBattles {
             get => EncryptedPlayerPrefs.GetInt("s" + slot + "_battleCount");
             set => EncryptedPlayerPrefs.SetInt("s" + slot + "_battleCount", value);
@@ -118,33 +95,19 @@ namespace Kaisa.Digivice {
             get => EncryptedPlayerPrefs.GetInt("s" + slot + "_winCount");
             set => EncryptedPlayerPrefs.SetInt("s" + slot + "_winCount", value);
         }
-        public float WinPercentage {
-            get => TotalWins / (float)TotalBattles;
-        }
-        /// <summary>
-        /// Note: DDocks are stored on values 0 to 3, even if they are called 1 to 4 in-game.
-        /// </summary>
+        // Note: DDocks are stored on values 0 to 3, even if they are called 1 to 4 in-game.
         public string GetDDockDigimon(int dock) {
             return EncryptedPlayerPrefs.GetString("s" + slot + "_dock" + dock);
         }
-        /// <summary>
-        /// Note: DDocks are stored on values 0 to 3, even if they are called 1 to 4 in-game.
-        /// </summary>
         public void SetDDockDigimon(int dock, string digimon) {
             EncryptedPlayerPrefs.SetString("s" + slot + "_dock" + dock, digimon);
         }
-        public bool IsDigimonUnlocked(string digimon) {
-            return !(GetDigimonLevel(digimon) == -1);
-        }
-        /// <summary>
-        /// Level -1 means locked, level 0 and up mean unlocked, and represent the extra level of the Digimon.
-        /// </summary>
+        // Value 0 means locked, value 1 means unlocked, value 2 represents 1 extra level, value 3 represents 2 extra levels, and so on.
+        // GetDigimonLevel() in the Logic Manager should be used to access the actual level of a Digimon, and will always return the exact level.
+        // so no calculations are needed for the value that method offers.
         public void SetDigimonLevel(string digimon, int level) {
             EncryptedPlayerPrefs.SetInt("s" + slot + "_digimon_" + digimon + "_level", level);
         }
-        /// <summary>
-        /// Level -1 means locked, level 0 and up mean unlocked, and represent the extra level of the Digimon.
-        /// </summary>
         public int GetDigimonLevel(string digimon) {
             return EncryptedPlayerPrefs.GetInt("s" + slot + "_digimon_" + digimon + "_level");
         }

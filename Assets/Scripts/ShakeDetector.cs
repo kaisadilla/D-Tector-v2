@@ -47,7 +47,7 @@ namespace Kaisa.Digivice {
                 nextStep = 0;
                 steps++;
                 gm.TakeAStep();
-                gm.playerChar.currentState = CharState.Walking;
+                gm.SetPlayerCharState(CharState.Walking);
 
                 //sm.PlaySound_ButtonA();
             }
@@ -57,7 +57,7 @@ namespace Kaisa.Digivice {
                     return;
                 }
                 timeIdle = 0;
-                gm.playerChar.currentState = CharState.Idle;
+                gm.SetPlayerCharState(CharState.Idle);
             }
         }
     }
