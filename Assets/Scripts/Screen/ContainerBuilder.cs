@@ -1,6 +1,4 @@
 ﻿using Kaisa.Digivice.Extensions;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,14 +6,34 @@ namespace Kaisa.Digivice {
     public class ContainerBuilder : ScreenElement {
         [SerializeField]
         private RectMask2D mask;
-        public override void InvertColors(bool val) => throw new System.NotImplementedException();
-        public override void SetComponentPosition(int x, int y) => throw new System.NotImplementedException();
-        public void SetChildPosition(int index, int x, int y) {
+        public override T InvertColors<T>(bool val) => throw new System.NotImplementedException();
+        public override T SetComponentPosition<T>(int x, int y) => throw new System.NotImplementedException();
+        public ContainerBuilder SetChildPosition(int index, int x, int y) {
             gameObject.transform.GetChild(index).gameObject.PlaceInPosition(x, y);
+            return this;
         }
-        public void SetChildActive(int index, bool active) {
+        public ContainerBuilder SetChildActive(int index, bool active) {
             gameObject.transform.GetChild(index).gameObject.SetActive(active);
+            return this;
         }
-        public void SetMaskActive(bool active) => mask.enabled = active;
+        public ContainerBuilder SetMaskActive(bool active) {
+            mask.enabled = active;
+            return this;
+        }
+
+        /// <summary>
+        /// Returns the Builder of the ScreenElement child at the index specified. Fails if the index does not exist, or if the child found is not a ScreenElement.
+        /// </summary>
+        /// <param name="index">The index of the child.</param>
+        /// <returns></returns>
+        public ScreenElement GetChildBuilder(int index) {
+            return gameObject.transform.GetChild(index).GetComponent<ScreenElement>();
+        }
+
+        public ContainerBuilder SetBackgroundBlack(bool val) {
+            if (val) background.color = Constants.ACTIVE_COLOR;
+            else background.color = Constants.BACKGROUND_COLOR;
+            return this;
+        }
     }
 }

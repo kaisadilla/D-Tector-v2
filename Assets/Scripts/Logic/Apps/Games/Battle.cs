@@ -1,7 +1,5 @@
 ﻿using Kaisa.Digivice.Extensions;
 using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 using UnityEngine;
 using sysrand = System.Random;
 
@@ -207,15 +205,16 @@ namespace Kaisa.Digivice.App {
         private void DoRegularTurn(int friendlyAttack) {
             int enemyAttack = ChooseEnemyAttack();
             int winner = ExecuteTurn(ref friendlyAttack, enemyAttack, out bool disobeyed, out int loserHPbefore);
+            int loserHPnow = (winner == 0) ? enemyStats.HP : friendlyStats.HP;
 
-            int friendlyEnergy = friendlyStats.GetEnergyType();
-            int enemyEnergy = friendlyStats.GetEnergyType();
+            int friendlyEnergy = friendlyStats.GetEnergyRank();
+            int enemyEnergy = enemyStats.GetEnergyRank();
 
             //Display spirits if needed.
             IEnumerator aDisplayTurn = gm.screenMgr.ADisplayTurn(
                 friendlyDigimon.name, friendlyAttack, friendlyEnergy,
                 enemyDigimon.name, enemyAttack, enemyEnergy,
-                winner, disobeyed, loserHPbefore);
+                winner, disobeyed, loserHPbefore, loserHPnow);
 
             gm.PlayAnimation(aDisplayTurn);
 
@@ -230,13 +229,15 @@ namespace Kaisa.Digivice.App {
         /// <param name="friendlyAttack">The Attack chosen by the player.</param>
         private int ExecuteTurn(ref int friendlyAttack, int enemyAttack, out bool disobeyed, out int loserHPbefore) {
             disobeyed = false;
-            if (Random.Range(0f, 1f) > friendlyDigimon.GetObeyChance(playerLevel)) {
+            if (Random.Range(0f, 1f) > friendlyDigimon.GetIdleChance(playerLevel)) {
                 friendlyAttack = 3;
                 disobeyed = true;
+                VisualDebug.WriteLine("The friendly digimon disobeyed and didn't attack.");
             }
-            else if (Random.Range(0f, 1f) > friendlyDigimon.GetAttackChance(playerLevel)) {
+            else if (Random.Range(0f, 1f) > friendlyDigimon.GetObeyChance(playerLevel)) {
                 friendlyAttack = Random.Range(0, 3);
                 disobeyed = true;
+                VisualDebug.WriteLine("The friendly digimon disobeyed and used a random attack.");
             }
 
             int winner = ChooseWinner(friendlyAttack, enemyAttack, out int damageDealt);
@@ -258,8 +259,8 @@ namespace Kaisa.Digivice.App {
 
         private int ChooseWinner(int friendlyAttack, int enemyAttack, out int damageDealt) {
             int friendlyDamage = friendlyStats.GetAttackDamage(friendlyAttack);
-            int enemyDamage = friendlyStats.GetAttackDamage(enemyAttack);
-
+            int enemyDamage = enemyStats.GetAttackDamage(enemyAttack);
+            VisualDebug.WriteLine($"friendly damage: {friendlyDamage}, enemy damage: {enemyDamage}");
             if(friendlyAttack == 3) {
                 damageDealt = enemyDamage;
                 return 1;
@@ -267,9 +268,17 @@ namespace Kaisa.Digivice.App {
             else if(friendlyAttack == enemyAttack) {
                 int difference = friendlyDamage - enemyDamage;
                 damageDealt = Mathf.Abs(difference);
-                if (difference < -5) return 1; //The enemy dealt 5+ more damage than the player.
-                if (difference > 5) return 0; //The player dealt 5+ more damage than the enemy.
-                else return 2;
+
+                //If both Digimons used Energy and their Energies have different rank (have different sprite), the higher rank energy always wins.
+                if (friendlyAttack == 0 && friendlyStats.GetEnergyRank() != enemyStats.GetEnergyRank()) {
+                    return (friendlyStats.GetEnergyRank() > enemyStats.GetEnergyRank()) ? 0 : 1;
+                }
+                //Else, if both Digimon
+                else {
+                    if (difference < -5) return 1; //The enemy dealt 5+ more damage than the player.
+                    if (difference > 5) return 0; //The player dealt 5+ more damage than the enemy.
+                    else return 2;
+                }
             }
             else {
                 if(friendlyAttack == 0) {

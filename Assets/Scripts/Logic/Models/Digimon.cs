@@ -147,7 +147,7 @@ namespace Kaisa.Digivice {
         /// Returns the chance that this Digimon will even attack (between 0f and 1f).
         /// </summary>
         /// <param name="playerLevel">The level of the player</param>
-        public float GetAttackChance(int playerLevel) {
+        public float GetIdleChance(int playerLevel) {
             int levelDiff = baseLevel - playerLevel;
 
             if (levelDiff <= 0) return 1f;
@@ -330,7 +330,7 @@ namespace Kaisa.Digivice {
         /// <summary>
         /// Returns the type of the energy based on its power. This is useful to determine the energy Sprite that will be used.
         /// </summary>
-        public int GetEnergyType() {
+        public int GetEnergyRank() {
             if (EN < 20) return 0;
             if (EN < 30) return 1;
             if (EN < 45) return 2;

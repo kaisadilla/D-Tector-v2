@@ -1323,6 +1323,13 @@ MonoBehaviour:
   - {fileID: 21300038, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
   battle_disobey: {fileID: 7637870703528583553, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
     type: 3}
+  battle_attackCollision: {fileID: 173538500886388945, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
+    type: 3}
+  battle_attackCollisionBig: {fileID: 8671351589016534120, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
+    type: 3}
+  battle_explosion:
+  - {fileID: 5770958956045166959, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
+  - {fileID: -9177418277584700315, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
   speedRunner_rocket: {fileID: -8811113036543827653, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
     type: 3}
   speedRunner_rocketExplosion: {fileID: -6017092528987982444, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
@@ -5076,6 +5083,13 @@ MonoBehaviour:
   encounterDigimonBoss: {fileID: 8300000, guid: fda6478b8139e8441a285d0a68e0f924,
     type: 3}
   launchAttack: {fileID: 8300000, guid: bc4a21d87f1def1498fbbcd40e17fc46, type: 3}
+  attackTravel: {fileID: 8300000, guid: d3380a26500e1424c90d90e0ed9ec0a1, type: 3}
+  attackTravelLong: {fileID: 8300000, guid: a0e5e9b489482c148b464f052347e8cd, type: 3}
+  attackTravelVeryLong: {fileID: 8300000, guid: 0d140ba962fbc064888f30c08eb9eeba,
+    type: 3}
+  attackTravelAndExplode: {fileID: 8300000, guid: 2b18ffba04150f146b90aa83e10b4923,
+    type: 3}
+  explosion: {fileID: 8300000, guid: 5d861d11c30bb954c87bcd58f8223008, type: 3}
   speedRunner_Start: {fileID: 8300000, guid: 13e6f31494aa81b4f9c9a7d69d2c9891, type: 3}
   speedRunner_Asteroid: {fileID: 8300000, guid: 3b074abdc259c9a429ecd72a4af29622,
     type: 3}

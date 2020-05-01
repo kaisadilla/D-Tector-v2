@@ -17,7 +17,7 @@ namespace Kaisa.Digivice {
             get => (int)(textField.rectTransform.sizeDelta.x / Constants.PIXEL_SIZE);
         }
 
-        public override void InvertColors(bool val) {
+        public override T InvertColors<T>(bool val) {
             if(val) {
                 textField.color = Constants.BACKGROUND_COLOR;
                 background.color = Constants.ACTIVE_COLOR;
@@ -26,6 +26,7 @@ namespace Kaisa.Digivice {
                 textField.color = Constants.ACTIVE_COLOR;
                 background.color = Constants.BACKGROUND_COLOR;
             }
+            return this as T;
         }
 
         //Specific methods:
@@ -33,7 +34,7 @@ namespace Kaisa.Digivice {
             get => textField.text;
             set => textField.text = value;
         }
-        public void SetFont(DFont font) {
+        public TextBoxBuilder SetFont(DFont font) {
             switch(font) {
                 case DFont.Regular:
                     textField.font = fRegular;
@@ -45,23 +46,27 @@ namespace Kaisa.Digivice {
                     textField.font = fSmall;
                     break;
             }
+            return this;
         }
-        public void SetAlignment(TextAnchor alignment) {
+        public TextBoxBuilder SetAlignment(TextAnchor alignment) {
             textField.alignment = alignment;
+            return this;
         }
 
-        public void SetFitSizeToContent(bool val) {
+        public TextBoxBuilder SetFitSizeToContent(bool val) {
             fitter.enabled = val;
             background.rectTransform.sizeDelta = new Vector2(Width, background.rectTransform.sizeDelta.y);
+            return this;
         }
 
-        public override void SetComponentPosition(int x, int y) {
+        public override T SetComponentPosition<T>(int x, int y) {
             textField.gameObject.PlaceInPosition(x, y);
-
+            return this as T;
         }
-        public void SetComponentOffset(Vector2 offsetMin, Vector2 offsetMax) {
+        public TextBoxBuilder SetComponentOffset(Vector2 offsetMin, Vector2 offsetMax) {
             textField.rectTransform.offsetMin = new Vector2(offsetMin.x * Constants.PIXEL_SIZE, offsetMin.y * Constants.PIXEL_SIZE);
             textField.rectTransform.offsetMax = new Vector2(offsetMax.x * Constants.PIXEL_SIZE, offsetMax.y * Constants.PIXEL_SIZE);
+            return this;
         }
     }
 

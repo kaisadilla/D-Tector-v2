@@ -312,15 +312,15 @@ Font:
       serializedVersion: 2
       x: 0
       y: 0.78
-      width: 0.06
+      width: 0.02
       height: 0.1
     vert:
       serializedVersion: 2
       x: 0
       y: 0
-      width: 72
+      width: 24
       height: -120
-    advance: 96
+    advance: 48
     flipped: 0
   - serializedVersion: 2
     index: 74

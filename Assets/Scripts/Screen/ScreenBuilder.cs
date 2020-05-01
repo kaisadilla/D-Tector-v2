@@ -3,12 +3,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Kaisa.Digivice {
+    [System.Obsolete("Use SpriteBuilder instead.")]
     public class ScreenBuilder : ScreenElement {
         public Image spriteImage;
         public SpriteRenderer spriteRenderer;
 
         //TODO: This won't work currently as sprites are always black instead of white.
-        public override void InvertColors(bool val) {
+        public override T InvertColors<T>(bool val) {
             if (val) {
                 spriteImage.color = Constants.BACKGROUND_COLOR;
                 background.color = Constants.ACTIVE_COLOR;
@@ -17,10 +18,12 @@ namespace Kaisa.Digivice {
                 spriteImage.color = Constants.ACTIVE_COLOR;
                 background.color = Constants.BACKGROUND_COLOR;
             }
+            return this as T;
         }
 
-        public override void SetComponentPosition(int x, int y) {
+        public override T SetComponentPosition<T>(int x, int y) {
             spriteImage.gameObject.PlaceInPosition(x, y);
+            return this as T;
         }
         public void SetComponentSize(int width, int height) {
             width *= Constants.PIXEL_SIZE;

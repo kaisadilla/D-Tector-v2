@@ -222,6 +222,15 @@ namespace Kaisa.Digivice {
             if (dockDigimon == null) dockDigimon = spriteDB.status_ddockEmpty;
             return BuildSprite($"DigimonDDock{ddock}", sbDDockName.transform, 24, 24, 4, 8, dockDigimon);
         }
+
+        public ContainerBuilder BuildStatSign(string message, Transform parent) {
+            ContainerBuilder cbSign = BuildContainer("Sign", parent, 32, 17, 0, 15, false).SetBackgroundBlack(true);
+            TextBoxBuilder sbMessage = BuildTextBox("Sign", cbSign.transform, message, DFont.Small, 28, 5, 2, 2);
+            sbMessage.InvertColors(true);
+            TextBoxBuilder sbValue = BuildTextBox("Sign", cbSign.transform, "", DFont.Small, 28, 5, 2, 10, TextAnchor.UpperRight);
+            sbValue.InvertColors(true);
+            return cbSign;
+        }
         #endregion
 
         /// <summary>

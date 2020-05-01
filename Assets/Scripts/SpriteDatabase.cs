@@ -67,6 +67,9 @@ public class SpriteDatabase : MonoBehaviour {
     [Header("Battle Particles")]
     public Sprite[] battle_energy = new Sprite[20];
     public Sprite battle_disobey;
+    public Sprite battle_attackCollision; //The particles of the attack collision
+    public Sprite battle_attackCollisionBig;
+    public Sprite[] battle_explosion = new Sprite[2];
     [Header("Game - SpeedRunner")]
     public Sprite speedRunner_rocket;
     public Sprite speedRunner_rocketExplosion;

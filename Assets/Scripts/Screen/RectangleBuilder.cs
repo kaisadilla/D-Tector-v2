@@ -11,7 +11,7 @@ public class RectangleBuilder : ScreenElement {
     private bool isEnabled = true;
     private float flickPeriod = 0f;
 
-    public override void InvertColors(bool val) {
+    public override T InvertColors<T>(bool val) {
         if (val) {
             rectangle.color = Constants.BACKGROUND_COLOR;
             background.color = Constants.ACTIVE_COLOR;
@@ -20,36 +20,40 @@ public class RectangleBuilder : ScreenElement {
             rectangle.color = Constants.ACTIVE_COLOR;
             background.color = Constants.BACKGROUND_COLOR;
         }
+        return this as T;
     }
 
     //Specific methods:
     /// <summary>
     /// Sets whether the rectangle pixels' are active (true) or inactive (false).
     /// </summary>
-    public void SetColor(bool activeColor) {
+    public RectangleBuilder SetColor(bool activeColor) {
         if(activeColor) {
             rectangle.color = Constants.ACTIVE_COLOR;
         }
         else {
             rectangle.color = Constants.BACKGROUND_COLOR;
         }
+        return this;
     }
     /// <summary>
     /// Sets the speed (in seeconds) at which this rectangle flicks. A flick speed of 0 means that it will not flick.
     /// </summary>
-    public void SetFlickPeriod(float flickPeriod, bool startEnabled = true) {
+    public RectangleBuilder SetFlickPeriod(float flickPeriod, bool startEnabled = true) {
         this.flickPeriod = flickPeriod;
         rectangle.enabled = startEnabled;
         isEnabled = startEnabled;
+        return this;
     }
     public float GetFlickPeriod() {
         return flickPeriod;
     }
 
-    public void ResetFlick(bool startEnabled = true) {
+    public RectangleBuilder ResetFlick(bool startEnabled = true) {
         timePassed = 0f;
         rectangle.enabled = startEnabled;
         isEnabled = startEnabled;
+        return this;
     }
 
     private void Update() {
@@ -75,5 +79,9 @@ public class RectangleBuilder : ScreenElement {
         }
     }
 
-    public override void SetComponentPosition(int x, int y) { }
+    public override T SetComponentPosition<T>(int x, int y) {
+        //TODO: Maybe it can.
+        VisualDebug.WriteLine("A rectangle builder can't set its component position.");
+        return this as T;
+    }
 }

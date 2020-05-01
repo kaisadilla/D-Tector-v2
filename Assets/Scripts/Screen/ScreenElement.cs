@@ -1,7 +1,4 @@
 ﻿using Kaisa.Digivice.Extensions;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,34 +18,79 @@ namespace Kaisa.Digivice {
             }
         }
         public virtual void Dispose() => Destroy(gameObject);
-        public void SetActive(bool active) => gameObject.SetActive(active);
+        public T SetActive<T>(bool active) where T : ScreenElement {
+            gameObject.SetActive(active);
+            return this as T;
+        }
+        public void SetActive(bool active) => SetActive<ScreenElement>(active);
 
         public bool GetActive() => gameObject.activeSelf;
-        public void SetName(string name) => gameObject.name = name;
+        public T SetName<T>(string name) where T : ScreenElement {
+            gameObject.name = name;
+            return this as T;
+        }
+        public void SetName(string name) => SetName<ScreenElement>(name);
 
         /// <summary>
         /// Sets whether the element's background is transparent or not.
         /// </summary>
         /// <param name="val">The value of transparency.</param>
-        public void SetTransparent(bool val) {
+        public T SetTransparent<T>(bool val) where T : ScreenElement {
             background.enabled = !val;
+            return this as T;
         }
+        public void SetTransparent(bool val) => SetTransparent<ScreenElement>(val);
         /// <summary>
         /// Sets the size (in digivice pixels) of the rectangle.
         /// </summary>
-        public virtual void SetSize(int width, int height) {
+        public virtual T SetSize<T>(int width, int height) where T : ScreenElement {
             width *= Constants.PIXEL_SIZE;
             height *= Constants.PIXEL_SIZE;
             gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(width, height);
+            return this as T;
         }
-        public void SetPosition(int x, int y) {
+        public void SetSize(int width, int height) => SetSize<ScreenElement>(width, height);
+        public T SetPosition<T>(int x, int y) where T : ScreenElement {
             gameObject.PlaceInPosition(x, y);
+            return this as T;
         }
-        public void SetPosition(Vector2Int pos) => SetPosition(pos.x, pos.y);
-        //public abstract void SetComponentOffset(Vector2 offsetMin, Vector2 offsetMax);
-        public abstract void SetComponentPosition(int x, int y);
-        public void SetComponentPosition(Vector2Int pos) => SetComponentPosition(pos.x, pos.y);
-        public void PlaceOutside(Direction direction) {
+        public void SetPosition(int x, int y) => SetPosition<ScreenElement>(x, y);
+        public T SetPosition<T>(Vector2Int pos) where T : ScreenElement {
+            SetPosition<T>(pos.x, pos.y);
+            return this as T;
+        }
+        public void SetPosition(Vector2Int pos) => SetPosition<ScreenElement>(pos);
+
+        public T SetX<T>(int x) where T : ScreenElement {
+            SetPosition(x, Position.y);
+            return this as T;
+        }
+        public void SetX(int x) => SetX<ScreenElement>(x);
+        public T SetY<T>(int y) where T : ScreenElement {
+            SetPosition(Position.x, y);
+            return this as T;
+        }
+        public void SetY(int y) => SetY<ScreenElement>(y);
+
+        public abstract T SetComponentPosition<T>(int x, int y) where T : ScreenElement;
+        public void SetComponentPosition(int x, int y) => SetComponentPosition<ScreenElement>(x, y);
+        public T SetComponentPosition<T>(Vector2Int pos) where T : ScreenElement {
+            SetComponentPosition<T>(pos.x, pos.y);
+            return this as T;
+        }
+        public void SetComponentPosition(Vector2Int pos) => SetComponentPosition<ScreenElement>(pos);
+
+        public T Center<T>() where T : ScreenElement {
+            int x = Mathf.RoundToInt((Constants.SCREEN_WIDTH - Width) / 2f);
+            int y = Mathf.RoundToInt((Constants.SCREEN_HEIGHT - Width) / 2f);
+            SetPosition(x, y);
+            return this as T;
+        }
+        /// <summary>
+        /// Centers the builder in the middle of the screen.
+        /// </summary>
+        public void Center() => Center<ScreenElement>();
+        public T PlaceOutside<T>(Direction direction) where T : ScreenElement {
             int coordinateUp = -Height;
             int coordinateDown = Constants.SCREEN_HEIGHT;
             int coordinateLeft = -Width;
@@ -56,28 +98,34 @@ namespace Kaisa.Digivice {
 
             switch (direction) {
                 case Direction.Up:
-                    gameObject.PlaceInPosition(0, coordinateUp);
+                    SetY(coordinateUp);
                     break;
                 case Direction.Down:
-                    gameObject.PlaceInPosition(0, coordinateDown);
+                    SetY(coordinateDown);
                     break;
                 case Direction.Left:
-                    gameObject.PlaceInPosition(coordinateLeft, 0);
+                    SetX(coordinateLeft);
                     break;
                 case Direction.Right:
-                    gameObject.PlaceInPosition(coordinateRight, 0);
+                    SetX(coordinateRight);
                     break;
             }
+            return this as T;
         }
-        public ScreenElement MoveSprite(Direction direction, int amount = 1) {
+        public void PlaceOutside(Direction direction) => PlaceOutside<ScreenElement>(direction);
+        public T MoveSprite<T>(Direction direction, int amount = 1) where T : ScreenElement {
             gameObject.MoveSprite(direction, amount);
-            return this;
+            return this as T;
         }
+        public void MoveSprite(Direction direction, int amount = 1) => MoveSprite<ScreenElement>(direction, amount);
 
-        private void SetRotation(int x, int y, int z) {
+        private T SetRotation<T>(int x, int y, int z) where T : ScreenElement {
             gameObject.transform.localRotation = Quaternion.Euler(x, y, z);
+            return this as T;
         }
+        public void SetRotation(int x, int y, int z) => SetRotation<ScreenElement>(x, y, z);
 
-        public abstract void InvertColors(bool val);
+        public abstract T InvertColors<T>(bool val) where T : ScreenElement;
+        public void InvertColors(bool val) => InvertColors<ScreenElement>(val);
     }
 }
