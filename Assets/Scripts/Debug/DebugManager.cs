@@ -155,6 +155,19 @@ namespace Kaisa.Digivice {
                 }
                 return "Invalid parameters. Expected (string)digimonName, (true/false)unlocked.";
             }
+            if (command.StartsWith("/setplayerexperience")) {
+                string[] args = command.Split(' ');
+                if (args.Length == 2) {
+                    try {
+                        loadedGame.PlayerExperience = int.Parse(args[1]);
+                        return $"Player experience set to {args[1]}";
+                    }
+                    catch {
+                        return "Invalid number.";
+                    }
+                }
+                return "Invalid parameters. Expected (int)experience.";
+            }
 
             return "Invalid command.";
         }

@@ -63,6 +63,7 @@ namespace Kaisa.Digivice {
         public void Start() {
             SetupManagers();
             DatabaseMgr = new DatabaseManager(this);
+            EnqueueAnimation(screenMgr.ALevelUp(12));
         }
 
         /// <summary>
@@ -161,7 +162,7 @@ namespace Kaisa.Digivice {
             int oldDistance = DistanceMgr.CurrentDistance;
             DistanceMgr.ReduceDistance(score, out _);
             int newDistance = DistanceMgr.CurrentDistance;
-            screenMgr.PlayAnimation(screenMgr.AAwardDistance(score, oldDistance, newDistance));
+            screenMgr.EnqueueAnimation(screenMgr.AAwardDistance(score, oldDistance, newDistance));
         }
 
         #region Create Screen Elements
@@ -303,9 +304,7 @@ namespace Kaisa.Digivice {
         }
 
         #region Animations
-        public void PlayAnimation(params IEnumerator[] animations) {
-            screenMgr.PlayAnimation(animations);
-        }
+        public void EnqueueAnimation(IEnumerator animation) => screenMgr.EnqueueAnimation(animation);
         #endregion
     }
 }

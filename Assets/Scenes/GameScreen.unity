@@ -1166,6 +1166,17 @@ MonoBehaviour:
     type: 3}
   invertedArrowsSmall: {fileID: 2872405000399901243, guid: 9808cb78e43dade47a5fdc1075f4429c,
     type: 3}
+  rewardBackground:
+  - {fileID: 8280821644423036740, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
+  - {fileID: -1436953758834424533, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
+  - {fileID: 7228298480241165017, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
+  - {fileID: -6484940427387339519, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
+  rewards:
+  - {fileID: -4076281113925471536, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   mainMenu:
   - {fileID: 5603484694132504008, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
   - {fileID: 128926944594302868, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
@@ -1330,6 +1341,13 @@ MonoBehaviour:
   battle_explosion:
   - {fileID: 5770958956045166959, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
   - {fileID: -9177418277584700315, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
+  battle_callPoints_screen: {fileID: -7790048922454275293, guid: 9808cb78e43dade47a5fdc1075f4429c,
+    type: 3}
+  battle_callPoints_chooser: {fileID: 3005032269448810125, guid: 9808cb78e43dade47a5fdc1075f4429c,
+    type: 3}
+  battle_gainingSP:
+  - {fileID: -3681480723389110861, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
+  - {fileID: 9104441157860946041, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
   speedRunner_rocket: {fileID: -8811113036543827653, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
     type: 3}
   speedRunner_rocketExplosion: {fileID: -6017092528987982444, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
@@ -5087,9 +5105,8 @@ MonoBehaviour:
   attackTravelLong: {fileID: 8300000, guid: a0e5e9b489482c148b464f052347e8cd, type: 3}
   attackTravelVeryLong: {fileID: 8300000, guid: 0d140ba962fbc064888f30c08eb9eeba,
     type: 3}
-  attackTravelAndExplode: {fileID: 8300000, guid: 2b18ffba04150f146b90aa83e10b4923,
-    type: 3}
   explosion: {fileID: 8300000, guid: 5d861d11c30bb954c87bcd58f8223008, type: 3}
+  deport: {fileID: 8300000, guid: 0e90d707fd9927f4e97a7300ca0082f0, type: 3}
   speedRunner_Start: {fileID: 8300000, guid: 13e6f31494aa81b4f9c9a7d69d2c9891, type: 3}
   speedRunner_Asteroid: {fileID: 8300000, guid: 3b074abdc259c9a429ecd72a4af29622,
     type: 3}

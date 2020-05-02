@@ -153,7 +153,7 @@ namespace Kaisa.Digivice.App {
                         animDirection = Direction.Right;
                     }
                 }
-                gm.PlayAnimation(gm.screenMgr.ATravelMap(animDirection, currentMap, currentSector, newSector));
+                gm.EnqueueAnimation(gm.screenMgr.ATravelMap(animDirection, currentMap, currentSector, newSector));
                 currentSector = newSector;
             }
             DrawScreen();

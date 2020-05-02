@@ -51,7 +51,7 @@ namespace Kaisa.Digivice {
             get {
                 int maxLevel;
                 if (stage == Stage.Rookie) maxLevel = baseLevel * 2;
-                else if (stage == Stage.Armor) maxLevel = 100;
+                else if (stage == Stage.Spirit || stage == Stage.Armor) maxLevel = 0;
                 else maxLevel = Mathf.CeilToInt(baseLevel * 1.5f);
                 return maxLevel - baseLevel;
             }
@@ -100,11 +100,11 @@ namespace Kaisa.Digivice {
             if (percLevelDiff < 0.90f && levelDiff >= 2) return 2;
             if (percLevelDiff < 1f && levelDiff >= 1) return 3;
             if (percLevelDiff == 1f) return 4;
-            if (percLevelDiff == 1.30f) return 5;
-            if (percLevelDiff == 1.60f) return 6;
-            if (percLevelDiff == 2f) return 7;
-            if (percLevelDiff == 3f) return 8;
-            if (percLevelDiff == 4f) return 9;
+            if (percLevelDiff < 1.30f) return 5;
+            if (percLevelDiff < 1.60f) return 6;
+            if (percLevelDiff < 2f) return 7;
+            if (percLevelDiff < 3f) return 8;
+            if (percLevelDiff < 4f) return 9;
             else return 10;
         }
         /// <summary>
@@ -230,15 +230,31 @@ namespace Kaisa.Digivice {
             return evolChance;
         }
         /// <summary>
-        /// Returns the chance that this Digimon will be unlocked / leveled up.
+        /// Returns the chance that this Digimon will be rewarded.
         /// </summary>
-        public float GetUnlockChance() {
+        public float GetRewardChance() {
             switch (rarity) {
                 case Rarity.Common: return 0.50f;
                 case Rarity.Rare: return 0.25f;
                 case Rarity.Epic: return 0.10f;
                 case Rarity.Legendary: return 0f;
                 case Rarity.Boss: return 0f;
+                case Rarity.none: return 0f;
+                default: return 0f;
+            }
+        }
+        /// <summary>
+        /// Returns the chance that this Digimon will be punished.
+        /// </summary>
+        public float GetPunishmentChance() {
+            switch (rarity) {
+                case Rarity.Common: return 0.75f;
+                case Rarity.Rare: return 0.50f;
+                case Rarity.Epic: return 0.25f;
+                case Rarity.Legendary: return 0.10f;
+                case Rarity.Boss:
+                    if(stage == Stage.Spirit) return 0.50f;
+                    else return 0.10f;
                 case Rarity.none: return 0f;
                 default: return 0f;
             }

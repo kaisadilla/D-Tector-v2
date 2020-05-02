@@ -146,10 +146,10 @@ namespace Kaisa.Digivice.App {
                 gm.logicMgr.SetDigimonUnlocked(digimon, true);
                 gm.logicMgr.SetDigimonCodeUnlocked(digimon, true);
                 CloseApp();
-                gm.PlayAnimation(
-                    gm.screenMgr.ASummonDigimon(digimon),
-                    gm.screenMgr.AUnlockDigimon(digimon),
-                    gm.screenMgr.ACharHappy());
+
+                gm.EnqueueAnimation(gm.screenMgr.ASummonDigimon(digimon));
+                gm.EnqueueAnimation(gm.screenMgr.AUnlockDigimon(digimon));
+                gm.EnqueueAnimation(gm.screenMgr.ACharHappy());
             }
             else {
                 inputStatus = 2;

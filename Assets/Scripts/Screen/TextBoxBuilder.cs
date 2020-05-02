@@ -59,13 +59,30 @@ namespace Kaisa.Digivice {
             return this;
         }
 
+        /// <summary>
+        /// Sets the size (in digivice pixels) of both the rectangle and the component.
+        /// </summary>
+        public override T SetSize<T>(int width, int height) {
+            base.SetSize<T>(width, height);
+            SetComponentSize(width, height);
+            return this as T;
+        }
         public override T SetComponentPosition<T>(int x, int y) {
             textField.gameObject.PlaceInPosition(x, y);
             return this as T;
         }
-        public TextBoxBuilder SetComponentOffset(Vector2 offsetMin, Vector2 offsetMax) {
+        /*public TextBoxBuilder SetComponentOffset(Vector2 offsetMin, Vector2 offsetMax) {
             textField.rectTransform.offsetMin = new Vector2(offsetMin.x * Constants.PIXEL_SIZE, offsetMin.y * Constants.PIXEL_SIZE);
             textField.rectTransform.offsetMax = new Vector2(offsetMax.x * Constants.PIXEL_SIZE, offsetMax.y * Constants.PIXEL_SIZE);
+            return this;
+        }*/
+        /// <summary>
+        /// Sets the size of the component sprite, without resizing the Sprite Builder.
+        /// </summary>
+        public TextBoxBuilder SetComponentSize(int width, int height) {
+            width *= Constants.PIXEL_SIZE;
+            height *= Constants.PIXEL_SIZE;
+            textField.rectTransform.sizeDelta = new Vector2(width, height);
             return this;
         }
     }

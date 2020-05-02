@@ -1,5 +1,6 @@
 ﻿using Kaisa.Digivice.Extensions;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,9 @@ namespace Kaisa.Digivice {
         private LogicManager logicMgr;
 
         private Transform animParent;
+
+        private Queue<IEnumerator> animationQueue = new Queue<IEnumerator>();
+        private bool consumingQueue = false;
 
         public void AssignManagers(GameManager gm) {
             this.gm = gm;
@@ -24,19 +28,41 @@ namespace Kaisa.Digivice {
         public Transform ScreenParent => screenDisplay.transform;
 
         /// <summary>
-        /// Player any number of animations, in a sequence. Those animations are full screen and hide any other element in the screen.
+        /// Adds a new animation the queue.
         /// </summary>
-        /// <param name="animations">The animations to be played.</param>
-        public void PlayAnimation(params IEnumerator[] animations) => StartCoroutine(PlayAnimationCoroutine(animations));
-        private IEnumerator PlayAnimationCoroutine(params IEnumerator[] animations) {
-            gm.LockInput();
-            foreach (IEnumerator a in animations) {
-                animParent = gm.BuildContainer("Anim Parent", ScreenParent, 32, 32, transparent: false).transform;
-                yield return a;
-                Destroy(animParent.gameObject);
-            }
-            gm.UnlockInput();
+        public void EnqueueAnimation(IEnumerator animation) {
+            animationQueue.Enqueue(animation);
+            if (!consumingQueue) StartCoroutine(ConsumeQueue());
         }
+
+        private void Start() {
+            StartCoroutine(ConsumeQueue());
+        }
+        private IEnumerator ConsumeQueue() {
+            consumingQueue = true;
+            while (animationQueue.Count > 0) {
+                gm.LockInput();
+                animParent = gm.BuildContainer("Anim Parent", ScreenParent, 32, 32, transparent: false).transform;
+                yield return animationQueue.Dequeue();
+                Destroy(animParent.gameObject);
+                gm.UnlockInput();
+            }
+            consumingQueue = false;
+        }
+        /*private IEnumerator ConsumeQueue() {
+            while (true) {
+                if(animationQueue.Count > 0) {
+                    gm.LockInput();
+                    for(int i = 0; i < animationQueue.Count; i++) {
+                        animParent = gm.BuildContainer("Anim Parent", ScreenParent, 32, 32, transparent: false).transform;
+                        yield return animationQueue.Dequeue();
+                        Destroy(animParent.gameObject);
+                    }
+                    gm.UnlockInput();
+                }
+                yield return new WaitForEndOfFrame();
+            }
+        }*/
 
         private void ClearParent() {
             foreach (Transform child in animParent) Destroy(child.gameObject);
@@ -189,6 +215,15 @@ namespace Kaisa.Digivice {
             }
 
             yield return new WaitForSeconds(0.45f);
+        }
+        public IEnumerator AEraseDigimon(string digimon) {
+            yield return null;
+        }
+        public IEnumerator ALevelUpDigimon(string digimon, int levelBefore, int levelAfter) {
+            yield return null;
+        }
+        public IEnumerator ALevelDownDigimon(string digimon, int levelBefore, int levelAfter) {
+            yield return null;
         }
         public IEnumerator ACharHappy() {
             yield return ACharHappyShort();
@@ -396,6 +431,100 @@ namespace Kaisa.Digivice {
             yield return new WaitForSeconds(0.75f);
 
         }
+        public IEnumerator ASpendCallPoints(int pointsBefore, int pointsAfter) {
+            SpriteBuilder sbCallPoints = gm.BuildSprite("CallPointScreen", animParent, sprite: spriteDB.battle_callPoints_screen);
+            RectangleBuilder[] callPoints = new RectangleBuilder[pointsBefore];
+            for(int i = 0; i < callPoints.Length; i++) {
+                callPoints[i] = gm.BuildRectangle($"CallPoint{i}", sbCallPoints.transform, 2, 5, 1 + (3 * i), 25);
+            }
+            yield return new WaitForSeconds(1f);
+            audioMgr.PlayButtonA();
+            for(int i = callPoints.Length - 1; i > pointsAfter - 1; i--) {
+                callPoints[i].Dispose();
+            }
+            yield return new WaitForSeconds(1f);
+        }
+        public IEnumerator ADeportDigimon(string digimon) {
+            Sprite sDigimon = spriteDB.GetDigimonSprite(digimon);
+            SpriteBuilder[] spDigimon = new SpriteBuilder[4];
+
+            for(int i = 0; i < 4; i++) {
+                spDigimon[i] = gm.BuildSprite($"Deport{i}", animParent, 24, 24, 0, 0, sDigimon, true).SetActive<SpriteBuilder>(false);
+            }
+            spDigimon[0].SetActive(true);
+            audioMgr.PlaySound(audioMgr.deport);
+
+            for(int i = 0; i < 2; i++) {
+                yield return new WaitForSeconds(0.25f);
+                spDigimon[0].SetActive(false);
+                yield return new WaitForSeconds(0.25f);
+                spDigimon[0].SetActive(true);
+            }
+
+            spDigimon[1].SetActive(true);
+            spDigimon[2].SetActive(true);
+            spDigimon[3].SetActive(true);
+
+            yield return new WaitForSeconds(0.75f);
+            for(int i = 0; i < 32; i++) {
+                spDigimon[0].MoveSprite(Direction.Left);
+                spDigimon[1].MoveSprite(Direction.Right);
+                spDigimon[2].MoveSprite(Direction.Up);
+                spDigimon[3].MoveSprite(Direction.Down);
+                yield return new WaitForSeconds(1.5f / 32);
+            }
+        }
+        public IEnumerator ALevelUp(int levelBefore) {
+            Sprite[] sLevelUpBG = spriteDB.rewardBackground;
+            Sprite sLevelUpIcon = spriteDB.rewards[0];
+            SpriteBuilder sbLevelUpBG = gm.BuildSprite("LevelUpBackground", animParent, sprite: sLevelUpBG[0]);
+            SpriteBuilder sbLevelUpIcon = gm.BuildSprite("LevelUpIcon", sbLevelUpBG.transform, 14, 14, sprite: sLevelUpIcon);
+            sbLevelUpIcon.Center(); //Center: 9, 9
+            sbLevelUpIcon.SetActive(false);
+            sbLevelUpIcon.SetTransparent(false);
+
+            audioMgr.PlaySound(audioMgr.levelUp);
+
+            for (int i = 0; i < 2; i++) {
+                for (int cycle = 0; cycle < 4; cycle++) {
+                    sbLevelUpBG.SetSprite(sLevelUpBG[cycle]);
+                    yield return new WaitForSeconds(0.125f);
+                }
+            }
+            for (int cycle = 0; cycle < 4; cycle++) {
+                sbLevelUpIcon.SetActive(cycle % 2 == 0);
+                sbLevelUpBG.SetSprite(sLevelUpBG[cycle]);
+                yield return new WaitForSeconds(0.125f);
+            }
+            sbLevelUpIcon.SetActive(true);
+            for (int i = 0; i < 4; i++) {
+                for (int cycle = 0; cycle < 4; cycle++) {
+                    sbLevelUpBG.SetSprite(sLevelUpBG[cycle]);
+                    yield return new WaitForSeconds(0.125f);
+                }
+            }
+            sbLevelUpBG.SetSprite(null);
+            for (int i = 0; i < 9; i++) {
+                sbLevelUpIcon.MoveSprite(Direction.Up);
+                yield return new WaitForSeconds(0.5f / 9);
+            }
+
+            gm.BuildTextBox("Level", sbLevelUpBG.transform, "LEVEL", DFont.Small, 32, 5, 0, 17, TextAnchor.UpperCenter);
+            TextBoxBuilder tbLevel = gm.BuildTextBox("LevelNumber", sbLevelUpBG.transform, levelBefore.ToString(), DFont.Regular, 28, 5, 2, 24, TextAnchor.UpperRight);
+
+            audioMgr.PlayButtonA();
+            yield return new WaitForSeconds(1f);
+            tbLevel.Text = (levelBefore + 1).ToString();
+            audioMgr.PlayButtonA();
+            yield return new WaitForSeconds(1f);
+        }
+        public IEnumerator ALevelDown(int levelBefore) {
+            yield return null;
+        }
+        //Note: this is not the same as ARewardDistance
+        public IEnumerator AChangeDistance(int distanceBefore, int distanceAfter) {
+            yield return null;
+        }
         public IEnumerator ADisplayTurn(
                 string friendlyDigimon, int friendlyAttack, int friendlyEnergyRank,
                 string enemyDigimon, int enemyAttack, int enemyEnergyRank,
@@ -419,16 +548,46 @@ namespace Kaisa.Digivice {
             yield return PALaunchAttack(enemySprites, enemyAttack, true, false);
             yield return PAAttackCollision(friendlyAttack, friendlySprites, enemyAttack, enemySprites, winner);
             if(winner == 0) {
-                //If both attacks were ability, the loser needs to be 'hit' by the ability. Else, it has been already.
-                Sprite abilitySprite = (friendlyAttack == enemyAttack) ? friendlySprites[4] : null;
+                //If the enemy used crush (and you, ability), skip the ability animation.
+                Sprite abilitySprite = (enemyAttack == 1) ? null : friendlySprites[4];
                 yield return PADestroyLoser(enemySprites, friendlyAttack, abilitySprite, true, loserHPbefore, loserHPnow);
             }
             else {
-                Sprite abilitySprite = (friendlyAttack == enemyAttack) ? enemySprites[4] : null;
+                Sprite abilitySprite = (friendlyAttack == 1) ? null : enemySprites[4];
                 yield return PADestroyLoser(friendlySprites, enemyAttack, abilitySprite, false, loserHPbefore, loserHPnow);
             }
         }
-        //TODO: FIX VARIOUS INSTANCES OF ENEMIES ATTACKING AND LOOKING AT THE WRONG WAY.
+        public IEnumerator AAWardSpiritPower(int SPbefore) {
+            Sprite sSpiritsA = spriteDB.battle_gainingSP[0];
+            Sprite sSpiritsB = spriteDB.battle_gainingSP[1];
+            SpriteBuilder sbSpirits = gm.BuildSprite("SPBackground", animParent, sprite: sSpiritsA);
+
+            TextBoxBuilder tbSpirits = gm.BuildTextBox("SPAmount", animParent, SPbefore.ToString(), DFont.Small, 32, 11, 0, 21, TextAnchor.UpperRight);
+            tbSpirits.InvertColors(true);
+            tbSpirits.SetComponentSize(28, 5);
+            tbSpirits.SetComponentPosition(2, 3);
+            tbSpirits.SetActive(false);
+
+            yield return new WaitForSeconds(0.2f);
+            sbSpirits.SetSprite(sSpiritsB);
+            yield return new WaitForSeconds(0.2f);
+            sbSpirits.SetSprite(sSpiritsA);
+            tbSpirits.SetActive(true);
+            yield return new WaitForSeconds(0.2f);
+
+            for (int i = 0; i < 4; i++) {
+                if (i < 3) IncreaseSP();
+                sbSpirits.SetSprite(sSpiritsB);
+                yield return new WaitForSeconds(0.2f);
+                sbSpirits.SetSprite(sSpiritsA);
+                yield return new WaitForSeconds(0.2f);
+            }
+
+            void IncreaseSP() {
+                SPbefore += (SPbefore == 99) ? 0 : 1;
+                tbSpirits.Text = SPbefore.ToString();
+            }
+        }
         private IEnumerator PALaunchAttack(Sprite[] digimonSprites, int attack, bool isEnemy, bool disobeyed) {
             Direction launchDir = isEnemy ? Direction.Right : Direction.Left;
             SpriteBuilder sbAttack = gm.BuildSprite("Attack", animParent, 24, 24, 4, 4);
@@ -457,7 +616,7 @@ namespace Kaisa.Digivice {
 
                 audioMgr.PlaySound(audioMgr.launchAttack);
                 for (int i = 0; i < 38; i++) {
-                    yield return new WaitForSeconds(Constants.ATTACK_TRAVEL_SPEED);
+                    yield return new WaitForSeconds(1.7f / 32f);
                     sbAttack.MoveSprite(launchDir);
                 }
                 yield return new WaitForSeconds(0.3f);
@@ -529,7 +688,7 @@ namespace Kaisa.Digivice {
                 yield return _CrushVsAbility(); //Reuse this animation because it's identical.
             }
  
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.15f);
 
             ClearParent();
 
@@ -550,7 +709,7 @@ namespace Kaisa.Digivice {
                     for (int i = 0; i < 40; i++) {
                         if (i == 3) sbEnemyAttack.Dispose();
                         sbFriendlyAttack.MoveSprite(Direction.Left);
-                        yield return new WaitForSeconds(Constants.ATTACK_TRAVEL_SPEED);
+                        yield return new WaitForSeconds(0.6f / 16f);
                     }
                 }
                 else if (winner == 1) {
@@ -558,7 +717,7 @@ namespace Kaisa.Digivice {
                     for (int i = 0; i < 40; i++) {
                         if (i == 3) sbFriendlyAttack.Dispose();
                         sbEnemyAttack.MoveSprite(Direction.Right);
-                        yield return new WaitForSeconds(Constants.ATTACK_TRAVEL_SPEED);
+                        yield return new WaitForSeconds(0.6f / 16f);
                     }
                 }
                 else if (winner == 2) {
@@ -577,7 +736,7 @@ namespace Kaisa.Digivice {
                 for (int i = 0; i < 40; i++) {
                     if (i == 3) loserSprite.Dispose();
                     winnerSprite.MoveSprite(winnerDirection);
-                    yield return new WaitForSeconds(Constants.ATTACK_TRAVEL_SPEED);
+                    yield return new WaitForSeconds(0.6f / 16f);
                 }
             }
             IEnumerator _EnergyVsAbility() {
@@ -605,7 +764,7 @@ namespace Kaisa.Digivice {
                     cbBrokenAbilityUp.MoveSprite<ContainerBuilder>(winnerDirection.Opposite()).MoveSprite(Direction.Up);
                     cbBrokenAbilityDown.MoveSprite<ContainerBuilder>(winnerDirection.Opposite()).MoveSprite(Direction.Down);
                     winnerSprite.MoveSprite(winnerDirection);
-                    yield return new WaitForSeconds(Constants.ATTACK_TRAVEL_SPEED);
+                    yield return new WaitForSeconds(0.6f / 16f);
                 }
             }
             IEnumerator _CrushCollides() {
@@ -613,7 +772,7 @@ namespace Kaisa.Digivice {
                     for (int i = 0; i < 40; i++) {
                         sbFriendlyAttack.MoveSprite(Direction.Right);
                         sbEnemyAttack.MoveSprite(Direction.Left);
-                        yield return new WaitForSeconds(Constants.ATTACK_TRAVEL_SPEED);
+                        yield return new WaitForSeconds(0.6f / 16f);
                     }
                 }
                 else {
@@ -621,7 +780,7 @@ namespace Kaisa.Digivice {
                     for (int i = 0; i < 40; i++) {
                         sbFriendlyAttack.MoveSprite(pushDirection);
                         sbEnemyAttack.MoveSprite(pushDirection);
-                        yield return new WaitForSeconds(Constants.ATTACK_TRAVEL_SPEED);
+                        yield return new WaitForSeconds(0.6f / 16f);
                     }
                 }
             }
@@ -632,7 +791,7 @@ namespace Kaisa.Digivice {
                 for (int i = 0; i < 40; i++) {
                     if (i == 16) loserSprite.Dispose(); //Remove the crush at the exact frame the ability is completely covering it.
                     winnerSprite.MoveSprite(winnerDirection);
-                    yield return new WaitForSeconds(Constants.ATTACK_TRAVEL_SPEED);
+                    yield return new WaitForSeconds(0.6f / 16f);
                 }
             }
         }
@@ -648,6 +807,8 @@ namespace Kaisa.Digivice {
             Direction winningDirection = isEnemy ? Direction.Left : Direction.Right;
 
             if(winningAttack == 0) {
+                sbLoser.SetSprite(sLoser);
+                yield return new WaitForSeconds(0.5f);
                 yield return _ExplodeLoser();
             }
             else if (winningAttack == 1) {
@@ -655,7 +816,7 @@ namespace Kaisa.Digivice {
                 sbLoser.PlaceOutside(winningDirection.Opposite());
                 for(int i = 0; i < 64; i++) {
                     sbLoser.MoveSprite(winningDirection);
-                    yield return new WaitForSeconds(Constants.CRUSH_TRAVEL_SPEED);
+                    yield return new WaitForSeconds(0.6f / 16f);
                 }
                 yield return _ExplodeLoser();
             }
@@ -693,6 +854,7 @@ namespace Kaisa.Digivice {
 
             IEnumerator _ExplodeLoser() {
                 audioMgr.PlaySound(audioMgr.explosion);
+                sbLoser.FlipHorizontal(false);
                 sbLoser.Center();
                 for (int i = 0; i < 2; i++) {
                     sbLoser.SetSprite(explosionBig);
@@ -701,9 +863,9 @@ namespace Kaisa.Digivice {
                     yield return new WaitForSeconds(0.5f);
                 }
                 yield return new WaitForSeconds(0.25f);
+                sbLoser.FlipHorizontal(isEnemy);
             }
         }
-
         #endregion
     }
 }

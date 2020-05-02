@@ -23,6 +23,8 @@ public class SpriteDatabase : MonoBehaviour {
     public Sprite arrows;
     public Sprite arrowsSmall;
     public Sprite invertedArrowsSmall;
+    public Sprite[] rewardBackground = new Sprite[4];
+    public Sprite[] rewards = new Sprite[5]; //0: Level
     [Header("Menus")]
     public Sprite[] mainMenu = new Sprite[7];
     [Header("Map")]
@@ -70,6 +72,9 @@ public class SpriteDatabase : MonoBehaviour {
     public Sprite battle_attackCollision; //The particles of the attack collision
     public Sprite battle_attackCollisionBig;
     public Sprite[] battle_explosion = new Sprite[2];
+    public Sprite battle_callPoints_screen;
+    public Sprite battle_callPoints_chooser;
+    public Sprite[] battle_gainingSP = new Sprite[2];
     [Header("Game - SpeedRunner")]
     public Sprite speedRunner_rocket;
     public Sprite speedRunner_rocketExplosion;

@@ -63,6 +63,10 @@ namespace Kaisa.Digivice {
             get => EncryptedPlayerPrefs.GetInt("s" + slot + "_playerExperience");
             set => EncryptedPlayerPrefs.SetInt("s" + slot + "_playerExperience", value);
         }
+        public bool IsPlayerInsured {
+            get => EncryptedPlayerPrefs.GetInt($"s{slot}_playerInsurance") == 1;
+            set => EncryptedPlayerPrefs.SetInt($"s{slot}_playerInsurance", value ? 1 : 0);
+        }
         public int SpiritPower {
             get => EncryptedPlayerPrefs.GetInt("s" + slot + "_spiritPower");
             set => EncryptedPlayerPrefs.SetInt("s" + slot + "_spiritPower", value);

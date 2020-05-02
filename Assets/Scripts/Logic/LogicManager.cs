@@ -77,11 +77,11 @@ namespace Kaisa.Digivice {
 
             }
             else if (currentScreen == Screen.GamesTravelMenu) {
-                if (gamesTravelMenuIndex == 1) {
+                if (gamesTravelMenuIndex == 0) {
                     audioMgr.PlayButtonA();
                     OpenApp(gm.pAppSpeedRunner);
                 }
-                else if (gamesTravelMenuIndex == 4) {
+                else if (gamesTravelMenuIndex == 3) {
                     audioMgr.PlayButtonA();
                     OpenApp(gm.pAppMaze);
                 }
@@ -198,10 +198,37 @@ namespace Kaisa.Digivice {
 
         private void OpenAppBattle() {
             currentScreen = Screen.App;
-            loadedApp = App.Battle.LoadApp(gm.pAppBattle, gm, "Garurumon", "false");
+            Digimon randomDigimon = gm.DatabaseMgr.GetWeightedDigimon(GetPlayerLevel());
+            loadedApp = App.DigiviceApp.LoadApp(gm.pAppBattle, gm, randomDigimon.name, "false");
         }
 
         #region Player and game stats
+        /// <summary>
+        /// Adds (or substracts) an amount of experience to the player, and returns true if their level changed.
+        /// This method will trigger player insurance if able.
+        /// </summary>
+        /// <param name="val"></param>
+        /// <returns></returns>
+        public bool AddPlayerExperience(int val) {
+            int playerLevelBefore = GetPlayerLevel();
+            //If the player has insurance and they would lose experience, don't do anything.
+            if(!(val < 0 && loadedGame.IsPlayerInsured)) {
+                loadedGame.PlayerExperience += val;
+                if (loadedGame.PlayerExperience < 0) loadedGame.PlayerExperience = 0;
+            }
+
+            int playerLevelNow = GetPlayerLevel();
+            //If the player has lost a level, activate their insurance.
+            if(playerLevelNow < playerLevelBefore) {
+                loadedGame.IsPlayerInsured = true;
+            }
+            //Else, toggle it off, regardless of whether they won or lost experience this time.
+            else {
+                loadedGame.IsPlayerInsured = false;
+            }
+
+            return playerLevelBefore != playerLevelNow;
+        }
         /// <summary>
         /// Returns the level of a player based on its experience.
         /// </summary>
@@ -220,17 +247,15 @@ namespace Kaisa.Digivice {
             float nextLevelExp = Mathf.Pow(playerLevel + 1, 3f);
             loadedGame.PlayerExperience = Mathf.CeilToInt(nextLevelExp);
         }
-        public int SpiritPower => loadedGame.SpiritPower;
-        /// <summary>
-        /// Sets the 
-        /// </summary>
-        /// <param name="val"></param>
-        public void SetSpiritPower(int val) {
-            if (val > Constants.MAX_SPIRIT_POWER) val = 99;
-            if (val < 0) val = 0;
-            loadedGame.SpiritPower = val;
+        public int SpiritPower {
+            get => loadedGame.SpiritPower;
+            set {
+                int totalSpiritPower = value;
+                if (totalSpiritPower > Constants.MAX_SPIRIT_POWER) totalSpiritPower = 99;
+                if (totalSpiritPower < 0) totalSpiritPower = 0;
+                loadedGame.SpiritPower = totalSpiritPower;
+            }
         }
-
         public int TotalBattles => loadedGame.TotalBattles;
         public int TotalWins => loadedGame.TotalWins;
         public float WinPercentage => TotalWins / (float)TotalBattles;
@@ -256,6 +281,13 @@ namespace Kaisa.Digivice {
             }
             else {
                 loadedGame.SetDigimonLevel(digimon, 0);
+                string[] ddocks = gm.GetAllDDockDigimons();
+
+                for (int i = 0; i < ddocks.Length; i++) {
+                    if(ddocks[i] == digimon) {
+                        SetDDockDigimon(i, "");
+                    }
+                }
             }
         }
         /// <summary>
@@ -265,7 +297,7 @@ namespace Kaisa.Digivice {
         /// <summary>
         /// Sets the level of a Digimon. This method accounts for the maximum level the Digimon can have. This method can't be used to lock a Digimon.
         /// </summary>
-        public void SetDigimonLevel(string digimon, int val) {
+        public void SetDigimonExtraLevel(string digimon, int val) {
             int maxExtraLevel = gm.DatabaseMgr.GetDigimon(digimon).MaxExtraLevel;
             if (val > maxExtraLevel) val = maxExtraLevel;
             if (val < 1) val = 1;
@@ -279,6 +311,49 @@ namespace Kaisa.Digivice {
         public int GetDigimonExtraLevel(string digimon) => loadedGame.GetDigimonLevel(digimon) - 1;
         public void SetDigimonCodeUnlocked(string name, bool val) => loadedGame.SetDigimonCodeUnlocked(name, val);
         public bool GetDigimonCodeUnlocked(string name) => loadedGame.GetDigimonCodeUnlocked(name);
+        /// <summary>
+        /// Unlocks or levels up a Digimon. Returns true if it levels up a Digimon, false if it unlocks it.
+        /// It also outputs the level before and after being rewarded.
+        /// </summary>
+        public bool RewardDigimon(string digimon, out int levelBefore, out int levelAfter) {
+            levelBefore = GetDigimonExtraLevel(digimon);
+            //If the player has the digimon already, level it up.
+            if(GetDigimonUnlocked(digimon)) {
+                SetDigimonExtraLevel(digimon, levelBefore + 1);
+                levelAfter = GetDigimonExtraLevel(digimon);
+                Debug.Log($"The Digimon was rewarded by increasing its level from {levelBefore} to {levelAfter}");
+                return true;
+            }
+            //Else, unlock it.
+            else {
+                SetDigimonUnlocked(digimon, true);
+                levelAfter = 0;
+                Debug.Log($"The Digimon was rewarded by unlocking it.");
+                return false;
+            }
+        }
+        /// <summary>
+        /// Erases or levels down a Digimon. Returns true if it levels down a Digimon, false if it erases it.
+        /// It also outputs the level before and after being punished.
+        /// </summary>
+        public bool PunishDigimon(string digimon, out int levelBefore, out int levelAfter) {
+            levelBefore = GetDigimonExtraLevel(digimon);
+            //If the player has the digimon at level 1 or higher, level it down.
+            if (GetDigimonExtraLevel(digimon) > 0) {
+                SetDigimonExtraLevel(digimon, levelBefore - 1);
+                levelAfter = GetDigimonExtraLevel(digimon);
+                Debug.Log($"The Digimon was punished by increasing its level from {levelBefore} to {levelAfter}");
+                return true;
+            }
+            //Else, erase it.
+            else {
+                SetDigimonUnlocked(digimon, false);
+                levelAfter = -1;
+                Debug.Log($"The Digimon was rewarded by locking it.");
+                return false;
+            }
+        }
+
         public string GetDDockDigimon(int ddock) => loadedGame.GetDDockDigimon(ddock);
         public void SetDDockDigimon(int ddock, string digimon) {
             if (ddock > 3) return; //The player only has 4 D-Docks.

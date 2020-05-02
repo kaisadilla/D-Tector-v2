@@ -8,10 +8,11 @@ namespace Kaisa.Digivice {
         public const int SCREEN_WIDTH = 32;
         public const int SCREEN_HEIGHT = 32;
         //The speed at which attacks always travel.
-        public const float ATTACK_TRAVEL_SPEED = 0.055f; //0.06f
+        public const float ATTACK_TRAVEL_SPEED = 0.05f; //0.06f
         public const float CRUSH_TRAVEL_SPEED = 0.035f; //0.04f
 
         public const int MAX_SPIRIT_POWER = 99;
+        public const string DEFAULT_DIGIMON = "Numemon";
 
         public static readonly Color BACKGROUND_COLOR = new Color32(129, 147, 118, 255);
         public static readonly Color ACTIVE_COLOR = Color.black;

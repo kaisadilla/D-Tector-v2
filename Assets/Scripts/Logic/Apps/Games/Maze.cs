@@ -124,10 +124,10 @@ namespace Kaisa.Digivice.App {
 
         private void DrawStartMenu() {
             tbOptions[0] = gm.BuildTextBox("Start", screenDisplay.transform, "Start", DFont.Small, 28, 8, 2, 8, TextAnchor.UpperCenter);
-            tbOptions[0].SetComponentOffset(new Vector2(0, 1), new Vector2(0, -1));
+            tbOptions[0].SetComponentSize(28, 7);
             tbOptions[0].SetComponentPosition(0, 1);
             tbOptions[1] = gm.BuildTextBox("Cancel", screenDisplay.transform, "Cancel", DFont.Small, 28, 8, 2, 16, TextAnchor.UpperCenter);
-            tbOptions[0].SetComponentOffset(new Vector2(0, 1), new Vector2(0, -1));
+            tbOptions[0].SetComponentSize(28, 7);
             tbOptions[1].SetComponentPosition(0, 1);
             HighlightSelection();
         }
@@ -384,7 +384,7 @@ namespace Kaisa.Digivice.App {
                     currentScreen = 2;
 
                     TextBoxBuilder tb = gm.BuildTextBox("Defeat", screenDisplay.transform, "Defeat", DFont.Small, 32, 11, 0, 14);
-                    tb.SetComponentOffset(new Vector2(3, 3), new Vector2(0, -3));
+                    tb.SetComponentSize(29, 8);
                     playerMarker.SetFlickPeriod(0f);
                 }
                 else if (timeRemaining == 0) {
@@ -398,7 +398,7 @@ namespace Kaisa.Digivice.App {
             currentScreen = 3;
 
             TextBoxBuilder tb = gm.BuildTextBox("Victory", screenDisplay.transform, "Victory", DFont.Small, 32, 11, 0, 14);
-            tb.SetComponentOffset(new Vector2(1, 3), new Vector2(0, -3));
+            tb.SetComponentSize(29, 8);
             playerMarker.SetFlickPeriod(0f);
         }
     }
