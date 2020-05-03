@@ -14,9 +14,9 @@ namespace Kaisa.Digivice.App {
         private enum BattleScreen {
             MainMenu,
             BattleCall_DDocks,
-            BattleCall_Menu,
             SpiritList_Elements,
             SpiritList_Spirits,
+            Combat_Menu,
             AttackMenu,
             RegularEvolve
         }
@@ -60,13 +60,13 @@ namespace Kaisa.Digivice.App {
                     ChooseCurrentDDock();
                 }
             }
-            else if (currentScreen == BattleScreen.BattleCall_Menu) {
-                if(battleCallMenuIndex == 0) {
+            else if (currentScreen == BattleScreen.Combat_Menu) {
+                if(combatMenuIndex == 0) {
                     audioMgr.PlayButtonA();
                     currentScreen = BattleScreen.AttackMenu;
                     attackIndex = 0;
                 }
-                else if (battleCallMenuIndex == 1) {
+                else if (combatMenuIndex == 1) {
                     if(CurrentCallPoints > 0) {
                         audioMgr.PlayButtonA();
                         OpenDigivolve();
@@ -75,7 +75,7 @@ namespace Kaisa.Digivice.App {
                         audioMgr.PlayButtonB();
                     }
                 }
-                else if (battleCallMenuIndex == 3) {
+                else if (combatMenuIndex == 3) {
                     audioMgr.PlayButtonA();
                     DeportCurrentDigimon();
                 }
@@ -83,6 +83,10 @@ namespace Kaisa.Digivice.App {
             else if (currentScreen == BattleScreen.SpiritList_Elements) {
                 audioMgr.PlayButtonA();
                 OpenSpiritGallery();
+            }
+            else if (currentScreen == BattleScreen.SpiritList_Spirits) {
+                audioMgr.PlayButtonA();
+                ChooseSpiritFromGallery();
             }
             else if (currentScreen == BattleScreen.AttackMenu) {
                 audioMgr.PlayButtonA();
@@ -93,7 +97,7 @@ namespace Kaisa.Digivice.App {
                 audioMgr.PlayButtonA();
                 AttemptRegularDigivolve();
                 blockBattleMenuNavigation = true;
-                battleCallMenuIndex = 0;
+                combatMenuIndex = 0;
             }
         }
         public override void InputB() {
@@ -104,7 +108,7 @@ namespace Kaisa.Digivice.App {
                 CloseDDocks();
                 audioMgr.PlayButtonB();
             }
-            else if (currentScreen == BattleScreen.BattleCall_Menu) {
+            else if (currentScreen == BattleScreen.Combat_Menu) {
                 audioMgr.PlayButtonB();
             }
             else if (currentScreen == BattleScreen.SpiritList_Elements) {
@@ -117,7 +121,7 @@ namespace Kaisa.Digivice.App {
             }
             else if (currentScreen == BattleScreen.AttackMenu) {
                 audioMgr.PlayButtonB();
-                currentScreen = BattleScreen.BattleCall_Menu;
+                currentScreen = BattleScreen.Combat_Menu;
             }
             else if (currentScreen == BattleScreen.RegularEvolve) {
                 audioMgr.PlayButtonB();
@@ -133,13 +137,13 @@ namespace Kaisa.Digivice.App {
                 audioMgr.PlayButtonA();
                 ddockIndex = ddockIndex.CircularAdd(-1, 3);
             }
-            else if (currentScreen == BattleScreen.BattleCall_Menu) {
+            else if (currentScreen == BattleScreen.Combat_Menu) {
                 if(blockBattleMenuNavigation) {
                     audioMgr.PlayButtonB();
                 }
                 else {
                     audioMgr.PlayButtonA();
-                    battleCallMenuIndex = battleCallMenuIndex.CircularAdd(-1, 3);
+                    combatMenuIndex = combatMenuIndex.CircularAdd(-1, (byte)(availableMenuOptions.Length - 1));
                 }
             }
             else if (currentScreen == BattleScreen.SpiritList_Elements) {
@@ -183,13 +187,13 @@ namespace Kaisa.Digivice.App {
                 audioMgr.PlayButtonA();
                 ddockIndex = ddockIndex.CircularAdd(1, 3);
             }
-            else if (currentScreen == BattleScreen.BattleCall_Menu) {
+            else if (currentScreen == BattleScreen.Combat_Menu) {
                 if (blockBattleMenuNavigation) {
                     audioMgr.PlayButtonB();
                 }
                 else {
                     audioMgr.PlayButtonA();
-                    battleCallMenuIndex = battleCallMenuIndex.CircularAdd(1, 3);
+                    combatMenuIndex = combatMenuIndex.CircularAdd(1, (byte)(availableMenuOptions.Length - 1));
                 }
             }
             else if (currentScreen == BattleScreen.SpiritList_Elements) {
@@ -264,7 +268,11 @@ namespace Kaisa.Digivice.App {
         private BattleScreen currentScreen = BattleScreen.MainMenu;
         private byte menuIndex = 0; //0: Battle call, 1: Spirit on, 2: Digits, 3: Escape.
         private byte ddockIndex = 0; //D-Docks 0 to 3.
-        private byte battleCallMenuIndex = 0; //0: Attack, 1: Digivolve, 2: Battle Card, 3: Deport.
+
+        private int[] availableMenuOptions; //0: Attack, 1: Digivolve, 2: Battle Card, 3: Boost, 4: Deport.
+        private byte combatMenuIndex = 0;
+        private int SelectedMenuOption => availableMenuOptions[combatMenuIndex];
+
         private byte attackIndex = 0; //0: Energy, 1: Crush, 2: Ability.
         private byte callPointsForEvolution = 0; //The amount of call points that the player is submitting to attempt an evolution.
         private bool blockBattleMenuNavigation = false; //Turns true after taking some actions in battle that force the player to commit to attack that turn.
@@ -333,11 +341,12 @@ namespace Kaisa.Digivice.App {
             else if (currentScreen == BattleScreen.BattleCall_DDocks) {
                 gm.BuildDDockSprite(ddockIndex, Parent);
             }
-            else if (currentScreen == BattleScreen.BattleCall_Menu) {
-                if (battleCallMenuIndex == 0) SetScreen(gm.spriteDB.battle_combatMenu[0]); //Attack
-                if (battleCallMenuIndex == 1) SetScreen(gm.spriteDB.battle_combatMenu[1]); //Digivolve
-                if (battleCallMenuIndex == 2) SetScreen(gm.spriteDB.battle_combatMenu[2]); //Battle card
-                if (battleCallMenuIndex == 3) SetScreen(gm.spriteDB.battle_combatMenu[4]); //Deport
+            else if (currentScreen == BattleScreen.Combat_Menu) {
+                if (SelectedMenuOption == 0) SetScreen(gm.spriteDB.battle_combatMenu[0]); //Attack
+                if (SelectedMenuOption == 1) SetScreen(gm.spriteDB.battle_combatMenu[1]); //Digivolve
+                if (SelectedMenuOption == 2) SetScreen(gm.spriteDB.battle_combatMenu[2]); //Battle card
+                if (SelectedMenuOption == 3) SetScreen(gm.spriteDB.battle_combatMenu[3]); //Boost
+                if (SelectedMenuOption == 4) SetScreen(gm.spriteDB.battle_combatMenu[4]); //Deport
             }
             else if (currentScreen == BattleScreen.AttackMenu) {
                 SetScreen(gm.spriteDB.battle_attackMenu[attackIndex]);
@@ -388,8 +397,9 @@ namespace Kaisa.Digivice.App {
             int callPointsBefore = CurrentCallPoints;
             isDDockUsed[ddockIndex] = true;
 
-            currentScreen = BattleScreen.BattleCall_Menu;
-            battleCallMenuIndex = 0;
+            currentScreen = BattleScreen.Combat_Menu;
+            availableMenuOptions = new int[] { 0, 1, 2, 4 };
+            combatMenuIndex = 0;
 
             AssignFriendlyDigimon(digimon, CallType.RegularCall);
 
@@ -401,7 +411,7 @@ namespace Kaisa.Digivice.App {
             callPointsForEvolution = 1;
         }
         private void CloseDigivolve() {
-            currentScreen = BattleScreen.BattleCall_Menu;
+            currentScreen = BattleScreen.Combat_Menu;
         }
 
         //Todo: Merge this with App.Database, as it's the same code.
@@ -446,13 +456,20 @@ namespace Kaisa.Digivice.App {
                 chosenDigimonName = Constants.DEFAULT_SPIRIT_DIGIMON;
             }
             if(chosenDigimon.spiritType == SpiritType.Ancient) {
+                int SPbefore = SpiritPower;
                 AssignFriendlyDigimon(chosenDigimonName, CallType.AncientEvolution);
+                gm.EnqueueAnimation(gm.screenMgr.APaySpiritPower(SPbefore, SpiritPower));
             }
             else {
                 AssignFriendlyDigimon(chosenDigimonName, CallType.SpiritEvolution);
+                if (chosenDigimon.spiritType == SpiritType.Human || chosenDigimon.spiritType == SpiritType.Animal) {
+                    gm.EnqueueAnimation(gm.screenMgr.ASpiritEvolution(gm.CurrentPlayerChar, chosenDigimonName));
+                }
             }
-            //TODO: Animation for evolution.
-            //TODO: Arrive in battle menu with different options.
+
+            availableMenuOptions = new int[] { 0, 1, 3, 4 };
+            currentScreen = BattleScreen.Combat_Menu;
+            combatMenuIndex = 0;
         }
 
         /// <summary>
@@ -491,7 +508,7 @@ namespace Kaisa.Digivice.App {
                 originalDigimon = friendlyDigimon;
                 friendlyStats = friendlyDigimon.GetBossStats(playerLevel);
             }
-            else if (callType == CallType.SpiritEvolution) {
+            else if (callType == CallType.AncientEvolution) {
                 SpiritPower -= friendlyDigimon.GetSpiritCost(playerLevel);
                 originalDigimon = friendlyDigimon;
                 friendlyStats = friendlyDigimon.GetBossStats(playerLevel);
@@ -682,6 +699,7 @@ namespace Kaisa.Digivice.App {
         /// <param name="friendlyAttack">The Attack chosen by the player.</param>
         private int ExecuteTurn(ref int friendlyAttack, int enemyAttack, out bool disobeyed, out int loserHPbefore) {
             disobeyed = false;
+
             if (Random.Range(0f, 1f) > originalDigimon.GetIdleChance(playerLevel)) {
                 friendlyAttack = 3;
                 disobeyed = true;

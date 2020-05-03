@@ -174,9 +174,9 @@ namespace Kaisa.Digivice {
         }
         public IEnumerator AUnlockDigimon(string digimon) {
             Sprite sDigimon = spriteDB.GetDigimonSprite(digimon);
-            Sprite sCurtain = spriteDB.acquireDigimon;
+            Sprite sCurtain = spriteDB.curtain;
             Sprite sDTector = spriteDB.dTector;
-            Sprite sPowerBlack = spriteDB.giveMassivePowerIverted;
+            Sprite sPowerBlack = spriteDB.giveMassivePowerInverted;
 
             audioMgr.PlaySound(audioMgr.unlockDigimon);
 
@@ -746,6 +746,126 @@ namespace Kaisa.Digivice {
             yield return new WaitForSeconds(0.1f);
             sbGivePower.SetActive(false);
             yield return new WaitForSeconds(0.25f);
+        }
+        public IEnumerator ASpiritEvolution(GameChar character, string digimon) {
+            Sprite sGivePower = spriteDB.givePower;
+            Sprite sGiveMassivePowerBlack = spriteDB.giveMassivePowerInverted;
+            Sprite sBlackScreen = spriteDB.blackScreen;
+            Sprite sCurtain = spriteDB.curtain;
+
+            Sprite[] sCharacter = spriteDB.GetCharacterSprites(character);
+            Sprite[] sDigimon = spriteDB.GetAllDigimonSprites(digimon);
+
+            SpriteBuilder sbBackground = gm.BuildSprite("BlackBackground", animParent, sprite: sBlackScreen).SetActive<SpriteBuilder>(false);
+            SpriteBuilder sbCharacter = gm.BuildSprite("Char", animParent, sprite: sCharacter[0]);
+            audioMgr.PlaySound(audioMgr.evolutionSpirit);
+            yield return new WaitForSeconds(0.5f);
+            SpriteBuilder sbGiveMassivePower = gm.BuildSprite("Char", animParent, sprite: sGiveMassivePowerBlack).SetTransparent<SpriteBuilder>(true);
+
+            for (int i = 0; i < 3; i++) {
+                yield return new WaitForSeconds(0.2f);
+                sbGiveMassivePower.SetActive(false);
+                yield return new WaitForSeconds(0.4f);
+                sbGiveMassivePower.SetActive(true);
+            }
+
+            sbCharacter.SetSprite(sCharacter[9]);
+
+            yield return new WaitForSeconds(0.2f);
+            sbGiveMassivePower.SetActive(false);
+            yield return new WaitForSeconds(0.3f);
+            sbGiveMassivePower.SetActive(true);
+            yield return new WaitForSeconds(0.2f);
+            sbGiveMassivePower.SetActive(false);
+            yield return new WaitForSeconds(0.2f);
+
+            sbCharacter.PlaceOutside(Direction.Down);
+            sbCharacter.SetSprite(sCharacter[0]);
+
+            SpriteBuilder[] sbDigimon = new SpriteBuilder[4];
+            sbDigimon[0] = gm.BuildSprite("Spirit", animParent, 24, 24, sprite: sDigimon[3]).Center<SpriteBuilder>();
+
+            for (int i = 0; i < 2; i++) {
+                yield return new WaitForSeconds(0.15f);
+                sbDigimon[0].SetActive(false);
+                yield return new WaitForSeconds(0.25f);
+                sbDigimon[0].SetActive(true);
+            }
+            yield return new WaitForSeconds(0.7f);
+
+            for(int i = 1; i < 4; i++) {
+                sbDigimon[i] = gm.BuildSprite("Spirit", animParent, 24, 24, sprite: sDigimon[3]).Center<SpriteBuilder>();
+                sbDigimon[i].SetTransparent(true);
+            }
+
+            for(int i = 0; i < 32; i++) {
+                sbDigimon[0].MoveSprite(Direction.Left);
+                sbDigimon[1].MoveSprite(Direction.Right);
+                sbDigimon[2].MoveSprite(Direction.Up);
+                sbDigimon[3].MoveSprite(Direction.Down);
+                yield return new WaitForSeconds(3f / 32);
+            }
+
+            for (int i = 1; i < 4; i++) sbDigimon[i].Dispose();
+
+            yield return new WaitForSeconds(0.3f);
+            for (int i = 0; i < 64; i++) {
+                sbCharacter.MoveSprite(Direction.Up);
+                yield return new WaitForSeconds(1f / 64);
+            }
+            yield return new WaitForSeconds(0.7f);
+
+            sbBackground.SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+
+            for(int i = 0; i < 3; i++) {
+                sbBackground.SetSprite(sGivePower);
+                yield return new WaitForSeconds(0.1f);
+                sbBackground.SetSprite(sBlackScreen);
+                yield return new WaitForSeconds(0.5f);
+            }
+
+            SpriteBuilder sbBlackSprite = gm.BuildSprite("BlackSprite", animParent, sprite: sDigimon[4]);
+            yield return new WaitForSeconds(0.1f);
+            
+            sbBlackSprite.SetActive(false);
+            yield return new WaitForSeconds(0.5f);
+            sbBlackSprite.SetActive(true);
+            yield return new WaitForSeconds(0.1f);
+
+            for(int i = 0; i < 3; i++) {
+                sbBlackSprite.SetActive(false);
+                yield return new WaitForSeconds(0.3f);
+                sbBlackSprite.SetActive(true);
+                yield return new WaitForSeconds(0.2f);
+            }
+
+            sbBlackSprite.SetActive(false);
+            yield return new WaitForSeconds(0.3f);
+            sbBlackSprite.SetActive(true);
+            yield return new WaitForSeconds(0.1f);
+
+            sbBackground.SetActive(false);
+            sbBlackSprite.SetActive(false);
+            yield return new WaitForSeconds(0.5f);
+
+            sbDigimon[0].SetSprite(sDigimon[0]).Center();
+            yield return new WaitForSeconds(0.2f);
+
+            sbBlackSprite.PlaceOutside(Direction.Down);
+            sbBlackSprite.SetSprite(sCurtain).SetTransparent(true);
+            sbBlackSprite.SetActive(true);
+
+            for (int i = 0; i < 64; i++) {
+                sbBlackSprite.MoveSprite(Direction.Up);
+                yield return new WaitForSeconds(3f / 64);
+            }
+
+            yield return new WaitForSeconds(0.6f);
+            sbDigimon[0].SetSprite(sDigimon[1]);
+            yield return new WaitForSeconds(0.8f);
+            sbDigimon[0].SetSprite(sDigimon[0]);
+            yield return new WaitForSeconds(0.6f);
         }
         private IEnumerator PAAnimateSPScreen(SpriteBuilder background) {
             Sprite sSpiritsA = spriteDB.battle_gainingSP[0];

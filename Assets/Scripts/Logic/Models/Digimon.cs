@@ -146,7 +146,10 @@ namespace Kaisa.Digivice {
         /// </summary>
         /// <param name="playerLevel">The level of the player</param>
         public float GetObeyChance(int playerLevel) {
-            int levelDiff = baseLevel - playerLevel;
+            //If the Digimon is a Spirit or Armor digivolution, use its current level rather than its base level.
+            int currentBaseLevel = (stage == Stage.Spirit || stage == Stage.Armor) ? GetBossLevel(playerLevel) : baseLevel;
+
+            int levelDiff = currentBaseLevel - playerLevel;
 
             if (levelDiff <= 0) return 1f; //If the player's level is equal or greater than the digimon, it will always obey.
             if (levelDiff >= 10) return 0f; //If the player's level is 10 or more levels behind that of the digimon, it will never obey.
@@ -159,7 +162,9 @@ namespace Kaisa.Digivice {
         /// </summary>
         /// <param name="playerLevel">The level of the player</param>
         public float GetIdleChance(int playerLevel) {
-            int levelDiff = baseLevel - playerLevel;
+            int currentBaseLevel = (stage == Stage.Spirit || stage == Stage.Armor) ? GetBossLevel(playerLevel) : baseLevel;
+
+            int levelDiff = currentBaseLevel - playerLevel;
 
             if (levelDiff <= 0) return 1f;
             if (levelDiff >= 20) return 0f;

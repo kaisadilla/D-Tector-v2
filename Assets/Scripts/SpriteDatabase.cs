@@ -59,8 +59,8 @@ public class SpriteDatabase : MonoBehaviour {
     public Sprite givePower;
     public Sprite givePowerInverted;
     public Sprite giveMassivePower;
-    public Sprite giveMassivePowerIverted;
-    public Sprite acquireDigimon;
+    public Sprite giveMassivePowerInverted;
+    public Sprite curtain;
     public Sprite dTector;
     public Sprite animDistance;
     [Header("Battle")]
@@ -117,6 +117,19 @@ public class SpriteDatabase : MonoBehaviour {
         }
     }
     public Sprite GetDigimonSprite(Digimon digimon, SpriteAction state = SpriteAction.Default) => GetDigimonSprite(digimon.name, state);
+    /// <summary>
+    /// Returns all the sprites associated with the digimon, in order: 0: default, 1: attack, 2: crush, 3: spirit, 4: black.
+    /// </summary>
+    /// <param name="name">The name of the digimon.</param>
+    public Sprite[] GetAllDigimonSprites(string name) {
+        Sprite[] sprites = new Sprite[5];
+        sprites[0] = Resources.Load<Sprite>("Sprites/Digimon/" + name);
+        sprites[1] = Resources.Load<Sprite>("Sprites/Digimon/" + name + "_at");
+        sprites[2] = Resources.Load<Sprite>("Sprites/Digimon/" + name + "_cr");
+        sprites[3] = Resources.Load<Sprite>("Sprites/Digimon/" + name + "_sp");
+        sprites[4] = Resources.Load<Sprite>("Sprites/Digimon/" + name + "_bl");
+        return sprites;
+    }
     /// <summary>
     /// Returns the sprite associated with the ability given.
     /// </summary>

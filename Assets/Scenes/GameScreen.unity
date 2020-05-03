@@ -1368,8 +1368,7 @@ MonoBehaviour:
     type: 3}
   giveMassivePowerIverted: {fileID: 5603576840549540096, guid: 1a7d672ab33564f4ea3128a67ae22fc2,
     type: 3}
-  acquireDigimon: {fileID: 7699648647696747545, guid: 1a7d672ab33564f4ea3128a67ae22fc2,
-    type: 3}
+  curtain: {fileID: 7699648647696747545, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
   dTector: {fileID: 741249282245206659, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
   animDistance: {fileID: 810827957059269702, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
     type: 3}

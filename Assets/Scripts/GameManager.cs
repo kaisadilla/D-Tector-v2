@@ -66,11 +66,11 @@ namespace Kaisa.Digivice {
             SetupManagers();
             DatabaseMgr = new DatabaseManager(this);
             #if UNITY_EDITOR
+            Application.targetFrameRate = 60;
             DisableLeaverBuster();
             VisualDebug.WriteLine("Leaver Buster disabled by the Unity editor.");
             #endif
             CheckLeaverBuster();
-            EnqueueAnimation(screenMgr.AAWardSpiritPower(37));
         }
 
         /// <summary>
@@ -120,6 +120,7 @@ namespace Kaisa.Digivice {
             }
         }
 
+        public GameChar CurrentPlayerChar => playerChar.currentChar;
         //This should be done with a Task in PlayerCharacter, but I avoided installing the necessary plugins to make async Tasks work in this project.
         private void UpdateCharSprite() => playerChar.UpdateSprite();
         /// <summary>
