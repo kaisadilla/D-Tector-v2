@@ -92,6 +92,9 @@ namespace Kaisa.Digivice {
                     baseCost = 55;
                     decay = 60;
                 }
+                else {
+                    return 0;
+                }
             }
             else return 0;
 
@@ -268,7 +271,10 @@ namespace Kaisa.Digivice {
                 case Rarity.Epic: return 0.25f;
                 case Rarity.Legendary: return 0.10f;
                 case Rarity.Boss:
-                    if(stage == Stage.Spirit) return 0.50f;
+                    if (stage == Stage.Spirit) {
+                        if(spiritType == SpiritType.Human || spiritType == SpiritType.Animal) return 0.50f;
+                        else return 0f;
+                    }
                     else return 0.10f;
                 case Rarity.none: return 0f;
                 default: return 0f;
@@ -454,6 +460,7 @@ namespace Kaisa.Digivice {
         Attack,
         Crush,
         Spirit,
+        SpiritSmall,
         Black
     }
 }

@@ -72,7 +72,7 @@ namespace Kaisa.Digivice.App {
             }
             else if (CurrentScreen == ScreenDatabase.Menu_Spirit) {
                 if (SelectedElement < 10) {
-                    galleryList = gm.GetAllUlockedSpiritsOfElement((Element)SelectedElement);
+                    galleryList = gm.GetAllUnlockedSpiritsOfElement((Element)SelectedElement);
                     if (galleryList.Count > 0) {
                         audioMgr.PlayButtonA();
                         OpenGallery();

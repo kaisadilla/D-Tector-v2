@@ -1366,12 +1366,22 @@ MonoBehaviour:
     type: 3}
   giveMassivePower: {fileID: -2975087935681428075, guid: 1a7d672ab33564f4ea3128a67ae22fc2,
     type: 3}
-  giveMassivePowerIverted: {fileID: 5603576840549540096, guid: 1a7d672ab33564f4ea3128a67ae22fc2,
+  giveMassivePowerInverted: {fileID: 5603576840549540096, guid: 1a7d672ab33564f4ea3128a67ae22fc2,
     type: 3}
   curtain: {fileID: 7699648647696747545, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
+  curtainSpecial:
+  - {fileID: 0}
+  - {fileID: 0}
   dTector: {fileID: 741249282245206659, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
   animDistance: {fileID: 810827957059269702, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
     type: 3}
+  ancientSpiral:
+  - {fileID: -5262102257043538841, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
+  - {fileID: -2338845113084463350, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
+  ancientCircle:
+  - {fileID: 1466681076489938645, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
+  - {fileID: 5906102824131567388, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
+  - {fileID: 2474594638734722967, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
   battle_mainMenu:
   - {fileID: -7057440406585536591, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
   - {fileID: 5748297659399780796, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}

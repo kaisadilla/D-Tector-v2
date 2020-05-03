@@ -760,7 +760,7 @@ namespace Kaisa.Digivice {
             SpriteBuilder sbCharacter = gm.BuildSprite("Char", animParent, sprite: sCharacter[0]);
             audioMgr.PlaySound(audioMgr.evolutionSpirit);
             yield return new WaitForSeconds(0.5f);
-            SpriteBuilder sbGiveMassivePower = gm.BuildSprite("Char", animParent, sprite: sGiveMassivePowerBlack).SetTransparent<SpriteBuilder>(true);
+            SpriteBuilder sbGiveMassivePower = gm.BuildSprite("GivePower", animParent, sprite: sGiveMassivePowerBlack).SetTransparent<SpriteBuilder>(true);
 
             for (int i = 0; i < 3; i++) {
                 yield return new WaitForSeconds(0.2f);
@@ -866,6 +866,440 @@ namespace Kaisa.Digivice {
             yield return new WaitForSeconds(0.8f);
             sbDigimon[0].SetSprite(sDigimon[0]);
             yield return new WaitForSeconds(0.6f);
+        }
+        public IEnumerator AFusionSpiritEvolution(GameChar character, string digimon) {
+            Sprite sGiveMassivePowerBlack = spriteDB.giveMassivePowerInverted;
+            Sprite sBlackScreen = spriteDB.blackScreen;
+            Sprite sCurtain = spriteDB.curtain;
+            Sprite sCurtainSpecial = spriteDB.curtainSpecial[0];
+
+            Sprite[] sCharacter = spriteDB.GetCharacterSprites(character);
+            Sprite[] sDigimon = spriteDB.GetAllDigimonSprites(digimon);
+            Sprite[] sHumans = new Sprite[5];
+            Sprite[] sAnimals = new Sprite[5];
+            if (digimon == "kaisergreymon") {
+                sHumans[0] = spriteDB.GetDigimonSprite("agunimon", SpriteAction.SpiritSmall);
+                sHumans[1] = spriteDB.GetDigimonSprite("kazemon", SpriteAction.SpiritSmall);
+                sHumans[2] = spriteDB.GetDigimonSprite("kumamon", SpriteAction.SpiritSmall);
+                sHumans[3] = spriteDB.GetDigimonSprite("grumblemon", SpriteAction.SpiritSmall);
+                sHumans[4] = spriteDB.GetDigimonSprite("arbormon", SpriteAction.SpiritSmall);
+                sAnimals[0] = spriteDB.GetDigimonSprite("burninggreymon", SpriteAction.SpiritSmall);
+                sAnimals[1] = spriteDB.GetDigimonSprite("zephyrmon", SpriteAction.SpiritSmall);
+                sAnimals[2] = spriteDB.GetDigimonSprite("korikakumon", SpriteAction.SpiritSmall);
+                sAnimals[3] = spriteDB.GetDigimonSprite("gigasmon", SpriteAction.SpiritSmall);
+                sAnimals[4] = spriteDB.GetDigimonSprite("petaldramon", SpriteAction.SpiritSmall);
+            }
+            else {
+                sHumans[0] = spriteDB.GetDigimonSprite("lobomon", SpriteAction.SpiritSmall);
+                sHumans[1] = spriteDB.GetDigimonSprite("beetlemon", SpriteAction.SpiritSmall);
+                sHumans[2] = spriteDB.GetDigimonSprite("loweemon", SpriteAction.SpiritSmall);
+                sHumans[3] = spriteDB.GetDigimonSprite("mercurymon", SpriteAction.SpiritSmall);
+                sHumans[4] = spriteDB.GetDigimonSprite("lanamon", SpriteAction.SpiritSmall);
+                sAnimals[0] = spriteDB.GetDigimonSprite("kendogarurumon", SpriteAction.SpiritSmall);
+                sAnimals[1] = spriteDB.GetDigimonSprite("metalkabuterimon", SpriteAction.SpiritSmall);
+                sAnimals[2] = spriteDB.GetDigimonSprite("kaiserleomon", SpriteAction.SpiritSmall);
+                sAnimals[3] = spriteDB.GetDigimonSprite("sephirothmon", SpriteAction.SpiritSmall);
+                sAnimals[4] = spriteDB.GetDigimonSprite("calmaramon", SpriteAction.SpiritSmall);
+            }
+
+            //Common animation.
+            SpriteBuilder sbBackground = gm.BuildSprite("BlackBackground", animParent, sprite: sBlackScreen).SetActive<SpriteBuilder>(false);
+            SpriteBuilder sbCharacter = gm.BuildSprite("Char", animParent, sprite: sCharacter[0]);
+            audioMgr.PlaySound(audioMgr.evolutionSpirit);
+            yield return new WaitForSeconds(0.5f);
+            SpriteBuilder sbGiveMassivePower = gm.BuildSprite("Char", animParent, sprite: sGiveMassivePowerBlack).SetTransparent<SpriteBuilder>(true);
+
+            for (int i = 0; i < 3; i++) {
+                yield return new WaitForSeconds(0.2f);
+                sbGiveMassivePower.SetActive(false);
+                yield return new WaitForSeconds(0.4f);
+                sbGiveMassivePower.SetActive(true);
+            }
+
+            sbCharacter.SetSprite(sCharacter[9]);
+
+            yield return new WaitForSeconds(0.2f);
+            sbGiveMassivePower.SetActive(false);
+            yield return new WaitForSeconds(0.3f);
+            sbGiveMassivePower.SetActive(true);
+            yield return new WaitForSeconds(0.2f);
+            sbGiveMassivePower.SetActive(false);
+            yield return new WaitForSeconds(0.2f);
+
+            //Small spirits display - total animation duration: 3.0 s.
+            sbCharacter.Dispose();
+            SpriteBuilder sbSmallHuman = gm.BuildSprite("Human", animParent, 14, 16);
+            SpriteBuilder sbSmallAnimal = gm.BuildSprite("Animal", animParent, 14, 16);
+            for (int i = 0; i < 5; i++) {
+                sbSmallHuman.SetY<SpriteBuilder>(16).PlaceOutside<SpriteBuilder>(Direction.Left).MoveSprite(Direction.Left);
+                sbSmallAnimal.SetY<SpriteBuilder>(16).PlaceOutside<SpriteBuilder>(Direction.Right).MoveSprite(Direction.Right);
+                sbSmallHuman.SetSprite(sHumans[i]);
+                sbSmallAnimal.SetSprite(sAnimals[i]);
+                for(int j = 0; j < 4; j++) {
+                    sbSmallHuman.MoveSprite(Direction.Right, 4);
+                    sbSmallAnimal.MoveSprite(Direction.Left, 4);
+                    yield return new WaitForSeconds(0.6f / 10);
+                }
+                for (int j = 0; j < 6; j++) {
+                    sbSmallHuman.MoveSprite(Direction.Up, 4);
+                    sbSmallAnimal.MoveSprite(Direction.Up, 4);
+                    yield return new WaitForSeconds(0.6f / 10);
+                }
+            }
+            sbSmallHuman.Dispose();
+            sbSmallAnimal.Dispose();
+            //Create Transcendent spirit - total animation duration: 3.2 s
+            SpriteBuilder sbTranscendent = gm.BuildSprite("Transcendent", animParent, 24, 24, sprite: sDigimon[3]).Center<SpriteBuilder>();
+            RectangleBuilder sbCover = gm.BuildRectangle("Cover", animParent, 32, 32, fillBlack: false);
+            SpriteBuilder sbCurtain = gm.BuildSprite("Curtain", animParent, sprite: sCurtainSpecial).PlaceOutside<SpriteBuilder>(Direction.Up);
+            sbCurtain.SetTransparent(true);
+            SpriteBuilder sbGivePower = gm.BuildSprite("MassivePower", animParent, sprite: sGiveMassivePowerBlack);
+            sbGivePower.SetTransparent(true);
+            sbGivePower.SetActive(false);
+            for(int i = 0; i < 32; i++) {
+                if (i == 14 || i == 28) sbGivePower.SetActive(true);
+                if (i == 15 || i == 29) sbGivePower.SetActive(false);
+                sbCover.MoveSprite(Direction.Down);
+                sbCurtain.MoveSprite(Direction.Down);
+                yield return new WaitForSeconds(3.2f / 32);
+            }
+            sbCurtain.PlaceOutside(Direction.Down);
+            sbGivePower.Dispose();
+            //Flash spirit
+            for(int i = 0; i < 3; i++) {
+                sbTranscendent.SetActive(false);
+                yield return new WaitForSeconds(0.35f);
+                sbTranscendent.SetActive(true);
+                yield return new WaitForSeconds(0.35f);
+            }
+            for (int i = 0; i < 32; i++) {
+                sbTranscendent.MoveSprite(Direction.Up);
+                yield return new WaitForSeconds(1.4f / 32);
+            }
+            //Digimon runs twice.
+            sbTranscendent.SetSprite(sDigimon[2]);
+            sbTranscendent.SetY<SpriteBuilder>(4).PlaceOutside(Direction.Right);
+            for (int i = 0; i < 12; i++) {
+                sbTranscendent.MoveSprite(Direction.Left, 6);
+                yield return new WaitForSeconds(1f / 12);
+            }
+            yield return new WaitForSeconds(0.7f);
+            sbTranscendent.SetSprite(sDigimon[2]);
+            sbTranscendent.PlaceOutside(Direction.Right);
+            for (int i = 0; i < 14; i++) {
+                sbTranscendent.MoveSprite(Direction.Left, 2);
+                yield return new WaitForSeconds(0.7f / 14);
+            }
+            sbTranscendent.SetSprite(sDigimon[0]);
+            //Final Curtain
+            sbCurtain.SetSprite(sCurtain).SetTransparent(true);
+            sbCurtain.SetActive(true);
+
+            for (int i = 0; i < 64; i++) {
+                sbCurtain.MoveSprite(Direction.Up);
+                yield return new WaitForSeconds(3f / 64);
+            }
+
+            yield return new WaitForSeconds(0.6f);
+            sbTranscendent.SetSprite(sDigimon[1]);
+            yield return new WaitForSeconds(0.8f);
+            sbTranscendent.SetSprite(sDigimon[0]);
+            yield return new WaitForSeconds(0.6f);
+        }
+        public IEnumerator ASusanoomonEvolution(GameChar character) {
+            Sprite sGiveMassivePowerBlack = spriteDB.giveMassivePowerInverted;
+            Sprite sBlackScreen = spriteDB.blackScreen;
+            Sprite sCurtainSpecial = spriteDB.curtainSpecial[1];
+
+            Sprite[] sCharacter = spriteDB.GetCharacterSprites(character);
+            Sprite[] sSusanoomon = spriteDB.GetAllDigimonSprites("susanoomon");
+            Sprite sKaiserGreymon = spriteDB.GetDigimonSprite("kaisergreymon", SpriteAction.Spirit);
+            Sprite sMagnaGarurumon = spriteDB.GetDigimonSprite("magnagarurumon", SpriteAction.Spirit);
+            Sprite[] sHumans = new Sprite[10];
+            Sprite[] sAnimals = new Sprite[10];
+            {
+                sHumans[0] = spriteDB.GetDigimonSprite("agunimon", SpriteAction.SpiritSmall);
+                sHumans[1] = spriteDB.GetDigimonSprite("kazemon", SpriteAction.SpiritSmall);
+                sHumans[2] = spriteDB.GetDigimonSprite("kumamon", SpriteAction.SpiritSmall);
+                sHumans[3] = spriteDB.GetDigimonSprite("grumblemon", SpriteAction.SpiritSmall);
+                sHumans[4] = spriteDB.GetDigimonSprite("arbormon", SpriteAction.SpiritSmall);
+                sAnimals[0] = spriteDB.GetDigimonSprite("burninggreymon", SpriteAction.SpiritSmall);
+                sAnimals[1] = spriteDB.GetDigimonSprite("zephyrmon", SpriteAction.SpiritSmall);
+                sAnimals[2] = spriteDB.GetDigimonSprite("korikakumon", SpriteAction.SpiritSmall);
+                sAnimals[3] = spriteDB.GetDigimonSprite("gigasmon", SpriteAction.SpiritSmall);
+                sAnimals[4] = spriteDB.GetDigimonSprite("petaldramon", SpriteAction.SpiritSmall);
+                sHumans[5] = spriteDB.GetDigimonSprite("lobomon", SpriteAction.SpiritSmall);
+                sHumans[6] = spriteDB.GetDigimonSprite("beetlemon", SpriteAction.SpiritSmall);
+                sHumans[7] = spriteDB.GetDigimonSprite("loweemon", SpriteAction.SpiritSmall);
+                sHumans[8] = spriteDB.GetDigimonSprite("mercurymon", SpriteAction.SpiritSmall);
+                sHumans[9] = spriteDB.GetDigimonSprite("lanamon", SpriteAction.SpiritSmall);
+                sAnimals[5] = spriteDB.GetDigimonSprite("kendogarurumon", SpriteAction.SpiritSmall);
+                sAnimals[6] = spriteDB.GetDigimonSprite("metalkabuterimon", SpriteAction.SpiritSmall);
+                sAnimals[7] = spriteDB.GetDigimonSprite("kaiserleomon", SpriteAction.SpiritSmall);
+                sAnimals[8] = spriteDB.GetDigimonSprite("sephirothmon", SpriteAction.SpiritSmall);
+                sAnimals[9] = spriteDB.GetDigimonSprite("calmaramon", SpriteAction.SpiritSmall);
+            }
+
+            //Common animation.
+            SpriteBuilder sbBackground = gm.BuildSprite("BlackBackground", animParent, sprite: sBlackScreen).SetActive<SpriteBuilder>(false);
+            SpriteBuilder sbCharacter = gm.BuildSprite("Char", animParent, sprite: sCharacter[0]);
+            audioMgr.PlaySound(audioMgr.evolutionSpirit);
+            yield return new WaitForSeconds(0.5f);
+            SpriteBuilder sbGiveMassivePower = gm.BuildSprite("Char", animParent, sprite: sGiveMassivePowerBlack).SetTransparent<SpriteBuilder>(true);
+
+            for (int i = 0; i < 3; i++) {
+                yield return new WaitForSeconds(0.2f);
+                sbGiveMassivePower.SetActive(false);
+                yield return new WaitForSeconds(0.4f);
+                sbGiveMassivePower.SetActive(true);
+            }
+
+            sbCharacter.SetSprite(sCharacter[9]);
+
+            yield return new WaitForSeconds(0.2f);
+            sbGiveMassivePower.SetActive(false);
+            yield return new WaitForSeconds(0.3f);
+            sbGiveMassivePower.SetActive(true);
+            yield return new WaitForSeconds(0.2f);
+            sbGiveMassivePower.SetActive(false);
+            yield return new WaitForSeconds(0.2f);
+            sbCharacter.PlaceOutside(Direction.Down);
+            sbCharacter.SetSprite(sCharacter[0]);
+
+            SpriteBuilder sbTranscendent = gm.BuildSprite("Transcendent", animParent, 24, 24, sprite: sKaiserGreymon).Center<SpriteBuilder>();
+            SpriteBuilder sbSmallSpirit = gm.BuildSprite("SmallSpirit", animParent, 14, 16).SetActive<SpriteBuilder>(false);
+            //KaiserGreymon's small spirits - total animation duration: 3.1 s.
+            for (int i = 0; i < 4; i++) {
+                yield return new WaitForSeconds(0.15f);
+                sbTranscendent.SetActive(false);
+                yield return new WaitForSeconds(0.15f);
+                sbTranscendent.SetActive(true);
+            }
+            for(int i = 0; i < 5; i++) {
+                yield return new WaitForSeconds(0.1f);
+                sbTranscendent.SetActive(false);
+                sbSmallSpirit.SetSprite(sHumans[i]);
+                if (i == 0) sbSmallSpirit.SetPosition(9, 0);
+                else if (i == 1) sbSmallSpirit.SetPosition(0, 7);
+                else if (i == 2) sbSmallSpirit.SetPosition(18, 7);
+                else if (i == 3) sbSmallSpirit.SetPosition(2, 16);
+                else if (i == 4) sbSmallSpirit.SetPosition(16, 16);
+                sbSmallSpirit.SetActive(true);
+
+                yield return new WaitForSeconds(0.28f);
+                sbSmallSpirit.SetActive(false);
+                sbTranscendent.SetActive(true);
+            }
+            //MagnaGarurumon's small spirits - total animation duration: 3.1 s
+            sbTranscendent.SetSprite(sMagnaGarurumon);
+            for (int i = 0; i < 4; i++) {
+                yield return new WaitForSeconds(0.15f);
+                sbTranscendent.SetActive(false);
+                yield return new WaitForSeconds(0.15f);
+                sbTranscendent.SetActive(true);
+            }
+            for (int i = 0; i < 5; i++) {
+                yield return new WaitForSeconds(0.1f);
+                sbTranscendent.SetActive(false);
+                sbSmallSpirit.SetSprite(sHumans[5 + i]);
+                if (i == 0) sbSmallSpirit.SetPosition(9, 0);
+                else if (i == 1) sbSmallSpirit.SetPosition(0, 7);
+                else if (i == 2) sbSmallSpirit.SetPosition(18, 7);
+                else if (i == 3) sbSmallSpirit.SetPosition(2, 16);
+                else if (i == 4) sbSmallSpirit.SetPosition(16, 16);
+                sbSmallSpirit.SetActive(true);
+
+                yield return new WaitForSeconds(0.28f);
+                sbSmallSpirit.SetActive(false);
+                sbTranscendent.SetActive(true);
+            }
+            sbTranscendent.SetActive(false);
+            //Quick player down-to-up
+            for (int i = 0; i < 12; i++) {
+                sbCharacter.MoveSprite(Direction.Up, 6);
+                yield return new WaitForSeconds(1f / 12);
+            }
+            //Show all small spirits
+            SpriteBuilder sbSmallHuman = gm.BuildSprite("Human", animParent, 14, 16);
+            SpriteBuilder sbSmallAnimal = gm.BuildSprite("Animal", animParent, 14, 16);
+            for (int i = 0; i < 10; i++) {
+                sbSmallHuman.SetY<SpriteBuilder>(16).PlaceOutside<SpriteBuilder>(Direction.Left).MoveSprite(Direction.Left);
+                sbSmallAnimal.SetY<SpriteBuilder>(16).PlaceOutside<SpriteBuilder>(Direction.Right).MoveSprite(Direction.Right);
+                sbSmallHuman.SetSprite(sHumans[i]);
+                sbSmallAnimal.SetSprite(sAnimals[i]);
+                for (int j = 0; j < 4; j++) {
+                    sbSmallHuman.MoveSprite(Direction.Right, 4);
+                    sbSmallAnimal.MoveSprite(Direction.Left, 4);
+                    yield return new WaitForSeconds(0.6f / 10);
+                }
+                for (int j = 0; j < 6; j++) {
+                    sbSmallHuman.MoveSprite(Direction.Up, 4);
+                    sbSmallAnimal.MoveSprite(Direction.Up, 4);
+                    yield return new WaitForSeconds(0.6f / 10);
+                }
+            }
+            sbSmallHuman.Dispose();
+            sbSmallAnimal.Dispose();
+            //Form Susanoomon
+            sbTranscendent.SetSprite(sSusanoomon[0]).SetActive(true);
+            SpriteBuilder sbCurtain = gm.BuildSprite("Curtain", animParent, sprite: sCurtainSpecial);
+            for (int i = 0; i < 32; i++) {
+                sbCurtain.MoveSprite(Direction.Up);
+                yield return new WaitForSeconds(2.2f / 32);
+            }
+            sbCurtain.PlaceOutside(Direction.Down);
+
+            sbTranscendent.SetSprite(sSusanoomon[1]);
+            yield return new WaitForSeconds(0.8f);
+            sbTranscendent.SetSprite(sSusanoomon[0]);
+            yield return new WaitForSeconds(0.6f);
+        }
+        public IEnumerator AAncientEvolution(GameChar character, string digimon) {
+            Sprite sAncient = spriteDB.GetDigimonSprite(digimon);
+            Sprite sAncientAt = spriteDB.GetDigimonSprite(digimon, SpriteAction.Attack);
+            Sprite sHumanSpirit = null, sAnimalSpirit = null;
+            switch(digimon) {
+                case "ancientgreymon":
+                    sHumanSpirit = spriteDB.GetDigimonSprite("agunimon", SpriteAction.Spirit);
+                    sAnimalSpirit = spriteDB.GetDigimonSprite("burninggreymon", SpriteAction.Spirit);
+                    break;
+                case "ancientgarurumon":
+                    sHumanSpirit = spriteDB.GetDigimonSprite("lobomon", SpriteAction.Spirit);
+                    sAnimalSpirit = spriteDB.GetDigimonSprite("kendogarurumon", SpriteAction.Spirit);
+                    break;
+                case "ancientbeetlemon":
+                    sHumanSpirit = spriteDB.GetDigimonSprite("beetlemon", SpriteAction.Spirit);
+                    sAnimalSpirit = spriteDB.GetDigimonSprite("metalkabuterimon", SpriteAction.Spirit);
+                    break;
+                case "ancientirismon":
+                    sHumanSpirit = spriteDB.GetDigimonSprite("kazemon", SpriteAction.Spirit);
+                    sAnimalSpirit = spriteDB.GetDigimonSprite("zephyrmon", SpriteAction.Spirit);
+                    break;
+                case "ancientmegatheriummon":
+                    sHumanSpirit = spriteDB.GetDigimonSprite("kumamon", SpriteAction.Spirit);
+                    sAnimalSpirit = spriteDB.GetDigimonSprite("korikakumon", SpriteAction.Spirit);
+                    break;
+                case "ancientsphinxmon":
+                    sHumanSpirit = spriteDB.GetDigimonSprite("loweemon", SpriteAction.Spirit);
+                    sAnimalSpirit = spriteDB.GetDigimonSprite("kaiserleomon", SpriteAction.Spirit);
+                    break;
+                case "ancientvolcamon":
+                    sHumanSpirit = spriteDB.GetDigimonSprite("grumblemon", SpriteAction.Spirit);
+                    sAnimalSpirit = spriteDB.GetDigimonSprite("gigasmon", SpriteAction.Spirit);
+                    break;
+                case "ancienttrojamon":
+                    sHumanSpirit = spriteDB.GetDigimonSprite("arbormon", SpriteAction.Spirit);
+                    sAnimalSpirit = spriteDB.GetDigimonSprite("petaldramon", SpriteAction.Spirit);
+                    break;
+                case "ancientwisemon":
+                    sHumanSpirit = spriteDB.GetDigimonSprite("mercurymon", SpriteAction.Spirit);
+                    sAnimalSpirit = spriteDB.GetDigimonSprite("sephirothmon", SpriteAction.Spirit);
+                    break;
+                case "ancientmermaimon":
+                    sHumanSpirit = spriteDB.GetDigimonSprite("lanamon", SpriteAction.Spirit);
+                    sAnimalSpirit = spriteDB.GetDigimonSprite("calmaramon", SpriteAction.Spirit);
+                    break;
+            }
+            Sprite sGiveMassivePowerBlack = spriteDB.giveMassivePowerInverted;
+            Sprite[] sSpiral = spriteDB.ancientSpiral;
+            Sprite[] sCircle = spriteDB.ancientCircle;
+            Sprite sBlackScreen = spriteDB.blackScreen;
+            Sprite[] sCharacter = spriteDB.GetCharacterSprites(character);
+
+            SpriteBuilder sbSpiral = gm.BuildSprite("Spiral", animParent);
+            SpriteBuilder sbCircle = gm.BuildSprite("Circle", animParent).SetTransparent<SpriteBuilder>(true);
+            SpriteBuilder sbDigimon = gm.BuildSprite("Digimon", animParent, 24, 24).Center<SpriteBuilder>().PlaceOutside<SpriteBuilder>(Direction.Down);
+            SpriteBuilder sbGiveMassivePower = gm.BuildSprite("GivePower", animParent, sprite: sGiveMassivePowerBlack).SetTransparent<SpriteBuilder>(true);
+            sbGiveMassivePower.SetActive(false);
+
+            audioMgr.PlaySound(audioMgr.evolutionAncient);
+
+            //Show human spirit
+            sbDigimon.SetSprite(sHumanSpirit);
+            for(int i = 0; i < 28; i++) {
+                sbDigimon.MoveSprite(Direction.Up);
+                yield return new WaitForSeconds(0.95f / 28);
+            }
+            yield return new WaitForSeconds(0.2f);
+            for (int i = 0; i < 3; i++) {
+                sbGiveMassivePower.SetActive(true);
+                yield return new WaitForSeconds(0.1f);
+                sbGiveMassivePower.SetActive(false);
+                yield return new WaitForSeconds(0.3f);
+            }
+            for (int i = 0; i < 28; i++) {
+                sbDigimon.MoveSprite(Direction.Up);
+                yield return new WaitForSeconds(0.95f / 28);
+            }
+            //Show animal spirit
+            sbDigimon.SetSprite(sAnimalSpirit);
+            sbDigimon.PlaceOutside(Direction.Down);
+            for (int i = 0; i < 28; i++) {
+                sbDigimon.MoveSprite(Direction.Up);
+                yield return new WaitForSeconds(0.95f / 28);
+            }
+            yield return new WaitForSeconds(0.2f);
+            for (int i = 0; i < 3; i++) {
+                sbGiveMassivePower.SetActive(true);
+                yield return new WaitForSeconds(0.1f);
+                sbGiveMassivePower.SetActive(false);
+                yield return new WaitForSeconds(0.3f);
+            }
+            for (int i = 0; i < 28; i++) {
+                sbDigimon.MoveSprite(Direction.Up);
+                yield return new WaitForSeconds(0.95f / 28);
+            }
+            //Spiral and circle
+            sbGiveMassivePower.SetSprite(sCharacter[0]).SetTransparent(false);
+            for (int i = 0; i < 2; i++) {
+                sbGiveMassivePower.SetActive(false);
+                sbCircle.SetSprite(sCircle[0]);
+                for (int j = 0; j < 3; j++) {
+                    sbSpiral.SetSprite(sSpiral[0]);
+                    yield return new WaitForSeconds(0.3f);
+                    sbSpiral.SetSprite(sSpiral[1]);
+                    yield return new WaitForSeconds(0.3f);
+                }
+
+                sbGiveMassivePower.SetActive(true);
+                yield return new WaitForSeconds(0.3f);
+            }
+            yield return new WaitForSeconds(0.15f);
+            sbGiveMassivePower.SetSprite(sCharacter[9]);
+            yield return new WaitForSeconds(0.4f);
+            sbGiveMassivePower.Dispose();
+
+            for (int j = 0; j < 3; j++) {
+                if (j == 1) sbCircle.SetSprite(sCircle[1]);
+                if (j == 2) sbCircle.SetSprite(sCircle[2]);
+                sbSpiral.SetSprite(sSpiral[0]);
+                yield return new WaitForSeconds(0.3f);
+                sbSpiral.SetSprite(sSpiral[1]);
+                yield return new WaitForSeconds(0.3f);
+            }
+            sbSpiral.Dispose();
+            sbCircle.SetSprite(sBlackScreen);
+            for (int i = 0; i < 2; i++) {
+                yield return new WaitForSeconds(0.2f);
+                sbCircle.SetActive(false);
+                yield return new WaitForSeconds(0.2f);
+                sbCircle.SetActive(true);
+            }
+            yield return new WaitForSeconds(0.2f);
+            sbCircle.SetActive(false);
+            sbDigimon.SetSprite(sAncient).Center();
+            for (int i = 0; i < 2; i++) {
+                sbDigimon.SetActive(true);
+                yield return new WaitForSeconds(0.15f);
+                sbDigimon.SetActive(false);
+                yield return new WaitForSeconds(0.3f);
+            }
+            sbDigimon.SetActive(true);
+            yield return new WaitForSeconds(0.4f);
+            sbDigimon.SetSprite(sAncientAt);
+            yield return new WaitForSeconds(0.55f);
+            sbDigimon.SetSprite(sAncient);
+            yield return new WaitForSeconds(0.7f);
         }
         private IEnumerator PAAnimateSPScreen(SpriteBuilder background) {
             Sprite sSpiritsA = spriteDB.battle_gainingSP[0];
@@ -1063,6 +1497,7 @@ namespace Kaisa.Digivice {
                         sbEnemyAttack.MoveSprite(Direction.Left);
                         yield return new WaitForSeconds(0.6f / 16f);
                     }
+                    audioMgr.StopSound();
                 }
                 else {
                     Direction pushDirection = (winner == 0) ? Direction.Left : Direction.Right;

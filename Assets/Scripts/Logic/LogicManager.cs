@@ -266,7 +266,7 @@ namespace Kaisa.Digivice {
         /// <summary>
         /// Increases the total win count by 1 and returns the new value.
         /// </summary>
-        public int IncreaseTotaWins() => ++loadedGame.TotalWins;
+        public int IncreaseTotalWins() => ++loadedGame.TotalWins;
         #endregion
 
         #region Digimon data
@@ -283,6 +283,7 @@ namespace Kaisa.Digivice {
                     for (int i = 0; i < ddocks.Length; i++) {
                         if (ddocks[i] == "") {
                             SetDDockDigimon(i, digimon);
+                            break;
                         }
                     }
                 }
@@ -329,14 +330,14 @@ namespace Kaisa.Digivice {
             if(GetDigimonUnlocked(digimon)) {
                 SetDigimonExtraLevel(digimon, levelBefore + 1);
                 levelAfter = GetDigimonExtraLevel(digimon);
-                Debug.Log($"The Digimon was rewarded by increasing its level from {levelBefore} to {levelAfter}");
+                VisualDebug.WriteLine($"The Digimon was rewarded by increasing its level from {levelBefore} to {levelAfter}");
                 return true;
             }
             //Else, unlock it.
             else {
                 SetDigimonUnlocked(digimon, true);
                 levelAfter = 0;
-                Debug.Log($"The Digimon was rewarded by unlocking it.");
+                VisualDebug.WriteLine($"The Digimon was rewarded by unlocking it.");
                 return false;
             }
         }

@@ -62,7 +62,7 @@ namespace Kaisa.Digivice.App {
                     if (iVictoryPerc == 0 && fVictoryPerc != 0f) iVictoryPerc = 1;
 
                     string victoryPerc = iVictoryPerc.ToString();
-                    string winCount = gm.logicMgr.SpiritPower.ToString();
+                    string winCount = gm.logicMgr.TotalWins.ToString();
                     gm.BuildTextBox("TextLevel", screenDisplay.transform, victoryPerc, DFont.Regular, 24, 5, 0, 10, TextAnchor.UpperRight);
                     gm.BuildTextBox("TextSpirits", screenDisplay.transform, winCount, DFont.Regular, 31, 5, 0, 26, TextAnchor.UpperRight);
                     break;

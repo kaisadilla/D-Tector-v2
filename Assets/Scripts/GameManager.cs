@@ -71,6 +71,7 @@ namespace Kaisa.Digivice {
             VisualDebug.WriteLine("Leaver Buster disabled by the Unity editor.");
             #endif
             CheckLeaverBuster();
+            //EnqueueAnimation(screenMgr.AAncientEvolution(GameChar.Koji, "ancientgreymon"));
         }
 
         /// <summary>
@@ -211,14 +212,14 @@ namespace Kaisa.Digivice {
             goClass.SetTransparent(transparent);
             return goClass;
         }
-        public RectangleBuilder BuildRectangle(string name, Transform parent, int width = 1, int height = 1, int posX = 0, int posY = 0, float flickPeriod = 0f, bool activeColor = true) {
+        public RectangleBuilder BuildRectangle(string name, Transform parent, int width = 1, int height = 1, int posX = 0, int posY = 0, float flickPeriod = 0f, bool fillBlack = true) {
             GameObject go = Instantiate(pRectangle, parent);
             RectangleBuilder goClass = go.GetComponent<RectangleBuilder>();
             goClass.SetName(name);
             goClass.SetSize(width, height);
             goClass.SetPosition(posX, posY);
             goClass.SetFlickPeriod(flickPeriod);
-            goClass.SetColor(activeColor);
+            goClass.SetColor(fillBlack);
             return goClass;
         }
         public TextBoxBuilder BuildTextBox(string name, Transform parent, string content, DFont font, int width = 32, int height = 5, int posX = 0, int posY = 0, TextAnchor alignment = TextAnchor.UpperLeft) {
@@ -233,7 +234,7 @@ namespace Kaisa.Digivice {
             return goClass;
         }
         public Transform BuildBackground(Transform parent) {
-            RectangleBuilder goClass = BuildRectangle("Parent", parent, 32, 32, activeColor: false);
+            RectangleBuilder goClass = BuildRectangle("Parent", parent, 32, 32, fillBlack: false);
             return goClass.transform;
         }
         public ContainerBuilder BuildContainer(string name, Transform parent, int width = 1, int height = 1, int posX = 0, int posY = 0, bool transparent = true) {
@@ -289,7 +290,7 @@ namespace Kaisa.Digivice {
             }
             return allDigimon;
         }
-        public List<string> GetAllUlockedSpiritsOfElement(Element element) {
+        public List<string> GetAllUnlockedSpiritsOfElement(Element element) {
             List<string> allDigimon = new List<string>();
             foreach (Digimon d in DatabaseMgr.Digimons) {
                 if (d.stage == Stage.Spirit
@@ -311,6 +312,65 @@ namespace Kaisa.Digivice {
             }
             return allDigimon;
         }
+        /// <summary>
+        /// Returns true if the player has both the Human and Animal form of a spirit.
+        /// </summary>
+        public bool HasBothFormsOfSpirit(Element element) {
+            int count = 0;
+            foreach (Digimon d in DatabaseMgr.Digimons) {
+                if (d.stage == Stage.Spirit
+                        && d.element == element
+                        && (d.spiritType == SpiritType.Human || d.spiritType == SpiritType.Animal)
+                        && logicMgr.GetDigimonUnlocked(d.name))
+                {
+                    count++;
+                }
+            }
+            return (count == 2);
+        }
+        /// <summary>
+        /// Returns true if the player has all the required spirits for a fusion. fusionName can be 'kaisergreymon', 'magnagarurumon' or 'susanoomon'.
+        /// </summary>
+        public bool HasAllSpiritsForFusion(string fusionName) {
+            int count = 0;
+            if (fusionName == "kaisergreymon") {
+                foreach (Digimon d in DatabaseMgr.Digimons) {
+                    if (d.stage == Stage.Spirit
+                            && (d.spiritType == SpiritType.Human || d.spiritType == SpiritType.Animal)
+                            && (d.element == Element.Fire || d.element == Element.Wind || d.element == Element.Ice
+                            || d.element == Element.Earth || d.element == Element.Wood)
+                            && logicMgr.GetDigimonUnlocked(d.name))
+                    {
+                        count++;
+                    }
+                }
+            }
+            else if (fusionName == "magnagarurumon") {
+                foreach (Digimon d in DatabaseMgr.Digimons) {
+                    if (d.stage == Stage.Spirit
+                            && (d.spiritType == SpiritType.Human || d.spiritType == SpiritType.Animal)
+                            && (d.element == Element.Light || d.element == Element.Thunder || d.element == Element.Dark
+                            || d.element == Element.Metal || d.element == Element.Water)
+                            && logicMgr.GetDigimonUnlocked(d.name))
+                    {
+                        count++;
+                    }
+                }
+            }
+            else {
+                foreach (Digimon d in DatabaseMgr.Digimons) {
+                    if (d.stage == Stage.Spirit
+                            && (d.spiritType == SpiritType.Human || d.spiritType == SpiritType.Animal)
+                            && logicMgr.GetDigimonUnlocked(d.name))
+                    {
+                        count++;
+                    }
+                }
+            }
+            if (fusionName == "kaisergreymon" || fusionName == "magnagarurumon") return (count == 10);
+            else return (count == 20);
+        }
+
 
         public bool IsInDock(string digimon) {
             foreach(string s in GetAllDDockDigimons()) {

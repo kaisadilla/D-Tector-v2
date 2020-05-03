@@ -61,8 +61,11 @@ public class SpriteDatabase : MonoBehaviour {
     public Sprite giveMassivePower;
     public Sprite giveMassivePowerInverted;
     public Sprite curtain;
+    public Sprite[] curtainSpecial = new Sprite[2];
     public Sprite dTector;
     public Sprite animDistance;
+    public Sprite[] ancientSpiral = new Sprite[2];
+    public Sprite[] ancientCircle = new Sprite[3];
     [Header("Battle")]
     public Sprite[] battle_mainMenu = new Sprite[4];
     public Sprite[] battle_combatMenu = new Sprite[5];
@@ -110,6 +113,8 @@ public class SpriteDatabase : MonoBehaviour {
                 return Resources.Load<Sprite>("Sprites/Digimon/" + name + "_cr");
             case SpriteAction.Spirit:
                 return Resources.Load<Sprite>("Sprites/Digimon/" + name + "_sp");
+            case SpriteAction.SpiritSmall:
+                return Resources.Load<Sprite>("Sprites/Digimon/" + name + "_sm");
             case SpriteAction.Black:
                 return Resources.Load<Sprite>("Sprites/Digimon/" + name + "_bl");
             default:
