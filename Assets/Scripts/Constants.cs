@@ -2,8 +2,6 @@
 
 namespace Kaisa.Digivice {
     public static class Constants {
-        public const string aesKey = "B8564DE248CF675C1F44586B4E87294F";
-
         public const int PIXEL_SIZE = 24;
         public const int SCREEN_WIDTH = 32;
         public const int SCREEN_HEIGHT = 32;
@@ -12,7 +10,8 @@ namespace Kaisa.Digivice {
         public const float CRUSH_TRAVEL_SPEED = 0.035f; //0.04f
 
         public const int MAX_SPIRIT_POWER = 99;
-        public const string DEFAULT_DIGIMON = "Numemon";
+        public const string DEFAULT_DIGIMON = "numemon";
+        public const string DEFAULT_SPIRIT_DIGIMON = "flamemon";
 
         public static readonly Color BACKGROUND_COLOR = new Color32(129, 147, 118, 255);
         public static readonly Color ACTIVE_COLOR = Color.black;

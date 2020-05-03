@@ -227,7 +227,7 @@ namespace Kaisa.Digivice {
                 loadedGame.IsPlayerInsured = false;
             }
 
-            return playerLevelBefore != playerLevelNow;
+            return (playerLevelBefore != playerLevelNow);
         }
         /// <summary>
         /// Returns the level of a player based on its experience.
@@ -277,6 +277,14 @@ namespace Kaisa.Digivice {
             if (val == true) {
                 if (loadedGame.GetDigimonLevel(digimon) == 0) {
                     loadedGame.SetDigimonLevel(digimon, 1);
+
+                    string[] ddocks = gm.GetAllDDockDigimons();
+
+                    for (int i = 0; i < ddocks.Length; i++) {
+                        if (ddocks[i] == "") {
+                            SetDDockDigimon(i, digimon);
+                        }
+                    }
                 }
             }
             else {
@@ -342,14 +350,14 @@ namespace Kaisa.Digivice {
             if (GetDigimonExtraLevel(digimon) > 0) {
                 SetDigimonExtraLevel(digimon, levelBefore - 1);
                 levelAfter = GetDigimonExtraLevel(digimon);
-                Debug.Log($"The Digimon was punished by increasing its level from {levelBefore} to {levelAfter}");
+                Debug.Log($"The Digimon was punished by decreasing its level from {levelBefore} to {levelAfter}");
                 return true;
             }
             //Else, erase it.
             else {
                 SetDigimonUnlocked(digimon, false);
                 levelAfter = -1;
-                Debug.Log($"The Digimon was rewarded by locking it.");
+                Debug.Log($"The Digimon was punished by locking it.");
                 return false;
             }
         }
@@ -368,12 +376,13 @@ namespace Kaisa.Digivice {
         /// <param name="friendlyLevel">The level of the victor.</param>
         /// <param name="enemyLevel">The level of the loser.</param>
         /// <returns></returns>
-        public int ExperienceGained(int friendlyLevel, int enemyLevel) {
-            //Original formula: ((((Mathf.Pow(enemyLevel, 2)) / 5f) * ((Mathf.Pow((2f * enemyLevel) + 10f, 2.5f) / Mathf.Pow((enemyLevel + playerLevel + 10), 2.5f)))) + 1) * 0.75f;
-            float a = Mathf.Pow(enemyLevel, 2) / 5f; // 1/5th of the square power of the enemy level.
-            float b = Mathf.Pow((2f * enemyLevel) + 10f, 2.5f); // 2x the enemy level + 10, raised to the power of 2.5.
-            float c = Mathf.Pow(enemyLevel + friendlyLevel + 10, 2.5f); // Enemy level + player level + 10, raised to the power of 2.5.
-            float expGained = ((a * (b / c)) + 1) * 0.75f;
+        public int GetExperienceGained(int friendlyLevel, int enemyLevel) {
+            float a = 30 * enemyLevel;
+            float b = Mathf.Pow((2 * enemyLevel) + 10, 2.5f);
+            float c = Mathf.Pow(enemyLevel + friendlyLevel + 10, 2.5f);
+            float d = 0.025f + (0.025f * friendlyLevel);
+            if (d > 0.5f) d = 0.5f;
+            float expGained = ((a * (b / c)) + 1) * d;
 
             return Mathf.CeilToInt(expGained);
         }

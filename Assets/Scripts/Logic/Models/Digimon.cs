@@ -61,10 +61,13 @@ namespace Kaisa.Digivice {
         /// </summary>
         /// <param name="playerLevel">The level of the player.</param>
         public int GetSpiritCost(int playerLevel) {
-            int baseCost;
-            float decay;
-
-            if (stage == Stage.Armor) {
+            int baseCost = 20;
+            float decay = 20;
+            if (name == "susanoomon") {
+                baseCost = 95;
+                decay = 50;
+            }
+            else if (stage == Stage.Armor) {
                 baseCost = 10;
                 decay = 20;
             }
@@ -73,13 +76,21 @@ namespace Kaisa.Digivice {
                     baseCost = 20;
                     decay = 30;
                 }
+                else if (spiritType == SpiritType.Animal) {
+                    baseCost = 30;
+                    decay = 30;
+                }
+                else if (spiritType == SpiritType.Hybrid) {
+                    baseCost = 35;
+                    decay = 40;
+                }
                 else if (spiritType == SpiritType.Ancient) {
                     baseCost = 40;
                     decay = 50;
                 }
-                else {
-                    baseCost = 30;
-                    decay = 30;
+                else if (spiritType == SpiritType.Fusion) {
+                    baseCost = 55;
+                    decay = 60;
                 }
             }
             else return 0;
@@ -187,12 +198,10 @@ namespace Kaisa.Digivice {
         /// <param name="digimonExtraLevel">The extra level of the Digimon stored in the Saved Game, not the actual level of the Digimon.</param>
         /// <returns></returns>
         public MutableCombatStats GetFriendlyStats(int digimonExtraLevel) {
-            int maxExtraLevel = MaxExtraLevel;
-
-            int HP = GetStatAsFriendly(stats.HP, digimonExtraLevel, maxExtraLevel);
-            int EN = GetStatAsFriendly(stats.EN, digimonExtraLevel, maxExtraLevel);
-            int CR = GetStatAsFriendly(stats.CR, digimonExtraLevel, maxExtraLevel);
-            int AB = GetStatAsFriendly(stats.AB, digimonExtraLevel, maxExtraLevel);
+            int HP = GetStatAsFriendly(stats.HP, digimonExtraLevel);
+            int EN = GetStatAsFriendly(stats.EN, digimonExtraLevel);
+            int CR = GetStatAsFriendly(stats.CR, digimonExtraLevel);
+            int AB = GetStatAsFriendly(stats.AB, digimonExtraLevel);
 
             return new MutableCombatStats(HP, EN, CR, AB);
         }
@@ -203,13 +212,13 @@ namespace Kaisa.Digivice {
             return new MutableCombatStats(stats.HP, stats.EN, stats.CR, stats.AB);
         }
         /// <summary>
-        /// Returns the chance of this Digimon to evolve, based on the player level and the amount of call points they spent to attempt the evolution.
-        /// Always returns 0f if the Digimon doesn't have an evolution.
+        /// Returns the chance of any Digimon to evolve into this one.
+        /// Note: This must be called on the Digimon that will result from the digivolution, rather than
+        /// the Digimon that is trying to evolve into this.
         /// </summary>
         /// <param name="playerLevel">The level of the player.</param>
         /// <param name="extraPoints">The call points spent for this attempt. It must be an integer between 1 and 10.</param>
         public float GetEvolveChance(int playerLevel, int extraPoints) {
-            if (evolution == "") return 0f;
             //First, we calculate the amount of levels we'll add to the player level. This is based on the extra points:
             //The level multiplier ranges from 0 to 0.45 based on the amount of point spent (1 to 10).
             float multiplier = (extraPoints - 1) / 20f;
@@ -244,9 +253,10 @@ namespace Kaisa.Digivice {
             }
         }
         /// <summary>
-        /// Returns the chance that this Digimon will be punished.
+        /// Returns the chance that this Digimon will be erased.
         /// </summary>
-        public float GetPunishmentChance() {
+        public float GetEraseChance() {
+            if (name == Constants.DEFAULT_DIGIMON.ToLower()) return 0f; //You can't lose Numemon.
             switch (rarity) {
                 case Rarity.Common: return 0.75f;
                 case Rarity.Rare: return 0.50f;
@@ -258,6 +268,13 @@ namespace Kaisa.Digivice {
                 case Rarity.none: return 0f;
                 default: return 0f;
             }
+        }
+        /// <summary>
+        /// Returns the rarity of this Digimon for this game. Usually, this is their base rarity, but for bosses already defeated, their rarity change to legendary.
+        /// Some other Digimon that sometimes are treated as bosses are also affected by this.
+        /// </summary>
+        public Rarity GetCurrentRarity() {
+            return rarity;
         }
 
         private int GetStatAsSpiritBoss(int stat, int bossLevel) {
@@ -283,13 +300,11 @@ namespace Kaisa.Digivice {
             float riggedStat = (0.14f + (0.0086f * bossLevel)) * stat;
             return Mathf.RoundToInt(riggedStat);
         }
-        private int GetStatAsFriendly(int stat, int currentExtraLevel, int maxExtraLevel) {
+        private int GetStatAsFriendly(int stat, int currentExtraLevel) {
             if (currentExtraLevel == 0) return stat;
-            int actualLevel = GetFriendlyLevel(currentExtraLevel);
-            int actualExtraLevel = baseLevel + maxExtraLevel;
             //This formula makes every digimon have mostly round numbers at its max level.
             //This interpolates the stat between 100% (when it has 0 extra levels) and 150% (when it has the maximum amount of extra levels).
-            float multiplier = 1.5f * (actualLevel / (float)actualExtraLevel);
+            float multiplier = 1f + (0.5f * (currentExtraLevel / (float)MaxExtraLevel));
             float riggedStat = stat * multiplier;
 
             return Mathf.CeilToInt(riggedStat);
@@ -319,15 +334,30 @@ namespace Kaisa.Digivice {
         public int CR;
         public int AB;
 
+        public int maxHP;
+
         public MutableCombatStats(int HP, int EN, int CR, int AB) {
             this.HP = HP;
             this.EN = EN;
             this.CR = CR;
             this.AB = AB;
+
+            maxHP = this.HP;
         }
 
         public override string ToString() {
             return $"HP: {HP}, EN: {EN}, CR: {CR}, AB: {AB}.";
+        }
+        /// <summary>
+        /// Returns the amount of HP the Digimon is missing.
+        /// </summary>
+        public int GetMissingHP() => maxHP - HP;
+        /// <summary>
+        /// Tries to reduce HP in the necessary amoount to have this Digimon miss exactly that much HP. If the HP would be reduced below 1, it is set to 1.
+        /// </summary>
+        public void ApplyMissingHP(int amount) {
+            HP = maxHP - amount;
+            if (HP < 1) HP = 1;
         }
 
         /// <summary>

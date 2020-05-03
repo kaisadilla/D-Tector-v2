@@ -1,5 +1,7 @@
 ﻿using Kaisa.Digivice.App;
 using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 namespace Kaisa.Digivice {
@@ -63,7 +65,12 @@ namespace Kaisa.Digivice {
         public void Start() {
             SetupManagers();
             DatabaseMgr = new DatabaseManager(this);
-            EnqueueAnimation(screenMgr.ALevelUp(12));
+            #if UNITY_EDITOR
+            DisableLeaverBuster();
+            VisualDebug.WriteLine("Leaver Buster disabled by the Unity editor.");
+            #endif
+            CheckLeaverBuster();
+            EnqueueAnimation(screenMgr.AAWardSpiritPower(37));
         }
 
         /// <summary>
@@ -100,6 +107,19 @@ namespace Kaisa.Digivice {
             playerChar = new PlayerCharacter(gameChar);
             InvokeRepeating("UpdateCharSprite", 0.5f, 0.5f);
         }
+
+        private void CheckLeaverBuster() {
+            if (loadedGame.IsLeaverBusterActive) {
+                int expLoss = loadedGame.LeaverBusterExpLoss;
+                string digimonLoss = loadedGame.LeaverBusterDigimonLoss;
+                VisualDebug.WriteLine($"Leaver Buster triggered. Experience lost: {expLoss}. Digimon lost: {digimonLoss}");
+                logicMgr.AddPlayerExperience(-expLoss);
+                logicMgr.PunishDigimon(digimonLoss, out _, out _);
+                DistanceMgr.IncreaseDistance(2000);
+                DisableLeaverBuster();
+            }
+        }
+
         //This should be done with a Task in PlayerCharacter, but I avoided installing the necessary plugins to make async Tasks work in this project.
         private void UpdateCharSprite() => playerChar.UpdateSprite();
         /// <summary>
@@ -123,6 +143,14 @@ namespace Kaisa.Digivice {
             //LoadedGame.SetAreaCompleted(0, 4, true);
             //LoadedGame.SetAreaCompleted(0, 5, true);
             //LoadedGame.SetAreaCompleted(0, 11, true);
+            //loadedGame.CheatsUsed = false;
+        }
+
+        public void DebugInitialize() {
+            loadedGame.SetRandomSeed(0, Random.Range(0, 2147483647));
+            loadedGame.SetRandomSeed(1, Random.Range(0, 2147483647));
+            loadedGame.SetRandomSeed(2, Random.Range(0, 2147483647));
+            loadedGame.CheatsUsed = false;
         }
 
         /// <summary>
@@ -251,30 +279,36 @@ namespace Kaisa.Digivice {
         /// <summary>
         /// Returns true if the player has unlocked, at least, one digimon in that stage.
         /// </summary>
-        public bool OwnsDigimonInStage(Stage stage) {
+        public List<string> GetAllUnlockedDigimonInStage(Stage stage) {
+            List<string> allDigimon = new List<string>();
             foreach (Digimon d in DatabaseMgr.Digimons) {
                 if (d.stage == stage && logicMgr.GetDigimonUnlocked(d.name)) {
-                    return true;
+                    allDigimon.Add(d.name);
                 }
             }
-            return false;
+            return allDigimon;
         }
-
-        public bool OwnsSpiritDigimonOfElement(Element element) {
+        public List<string> GetAllUlockedSpiritsOfElement(Element element) {
+            List<string> allDigimon = new List<string>();
             foreach (Digimon d in DatabaseMgr.Digimons) {
-                if (d.stage == Stage.Spirit && d.spiritType != SpiritType.Fusion && d.element == element && logicMgr.GetDigimonUnlocked(d.name)) {
-                    return true;
+                if (d.stage == Stage.Spirit
+                        && d.element == element
+                        && d.spiritType != SpiritType.Fusion
+                        && logicMgr.GetDigimonUnlocked(d.name))
+                {
+                    allDigimon.Add(d.name);
                 }
             }
-            return false;
+            return allDigimon;
         }
-        public bool OwnsFusionSpiritDigimon() {
+        public List<string> GetAllUnlockedFusionDigimon() {
+            List<string> allDigimon = new List<string>();
             foreach (Digimon d in DatabaseMgr.Digimons) {
                 if (d.stage == Stage.Spirit && d.spiritType == SpiritType.Fusion && logicMgr.GetDigimonUnlocked(d.name)) {
-                    return true;
+                    allDigimon.Add(d.name);
                 }
             }
-            return false;
+            return allDigimon;
         }
 
         public bool IsInDock(string digimon) {

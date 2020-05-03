@@ -56,12 +56,13 @@ public class SpriteDatabase : MonoBehaviour {
     public Sprite digits_ok;
     public Sprite digits_error;
     [Header("Animations")]
-    public Sprite givePowerBlack;
-    public Sprite givePowerWhite;
-    public Sprite giveMassivePowerBlack;
-    public Sprite giveMassivePowerWhite;
+    public Sprite givePower;
+    public Sprite givePowerInverted;
+    public Sprite giveMassivePower;
+    public Sprite giveMassivePowerIverted;
     public Sprite acquireDigimon;
     public Sprite dTector;
+    public Sprite animDistance;
     [Header("Battle")]
     public Sprite[] battle_mainMenu = new Sprite[4];
     public Sprite[] battle_combatMenu = new Sprite[5];

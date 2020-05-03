@@ -360,13 +360,13 @@ Font:
       serializedVersion: 2
       x: 0.3
       y: 0.78
-      width: 0.08
+      width: 0.06
       height: 0.1
     vert:
       serializedVersion: 2
       x: 0
       y: 0
-      width: 96
+      width: 72
       height: -120
     advance: 96
     flipped: 0
@@ -584,15 +584,15 @@ Font:
       serializedVersion: 2
       x: 0.1
       y: 0.54
-      width: 0.08
+      width: 0.06
       height: 0.1
     vert:
       serializedVersion: 2
       x: 0
       y: 0
-      width: 96
+      width: 72
       height: -120
-    advance: 120
+    advance: 96
     flipped: 0
   - serializedVersion: 2
     index: 32

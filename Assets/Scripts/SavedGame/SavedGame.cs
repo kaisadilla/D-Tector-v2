@@ -39,6 +39,10 @@ namespace Kaisa.Digivice {
             get => EncryptedPlayerPrefs.GetString("s" + slot + "_name");
             set => EncryptedPlayerPrefs.SetString("s" + slot + "_name", value);
         }
+        public bool CheatsUsed {
+            get => EncryptedPlayerPrefs.GetInt($"s{slot}_cheatsUsed") != 5;
+            set => EncryptedPlayerPrefs.SetInt($"s{slot}_cheatsUsed", value ? 12 : 5);
+        }
         public GameChar PlayerChar {
             get => (GameChar)EncryptedPlayerPrefs.GetInt("s" + slot + "_character");
             set => EncryptedPlayerPrefs.SetInt("s" + slot + "_character", (int)value);

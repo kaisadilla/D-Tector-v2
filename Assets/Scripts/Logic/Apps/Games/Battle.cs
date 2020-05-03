@@ -1,6 +1,6 @@
 ﻿using Kaisa.Digivice.Extensions;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using sysrand = System.Random;
 
@@ -12,18 +12,43 @@ namespace Kaisa.Digivice.App {
      */
     public class Battle : DigiviceApp {
         private enum BattleScreen {
-            MainScreen,
+            MainMenu,
             BattleCall_DDocks,
             BattleCall_Menu,
-            AttackMenu
+            SpiritList_Elements,
+            SpiritList_Spirits,
+            AttackMenu,
+            RegularEvolve
+        }
+        private enum CallType {
+            RegularCall,
+            CodeCall,
+            Digivolution,
+            ArmorEvolution,
+            SpiritEvolution,
+            AncientEvolution
         }
 
         #region Input
         public override void InputA() {
-            if (currentScreen == BattleScreen.MainScreen) {
+            if (currentScreen == BattleScreen.MainMenu) {
                 if(menuIndex == 0) {
                     audioMgr.PlayButtonA();
                     OpenDDocks();
+                }
+                else if (menuIndex == 1) {
+                    galleryList = gm.GetAllUnlockedDigimonInStage(Stage.Spirit);
+                    if(galleryList.Count > 0) {
+                        audioMgr.PlayButtonA();
+                        OpenSpiritMenu();
+                    }
+                    else {
+                        audioMgr.PlayButtonB();
+                    }
+                }
+                else if (menuIndex == 3) {
+                    audioMgr.PlayButtonA();
+                    EscapeBattle();
                 }
             }
             else if (currentScreen == BattleScreen.BattleCall_DDocks) {
@@ -41,18 +66,38 @@ namespace Kaisa.Digivice.App {
                     currentScreen = BattleScreen.AttackMenu;
                     attackIndex = 0;
                 }
+                else if (battleCallMenuIndex == 1) {
+                    if(CurrentCallPoints > 0) {
+                        audioMgr.PlayButtonA();
+                        OpenDigivolve();
+                    }
+                    else {
+                        audioMgr.PlayButtonB();
+                    }
+                }
                 else if (battleCallMenuIndex == 3) {
                     audioMgr.PlayButtonA();
                     DeportCurrentDigimon();
                 }
             }
+            else if (currentScreen == BattleScreen.SpiritList_Elements) {
+                audioMgr.PlayButtonA();
+                OpenSpiritGallery();
+            }
             else if (currentScreen == BattleScreen.AttackMenu) {
                 audioMgr.PlayButtonA();
                 SubmitTurn(attackIndex);
+                blockBattleMenuNavigation = false;
+            }
+            else if (currentScreen == BattleScreen.RegularEvolve) {
+                audioMgr.PlayButtonA();
+                AttemptRegularDigivolve();
+                blockBattleMenuNavigation = true;
+                battleCallMenuIndex = 0;
             }
         }
         public override void InputB() {
-            if (currentScreen == BattleScreen.MainScreen) {
+            if (currentScreen == BattleScreen.MainMenu) {
                 audioMgr.PlayButtonB();
             }
             else if (currentScreen == BattleScreen.BattleCall_DDocks) {
@@ -62,13 +107,25 @@ namespace Kaisa.Digivice.App {
             else if (currentScreen == BattleScreen.BattleCall_Menu) {
                 audioMgr.PlayButtonB();
             }
+            else if (currentScreen == BattleScreen.SpiritList_Elements) {
+                audioMgr.PlayButtonB();
+                CloseSpiritMenu();
+            }
+            else if (currentScreen == BattleScreen.SpiritList_Spirits) {
+                audioMgr.PlayButtonB();
+                CloseSpiritGallery();
+            }
             else if (currentScreen == BattleScreen.AttackMenu) {
                 audioMgr.PlayButtonB();
                 currentScreen = BattleScreen.BattleCall_Menu;
             }
+            else if (currentScreen == BattleScreen.RegularEvolve) {
+                audioMgr.PlayButtonB();
+                CloseDigivolve();
+            }
         }
         public override void InputLeft() {
-            if(currentScreen == BattleScreen.MainScreen) {
+            if(currentScreen == BattleScreen.MainMenu) {
                 audioMgr.PlayButtonA();
                 menuIndex = menuIndex.CircularAdd(-1, 3);
             }
@@ -77,16 +134,48 @@ namespace Kaisa.Digivice.App {
                 ddockIndex = ddockIndex.CircularAdd(-1, 3);
             }
             else if (currentScreen == BattleScreen.BattleCall_Menu) {
-                audioMgr.PlayButtonA();
-                battleCallMenuIndex = battleCallMenuIndex.CircularAdd(-1, 3);
+                if(blockBattleMenuNavigation) {
+                    audioMgr.PlayButtonB();
+                }
+                else {
+                    audioMgr.PlayButtonA();
+                    battleCallMenuIndex = battleCallMenuIndex.CircularAdd(-1, 3);
+                }
+            }
+            else if (currentScreen == BattleScreen.SpiritList_Elements) {
+                if (availableElements.Count > 1) {
+                    audioMgr.PlayButtonA();
+                    elementIndex = elementIndex.CircularAdd(-1, availableElements.Count - 1);
+                }
+                else {
+                    audioMgr.PlayButtonB();
+                }
+            }
+            else if (currentScreen == BattleScreen.SpiritList_Spirits) {
+                if (galleryList.Count > 1) {
+                    audioMgr.PlayButtonA();
+                    galleryIndex = galleryIndex.CircularAdd(-1, galleryList.Count - 1);
+                }
+                else {
+                    audioMgr.PlayButtonB();
+                }
             }
             else if (currentScreen == BattleScreen.AttackMenu) {
                 audioMgr.PlayButtonA();
                 attackIndex = attackIndex.CircularAdd(-1, 2);
             }
+            else if (currentScreen == BattleScreen.RegularEvolve) {
+                if(callPointsForEvolution <= 1) {
+                    audioMgr.PlayButtonB();
+                }
+                else {
+                    audioMgr.PlayButtonA();
+                    callPointsForEvolution--;
+                }
+            }
         }
         public override void InputRight() {
-            if (currentScreen == BattleScreen.MainScreen) {
+            if (currentScreen == BattleScreen.MainMenu) {
                 audioMgr.PlayButtonA();
                 menuIndex = menuIndex.CircularAdd(1, 3);
             }
@@ -95,12 +184,44 @@ namespace Kaisa.Digivice.App {
                 ddockIndex = ddockIndex.CircularAdd(1, 3);
             }
             else if (currentScreen == BattleScreen.BattleCall_Menu) {
-                audioMgr.PlayButtonA();
-                battleCallMenuIndex = battleCallMenuIndex.CircularAdd(1, 3);
+                if (blockBattleMenuNavigation) {
+                    audioMgr.PlayButtonB();
+                }
+                else {
+                    audioMgr.PlayButtonA();
+                    battleCallMenuIndex = battleCallMenuIndex.CircularAdd(1, 3);
+                }
+            }
+            else if (currentScreen == BattleScreen.SpiritList_Elements) {
+                if (availableElements.Count > 1) {
+                    audioMgr.PlayButtonA();
+                    elementIndex = elementIndex.CircularAdd(1, availableElements.Count - 1);
+                }
+                else {
+                    audioMgr.PlayButtonB();
+                }
+            }
+            else if (currentScreen == BattleScreen.SpiritList_Spirits) {
+                if (galleryList.Count > 1) {
+                    audioMgr.PlayButtonA();
+                    galleryIndex = galleryIndex.CircularAdd(1, galleryList.Count - 1);
+                }
+                else {
+                    audioMgr.PlayButtonB();
+                }
             }
             else if (currentScreen == BattleScreen.AttackMenu) {
                 audioMgr.PlayButtonA();
                 attackIndex = attackIndex.CircularAdd(1, 2);
+            }
+            else if (currentScreen == BattleScreen.RegularEvolve) {
+                if (callPointsForEvolution >= CurrentCallPoints) {
+                    audioMgr.PlayButtonB();
+                }
+                else {
+                    audioMgr.PlayButtonA();
+                    callPointsForEvolution++;
+                }
             }
         }
         #endregion
@@ -111,6 +232,10 @@ namespace Kaisa.Digivice.App {
         //Battle information:
         private int victoryExp, defeatExp; //The amounts of experience the player will win or lose depending on the outcome of the battle.
         private int playerLevel;
+        private int SpiritPower {
+            get => gm.logicMgr.SpiritPower;
+            set => gm.logicMgr.SpiritPower = value;
+        }
 
         private bool isBossBattle;
         private int bossLevel;
@@ -126,19 +251,30 @@ namespace Kaisa.Digivice.App {
             }
         }
 
+        private Digimon originalDigimon; //The original digimon that was summoned. This does not change if the digimon evolves.
         private Digimon friendlyDigimon;
         private MutableCombatStats friendlyStats;
-        private bool awardSpiritPower = false; //Only digimons summoned from Battle Call award Spirit Power.
+        private bool attacksAwardSP = false; //Only digimons summoned from Battle Call award Spirit Power.
+        private bool attacksCostSP = false; //Non-Ancient Spirit-Stage Digimons' have a SP cost in each of their attacks.
 
         private Digimon enemyDigimon;
         private MutableCombatStats enemyStats;
 
         //Menus and navigation
-        private BattleScreen currentScreen = BattleScreen.MainScreen;
+        private BattleScreen currentScreen = BattleScreen.MainMenu;
         private byte menuIndex = 0; //0: Battle call, 1: Spirit on, 2: Digits, 3: Escape.
         private byte ddockIndex = 0; //D-Docks 0 to 3.
         private byte battleCallMenuIndex = 0; //0: Attack, 1: Digivolve, 2: Battle Card, 3: Deport.
         private byte attackIndex = 0; //0: Energy, 1: Crush, 2: Ability.
+        private byte callPointsForEvolution = 0; //The amount of call points that the player is submitting to attempt an evolution.
+        private bool blockBattleMenuNavigation = false; //Turns true after taking some actions in battle that force the player to commit to attack that turn.
+        //Hybrid gallery menu
+        private List<int> availableElements;
+        private int elementIndex = 0; //This points which int in availableElements is used as the current element selected.
+        private int SelectedElement => availableElements[elementIndex];
+
+        private List<string> galleryList;
+        private int galleryIndex = 0;
 
         protected override void StartApp() {
             enemyDigimon = gm.DatabaseMgr.GetDigimon(appArgs[0]);
@@ -161,8 +297,8 @@ namespace Kaisa.Digivice.App {
                 enemyStats = enemyDigimon.GetBossStats(bossLevel);
                 VisualDebug.WriteLine($"Boss stats for level {bossLevel}: {enemyStats}");
 
-                victoryExp = gm.logicMgr.ExperienceGained(playerLevel, bossLevel);
-                defeatExp = gm.logicMgr.ExperienceGained(bossLevel, playerLevel);
+                victoryExp = gm.logicMgr.GetExperienceGained(playerLevel, bossLevel);
+                defeatExp = gm.logicMgr.GetExperienceGained(bossLevel, playerLevel);
             }
             else {
                 gm.EnqueueAnimation(gm.screenMgr.AEncounterEnemy(enemyDigimon.name));
@@ -170,13 +306,19 @@ namespace Kaisa.Digivice.App {
                 enemyStats = enemyDigimon.GetRegularStats();
                 VisualDebug.WriteLine($"Enemy stats: {enemyStats}");
 
-                victoryExp = gm.logicMgr.ExperienceGained(playerLevel, enemyDigimon.baseLevel);
-                defeatExp = gm.logicMgr.ExperienceGained(enemyDigimon.baseLevel, playerLevel);
+                victoryExp = gm.logicMgr.GetExperienceGained(playerLevel, enemyDigimon.baseLevel);
+                defeatExp = gm.logicMgr.GetExperienceGained(enemyDigimon.baseLevel, playerLevel);
             }
+
+            VisualDebug.WriteLine($"Experience for this battle: {victoryExp} for winning, -{defeatExp} for losing.");
 
             gm.UpdateLeaverBuster(defeatExp, "");
             InvokeRepeating("DrawScreen", 0f, 0.05f);
         }
+        protected override void CloseApp(Screen goToMenu = Screen.Character) {
+            base.CloseApp(goToMenu);
+        }
+
 
         private void Update() {
             //DrawScreen();
@@ -185,7 +327,7 @@ namespace Kaisa.Digivice.App {
         private void DrawScreen() {
             ClearScreen();
 
-            if(currentScreen == BattleScreen.MainScreen) {
+            if(currentScreen == BattleScreen.MainMenu) {
                 SetScreen(gm.spriteDB.battle_mainMenu[menuIndex]);
             }
             else if (currentScreen == BattleScreen.BattleCall_DDocks) {
@@ -200,6 +342,32 @@ namespace Kaisa.Digivice.App {
             else if (currentScreen == BattleScreen.AttackMenu) {
                 SetScreen(gm.spriteDB.battle_attackMenu[attackIndex]);
             }
+            else if (currentScreen == BattleScreen.RegularEvolve) {
+                SetScreen(gm.spriteDB.battle_callPoints_chooser);
+                gm.BuildRectangle("EvolutionCP", Parent, 3 * callPointsForEvolution, 3, 1, 27);
+            }
+            else if (currentScreen == BattleScreen.SpiritList_Elements) {
+                if (SelectedElement < 10) {
+                    SetScreen(gm.spriteDB.elements[SelectedElement]);
+                }
+                else {
+                    SetScreen(gm.spriteDB.database_spirit_fusion);
+                }
+            }
+            else if (currentScreen == BattleScreen.SpiritList_Spirits) {
+                string displayDigimon = galleryList[galleryIndex];
+                SetScreen(gm.spriteDB.arrowsSmall);
+
+                Sprite sDigimon;
+                if (gm.DatabaseMgr.GetDigimon(displayDigimon).spiritType != SpiritType.Ancient) {
+                    sDigimon = gm.spriteDB.GetDigimonSprite(displayDigimon, SpriteAction.Spirit);
+                }
+                else {
+                    sDigimon = gm.spriteDB.GetDigimonSprite(displayDigimon, SpriteAction.Default);
+                }
+
+                gm.BuildSprite("DigimonDisplay", screenDisplay.transform, 24, 24, sprite: sDigimon).Center();
+            }
         }
 
         private void InitializeRNG() {
@@ -211,11 +379,9 @@ namespace Kaisa.Digivice.App {
             currentScreen = BattleScreen.BattleCall_DDocks;
             ddockIndex = 0;
         }
-
         private void CloseDDocks() {
-            currentScreen = BattleScreen.MainScreen;
+            currentScreen = BattleScreen.MainMenu;
         }
-
         private void ChooseCurrentDDock() {
             //If the player has no call points left, he will summon Numemon regardless of their choice.
             string digimon = (CurrentCallPoints > 0) ? gm.logicMgr.GetDDockDigimon(ddockIndex) : Constants.DEFAULT_DIGIMON;
@@ -225,35 +391,163 @@ namespace Kaisa.Digivice.App {
             currentScreen = BattleScreen.BattleCall_Menu;
             battleCallMenuIndex = 0;
 
-            friendlyDigimon = gm.DatabaseMgr.GetDigimon(digimon)?? gm.DatabaseMgr.GetDigimon(Constants.DEFAULT_DIGIMON);
-            CurrentCallPoints -= friendlyDigimon.GetCallCost(playerLevel);
-            int friendlyDigimonLevel = gm.logicMgr.GetDigimonExtraLevel(digimon);
-            friendlyStats = friendlyDigimon.GetFriendlyStats(friendlyDigimonLevel);
-
-            awardSpiritPower = true;
-
-            gm.UpdateLeaverBuster(defeatExp, friendlyDigimon.name);
+            AssignFriendlyDigimon(digimon, CallType.RegularCall);
 
             gm.EnqueueAnimation(gm.screenMgr.ASpendCallPoints(callPointsBefore, CurrentCallPoints));
             gm.EnqueueAnimation(gm.screenMgr.ASummonDigimon(digimon));
+        }
+        private void OpenDigivolve() {
+            currentScreen = BattleScreen.RegularEvolve;
+            callPointsForEvolution = 1;
+        }
+        private void CloseDigivolve() {
+            currentScreen = BattleScreen.BattleCall_Menu;
+        }
+
+        //Todo: Merge this with App.Database, as it's the same code.
+        private void OpenSpiritMenu() {
+            availableElements = new List<int>();
+
+            HashSet<int> elementsFound = new HashSet<int>(); //a list of elements found that will contain only 1 of each.
+
+            foreach (string d in galleryList) {
+                elementsFound.Add((int)gm.DatabaseMgr.GetDigimon(d).element);
+            }
+            if (gm.GetAllUnlockedFusionDigimon().Count > 0) {
+                elementsFound.Add(10);
+            }
+
+            availableElements = elementsFound.ToList();
+            availableElements.Sort();
+
+            elementIndex = 0;
+            currentScreen = BattleScreen.SpiritList_Elements;
+        }
+        private void CloseSpiritMenu() {
+            currentScreen = BattleScreen.MainMenu;
+        }
+        private void OpenSpiritGallery() {
+            galleryIndex = 0;
+            currentScreen = BattleScreen.SpiritList_Spirits;
+            if (SelectedElement < 10) {
+                galleryList = gm.GetAllUlockedSpiritsOfElement((Element)SelectedElement);
+            }
+            else {
+                galleryList = gm.GetAllUnlockedFusionDigimon();
+            }
+        }
+        private void CloseSpiritGallery() {
+            currentScreen = BattleScreen.SpiritList_Elements;
+        }
+        private void ChooseSpiritFromGallery() {
+            string chosenDigimonName = galleryList[galleryIndex];
+            Digimon chosenDigimon = gm.DatabaseMgr.GetDigimon(chosenDigimonName);
+            if (chosenDigimon.GetSpiritCost(playerLevel) > SpiritPower) {
+                chosenDigimonName = Constants.DEFAULT_SPIRIT_DIGIMON;
+            }
+            if(chosenDigimon.spiritType == SpiritType.Ancient) {
+                AssignFriendlyDigimon(chosenDigimonName, CallType.AncientEvolution);
+            }
+            else {
+                AssignFriendlyDigimon(chosenDigimonName, CallType.SpiritEvolution);
+            }
+            //TODO: Animation for evolution.
+            //TODO: Arrive in battle menu with different options.
+        }
+
+        /// <summary>
+        /// Assigns a Digimon as the friendly Digimon, and sets up different parameters depending on how it was assigned.
+        /// </summary>
+        /// <param name="digimon">The digimon to be assigned.</param>
+        /// <param name="callType">The way this digimon is being called</param>
+        private void AssignFriendlyDigimon(string digimon, CallType callType) {
+            friendlyDigimon = gm.DatabaseMgr.GetDigimon(digimon) ?? gm.DatabaseMgr.GetDigimon(Constants.DEFAULT_DIGIMON);
+
+            int friendlyDigimonExtraLevel = 0;
+            if (callType == CallType.RegularCall) {
+                attacksAwardSP = true;
+                CurrentCallPoints -= friendlyDigimon.GetCallCost(playerLevel);
+
+                SummonRegularDigimon();
+            }
+            else if (callType == CallType.CodeCall) {
+                SpiritPower -= 20;
+                SummonRegularDigimon();
+            }
+            else if (callType == CallType.Digivolution) {
+                //Store the missing HP to apply it to the new digimon.
+                int missingHP = friendlyStats.GetMissingHP();
+                friendlyDigimonExtraLevel = gm.logicMgr.GetDigimonExtraLevel(friendlyDigimon.name);
+                friendlyStats = friendlyDigimon.GetFriendlyStats(friendlyDigimonExtraLevel);
+                friendlyStats.ApplyMissingHP(missingHP);
+
+                //If the player doesn't have the evolution, unlock it.
+                if (!gm.logicMgr.GetDigimonUnlocked(friendlyDigimon.name)) {
+                    gm.logicMgr.SetDigimonUnlocked(friendlyDigimon.name, true);
+                }
+            }
+            else if (callType == CallType.SpiritEvolution) {
+                attacksCostSP = true;
+                originalDigimon = friendlyDigimon;
+                friendlyStats = friendlyDigimon.GetBossStats(playerLevel);
+            }
+            else if (callType == CallType.SpiritEvolution) {
+                SpiritPower -= friendlyDigimon.GetSpiritCost(playerLevel);
+                originalDigimon = friendlyDigimon;
+                friendlyStats = friendlyDigimon.GetBossStats(playerLevel);
+            }
+
+            gm.UpdateLeaverBuster(defeatExp, originalDigimon.name);
+
+            VisualDebug.WriteLine($"Summoned {friendlyDigimon.name} via '{callType}', with extra level {friendlyDigimonExtraLevel} " +
+                $"and stats: HP. {friendlyStats.HP}, EN. {friendlyStats.EN}, CR. {friendlyStats.CR}, AB. {friendlyStats.AB}.");
+
+            void SummonRegularDigimon() {
+                originalDigimon = friendlyDigimon;
+                friendlyDigimonExtraLevel = gm.logicMgr.GetDigimonExtraLevel(digimon);
+                friendlyStats = friendlyDigimon.GetFriendlyStats(friendlyDigimonExtraLevel);
+            }
+        }
+
+        private void AttemptRegularDigivolve() {
+            int callPointsBefore = CurrentCallPoints;
+            string currentDigimon = friendlyDigimon.name;
+            Digimon targetEvolution = gm.DatabaseMgr.GetDigimon(friendlyDigimon.evolution);
+            
+            CurrentCallPoints -= callPointsForEvolution;
+            // (int) < null always evaluated to false.
+            if (Random.Range(0f, 1f) < targetEvolution?.GetEvolveChance(playerLevel, callPointsForEvolution)) {
+                AssignFriendlyDigimon(targetEvolution.name, CallType.Digivolution);
+            }
+
+            gm.EnqueueAnimation(gm.screenMgr.ASpendCallPoints(callPointsBefore, CurrentCallPoints));
+            gm.EnqueueAnimation(gm.screenMgr.ARegularEvolution(currentDigimon, friendlyDigimon.name));
+
+            CloseDigivolve();
         }
 
         private void DeportCurrentDigimon() {
             string deportedDigimon = friendlyDigimon.name;
 
             friendlyDigimon = null;
+            originalDigimon = null;
             friendlyStats = null;
-            awardSpiritPower = false;
+            attacksAwardSP = false;
+            attacksCostSP = false;
 
-            currentScreen = BattleScreen.MainScreen;
+            currentScreen = BattleScreen.MainMenu;
 
             gm.UpdateLeaverBuster(defeatExp, "");
 
             gm.EnqueueAnimation(gm.screenMgr.ADeportDigimon(deportedDigimon));
         }
         private void SubmitTurn(int friendlyAttack) {
-            int SPbefore = gm.logicMgr.SpiritPower;
-            if (awardSpiritPower) gm.logicMgr.SpiritPower += 3;
+            int SPbefore = SpiritPower;
+            if (attacksAwardSP) SpiritPower += 3;
+            else if (attacksCostSP) {
+                SpiritPower -= friendlyDigimon.GetSpiritCost(playerLevel);
+                gm.EnqueueAnimation(gm.screenMgr.APaySpiritPower(SPbefore, SpiritPower));
+            }
 
             int enemyAttack = ChooseEnemyAttack();
             int winner = ExecuteTurn(ref friendlyAttack, enemyAttack, out bool disobeyed, out int loserHPbefore);
@@ -270,7 +564,8 @@ namespace Kaisa.Digivice.App {
                     enemyDigimon.name, enemyAttack, enemyEnergy,
                     winner, disobeyed, loserHPbefore, loserHPnow)
                 );
-            if(awardSpiritPower) {
+
+            if(attacksAwardSP) {
                 gm.EnqueueAnimation(gm.screenMgr.AAWardSpiritPower(SPbefore));
             }
 
@@ -285,12 +580,18 @@ namespace Kaisa.Digivice.App {
                 }
             }
 
+            if(attacksCostSP && SpiritPower < friendlyDigimon.GetSpiritCost(playerLevel)) {
+                DeportCurrentDigimon();
+            }
+
         }
         private void WinBattle() {
             gm.DisableLeaverBuster();
 
+            gm.EnqueueAnimation(gm.screenMgr.ADeportDigimon(friendlyDigimon.name));
+
             if (gm.logicMgr.AddPlayerExperience(victoryExp)) {
-                gm.EnqueueAnimation(gm.screenMgr.ALevelUp(gm.logicMgr.GetPlayerLevel() - 1));
+                gm.EnqueueAnimation(gm.screenMgr.ALevelUp(playerLevel, gm.logicMgr.GetPlayerLevel()));
             }
 
             int distanceBefore = gm.DistanceMgr.CurrentDistance;
@@ -303,7 +604,8 @@ namespace Kaisa.Digivice.App {
 
             if (rewardEnemy) {
                 if (gm.logicMgr.RewardDigimon(enemyDigimon.name, out int levelBefore, out int levelAfter)) {
-                    gm.EnqueueAnimation(gm.screenMgr.ALevelUpDigimon(enemyDigimon.name, levelBefore, levelAfter));
+                    //gm.EnqueueAnimation(gm.screenMgr.ALevelUpDigimon(enemyDigimon.name, levelBefore, levelAfter));
+                    gm.EnqueueAnimation(gm.screenMgr.AUnlockDigimon(enemyDigimon.name));
                 }
                 else {
                     gm.EnqueueAnimation(gm.screenMgr.AUnlockDigimon(enemyDigimon.name));
@@ -311,46 +613,64 @@ namespace Kaisa.Digivice.App {
             }
 
             TriggerVictoryAgainstBoss();
-        }
 
+            gm.EnqueueAnimation(gm.screenMgr.ACharHappy());
+
+            CloseApp();
+        }
         private void LoseBattle() {
             gm.DisableLeaverBuster();
 
+            gm.EnqueueAnimation(gm.screenMgr.ADeportDigimon(friendlyDigimon.name));
+
             if (gm.logicMgr.AddPlayerExperience(-defeatExp)) {
-                gm.EnqueueAnimation(gm.screenMgr.ALevelDown(gm.logicMgr.GetPlayerLevel() - 1));
+                gm.EnqueueAnimation(gm.screenMgr.ALevelDown(playerLevel, gm.logicMgr.GetPlayerLevel()));
             }
 
             int distanceBefore = gm.DistanceMgr.CurrentDistance;
             int amountToIncrease = isBossBattle ? 500 : 300;
-            gm.DistanceMgr.ReduceDistance(amountToIncrease, out _);
+            gm.DistanceMgr.ReduceDistance(-amountToIncrease, out _);
             int distanceAfter = gm.DistanceMgr.CurrentDistance;
             gm.EnqueueAnimation(gm.screenMgr.AChangeDistance(distanceBefore, distanceAfter));
 
-            if (Random.Range(0f, 1f) < friendlyDigimon.GetPunishmentChance()) {
-                if (gm.logicMgr.PunishDigimon(enemyDigimon.name, out int levelBefore, out int levelAfter)) {
-                    gm.EnqueueAnimation(gm.screenMgr.ALevelDownDigimon(enemyDigimon.name, levelBefore, levelAfter));
+            bool punishFriendly = (Random.Range(0f, 1f) < originalDigimon.GetEraseChance());
+            //If the player has extra levels with that digimon, they will always lose one.
+            if (gm.logicMgr.GetDigimonExtraLevel(originalDigimon.name) > 0) punishFriendly = true;
+
+            if (punishFriendly) {
+                if (gm.logicMgr.PunishDigimon(originalDigimon.name, out int levelBefore, out int levelAfter)) {
+                    //gm.EnqueueAnimation(gm.screenMgr.ALevelDownDigimon(originalDigimon.name, levelBefore, levelAfter));
                 }
                 else {
-                    gm.EnqueueAnimation(gm.screenMgr.AEraseDigimon(enemyDigimon.name));
+                    gm.EnqueueAnimation(gm.screenMgr.AEraseDigimon(originalDigimon.name));
                 }
             }
-        }
 
+            gm.EnqueueAnimation(gm.screenMgr.ACharSad());
+
+            CloseApp();
+        }
         private void EscapeBattle() {
             gm.DisableLeaverBuster();
 
+            gm.EnqueueAnimation(gm.screenMgr.ADeportSprite(gm.PlayerCharSprites[0], 32));
+
             if (gm.logicMgr.AddPlayerExperience(-defeatExp)) {
-                gm.EnqueueAnimation(gm.screenMgr.ALevelDown(gm.logicMgr.GetPlayerLevel() - 1));
+                gm.EnqueueAnimation(gm.screenMgr.ALevelDown(playerLevel, gm.logicMgr.GetPlayerLevel()));
             }
 
             int distanceBefore = gm.DistanceMgr.CurrentDistance;
             gm.DistanceMgr.ReduceDistance(2000, out _);
             int distanceAfter = gm.DistanceMgr.CurrentDistance;
             gm.EnqueueAnimation(gm.screenMgr.AChangeDistance(distanceBefore, distanceAfter));
-        }
 
-        private List<IEnumerator> TriggerVictoryAgainstBoss() {
-            return null;
+            gm.EnqueueAnimation(gm.screenMgr.ACharSad());
+            Debug.Log("WHAT");
+            CloseApp();
+            Debug.Log("WHAT2");
+        }
+        private void TriggerVictoryAgainstBoss() {
+            //TODO: Process boss victory.
         }
 
         /// <summary>
@@ -362,12 +682,12 @@ namespace Kaisa.Digivice.App {
         /// <param name="friendlyAttack">The Attack chosen by the player.</param>
         private int ExecuteTurn(ref int friendlyAttack, int enemyAttack, out bool disobeyed, out int loserHPbefore) {
             disobeyed = false;
-            if (Random.Range(0f, 1f) > friendlyDigimon.GetIdleChance(playerLevel)) {
+            if (Random.Range(0f, 1f) > originalDigimon.GetIdleChance(playerLevel)) {
                 friendlyAttack = 3;
                 disobeyed = true;
                 VisualDebug.WriteLine("The friendly digimon disobeyed and didn't attack.");
             }
-            else if (Random.Range(0f, 1f) > friendlyDigimon.GetObeyChance(playerLevel)) {
+            else if (Random.Range(0f, 1f) > originalDigimon.GetObeyChance(playerLevel)) {
                 friendlyAttack = Random.Range(0, 3);
                 disobeyed = true;
                 VisualDebug.WriteLine("The friendly digimon disobeyed and used a random attack.");
@@ -376,11 +696,12 @@ namespace Kaisa.Digivice.App {
             int winner = ChooseWinner(friendlyAttack, enemyAttack, out int damageDealt);
 
             loserHPbefore = (winner == 0) ? enemyStats.HP : friendlyStats.HP;
-            DamageDigimon((winner == 0) ? 1 : 0, damageDealt);
+
+            if (winner == 0) DamageDigimon(1, damageDealt);
+            if (winner == 1) DamageDigimon(0, damageDealt);
 
             return winner;
         }
-
         private int ChooseEnemyAttack() {
             int total = enemyStats.EN + enemyStats.CR + enemyStats.AB;
             int rngNumber = enemyAttackRNG.Next(total);
@@ -389,7 +710,6 @@ namespace Kaisa.Digivice.App {
             else if (rngNumber < enemyStats.EN + enemyStats.CR) return 1;
             else return 2;
         }
-
         private int ChooseWinner(int friendlyAttack, int enemyAttack, out int damageDealt) {
             int friendlyDamage = friendlyStats.GetAttackDamage(friendlyAttack);
             int enemyDamage = enemyStats.GetAttackDamage(enemyAttack);
@@ -450,7 +770,6 @@ namespace Kaisa.Digivice.App {
             damageDealt = -1;
             return 2;
         }
-
         private void DamageDigimon(int digimon, int damage) {
             //Enemy bosses receive less damage from attacks.
             if(isBossBattle && digimon == 1) {

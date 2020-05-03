@@ -45,5 +45,20 @@ namespace Kaisa.Digivice.Extensions {
             Array.Copy(array, index, subArray, 0, length);
             return subArray;
         }
+
+        /// <summary>
+        /// Returns a copy of the array containing, in the specified order, the elements in the indices given.
+        /// Will throw an IndexOutOfBoundsException if one of the indices specified is out of the bounds of the original array.
+        /// </summary>
+        /// <param name="array">The array to be copied with a new order.</param>
+        /// <param name="indices">The list of indices of the array, ordered by their new order.</param>
+        /// <returns></returns>
+        public static T[] ReorderedAs<T>(this T[] array, params int[] indices) {
+            T[] newArray = new T[indices.Length];
+            for(int i = 0; i < newArray.Length; i++) {
+                newArray[i] = array[indices[i]];
+            }
+            return newArray;
+        }
     }
 }

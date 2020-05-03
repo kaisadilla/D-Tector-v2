@@ -9230,7 +9230,7 @@
 		"abilityName": "flames_1",
 		"weight": "0",
 		"rarity": "none",
-		"disabled": "true",
+		"disabled": "false",
 		"baseLevel": "100",
 		"stats": {
 			"HP": "180",

@@ -1,6 +1,7 @@
 ﻿using Kaisa.Digivice.Extensions;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -40,7 +41,9 @@ namespace Kaisa.Digivice.App {
         private int galleryIndex = 0;
 
         //Hybrid gallery menu
-        private int spiritMenuIndex = 0;
+        private List<int> availableElements;
+        private int elementIndex = 0; //This points which int in availableElements is used as the current element selected.
+        private int SelectedElement => availableElements[elementIndex];
 
         //Data pages
         private int pageIndex = 0; //This is restricted to 0 or 1, or sometimes 2 when the player can see the code of the Digimon.
@@ -53,23 +56,24 @@ namespace Kaisa.Digivice.App {
         #region Input
         public override void InputA() {
             if (CurrentScreen == ScreenDatabase.Menu) {
-                if (menuIndex < 6) {
-                    if (gm.OwnsDigimonInStage((Stage)menuIndex)) {
-                        audioMgr.PlayButtonA();
+                galleryList = gm.GetAllUnlockedDigimonInStage((Stage)menuIndex);
+                if (galleryList.Count > 0) {
+                    audioMgr.PlayButtonA();
+                    if (menuIndex < 6) {
                         OpenGallery();
                     }
-                    else {
-                        audioMgr.PlayButtonB();
+                    else if (menuIndex == 6) {
+                        OpenSpiritMenu();
                     }
                 }
-                else if (menuIndex == 6) {
-                    audioMgr.PlayButtonA();
-                    OpenSpiritMenu();
+                else {
+                    audioMgr.PlayButtonB();
                 }
             }
             else if (CurrentScreen == ScreenDatabase.Menu_Spirit) {
-                if (spiritMenuIndex < 10) {
-                    if (gm.OwnsSpiritDigimonOfElement((Element)spiritMenuIndex)) {
+                if (SelectedElement < 10) {
+                    galleryList = gm.GetAllUlockedSpiritsOfElement((Element)SelectedElement);
+                    if (galleryList.Count > 0) {
                         audioMgr.PlayButtonA();
                         OpenGallery();
                     }
@@ -78,7 +82,8 @@ namespace Kaisa.Digivice.App {
                     }
                 }
                 else {
-                    if (gm.OwnsFusionSpiritDigimon()) {
+                    galleryList = gm.GetAllUnlockedFusionDigimon();
+                    if (galleryList.Count > 0) {
                         audioMgr.PlayButtonA();
                         OpenGallery();
                     }
@@ -212,8 +217,8 @@ namespace Kaisa.Digivice.App {
                 screenDisplay.sprite = gm.spriteDB.database_sections[menuIndex];
             }
             else if (CurrentScreen == ScreenDatabase.Menu_Spirit) {
-                if (spiritMenuIndex < 10) {
-                    screenDisplay.sprite = gm.spriteDB.elements[spiritMenuIndex];
+                if (SelectedElement < 10) {
+                    screenDisplay.sprite = gm.spriteDB.elements[SelectedElement];
                 }
                 else {
                     screenDisplay.sprite = gm.spriteDB.database_spirit_fusion;
@@ -297,13 +302,27 @@ namespace Kaisa.Digivice.App {
         }
 
         private void OpenSpiritMenu() {
-            spiritMenuIndex = 0;
+            availableElements = new List<int>();
+
+            HashSet<int> elementsFound = new HashSet<int>(); //a list of elements found that will contain only 1 of each.
+
+            foreach(string d in galleryList) {
+                elementsFound.Add((int)gm.DatabaseMgr.GetDigimon(d).element);
+            }
+            if(gm.GetAllUnlockedFusionDigimon().Count > 0) {
+                elementsFound.Add(10);
+            }
+
+            availableElements = elementsFound.ToList();
+            availableElements.Sort();
+
+            elementIndex = 0;
             CurrentScreen = ScreenDatabase.Menu_Spirit;
             DrawScreen();
         }
         private void NavigateSpiritMenu(Direction dir) {
-            if (dir == Direction.Left) spiritMenuIndex = spiritMenuIndex.CircularAdd(-1, 10);
-            else spiritMenuIndex = spiritMenuIndex.CircularAdd(1, 10);
+            if (dir == Direction.Left) elementIndex = elementIndex.CircularAdd(-1, availableElements.Count - 1);
+            else elementIndex = elementIndex.CircularAdd(1, availableElements.Count - 1);
             DrawScreen();
         }
         private void CloseSpiritMenu() {
@@ -312,27 +331,17 @@ namespace Kaisa.Digivice.App {
         }
 
         private void OpenGallery() {
-            galleryList.Clear();
-            //Regular galleries.
-            if (menuIndex < 6) {
-                foreach (Digimon d in gm.DatabaseMgr.Digimons) {
-                    if ((int)d.stage == menuIndex && gm.logicMgr.GetDigimonUnlocked(d.name)) {
-                        galleryList.Add(d.name);
-                    }
-                }
-            }
-            //The gallery for Spirit-stage Digimon.
-            else if (menuIndex == 6) {
+            if (menuIndex == 6) {
                 //If an element is chosen.
-                if(spiritMenuIndex < 10) {
+                if(elementIndex < 10) {
                     foreach (Digimon d in gm.DatabaseMgr.Digimons) {
-                        if ((int)d.stage == menuIndex && (int)d.element == spiritMenuIndex && d.spiritType != SpiritType.Fusion && gm.logicMgr.GetDigimonUnlocked(d.name)) {
+                        if ((int)d.stage == menuIndex && (int)d.element == elementIndex && d.spiritType != SpiritType.Fusion && gm.logicMgr.GetDigimonUnlocked(d.name)) {
                             galleryList.Add(d.name);
                         }
                     }
                 }
                 //If fusion is chosen.
-                if (spiritMenuIndex == 10) {
+                if (elementIndex == 10) {
                     foreach (Digimon d in gm.DatabaseMgr.Digimons) {
                         if ((int)d.stage == menuIndex && d.spiritType == SpiritType.Fusion && gm.logicMgr.GetDigimonUnlocked(d.name)) {
                             galleryList.Add(d.name);

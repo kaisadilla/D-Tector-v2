@@ -45,7 +45,7 @@ namespace Kaisa.Digivice {
 
         public Digimon GetDigimon(string name) {
             foreach (Digimon d in Digimons) {
-                if (d.name.ToLower() == name.ToLower()) {
+                if (d.name == name?.ToLower()) {
                     return d;
                 }
             }
@@ -56,13 +56,25 @@ namespace Kaisa.Digivice {
         /// </summary>
         /// <param name="playerLevel">The level of the player.</param>
         /// <param name="threshold">The maximum difference between the level of the player and the level of the digimon chosen.</param>
-        public Digimon GetWeightedDigimon(int playerLevel, int threshold = 10) {
+        public Digimon GetWeightedDigimon(int playerLevel) {
             List<Digimon> candidates = new List<Digimon>();
             List<float> weightList = new List<float>();
             float totalWeight = 0f;
+
+            int threshold; //The maximum level difference between the player and the chosen digimon.
+            if (playerLevel <= 2) threshold = 3;
+            else if (playerLevel <= 4) threshold = 4;
+            else if (playerLevel <= 10) threshold = 7;
+            else if (playerLevel <= 60) threshold = 10;
+            else if (playerLevel <= 80) threshold = 20;
+            else threshold = 40;
+
             //Populate the 'candidates' list with all eligible digimon, and store their individual weights and the total weight.
             foreach (Digimon d in Digimons) {
-                if (!d.disabled && d.baseLevel >= (playerLevel - threshold) && d.baseLevel <= (playerLevel + threshold)) {
+                if (!d.disabled && d.GetCurrentRarity() != Rarity.Boss
+                        && d.baseLevel >= (playerLevel - threshold)
+                        && d.baseLevel <= (playerLevel + threshold))
+                {
                     candidates.Add(d);
                     float thisWeight = (1.1f - (Mathf.Abs(playerLevel - d.baseLevel) / (float)threshold)) * d.weight;
                     weightList.Add(thisWeight);

@@ -1,8 +1,12 @@
-﻿using UnityEngine;
+﻿using System.IO;
+using UnityEngine;
 using UnityEngine.UI;
+using static System.Environment;
 
 namespace Kaisa.Digivice {
     public class DebugManager : MonoBehaviour {
+        [SerializeField]
+        private GameObject debugConsole;
         [SerializeField]
         private Text consoleOutput;
         [SerializeField]
@@ -20,7 +24,7 @@ namespace Kaisa.Digivice {
         public void Write(object output) => Write(output.ToString());
 
         public void WriteLine(string output) {
-            if(consoleOutput.cachedTextGenerator.lines.Count > 9) {
+            if (consoleOutput.cachedTextGenerator.lines.Count > 9) {
                 consoleOutput.text = "";
                 /*foreach(var s in consoleOutput.cachedTextGenerator.lines) {
                     consoleOutput.text = s.ToString();
@@ -101,8 +105,35 @@ namespace Kaisa.Digivice {
                 }
                 return "Invalid parameters. Expected (int)map, (int)area";
             }
-
+            //Reports
+            if (command.StartsWith("/generatereport")) {
+                string[] args = command.Split(' ');
+                if (args.Length == 2) {
+                    if (args[1] == "expgain") {
+                        string filePath = GenerateLevelEmulation();
+                        return $"Report created in {filePath}";
+                    }
+                    else {
+                        return "Unknown report.";
+                    }
+                }
+                return "Invalid parameters. Expected (string)report.";
+            }
+            if (command.StartsWith("/emulateattacks")) {
+                string[] args = command.Split(' ');
+                if (args.Length == 1) {
+                    return GenerateAttackEmulation();
+                }
+                else if (args.Length == 2) {
+                    return GenerateAttackEmulationForDigimon(args[1]);
+                }
+            }
+            if (command.StartsWith("/cheatsused")) {
+                return $"Cheats used this game: {loadedGame.CheatsUsed}";
+            }
+            //Commands that modify the data of the game and trigger "CheatsUsed".
             if (command.StartsWith("/setspiritpower")) {
+                loadedGame.CheatsUsed = true;
                 string[] args = command.Split(' ');
                 if (args.Length == 2) {
                     try {
@@ -116,28 +147,39 @@ namespace Kaisa.Digivice {
                 return "Invalid parameters. Expected (int)amount";
             }
             if (command.StartsWith("/setdigimonlevel")) {
+                loadedGame.CheatsUsed = true;
                 string[] args = command.Split(' ');
                 if (args.Length == 3) {
                     if (gm.DatabaseMgr.GetDigimon(args[1]) == null) return "Digimon not found.";
-                    try {
-                        loadedGame.SetDigimonLevel(args[1], int.Parse(args[2]));
-                        return "Digimon " + args[1] + " level set to: " + loadedGame.GetDigimonLevel(args[1]);
+                    if (args[2].StartsWith("max")) {
+                        int maxLevel = gm.DatabaseMgr.GetDigimon(args[1]).MaxExtraLevel + 1;
+                        loadedGame.SetDigimonLevel(args[1], maxLevel);
+                        return $"Digimon {args[1]} level set to: {maxLevel}";
                     }
-                    catch {
-                        return "Invalid number.";
+                    else {
+                        try {
+                            loadedGame.SetDigimonLevel(args[1], int.Parse(args[2]));
+                            return "Digimon " + args[1] + " level set to: " + loadedGame.GetDigimonLevel(args[1]);
+                        }
+                        catch {
+                            return "Invalid number.";
+                        }
                     }
                 }
-                return "Invalid parameters. Expected (string)digimonName, (int)level.";
+                return "Invalid parameters. Expected (string)digimonName, (int)level / (string)\"max\".";
             }
             if (command.StartsWith("/unlockalldigimon")) {
+                loadedGame.CheatsUsed = true;
                 UnlockAllDigimon();
                 return "All Digimon have been unlocked.";
             }
             if (command.StartsWith("/lockalldigimon")) {
+                loadedGame.CheatsUsed = true;
                 LockAllDigimon();
                 return "All Digimon have been locked.";
             }
             if (command.StartsWith("/setdigimoncodeunlocked")) {
+                loadedGame.CheatsUsed = true;
                 string[] args = command.Split(' ');
                 if (args.Length == 3) {
                     if (gm.DatabaseMgr.GetDigimon(args[1]) == null) return "Digimon not found.";
@@ -156,6 +198,7 @@ namespace Kaisa.Digivice {
                 return "Invalid parameters. Expected (string)digimonName, (true/false)unlocked.";
             }
             if (command.StartsWith("/setplayerexperience")) {
+                loadedGame.CheatsUsed = true;
                 string[] args = command.Split(' ');
                 if (args.Length == 2) {
                     try {
@@ -173,13 +216,107 @@ namespace Kaisa.Digivice {
         }
         private void UnlockAllDigimon() {
             foreach (Digimon d in gm.DatabaseMgr.Digimons) {
-                gm.logicMgr.SetDigimonUnlocked(d.name, true);
+                if(d.name != Constants.DEFAULT_SPIRIT_DIGIMON) gm.logicMgr.SetDigimonUnlocked(d.name, true);
             }
         }
         private void LockAllDigimon() {
             foreach (Digimon d in gm.DatabaseMgr.Digimons) {
                 gm.logicMgr.SetDigimonUnlocked(d.name, false);
             }
+        }
+
+        private string GenerateLevelEmulation() {
+            string filePath = GetFolderPath(SpecialFolder.MyDocuments) + @"\dtector_level_emulation.txt";
+            using (StreamWriter file = new StreamWriter(filePath)) {
+                file.WriteLine("Enemy\tLevel\tVictoryExp\tPercTotal\tDefeatExp\tPercTotal");
+                for (int level = 1; level < 100; level++) {
+                    int expThisLevel = (int)Mathf.Pow(level, 3);
+                    int expNeeded = (int)Mathf.Pow(level + 1, 3) - expThisLevel;
+                    file.WriteLine($"==== LEVEL {level} ====");
+                    file.WriteLine($"base exp: {expThisLevel}. Next level at: {expNeeded}");
+                    for (int i = 0; i < 10; i++) {
+                        Digimon d = gm.DatabaseMgr.GetWeightedDigimon(level);
+                        if (d == null) {
+                            file.WriteLine($"Digimon not found.");
+                        }
+                        else {
+                            int victoryExp = gm.logicMgr.GetExperienceGained(level, d.baseLevel);
+                            int defeatExp = gm.logicMgr.GetExperienceGained(d.baseLevel, level);
+                            file.WriteLine($"{d.name}\t{d.baseLevel}\t{victoryExp}\t{victoryExp / (float)expNeeded}\t{defeatExp}\t{defeatExp / (float)expNeeded}");
+                        }
+                    }
+                }
+            }
+            return filePath;
+        }
+
+        private string GenerateAttackEmulation() {
+            int energy = 0, crush = 0, ability = 0, invalid = 0;
+            System.Random enemyAttackRNG;
+
+            for (int level = 1; level < 100; level++) {
+                Digimon d = gm.DatabaseMgr.GetWeightedDigimon(level);
+                if (d == null) continue;
+                enemyAttackRNG = new System.Random(gm.GetRandomSavedSeed());
+                for (int i = 0; i < 10; i++) {
+                    int attack = ChooseEnemyAttack(d.GetRegularStats());
+                    if (attack == 0) energy++;
+                    else if (attack == 1) crush++;
+                    else if (attack == 2) ability++;
+                    else invalid++;
+                }
+            }
+
+            return $"En: {energy}, Cr: {crush}, Ab: {ability}, Invalid {invalid} <= This should be 0.";
+
+            int ChooseEnemyAttack(MutableCombatStats enemyStats) {
+                int total = enemyStats.EN + enemyStats.CR + enemyStats.AB;
+                int rngNumber = enemyAttackRNG.Next(total);
+
+                if (rngNumber < enemyStats.EN) return 0;
+                else if (rngNumber < enemyStats.EN + enemyStats.CR) return 1;
+                else return 2;
+            }
+        }
+        private string GenerateAttackEmulationForDigimon(string digimon) {
+            int energy = 0, crush = 0, ability = 0, invalid = 0;
+            System.Random enemyAttackRNG;
+
+            for (int attempt = 1; attempt < 50; attempt++) {
+                Digimon d = gm.DatabaseMgr.GetDigimon(digimon);
+                if (d == null) continue;
+                enemyAttackRNG = new System.Random(gm.GetRandomSavedSeed());
+                Debug.Log($"Attack selected: {enemyAttackRNG}");
+                for (int i = 0; i < 20; i++) {
+                    int attack = ChooseEnemyAttack(d.GetRegularStats());
+                    Debug.Log($"Attack selected: {attack}");
+                    if (attack == 0) energy++;
+                    else if (attack == 1) crush++;
+                    else if (attack == 2) ability++;
+                    else invalid++;
+                }
+            }
+
+            return $"En: {energy}, Cr: {crush}, Ab: {ability}, Invalid {invalid} <= This should be 0.";
+
+            int ChooseEnemyAttack(MutableCombatStats enemyStats) {
+                int total = enemyStats.EN + enemyStats.CR + enemyStats.AB;
+                Debug.Log($"EN {enemyStats.EN}, CR: {enemyStats.CR}, AB: {enemyStats.AB}, total {total}");
+                int rngNumber = enemyAttackRNG.Next(total);
+                Debug.Log($"Number chosen: {rngNumber}");
+
+                if (rngNumber < enemyStats.EN) return 0;
+                else if (rngNumber < enemyStats.EN + enemyStats.CR) return 1;
+                else return 2;
+            }
+        }
+
+        public void Initialize() {
+            gm.DebugInitialize();
+        }
+
+        public void ShowDebug() {
+            debugConsole.SetActive(!debugConsole.activeSelf);
         }
     }
 }
