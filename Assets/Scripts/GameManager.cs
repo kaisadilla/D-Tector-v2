@@ -68,10 +68,10 @@ namespace Kaisa.Digivice {
             #if UNITY_EDITOR
             Application.targetFrameRate = 60;
             DisableLeaverBuster();
+            audioMgr.SetVolume(0.12f);
             VisualDebug.WriteLine("Leaver Buster disabled by the Unity editor.");
             #endif
             CheckLeaverBuster();
-            //EnqueueAnimation(screenMgr.AAncientEvolution(GameChar.Koji, "ancientgreymon"));
         }
 
         /// <summary>

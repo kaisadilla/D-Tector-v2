@@ -62,17 +62,21 @@ namespace Kaisa.Digivice.App {
                     audioMgr.PlayButtonB();
                 }
                 else {
+                    if(ddockPurpose == 1 && gm.logicMgr.IsDDockEmpty(ddockIndex)) {
+                        audioMgr.PlayButtonB();
+                        return;
+                    }
                     audioMgr.PlayButtonA();
                     ChooseCurrentDDock();
                 }
             }
             else if (currentScreen == BattleScreen.Combat_Menu) {
-                if(combatMenuIndex == 0) {
+                if(SelectedMenuOption == 0) {
                     audioMgr.PlayButtonA();
                     currentScreen = BattleScreen.AttackMenu;
                     attackIndex = 0;
                 }
-                else if (combatMenuIndex == 1) {
+                else if (SelectedMenuOption == 1) {
                     if(CurrentCallPoints > 0) {
                         audioMgr.PlayButtonA();
                         OpenDigivolve();
@@ -81,12 +85,16 @@ namespace Kaisa.Digivice.App {
                         audioMgr.PlayButtonB();
                     }
                 }
-                else if (combatMenuIndex == 3) {
+                else if (SelectedMenuOption == 2) {
+                    audioMgr.PlayButtonB();
+                    VisualDebug.WriteLine("Battle Cards have not been implemented yet.");
+                }
+                else if (SelectedMenuOption == 3) {
                     audioMgr.PlayButtonA();
                     ddockPurpose = 1;
                     OpenDDocks();
                 }
-                else if (combatMenuIndex == 4) {
+                else if (SelectedMenuOption == 4) {
                     audioMgr.PlayButtonA();
                     DeportCurrentDigimon();
                 }
@@ -443,7 +451,7 @@ namespace Kaisa.Digivice.App {
                 isDDockUsed[ddockIndex] = true;
 
                 currentScreen = BattleScreen.Combat_Menu;
-                availableMenuOptions = new int[] { 0, 1, 2, 4 };
+                availableMenuOptions = new int[] { 0, 1, 4 }; //2: Battle-card temporarily disabled.
                 combatMenuIndex = 0;
 
                 AssignFriendlyDigimon(digimon, CallType.RegularCall);
@@ -451,8 +459,11 @@ namespace Kaisa.Digivice.App {
                 gm.EnqueueAnimation(gm.screenMgr.ASpendCallPoints(callPointsBefore, CurrentCallPoints));
                 gm.EnqueueAnimation(gm.screenMgr.ASummonDigimon(digimon));
             }
-            else {
-
+            else if (ddockPurpose == 1) {
+                currentScreen = BattleScreen.Combat_Menu;
+                combatMenuIndex = 0;
+                blockBattleMenuNavigation = true;
+                AttemptBoost(gm.logicMgr.GetDDockDigimon(ddockIndex));
             }
         }
         private void OpenDigivolve() {
@@ -643,10 +654,10 @@ namespace Kaisa.Digivice.App {
             CloseDigivolve();
         }
 
-        private void AttemptBoost(string digimon) {
-            Digimon sacrifice = gm.DatabaseMgr.GetDigimon(digimon);
-            float rng = 0f;
-            bool succeed = false;
+        private void AttemptBoost(string sacrificeName) {
+            Digimon sacrifice = gm.DatabaseMgr.GetDigimon(sacrificeName);
+            gm.logicMgr.SetDigimonUnlocked(sacrificeName, false);
+            float rng;
             if (sacrifice == null) {
                 sacrifice = gm.DatabaseMgr.GetDigimon(Constants.DEFAULT_DIGIMON);
                 rng = 1f;
@@ -655,9 +666,7 @@ namespace Kaisa.Digivice.App {
                 rng = Random.Range(0f, 1f);
             }
 
-            if (Random.Range(0f, 1f) < sacrifice.GetObeyChance(playerLevel)) {
-                succeed = true;
-
+            if (rng < sacrifice.GetObeyChance(playerLevel)) {
                 MutableCombatStats sacrificeStats = sacrifice.GetFriendlyStats(gm.logicMgr.GetDigimonExtraLevel(sacrifice.name));
 
                 friendlyStats.HP += Mathf.CeilToInt(sacrificeStats.HP / 2f);
@@ -665,8 +674,14 @@ namespace Kaisa.Digivice.App {
                 friendlyStats.EN += sacrificeStats.EN;
                 friendlyStats.CR += sacrificeStats.CR;
                 friendlyStats.AB += sacrificeStats.AB;
+
+                VisualDebug.WriteLine($"Boost succeeded! New stats: HP: {friendlyStats.HP}, EN: {friendlyStats.EN}, CR: {friendlyStats.CR}, AB: {friendlyStats.AB}");
+
+                gm.EnqueueAnimation(gm.screenMgr.ABoostSucceed(friendlyDigimon.name, sacrifice.name));
             }
-            //TODO: Animations for boosting.
+            else {
+                gm.EnqueueAnimation(gm.screenMgr.ABoostFailed(sacrifice.name));
+            }
         }
 
         private void DeportCurrentDigimon() {

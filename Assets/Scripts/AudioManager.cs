@@ -33,6 +33,8 @@ namespace Kaisa.Digivice {
         public AudioClip evolutionSpirit;
         public AudioClip evolutionAncient;
         public AudioClip evolutionArmor;
+        public AudioClip digiPowerFailed;
+        public AudioClip digiPowerSucceed;
         [Header("Game - SpeedRunner")]
         public AudioClip speedRunner_Start;
         public AudioClip speedRunner_Asteroid;
@@ -72,6 +74,10 @@ namespace Kaisa.Digivice {
 
         public void StopSound() {
             source.Stop();
+        }
+
+        public void SetVolume(float volume) {
+            source.volume = volume;
         }
 
         public bool IsSoundPlaying => source.isPlaying;

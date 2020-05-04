@@ -5406,6 +5406,8 @@ MonoBehaviour:
   evolutionSpirit: {fileID: 8300000, guid: ab34ecea203fb324f857d51a8dd721fe, type: 3}
   evolutionAncient: {fileID: 8300000, guid: 730f4f0f9e4f6344e849b69148be504d, type: 3}
   evolutionArmor: {fileID: 8300000, guid: 92203e2d00d10de43a675a7ef4fd8196, type: 3}
+  digiPowerFailed: {fileID: 8300000, guid: bb7d2ae90a74ec34e98043eb48946ce9, type: 3}
+  digiPowerSucceed: {fileID: 8300000, guid: a76fe5542d28f81438c78bdc3dbb97b3, type: 3}
   speedRunner_Start: {fileID: 8300000, guid: 13e6f31494aa81b4f9c9a7d69d2c9891, type: 3}
   speedRunner_Asteroid: {fileID: 8300000, guid: 3b074abdc259c9a429ecd72a4af29622,
     type: 3}

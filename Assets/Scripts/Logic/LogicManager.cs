@@ -381,6 +381,7 @@ namespace Kaisa.Digivice {
             if (ddock > 3) return; //The player only has 4 D-Docks.
             loadedGame.SetDDockDigimon(ddock, digimon);
         }
+        public bool IsDDockEmpty(int ddock) => (loadedGame.GetDDockDigimon(ddock) == "");
         #endregion
 
         #region Calculations

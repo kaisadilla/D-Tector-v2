@@ -80,6 +80,15 @@ TextureImporter:
   - first:
       213: 810827957059269702
     second: misc_24
+  - first:
+      213: -7016929981681943245
+    second: misc_25
+  - first:
+      213: -8251062679559881929
+    second: misc_26
+  - first:
+      213: 5360645927709239548
+    second: misc_27
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -676,9 +685,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 363
-        width: 14
-        height: 14
+        y: 361
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -701,7 +710,7 @@ TextureImporter:
         width: 32
         height: 5
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -709,6 +718,69 @@ TextureImporter:
       bones: []
       spriteID: 64439722bb3a04b00800000000000000
       internalID: 810827957059269702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: misc_25
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 361
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33d3f04eb5bde9e90800000000000000
+      internalID: -7016929981681943245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: misc_26
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 361
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73bb95d75365e7d80800000000000000
+      internalID: -8251062679559881929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: misc_27
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 361
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf8e0cfb117d46a40800000000000000
+      internalID: 5360645927709239548
       vertices: []
       indices: 
       edges: []

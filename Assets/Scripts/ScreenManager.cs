@@ -538,7 +538,7 @@ namespace Kaisa.Digivice {
             Sprite[] sLevelUpBG = spriteDB.rewardBackground;
             Sprite sLevelUpIcon = spriteDB.rewards[0];
             SpriteBuilder sbLevelUpBG = gm.BuildSprite("LevelUpBackground", animParent, sprite: sLevelUpBG[0]);
-            SpriteBuilder sbLevelUpIcon = gm.BuildSprite("LevelUpIcon", sbLevelUpBG.transform, 14, 14, sprite: sLevelUpIcon);
+            SpriteBuilder sbLevelUpIcon = gm.BuildSprite("LevelUpIcon", sbLevelUpBG.transform, 16, 16, sprite: sLevelUpIcon);
             sbLevelUpIcon.Center(); //Center: 9, 9
             sbLevelUpIcon.SetActive(false);
             sbLevelUpIcon.SetTransparent(false);
@@ -582,7 +582,7 @@ namespace Kaisa.Digivice {
             Sprite[] sLevelUpBG = spriteDB.rewardBackground.ReorderedAs(0, 3, 2, 1);
             Sprite sLevelUpIcon = spriteDB.rewards[0];
             SpriteBuilder sbLevelUpBG = gm.BuildSprite("LevelUpBackground", animParent, sprite: sLevelUpBG[0]);
-            SpriteBuilder sbLevelUpIcon = gm.BuildSprite("LevelUpIcon", sbLevelUpBG.transform, 14, 14, sprite: sLevelUpIcon);
+            SpriteBuilder sbLevelUpIcon = gm.BuildSprite("LevelUpIcon", sbLevelUpBG.transform, 16, 16, sprite: sLevelUpIcon);
             sbLevelUpIcon.Center(); //Center: 9, 9
             sbLevelUpIcon.SetActive(false);
             sbLevelUpIcon.SetTransparent(false);
@@ -1301,6 +1301,98 @@ namespace Kaisa.Digivice {
             yield return new WaitForSeconds(0.55f);
             sbDigimon.SetSprite(sAncient);
             yield return new WaitForSeconds(0.7f);
+        }
+        public IEnumerator ABoostFailed(string sacrifice) {
+            Sprite sGivePower = spriteDB.givePower;
+            Sprite sGivePowerBlack = spriteDB.givePowerInverted;
+            Sprite sSacrifice = spriteDB.GetDigimonSprite(sacrifice);
+
+            audioMgr.PlaySound(audioMgr.digiPowerFailed);
+
+            SpriteBuilder sbDigimon = gm.BuildSprite("GivePower", animParent, 24, 24, sprite: sSacrifice).Center<SpriteBuilder>();
+            SpriteBuilder sbGivePower = gm.BuildSprite("GivePower", animParent, sprite: sGivePowerBlack);
+
+            for (int i = 0; i < 2; i++) {
+                sbGivePower.SetSprite(sGivePowerBlack).SetActive(true);
+                yield return new WaitForSeconds(0.2f);
+                sbGivePower.SetSprite(sGivePower);
+                yield return new WaitForSeconds(0.2f);
+                sbGivePower.SetActive(false);
+                yield return new WaitForSeconds(0.45f);
+            }
+
+            yield return new WaitForSeconds(0.4f);
+            sbDigimon.SetActive(false);
+
+            for (int i = 0; i < 2; i++) {
+                yield return new WaitForSeconds(0.60f);
+                sbDigimon.SetActive(true);
+                yield return new WaitForSeconds(0.45f);
+                sbDigimon.SetActive(false);
+            }
+
+            for (int i = 0; i < 5; i++) {
+                yield return new WaitForSeconds(0.30f);
+                sbDigimon.SetActive(true);
+                yield return new WaitForSeconds(0.1f);
+                sbDigimon.SetActive(false);
+            }
+            yield return new WaitForSeconds(0.5f);
+        }
+        public IEnumerator ABoostSucceed(string digimon, string sacrifice) {
+            Sprite sGivePower = spriteDB.givePower;
+            Sprite sGivePowerBlack = spriteDB.givePowerInverted;
+            Sprite sGiveMassivePowerBlack = spriteDB.giveMassivePowerInverted;
+            Sprite sCurtain = spriteDB.curtain;
+            Sprite sSacrifice = spriteDB.GetDigimonSprite(sacrifice);
+            Sprite sDigimon = spriteDB.GetDigimonSprite(digimon);
+
+            audioMgr.PlaySound(audioMgr.digiPowerSucceed);
+
+            SpriteBuilder sbDigimon = gm.BuildSprite("GivePower", animParent, 24, 24, sprite: sSacrifice).Center<SpriteBuilder>();
+            SpriteBuilder sbGivePower = gm.BuildSprite("GivePower", animParent, sprite: sGivePowerBlack);
+
+            for (int i = 0; i < 2; i++) {
+                sbGivePower.SetSprite(sGivePowerBlack).SetActive(true);
+                yield return new WaitForSeconds(0.2f);
+                sbGivePower.SetSprite(sGivePower);
+                yield return new WaitForSeconds(0.2f);
+                sbGivePower.SetActive(false);
+                yield return new WaitForSeconds(0.45f);
+            }
+
+            yield return new WaitForSeconds(0.4f);
+
+            SpriteBuilder sbCurtain = gm.BuildSprite("GivePower", animParent, sprite: sCurtain).PlaceOutside<SpriteBuilder>(Direction.Up);
+
+            for(int i = 0; i < 64; i++) {
+                if (i == 32) sbDigimon.SetActive(false);
+                sbCurtain.MoveSprite(Direction.Down);
+                yield return new WaitForSeconds(3.5f / 64);
+            }
+
+            sbDigimon.SetSprite(sDigimon).SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+
+            sbCurtain.SetTransparent(true);
+
+            for (int i = 0; i < 64; i++) {
+                if (i == 32) sbDigimon.SetActive(true);
+                sbCurtain.MoveSprite(Direction.Up);
+                yield return new WaitForSeconds(3.5f / 64);
+            }
+            yield return new WaitForSeconds(0.4f);
+            sbCurtain.SetSprite(sGiveMassivePowerBlack).SetPosition(0, 0);
+
+            for (int i = 0; i < 2; i++) {
+                yield return new WaitForSeconds(0.1f);
+                sbCurtain.SetActive(false);
+                yield return new WaitForSeconds(0.4f);
+                sbCurtain.SetActive(true);
+            }
+            yield return new WaitForSeconds(0.1f);
+            sbCurtain.SetActive(false);
+            yield return new WaitForSeconds(1f);
         }
         private IEnumerator PAAnimateSPScreen(SpriteBuilder background) {
             Sprite sSpiritsA = spriteDB.battle_gainingSP[0];
