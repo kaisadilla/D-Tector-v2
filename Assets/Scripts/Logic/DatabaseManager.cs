@@ -95,15 +95,17 @@ namespace Kaisa.Digivice {
         }
 
         public bool TryGetDigimonFromCode(string code, out string digimon) {
-            if (DigiCodes.TryGetValue(code.ToUpper(), out digimon)) {
+            if (DigiCodes.TryGetValue(code.ToUpper(), out string uppercaseDigimon)) {
+                digimon = uppercaseDigimon.ToLower();
                 return true;
             }
+            digimon = uppercaseDigimon.ToLower();
             return false;
         }
 
         public bool TryGetCodeOfDigimon(string digimon, out string code) {
             foreach(KeyValuePair<string, string> kv in DigiCodes) {
-                if(kv.Value == digimon) {
+                if (kv.Value.ToLower() == digimon) {
                     code = kv.Key;
                     return true;
                 }

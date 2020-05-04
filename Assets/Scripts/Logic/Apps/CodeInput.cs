@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using UnityEngine;
-using UnityEngine.UI;
 
 namespace Kaisa.Digivice.App {
-    public class Digits : DigiviceApp {
-        new protected static string appName = "digits";
-
+    public class CodeInput : DigiviceApp {
+        private bool submitError = false; //if true, a wrong code will submit the default digimon.
         private int inputStatus = 0; //0: inputting, 1: ok?, 2: error, 3: success
+        public string ReturnedDigimon { get; private set; }
 
         //UI
         private RectangleBuilder[] underscores = new RectangleBuilder[5];
@@ -76,6 +75,7 @@ namespace Kaisa.Digivice.App {
         #endregion
 
         protected override void StartApp() {
+            if (appArgs.Length >= 1 && appArgs[0] == "true") submitError = true;
             for (int i = 0; i < 5; i++) {
                 underscores[i] = gm.BuildRectangle($"Underscore{i}", screenDisplay.transform, 5, 1, 2 + (6 * i), 25);
             }
@@ -143,15 +143,14 @@ namespace Kaisa.Digivice.App {
 
         private void CheckCode() {
             if (gm.DatabaseMgr.TryGetDigimonFromCode(CurrentInputString, out string digimon)) {
-                gm.logicMgr.SetDigimonUnlocked(digimon, true);
-                gm.logicMgr.SetDigimonCodeUnlocked(digimon, true);
+                ReturnedDigimon = digimon;
                 CloseApp();
-
-                gm.EnqueueAnimation(gm.screenMgr.ASummonDigimon(digimon));
-                gm.EnqueueAnimation(gm.screenMgr.AUnlockDigimon(digimon));
-                gm.EnqueueAnimation(gm.screenMgr.ACharHappy());
             }
             else {
+                if(submitError) {
+                    ReturnedDigimon = Constants.DEFAULT_DIGIMON;
+                    CloseApp();
+                }
                 inputStatus = 2;
             }
         }

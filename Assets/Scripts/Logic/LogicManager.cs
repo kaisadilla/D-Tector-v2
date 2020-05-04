@@ -1,11 +1,12 @@
 ﻿//All menus should have their option set when they are open, not when they are closed (i.e. when you open the 'MainMenu', it is first set to be in the 'Map' tab).
 
+using Kaisa.Digivice.App;
 using Kaisa.Digivice.Extensions;
 using System;
 using UnityEngine;
 
 namespace Kaisa.Digivice {
-    public class LogicManager : MonoBehaviour {
+    public class LogicManager : MonoBehaviour, IAppController {
         private GameManager gm;
         private AudioManager audioMgr;
         private SavedGame loadedGame;
@@ -186,6 +187,18 @@ namespace Kaisa.Digivice {
             }
         }
         public void FinalizeApp(Screen newScreen = Screen.MainMenu) {
+            string result;
+            if (loadedApp is CodeInput ci) {
+                result = ci.ReturnedDigimon;
+                if(result != null) {
+                    gm.logicMgr.SetDigimonUnlocked(result, true);
+                    gm.logicMgr.SetDigimonCodeUnlocked(result, true);
+
+                    gm.EnqueueAnimation(gm.screenMgr.ASummonDigimon(result));
+                    gm.EnqueueAnimation(gm.screenMgr.AUnlockDigimon(result));
+                    gm.EnqueueAnimation(gm.screenMgr.ACharHappy());
+                }
+            }
             currentScreen = newScreen;
             loadedApp.Dispose();
             loadedApp = null;
@@ -193,13 +206,13 @@ namespace Kaisa.Digivice {
 
         private void OpenApp(GameObject appPrefab) {
             currentScreen = Screen.App;
-            loadedApp = App.DigiviceApp.LoadApp(appPrefab, gm);
+            loadedApp = App.DigiviceApp.LoadApp(appPrefab, gm, this);
         }
 
         private void OpenAppBattle() {
             currentScreen = Screen.App;
             Digimon randomDigimon = gm.DatabaseMgr.GetWeightedDigimon(GetPlayerLevel());
-            loadedApp = App.DigiviceApp.LoadApp(gm.pAppBattle, gm, randomDigimon.name, "false");
+            loadedApp = App.DigiviceApp.LoadApp(gm.pAppBattle, gm, this, randomDigimon.name, "false");
         }
 
         #region Player and game stats

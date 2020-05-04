@@ -532,6 +532,7 @@ namespace Kaisa.Digivice {
                 spDigimon[3].MoveSprite(Direction.Down);
                 yield return new WaitForSeconds(1.5f / 32);
             }
+            yield return new WaitForSeconds(0.2f);
         }
         public IEnumerator ALevelUp(int levelBefore, int levelAfter) {
             Sprite[] sLevelUpBG = spriteDB.rewardBackground;

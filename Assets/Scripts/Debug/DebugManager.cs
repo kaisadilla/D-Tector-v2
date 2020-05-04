@@ -14,6 +14,8 @@ namespace Kaisa.Digivice {
 
         private GameManager gm;
         private SavedGame loadedGame;
+
+        private bool consoleActivated = false;
         public void Initialize(GameManager gm, SavedGame loadedGame) {
             this.gm = gm;
             this.loadedGame = loadedGame;
@@ -132,6 +134,11 @@ namespace Kaisa.Digivice {
                 return $"Cheats used this game: {loadedGame.CheatsUsed}";
             }
             //Commands that modify the data of the game and trigger "CheatsUsed".
+            if (command.StartsWith("/unlockconsole")) {
+                consoleActivated = true;
+                return "Console activated.";
+            }
+            if (!consoleActivated) return "Invalid command.";
             if (command.StartsWith("/setspiritpower")) {
                 loadedGame.CheatsUsed = true;
                 string[] args = command.Split(' ');
