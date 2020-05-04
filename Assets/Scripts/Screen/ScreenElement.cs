@@ -191,7 +191,7 @@ namespace Kaisa.Digivice {
             return goClass.transform;
         }
         public static ContainerBuilder BuildStatSign(string message, Transform parent) {
-            ContainerBuilder cbSign = BuildContainer("Sign", parent, false).SetSize(32, 17).SetPosition(0, 15);
+            ContainerBuilder cbSign = BuildContainer("Sign", parent, false).SetBackgroundBlack(true).SetSize(32, 17).SetPosition(0, 15);
             TextBoxBuilder sbMessage = BuildTextBox("Sign", cbSign.transform, DFont.Small)
                 .SetText(message)
                 .SetSize(28, 5)

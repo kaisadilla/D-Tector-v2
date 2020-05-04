@@ -17,22 +17,10 @@ namespace Kaisa.Digivice.App {
             DDockList,
             DDockDisplay
         }
+
+        Coroutine screenAnimation;
         //Current screen
-        private ScreenDatabase _currentScreen = ScreenDatabase.Menu;
-        private ScreenDatabase CurrentScreen {
-            get => _currentScreen;
-            set {
-                _currentScreen = value;
-                if(value == ScreenDatabase.Gallery) {
-                    gm.SetTappingEnabled(Direction.Left, true);
-                    gm.SetTappingEnabled(Direction.Right, true);
-                }
-                else {
-                    gm.SetTappingEnabled(Direction.Left, false);
-                    gm.SetTappingEnabled(Direction.Right, false);
-                }
-            }
-        }
+        private ScreenDatabase currentScreen = ScreenDatabase.Menu;
         private int menuIndex = 0;
 
         //Gallery viewer
@@ -55,7 +43,7 @@ namespace Kaisa.Digivice.App {
 
         #region Input
         public override void InputA() {
-            if (CurrentScreen == ScreenDatabase.Menu) {
+            if (currentScreen == ScreenDatabase.Menu) {
                 galleryList = gm.GetAllUnlockedDigimonInStage((Stage)menuIndex);
                 if (galleryList.Count > 0) {
                     audioMgr.PlayButtonA();
@@ -70,7 +58,7 @@ namespace Kaisa.Digivice.App {
                     audioMgr.PlayButtonB();
                 }
             }
-            else if (CurrentScreen == ScreenDatabase.Menu_Spirit) {
+            else if (currentScreen == ScreenDatabase.Menu_Spirit) {
                 if (SelectedElement < 10) {
                     galleryList = gm.GetAllUnlockedSpiritsOfElement((Element)SelectedElement);
                     if (galleryList.Count > 0) {
@@ -92,11 +80,11 @@ namespace Kaisa.Digivice.App {
                     }
                 }
             }
-            else if (CurrentScreen == ScreenDatabase.Gallery) {
+            else if (currentScreen == ScreenDatabase.Gallery) {
                 audioMgr.PlayButtonA();
                 OpenPages();
             }
-            else if (CurrentScreen == ScreenDatabase.Pages) {
+            else if (currentScreen == ScreenDatabase.Pages) {
                 //TODO: Let the player choose DDock for a Digimon already in a DDock, and make it just swap those DDocks.
                 //Armor and Hybrid Digimon can't be put in DDocks.
                 if (menuIndex >= 5 || digimonIsInDDock) {
@@ -107,92 +95,100 @@ namespace Kaisa.Digivice.App {
                     OpenDDockList();
                 }
             }
-            else if (CurrentScreen == ScreenDatabase.DDockList) {
+            else if (currentScreen == ScreenDatabase.DDockList) {
                 audioMgr.PlayButtonA();
                 OpenDDockDisplay();
             }
-            else if (CurrentScreen == ScreenDatabase.DDockDisplay) {
+            else if (currentScreen == ScreenDatabase.DDockDisplay) {
                 ChooseDDock();
             }
         }
         public override void InputB() {
-            if (CurrentScreen == ScreenDatabase.Menu) {
+            if (currentScreen == ScreenDatabase.Menu) {
                 audioMgr.PlayButtonB();
                 CloseApp();
             }
-            else if (CurrentScreen == ScreenDatabase.Menu_Spirit) {
+            else if (currentScreen == ScreenDatabase.Menu_Spirit) {
                 audioMgr.PlayButtonB();
                 CloseSpiritMenu();
             }
-            else if (CurrentScreen == ScreenDatabase.Gallery) {
+            else if (currentScreen == ScreenDatabase.Gallery) {
                 audioMgr.PlayButtonB();
                 CloseGallery();
             }
-            else if (CurrentScreen == ScreenDatabase.Pages) {
+            else if (currentScreen == ScreenDatabase.Pages) {
                 audioMgr.PlayButtonB();
                 ClosePages();
             }
-            else if (CurrentScreen == ScreenDatabase.DDockList) {
+            else if (currentScreen == ScreenDatabase.DDockList) {
                 audioMgr.PlayButtonB();
                 CloseDDockList();
             }
-            else if (CurrentScreen == ScreenDatabase.DDockDisplay) {
+            else if (currentScreen == ScreenDatabase.DDockDisplay) {
                 audioMgr.PlayButtonB();
                 CloseDDockDisplay();
             }
         }
         public override void InputLeft() {
-            if (CurrentScreen == ScreenDatabase.Menu) {
+            if (currentScreen == ScreenDatabase.Menu) {
                 audioMgr.PlayButtonA();
                 NavigateStageMenu(Direction.Left);
             }
-            else if (CurrentScreen == ScreenDatabase.Menu_Spirit) {
+            else if (currentScreen == ScreenDatabase.Menu_Spirit) {
                 audioMgr.PlayButtonA();
                 NavigateSpiritMenu(Direction.Left);
             }
-            else if (CurrentScreen == ScreenDatabase.Gallery) {
-                if (galleryList.Count > 1) {
-                    audioMgr.PlayButtonA();
-                    NavigateGallery(Direction.Left);
-                }
-                else {
-                    audioMgr.PlayButtonB();
-                }
-            }
-            else if (CurrentScreen == ScreenDatabase.Pages) {
+            else if (currentScreen == ScreenDatabase.Pages) {
                 audioMgr.PlayButtonA();
                 NavigatePages(Direction.Left);
             }
-            else if (CurrentScreen == ScreenDatabase.DDockList || CurrentScreen == ScreenDatabase.DDockDisplay) {
+            else if (currentScreen == ScreenDatabase.DDockList || currentScreen == ScreenDatabase.DDockDisplay) {
                 audioMgr.PlayButtonA();
                 NavigateDDock(Direction.Left);
             }
         }
         public override void InputRight() {
-            if (CurrentScreen == ScreenDatabase.Menu) {
+            if (currentScreen == ScreenDatabase.Menu) {
                 audioMgr.PlayButtonA();
                 NavigateStageMenu(Direction.Right);
             }
-            else if (CurrentScreen == ScreenDatabase.Menu_Spirit) {
+            else if (currentScreen == ScreenDatabase.Menu_Spirit) {
                 audioMgr.PlayButtonA();
                 NavigateSpiritMenu(Direction.Right);
             }
-            else if (CurrentScreen == ScreenDatabase.Gallery) {
-                if (galleryList.Count > 1) {
-                    audioMgr.PlayButtonA();
-                    NavigateGallery(Direction.Right);
-                }
-                else {
-                    audioMgr.PlayButtonB();
-                }
-            }
-            else if (CurrentScreen == ScreenDatabase.Pages) {
+            else if (currentScreen == ScreenDatabase.Pages) {
                 audioMgr.PlayButtonA();
                 NavigatePages(Direction.Right);
             }
-            else if (CurrentScreen == ScreenDatabase.DDockList || CurrentScreen == ScreenDatabase.DDockDisplay) {
+            else if (currentScreen == ScreenDatabase.DDockList || currentScreen == ScreenDatabase.DDockDisplay) {
                 audioMgr.PlayButtonA();
                 NavigateDDock(Direction.Right);
+            }
+        }
+        public override void InputLeftDown() {
+            if(currentScreen == ScreenDatabase.Gallery) {
+                StartNavigation(Direction.Left);
+            }
+        }
+        public override void InputRightDown() {
+            if (currentScreen == ScreenDatabase.Gallery) {
+                StartNavigation(Direction.Right);
+            }
+        }
+        public override void InputLeftUp() {
+            StopNavigation();
+        }
+        public override void InputRightUp() {
+            StopNavigation();
+        }
+        protected override IEnumerator AutoNavigateDir(Direction dir) {
+            audioMgr.PlayButtonA();
+            NavigateGallery(dir);
+            yield return new WaitForSeconds(0.35f);
+            while (true) {
+                yield return new WaitForSeconds(0.15f);
+                audioMgr.PlayButtonA();
+                NavigateGallery(dir);
             }
         }
         #endregion
@@ -203,20 +199,20 @@ namespace Kaisa.Digivice.App {
 
         private void DrawScreen() {
             //Stop all coroutines, except if the digimon name sign has a value and we are still in the 'Pages' screen.
-            if(!(digimonNameSign != null && CurrentScreen == ScreenDatabase.Pages)) {
-                StopAllCoroutines();
+            if(!(digimonNameSign != null && currentScreen == ScreenDatabase.Pages)) {
+                if (screenAnimation != null) StopCoroutine(screenAnimation);
             }
             //Destroy all children, except the ones called 'NameSign' if we are in the 'Pages' screen.
             foreach (Transform child in screenDisplay.transform) {
-                if (!(CurrentScreen == ScreenDatabase.Pages && child.name == "NameSign")) {
+                if (!(currentScreen == ScreenDatabase.Pages && child.name == "NameSign")) {
                     Destroy(child.gameObject);
                 }
             }
 
-            if (CurrentScreen == ScreenDatabase.Menu) {
+            if (currentScreen == ScreenDatabase.Menu) {
                 screenDisplay.sprite = gm.spriteDB.database_sections[menuIndex];
             }
-            else if (CurrentScreen == ScreenDatabase.Menu_Spirit) {
+            else if (currentScreen == ScreenDatabase.Menu_Spirit) {
                 if (SelectedElement < 10) {
                     screenDisplay.sprite = gm.spriteDB.elements[SelectedElement];
                 }
@@ -224,7 +220,7 @@ namespace Kaisa.Digivice.App {
                     screenDisplay.sprite = gm.spriteDB.database_spirit_fusion;
                 }
             }
-            else if (CurrentScreen == ScreenDatabase.Gallery) {
+            else if (currentScreen == ScreenDatabase.Gallery) {
                 string displayDigimon = galleryList[galleryIndex];
                 digimonIsInDDock = gm.IsInDock(displayDigimon);
                 screenDisplay.sprite = (digimonIsInDDock) ? gm.spriteDB.invertedArrowsSmall : gm.spriteDB.arrowsSmall;
@@ -239,15 +235,15 @@ namespace Kaisa.Digivice.App {
 
                 SpriteBuilder builder = ScreenElement.BuildSprite("DigimonDisplay", screenDisplay.transform).SetSize(24, 24).Center().SetSprite(spriteRegular);
 
-                StartCoroutine(AnimateSprite(builder, spriteRegular, spriteAlt));
+                screenAnimation = StartCoroutine(AnimateSprite(builder, spriteRegular, spriteAlt));
             }
-            else if (CurrentScreen == ScreenDatabase.Pages) {
+            else if (currentScreen == ScreenDatabase.Pages) {
                 if(digimonNameSign == null) {
                     string name = string.Format("{0:000} {1}", pageDigimon.number, pageDigimon.name);
                     TextBoxBuilder nameBuilder = ScreenElement.BuildTextBox("NameSign", screenDisplay.transform, DFont.Big).SetText(name).SetSize(32, 7).SetPosition(32, 0);
                     nameBuilder.SetFitSizeToContent(true);
                     digimonNameSign = nameBuilder.gameObject;
-                    StartCoroutine(AnimateName(nameBuilder));
+                    screenAnimation = StartCoroutine(AnimateName(nameBuilder));
                 }
 
                 int playerLevel = gm.logicMgr.GetPlayerLevel();
@@ -292,10 +288,10 @@ namespace Kaisa.Digivice.App {
                         .SetText(code).SetSize(30, 8).SetPosition(2, 23).SetAlignment(TextAnchor.UpperRight);
                 }
             }
-            else if (CurrentScreen == ScreenDatabase.DDockList) {
+            else if (currentScreen == ScreenDatabase.DDockList) {
                 screenDisplay.sprite = gm.spriteDB.database_ddocks[ddockIndex];
             }
-            else if (CurrentScreen == ScreenDatabase.DDockDisplay) {
+            else if (currentScreen == ScreenDatabase.DDockDisplay) {
                 screenDisplay.sprite = gm.spriteDB.status_ddock[ddockIndex];
                 gm.GetDDockScreenElement(ddockIndex, screenDisplay.transform);
             }
@@ -323,7 +319,7 @@ namespace Kaisa.Digivice.App {
             availableElements.Sort();
 
             elementIndex = 0;
-            CurrentScreen = ScreenDatabase.Menu_Spirit;
+            currentScreen = ScreenDatabase.Menu_Spirit;
             DrawScreen();
         }
         private void NavigateSpiritMenu(Direction dir) {
@@ -332,7 +328,7 @@ namespace Kaisa.Digivice.App {
             DrawScreen();
         }
         private void CloseSpiritMenu() {
-            CurrentScreen = ScreenDatabase.Menu;
+            currentScreen = ScreenDatabase.Menu;
             DrawScreen();
         }
 
@@ -357,7 +353,7 @@ namespace Kaisa.Digivice.App {
             }
 
             galleryIndex = 0;
-            CurrentScreen = ScreenDatabase.Gallery;
+            currentScreen = ScreenDatabase.Gallery;
             DrawScreen();
         }
 
@@ -370,16 +366,16 @@ namespace Kaisa.Digivice.App {
 
         private void CloseGallery() {
             if (menuIndex < 6) {
-                CurrentScreen = ScreenDatabase.Menu;
+                currentScreen = ScreenDatabase.Menu;
             }
             else if (menuIndex == 6) {
-                CurrentScreen = ScreenDatabase.Menu_Spirit;
+                currentScreen = ScreenDatabase.Menu_Spirit;
             }
             DrawScreen();
         }
 
         private void OpenPages() {
-            CurrentScreen = ScreenDatabase.Pages;
+            currentScreen = ScreenDatabase.Pages;
             pageIndex = 0;
 
             string displayDigimon = galleryList[galleryIndex];
@@ -398,12 +394,12 @@ namespace Kaisa.Digivice.App {
         }
 
         private void ClosePages() {
-            CurrentScreen = ScreenDatabase.Gallery;
+            currentScreen = ScreenDatabase.Gallery;
             DrawScreen();
         }
 
         private void OpenDDockList() {
-            CurrentScreen = ScreenDatabase.DDockList;
+            currentScreen = ScreenDatabase.DDockList;
             ddockIndex = 0;
 
             DrawScreen();
@@ -417,17 +413,17 @@ namespace Kaisa.Digivice.App {
         }
 
         private void CloseDDockList() {
-            CurrentScreen = ScreenDatabase.Pages;
+            currentScreen = ScreenDatabase.Pages;
             DrawScreen();
         }
 
         private void OpenDDockDisplay() {
-            CurrentScreen = ScreenDatabase.DDockDisplay;
+            currentScreen = ScreenDatabase.DDockDisplay;
             DrawScreen();
         }
 
         private void CloseDDockDisplay() {
-            CurrentScreen = ScreenDatabase.DDockList;
+            currentScreen = ScreenDatabase.DDockList;
             DrawScreen();
         }
         private void ChooseDDock() {

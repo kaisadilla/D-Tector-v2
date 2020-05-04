@@ -37,6 +37,7 @@ namespace Kaisa.Digivice {
         public GameObject pAppConnect;
 
         [Header("Games")]
+        public GameObject pAppFinder;
         public GameObject pAppBattle;
         public GameObject pAppSpeedRunner;
         public GameObject pAppMaze;
@@ -182,9 +183,6 @@ namespace Kaisa.Digivice {
         #region Input interaction
         public void LockInput() => inputMgr.inhibitInput = true;
         public void UnlockInput() => inputMgr.inhibitInput = false;
-
-        public bool GetTappingEnabled(Direction dir) => inputMgr.GetTappingEnabled(dir);
-        public void SetTappingEnabled(Direction dir, bool enabled, float speed = 0.15f) => inputMgr.SetTappingEnabled(dir, enabled, speed);
         #endregion
         #region PlayerChar interaction
         public CharState GetPlayerCharState() => playerChar.currentState;

@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Kaisa.Digivice.App {
     public class CodeInput : DigiviceApp {
@@ -50,7 +51,14 @@ namespace Kaisa.Digivice.App {
                 inputStatus = 0;
             }
         }
-        public override void InputLeft() {
+        public override void InputLeftDown() {
+            StartNavigation(Direction.Left);
+        }
+        public override void InputRightDown() {
+            StartNavigation(Direction.Right);
+        }
+        public override void InputLeftUp() {
+            StopNavigation();
             if (!InputIsFull) {
                 audioMgr.PlayButtonA();
                 NavigateInput(Direction.Left);
@@ -61,7 +69,8 @@ namespace Kaisa.Digivice.App {
                 inputStatus = 0;
             }
         }
-        public override void InputRight() {
+        public override void InputRightUp() {
+            StopNavigation();
             if (!InputIsFull) {
                 audioMgr.PlayButtonA();
                 NavigateInput(Direction.Right);
@@ -70,6 +79,15 @@ namespace Kaisa.Digivice.App {
                 audioMgr.PlayButtonA();
                 currentInput.Pop();
                 inputStatus = 0;
+            }
+        }
+        protected override IEnumerator AutoNavigateDir(Direction dir) {
+            yield return new WaitForSeconds(0.25f);
+            while(true) {
+                Debug.Log("NAVIG");
+                yield return new WaitForSeconds(0.1f);
+                audioMgr.PlayButtonA();
+                NavigateInput(dir);
             }
         }
         #endregion
@@ -82,13 +100,6 @@ namespace Kaisa.Digivice.App {
             selectedInputDisplay = ScreenElement.BuildTextBox("Input", screenDisplay.transform, DFont.Big).SetSize(6, 8).SetPosition(14, 8);
             currentInputDisplay = ScreenElement.BuildTextBox("CurrentCode", screenDisplay.transform, DFont.Big).SetSize(30, 8).SetPosition(2, 17);
             UpdateScreen();
-            gm.SetTappingEnabled(Direction.Left, true, 0.1f);
-            gm.SetTappingEnabled(Direction.Right, true, 0.1f);
-        }
-        protected override void CloseApp(Screen goToMenu = Screen.MainMenu) {
-            gm.SetTappingEnabled(Direction.Left, false);
-            gm.SetTappingEnabled(Direction.Right, false);
-            base.CloseApp(goToMenu);
         }
         private void Update() {
             UpdateScreen();

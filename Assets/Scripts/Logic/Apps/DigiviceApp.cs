@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Kaisa.Digivice.App {
@@ -30,10 +31,27 @@ namespace Kaisa.Digivice.App {
         }
         public virtual void Dispose() => Destroy(gameObject);
 
-        public abstract void InputA();
-        public abstract void InputB();
-        public abstract void InputLeft();
-        public abstract void InputRight();
+        public virtual void InputA() { }
+        public virtual void InputB() { }
+        public virtual void InputLeft() { }
+        public virtual void InputRight() { }
+        public virtual void InputADown() { }
+        public virtual void InputBDown() { }
+        public virtual void InputLeftDown() { }
+        public virtual void InputRightDown() { }
+        public virtual void InputAUp() { }
+        public virtual void InputBUp() { }
+        public virtual void InputLeftUp() { }
+        public virtual void InputRightUp() { }
+
+        protected Coroutine navigationCoroutine;
+        protected virtual IEnumerator AutoNavigateDir(Direction dir) { yield return null; }
+        protected void StartNavigation(Direction dir) {
+            navigationCoroutine = StartCoroutine(AutoNavigateDir(dir));
+        }
+        protected void StopNavigation() {
+            if (navigationCoroutine != null) StopCoroutine(navigationCoroutine);
+        }
 
         protected abstract void StartApp();
         protected virtual void CloseApp(Screen goToMenu = Screen.MainMenu) {

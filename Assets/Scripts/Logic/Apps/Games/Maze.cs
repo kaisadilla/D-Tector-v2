@@ -1,7 +1,9 @@
 ﻿using Kaisa.Digivice.Extensions;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityScript.Steps;
 
 namespace Kaisa.Digivice.App {
     /*IMPORTANT: Texture2D's origin (coords 0, 0) is in the lower left corner, but RectTransform's position origin is in the upper left corner.
@@ -48,11 +50,6 @@ namespace Kaisa.Digivice.App {
                     CloseApp();
                 }
             }
-            else if (currentScreen == 1) {
-                if (!MovePlayer(Direction.Up)) {
-                    audioMgr.PlayButtonB();
-                }
-            }
             else if (currentScreen == 2 && timeRemaining == -1) {
                 audioMgr.PlayButtonA();
                 CloseApp();
@@ -67,11 +64,6 @@ namespace Kaisa.Digivice.App {
             if(currentScreen == 0) {
                 audioMgr.PlayButtonB();
                 CloseApp();
-            }
-            else if (currentScreen == 1) {
-                if (!MovePlayer(Direction.Down)) {
-                    audioMgr.PlayButtonB();
-                }
             }
             else if (currentScreen == 2 && timeRemaining == -1) {
                 audioMgr.PlayButtonA();
@@ -89,11 +81,6 @@ namespace Kaisa.Digivice.App {
                 currentOption = (currentOption == 0) ? 1 : 0;
                 HighlightSelection();
             }
-            else if (currentScreen == 1) {
-                if (!MovePlayer(Direction.Left)) {
-                    audioMgr.PlayButtonB();
-                }
-            }
         }
         public override void InputRight() {
             if (currentScreen == 0) {
@@ -101,8 +88,38 @@ namespace Kaisa.Digivice.App {
                 currentOption = (currentOption == 0) ? 1 : 0;
                 HighlightSelection();
             }
-            else if (currentScreen == 1) {
-                if (!MovePlayer(Direction.Right)) {
+        }
+        public override void InputADown() {
+            StartNavigation(Direction.Up);
+        }
+        public override void InputBDown() {
+            StartNavigation(Direction.Down);
+        }
+        public override void InputLeftDown() {
+            StartNavigation(Direction.Left);
+        }
+        public override void InputRightDown() {
+            StartNavigation(Direction.Right);
+        }
+        public override void InputAUp() {
+            StopNavigation();
+        }
+        public override void InputBUp() {
+            StopNavigation();
+        }
+        public override void InputLeftUp() {
+            StopNavigation();
+        }
+        public override void InputRightUp() {
+            StopNavigation();
+        }
+        protected override IEnumerator AutoNavigateDir(Direction dir) {
+            if (!MovePlayer(Direction.Right)) {
+                audioMgr.PlayButtonB();
+            }
+            while (true) {
+                yield return new WaitForSeconds(0.15f);
+                if (!MovePlayer(dir)) {
                     audioMgr.PlayButtonB();
                 }
             }
@@ -111,13 +128,6 @@ namespace Kaisa.Digivice.App {
 
         protected override void StartApp() {
             DrawStartMenu();
-        }
-        protected override void CloseApp(Screen goToMenu = Screen.MainMenu) {
-            gm.SetTappingEnabled(Direction.Left, false);
-            gm.SetTappingEnabled(Direction.Right, false);
-            gm.SetTappingEnabled(Direction.Up, false);
-            gm.SetTappingEnabled(Direction.Down, false);
-            base.CloseApp(Screen.GamesTravelMenu);
         }
 
         private int CalculateScore() => 12 * timeRemaining;
@@ -152,10 +162,6 @@ namespace Kaisa.Digivice.App {
         }
         private void StartGame() {
             currentScreen = 1;
-            gm.SetTappingEnabled(Direction.Left, true, 0.1f);
-            gm.SetTappingEnabled(Direction.Right, true, 0.1f);
-            gm.SetTappingEnabled(Direction.Up, true, 0.1f);
-            gm.SetTappingEnabled(Direction.Down, true, 0.1f);
             tbOptions[0].Dispose();
             tbOptions[1].Dispose();
             GenerateMaze();

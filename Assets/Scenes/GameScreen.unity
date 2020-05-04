@@ -688,8 +688,8 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 451025742}
-          m_MethodName: TapDown
-          m_Mode: 5
+          m_MethodName: OnInputBDown
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -703,8 +703,8 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 451025742}
-          m_MethodName: TapUp
-          m_Mode: 5
+          m_MethodName: OnInputBUp
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -938,8 +938,8 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 451025742}
-          m_MethodName: TapDown
-          m_Mode: 5
+          m_MethodName: OnInputADown
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -953,8 +953,8 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 451025742}
-          m_MethodName: TapUp
-          m_Mode: 5
+          m_MethodName: OnInputAUp
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1240,6 +1240,10 @@ MonoBehaviour:
   arrowsSmall: {fileID: 826231228688652494, guid: 9808cb78e43dade47a5fdc1075f4429c,
     type: 3}
   invertedArrowsSmall: {fileID: 2872405000399901243, guid: 9808cb78e43dade47a5fdc1075f4429c,
+    type: 3}
+  loading: {fileID: -1056871815479138359, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
+    type: 3}
+  loadingComplete: {fileID: 3614090101385040326, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
     type: 3}
   rewardBackground:
   - {fileID: 8280821644423036740, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
@@ -2525,6 +2529,7 @@ MonoBehaviour:
     type: 3}
   pAppCamp: {fileID: 0}
   pAppConnect: {fileID: 0}
+  pAppFinder: {fileID: 0}
   pAppBattle: {fileID: 4770717216813437012, guid: d090104565e69b448b32531161cfd850,
     type: 3}
   pAppSpeedRunner: {fileID: 4770717216813437012, guid: 402920bbc39067948a0a6d0ae0fcba32,
@@ -4408,8 +4413,8 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 451025742}
-          m_MethodName: TapDown
-          m_Mode: 5
+          m_MethodName: OnInputRightDown
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4423,8 +4428,8 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 451025742}
-          m_MethodName: TapUp
-          m_Mode: 5
+          m_MethodName: OnInputRightUp
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5175,8 +5180,8 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 451025742}
-          m_MethodName: TapDown
-          m_Mode: 5
+          m_MethodName: OnInputLeftDown
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5190,8 +5195,8 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 451025742}
-          m_MethodName: TapUp
-          m_Mode: 5
+          m_MethodName: OnInputLeftUp
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

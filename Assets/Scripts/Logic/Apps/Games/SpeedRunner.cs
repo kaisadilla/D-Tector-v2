@@ -40,6 +40,8 @@ namespace Kaisa.Digivice.App {
         private int[] rowY = new int[] {-6, -6}; //Represents the y coordinate of each of the two rows.
         private int finishY = -32;
         private bool lockControls = false;
+        //Player controls
+        private Direction lastDirectionTapped = Direction.none;
 
         #region Input
         public override void InputA() {
@@ -58,9 +60,17 @@ namespace Kaisa.Digivice.App {
                 SubmitScoreAndClose();
             }
         }
-        public override void InputLeft() {
+        public override void InputLeftDown() {
+            lastDirectionTapped = Direction.Left;
         }
-        public override void InputRight() {
+        public override void InputRightDown() {
+            lastDirectionTapped = Direction.Right;
+        }
+        public override void InputLeftUp() {
+            if (lastDirectionTapped == Direction.Left) lastDirectionTapped = Direction.none;
+        }
+        public override void InputRightUp() {
+            if (lastDirectionTapped == Direction.Right) lastDirectionTapped = Direction.none;
         }
         #endregion
         protected override void StartApp() {
@@ -102,8 +112,8 @@ namespace Kaisa.Digivice.App {
 
             if (!lockControls) {
                 //Set the position of the rocket wherever the player is tapping.
-                if (gm.inputMgr.GetKeyBeingTapped() == Direction.Left) rocketPosition = 0;
-                else if (gm.inputMgr.GetKeyBeingTapped() == Direction.Right) rocketPosition = 2;
+                if (lastDirectionTapped == Direction.Left) rocketPosition = 0;
+                else if (lastDirectionTapped == Direction.Right) rocketPosition = 2;
                 else rocketPosition = 1;
                 //Set the visual position of the rocket.
                 #if UNITY_EDITOR

@@ -88,7 +88,6 @@ namespace Kaisa.Digivice {
                 }
             }
         }
-
         public void InputB() {
             if (currentScreen == Screen.Character) {
                 audioMgr.PlayButtonB();
@@ -113,7 +112,6 @@ namespace Kaisa.Digivice {
                 currentScreen = Screen.GamesMenu;
             }
         }
-
         public void InputLeft() {
             if (currentScreen == Screen.App) {
                 loadedApp.InputLeft();
@@ -139,7 +137,6 @@ namespace Kaisa.Digivice {
                 gamesTravelMenuIndex = gamesTravelMenuIndex.CircularAdd(-1, 3);
             }
         }
-
         public void InputRight() {
             if (currentScreen == Screen.App) {
                 loadedApp.InputRight();
@@ -164,6 +161,32 @@ namespace Kaisa.Digivice {
                 audioMgr.PlayButtonA();
                 gamesTravelMenuIndex = gamesTravelMenuIndex.CircularAdd(1, 3);
             }
+        }
+        //Down
+        public void InputADown() {
+            if (currentScreen == Screen.App) loadedApp.InputADown();
+        }
+        public void InputBDown() {
+            if (currentScreen == Screen.App) loadedApp.InputBDown();
+        }
+        public void InputLeftDown() {
+            if (currentScreen == Screen.App) loadedApp.InputLeftDown();
+        }
+        public void InputRightDown() {
+            if (currentScreen == Screen.App) loadedApp.InputRightDown();
+        }
+        //Up
+        public void InputAUp() {
+            if (currentScreen == Screen.App) loadedApp.InputAUp();
+        }
+        public void InputBUp() {
+            if (currentScreen == Screen.App) loadedApp.InputBUp();
+        }
+        public void InputLeftUp() {
+            if (currentScreen == Screen.App) loadedApp.InputLeftUp();
+        }
+        public void InputRightUp() {
+            if (currentScreen == Screen.App) loadedApp.InputRightUp();
         }
         #endregion
         private void OpenGameMenu() {

@@ -23,6 +23,8 @@ public class SpriteDatabase : MonoBehaviour {
     public Sprite arrows;
     public Sprite arrowsSmall;
     public Sprite invertedArrowsSmall;
+    public Sprite loading;
+    public Sprite loadingComplete;
     public Sprite[] rewardBackground = new Sprite[4];
     public Sprite[] rewards = new Sprite[5]; //0: Level
     [Header("Menus")]
