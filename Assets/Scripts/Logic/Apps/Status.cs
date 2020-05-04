@@ -43,15 +43,19 @@ namespace Kaisa.Digivice.App {
                     screenDisplay.sprite = gm.spriteDB.status_distance;
                     string distance = gm.DistanceMgr.CurrentDistance.ToString();
                     string steps = gm.DistanceMgr.TotalSteps.ToString();
-                    gm.BuildTextBox("TextDistance", screenDisplay.transform, distance, DFont.Regular, 31, 5, 0, 10, TextAnchor.UpperRight);
-                    gm.BuildTextBox("TextSteps", screenDisplay.transform, steps, DFont.Regular, 31, 5, 0, 26, TextAnchor.UpperRight);
+                    ScreenElement.BuildTextBox("TextDistance", screenDisplay.transform, DFont.Regular)
+                        .SetText(distance).SetSize(31, 5).SetPosition(0, 10).SetAlignment(TextAnchor.UpperRight);
+                    ScreenElement.BuildTextBox("TextSteps", screenDisplay.transform, DFont.Regular)
+                        .SetText(steps).SetSize(31, 5).SetPosition(0, 26).SetAlignment(TextAnchor.UpperRight);
                     break;
                 case 1:
                     screenDisplay.sprite = gm.spriteDB.status_level;
                     string level = gm.logicMgr.GetPlayerLevel().ToString();
                     string spirits = gm.logicMgr.SpiritPower.ToString();
-                    gm.BuildTextBox("TextLevel", screenDisplay.transform, level, DFont.Regular, 31, 5, 0, 10, TextAnchor.UpperRight);
-                    gm.BuildTextBox("TextSpirits", screenDisplay.transform, spirits, DFont.Regular, 31, 5, 0, 26, TextAnchor.UpperRight);
+                    ScreenElement.BuildTextBox("TextLevel", screenDisplay.transform, DFont.Regular)
+                        .SetText(level).SetSize(31, 5).SetPosition(0, 10).SetAlignment(TextAnchor.UpperRight);
+                    ScreenElement.BuildTextBox("TextSpirits", screenDisplay.transform, DFont.Regular)
+                        .SetText(spirits).SetSize(31, 5).SetPosition(0, 26).SetAlignment(TextAnchor.UpperRight);
                     break;
                 case 2:
                     screenDisplay.sprite = gm.spriteDB.status_victories;
@@ -63,15 +67,17 @@ namespace Kaisa.Digivice.App {
 
                     string victoryPerc = iVictoryPerc.ToString();
                     string winCount = gm.logicMgr.TotalWins.ToString();
-                    gm.BuildTextBox("TextLevel", screenDisplay.transform, victoryPerc, DFont.Regular, 24, 5, 0, 10, TextAnchor.UpperRight);
-                    gm.BuildTextBox("TextSpirits", screenDisplay.transform, winCount, DFont.Regular, 31, 5, 0, 26, TextAnchor.UpperRight);
+                    ScreenElement.BuildTextBox("TextLevel", screenDisplay.transform, DFont.Regular)
+                        .SetText(victoryPerc).SetSize(24, 5).SetPosition(0, 10).SetAlignment(TextAnchor.UpperRight);
+                    ScreenElement.BuildTextBox("TextSpirits", screenDisplay.transform, DFont.Regular)
+                        .SetText(winCount).SetSize(31, 5).SetPosition(0, 26).SetAlignment(TextAnchor.UpperRight);
                     break;
                 case 3:
                 case 4:
                 case 5:
                 case 6:
                     int ddockNumber = currentScreen - 3;
-                    gm.BuildDDockSprite(ddockNumber, screenDisplay.transform);
+                    gm.GetDDockScreenElement(ddockNumber, screenDisplay.transform);
                     break;
             }
         }

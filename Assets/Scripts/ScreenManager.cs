@@ -1,4 +1,5 @@
 ﻿using Kaisa.Digivice.Extensions;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,7 +43,7 @@ namespace Kaisa.Digivice {
             consumingQueue = true;
             while (animationQueue.Count > 0) {
                 gm.LockInput();
-                animParent = gm.BuildContainer("Anim Parent", ScreenParent, 32, 32, transparent: false).transform;
+                animParent = ScreenElement.BuildContainer("Anim Parent", ScreenParent, false).SetSize(32, 32).transform;
                 yield return animationQueue.Dequeue();
                 Destroy(animParent.gameObject);
                 gm.UnlockInput();
@@ -119,8 +120,8 @@ namespace Kaisa.Digivice {
 
             audioMgr.PlaySound(audioMgr.summonDigimon);
 
-            SpriteBuilder sbDigimon = gm.BuildSprite(digimon, animParent, 24, 24, 4, 4);
-            SpriteBuilder sbBlackScreen = gm.BuildSprite("BlackScreen", animParent, sprite: sBlackScreen);
+            SpriteBuilder sbDigimon = ScreenElement.BuildSprite(digimon, animParent).SetSize(24, 24).Center();
+            SpriteBuilder sbBlackScreen = ScreenElement.BuildSprite("BlackScreen", animParent).SetSprite(sBlackScreen);
 
             for (int i = 0; i < 4; i++) {
                 sbBlackScreen.SetActive(false);
@@ -180,20 +181,20 @@ namespace Kaisa.Digivice {
 
             audioMgr.PlaySound(audioMgr.unlockDigimon);
 
-            SpriteBuilder sbDigimon = gm.BuildSprite(digimon, animParent, 24, 24, 4, 4, sprite: sDigimon);
-            SpriteBuilder sbCurtain = gm.BuildSprite("BlackScreen", animParent, sprite: sCurtain, transparent: true);
+            SpriteBuilder sbDigimon = ScreenElement.BuildSprite(digimon, animParent).SetSize(24, 24).Center().SetSprite(sDigimon);
+            SpriteBuilder sbCurtain = ScreenElement.BuildSprite("BlackScreen", animParent).SetSprite(sCurtain).SetTransparent(true);
             sbCurtain.PlaceOutside(Direction.Down);
 
             yield return new WaitForSeconds(0.15f);
 
             for (int i = 0; i < 32; i++) {
-                sbCurtain.MoveSprite(Direction.Up);
+                sbCurtain.Move(Direction.Up);
                 yield return new WaitForSeconds(1.5f / 32);
 
             }
             for (int i = 0; i < 32; i++) {
-                sbCurtain.MoveSprite(Direction.Up);
-                sbDigimon.MoveSprite(Direction.Up);
+                sbCurtain.Move(Direction.Up);
+                sbDigimon.Move(Direction.Up);
                 yield return new WaitForSeconds(1.5f / 32);
             }
 
@@ -201,8 +202,8 @@ namespace Kaisa.Digivice {
             sbDigimon.Dispose();
             sbCurtain.Dispose();
 
-            gm.BuildSprite("DTector", animParent, sprite: sDTector);
-            SpriteBuilder sbPower = gm.BuildSprite("Power", animParent, sprite: sPowerBlack, transparent: true);
+            ScreenElement.BuildSprite("DTector", animParent).SetSprite(sDTector);
+            SpriteBuilder sbPower = ScreenElement.BuildSprite("Power", animParent).SetSprite(sPowerBlack).SetTransparent(true);
             sbPower.SetActive(false);
 
             yield return new WaitForSeconds(0.30f);
@@ -220,10 +221,10 @@ namespace Kaisa.Digivice {
             Sprite sDigimon = spriteDB.GetDigimonSprite(digimon);
             Sprite sGivePower = spriteDB.givePower;
 
-            SpriteBuilder sbDigimon = gm.BuildSprite("Digimon", animParent, 24, 24, sprite: sDigimon);
+            SpriteBuilder sbDigimon = ScreenElement.BuildSprite("Digimon", animParent).SetSize(24, 24).SetSprite(sDigimon);
             sbDigimon.Center();
             sbDigimon.SetActive(false);
-            SpriteBuilder sbGivePower = gm.BuildSprite("Digimon", animParent, sprite: sGivePower);
+            SpriteBuilder sbGivePower = ScreenElement.BuildSprite("Digimon", animParent).SetSprite(sGivePower);
             sbGivePower.SetTransparent(true);
             sbGivePower.SetActive(false);
 
@@ -255,10 +256,10 @@ namespace Kaisa.Digivice {
             yield return new WaitForSeconds(0.4f);
         }
         public IEnumerator ALevelUpDigimon(string digimon, int levelBefore, int levelAfter) {
-            yield return null;
+            throw new NotImplementedException();
         }
         public IEnumerator ALevelDownDigimon(string digimon, int levelBefore, int levelAfter) {
-            yield return null;
+            throw new NotImplementedException();
         }
         public IEnumerator ACharHappy() {
             yield return ACharHappyShort();
@@ -270,7 +271,7 @@ namespace Kaisa.Digivice {
 
             audioMgr.PlaySound(audioMgr.charHappy);
 
-            SpriteBuilder sbChar = gm.BuildSprite("CharHappy", animParent, sprite: charIdle);
+            SpriteBuilder sbChar = ScreenElement.BuildSprite("CharHappy", animParent).SetSprite(charIdle);
 
             for (int i = 0; i < 2; i++) {
                 sbChar.SetSprite(charIdle);
@@ -279,7 +280,6 @@ namespace Kaisa.Digivice {
                 yield return new WaitForSeconds(0.5f);
             }
         }
-
         public IEnumerator ACharSad() {
             yield return ACharSadShort();
             yield return ACharSadShort();
@@ -290,7 +290,7 @@ namespace Kaisa.Digivice {
 
             audioMgr.PlaySound(audioMgr.charSad);
 
-            SpriteBuilder sbChar = gm.BuildSprite("CharSad", animParent, sprite: charIdle);
+            SpriteBuilder sbChar = ScreenElement.BuildSprite("CharSad", animParent).SetSprite(charIdle);
 
             for (int i = 0; i < 2; i++) {
                 sbChar.SetSprite(charIdle);
@@ -307,19 +307,21 @@ namespace Kaisa.Digivice {
             Sprite sDistance = spriteDB.games_distance;
 
             audioMgr.PlayButtonA();
-            gm.BuildSprite("Score", animParent, 32, 5, 0, 0, sScore);
+            ScreenElement.BuildSprite("Score", animParent).SetSize(32, 5).SetSprite(sScore);
             yield return new WaitForSeconds(1f);
 
             audioMgr.PlayButtonA();
-            gm.BuildTextBox("ScoreText", animParent, score.ToString(), DFont.Regular, 31, 5, 0, 8, TextAnchor.UpperRight);
+            ScreenElement.BuildTextBox("ScoreText", animParent, DFont.Regular)
+                .SetText(score.ToString()).SetSize(31, 5).SetPosition(0, 8).SetAlignment(TextAnchor.UpperRight);
             yield return new WaitForSeconds(1f);
 
             audioMgr.PlayButtonA();
-            gm.BuildSprite("Distance", animParent, 32, 5, 0, 17, sDistance);
+            ScreenElement.BuildSprite("Distance", animParent).SetSize(32, 5).SetPosition(0, 17).SetSprite(sDistance);
             yield return new WaitForSeconds(1f);
 
             audioMgr.PlayButtonA();
-            TextBoxBuilder tbDistance = gm.BuildTextBox("DistanceText", animParent, distanceBefore.ToString(), DFont.Regular, 31, 5, 0, 25, TextAnchor.UpperRight);
+            TextBoxBuilder tbDistance = ScreenElement.BuildTextBox("DistanceText", animParent, DFont.Regular)
+                .SetText(distanceBefore.ToString()).SetSize(31, 5).SetPosition(0, 25).SetAlignment(TextAnchor.UpperRight);
             yield return new WaitForSeconds(1f);
 
             audioMgr.PlayCharHappy();
@@ -332,14 +334,13 @@ namespace Kaisa.Digivice {
             Sprite mapCurrentSprite = spriteDB.GetMapSectorSprites(currentMap)[currentSector];
             Sprite mapNewSprite = spriteDB.GetMapSectorSprites(currentMap)[newSector];
 
-            SpriteBuilder sMapCurrent = gm.BuildSprite("AnimCurrentSector", animParent, posX: 0, posY: 0, sprite: mapCurrentSprite);
-            SpriteBuilder sMapNew = gm.BuildSprite("AnimNewSector", animParent, sprite: mapNewSprite);
-            sMapNew.PlaceOutside(dir.Opposite());
+            SpriteBuilder sMapCurrent = ScreenElement.BuildSprite("AnimCurrentSector", animParent).SetSprite(mapCurrentSprite);
+            SpriteBuilder sMapNew = ScreenElement.BuildSprite("AnimNewSector", animParent).SetSprite(mapNewSprite).PlaceOutside(dir.Opposite());
 
             float animDuration = 1.5f;
             for (int i = 0; i < 32; i++) {
-                sMapCurrent.MoveSprite(dir);
-                sMapNew.MoveSprite(dir);
+                sMapCurrent.Move(dir);
+                sMapNew.Move(dir);
                 yield return new WaitForSeconds(animDuration / 32f);
             }
 
@@ -353,16 +354,15 @@ namespace Kaisa.Digivice {
 
             audioMgr.PlaySound(audioMgr.changeDock);
 
-            SpriteBuilder bBlackBars = gm.BuildSprite("BlackBars", animParent, sprite: gm.spriteDB.blackBars);
-            bBlackBars.PlaceOutside(Direction.Down);
-            SpriteBuilder bDDock = gm.BuildSprite("DDock", animParent, sprite: gm.spriteDB.status_ddock[ddock]);
-            SpriteBuilder bDDockSprite = gm.BuildDDockSprite(ddock, bDDock.transform);
+            SpriteBuilder bBlackBars = ScreenElement.BuildSprite("BlackBars", animParent).SetSprite(gm.spriteDB.blackBars).PlaceOutside(Direction.Down);
+            SpriteBuilder bDDock = ScreenElement.BuildSprite("DDock", animParent).SetSprite(gm.spriteDB.status_ddock[ddock]);
+            SpriteBuilder bDDockSprite = gm.GetDDockScreenElement(ddock, bDDock.transform);
 
             yield return new WaitForSeconds(0.75f);
 
             for (int i = 0; i < 32; i++) {
-                bBlackBars.MoveSprite(Direction.Up);
-                bDDock.MoveSprite(Direction.Up);
+                bBlackBars.Move(Direction.Up);
+                bDDock.Move(Direction.Up);
                 yield return new WaitForSeconds(animDuration / 32f);
             }
 
@@ -370,8 +370,8 @@ namespace Kaisa.Digivice {
             yield return new WaitForSeconds(0.75f);
 
             for (int i = 0; i < 32; i++) {
-                bBlackBars.MoveSprite(Direction.Down);
-                bDDock.MoveSprite(Direction.Down);
+                bBlackBars.Move(Direction.Down);
+                bDDock.Move(Direction.Down);
                 yield return new WaitForSeconds(animDuration / 32f);
             }
 
@@ -396,10 +396,10 @@ namespace Kaisa.Digivice {
             Sprite sDigimonAt = spriteDB.GetDigimonSprite(digimon, SpriteAction.Attack);
             Sprite sGivePower = spriteDB.givePower;
 
-            SpriteBuilder sbDigimon = gm.BuildSprite("Enemy", animParent, 24, 24, 4, 4, sDigimon);
+            SpriteBuilder sbDigimon = ScreenElement.BuildSprite("Enemy", animParent).SetSize(24, 24).Center().SetSprite(sDigimon);
             sbDigimon.FlipHorizontal(true);
             sbDigimon.SetActive(false);
-            SpriteBuilder sbGivePower = gm.BuildSprite("Power", animParent, sprite: sGivePower, transparent: true);
+            SpriteBuilder sbGivePower = ScreenElement.BuildSprite("Power", animParent).SetSprite(sGivePower).SetTransparent(true);
             sbGivePower.SetActive(false);
 
             for (int i = 0; i < 3; i++) {
@@ -445,10 +445,10 @@ namespace Kaisa.Digivice {
             Sprite sDigimonAt = spriteDB.GetDigimonSprite(digimon, SpriteAction.Attack);
             Sprite sGivePower = spriteDB.giveMassivePower;
 
-            SpriteBuilder sbDigimon = gm.BuildSprite("Enemy", animParent, 24, 24, 4, 4, sDigimon);
+            SpriteBuilder sbDigimon = ScreenElement.BuildSprite("Enemy", animParent).SetSize(24, 24).Center().SetSprite(sDigimon);
             sbDigimon.FlipHorizontal(true);
             sbDigimon.SetActive(false);
-            SpriteBuilder sbGivePower = gm.BuildSprite("MassivePower", animParent, sprite: sGivePower, transparent: true);
+            SpriteBuilder sbGivePower = ScreenElement.BuildSprite("MassivePower", animParent).SetSprite(sGivePower).SetTransparent(true);
             sbGivePower.SetActive(false);
 
             yield return new WaitForSeconds(0.5f);
@@ -487,10 +487,10 @@ namespace Kaisa.Digivice {
 
         }
         public IEnumerator ASpendCallPoints(int pointsBefore, int pointsAfter) {
-            SpriteBuilder sbCallPoints = gm.BuildSprite("CallPointScreen", animParent, sprite: spriteDB.battle_callPoints_screen);
+            SpriteBuilder sbCallPoints = ScreenElement.BuildSprite("CallPointScreen", animParent).SetSprite(spriteDB.battle_callPoints_screen);
             RectangleBuilder[] callPoints = new RectangleBuilder[pointsBefore];
             for(int i = 0; i < callPoints.Length; i++) {
-                callPoints[i] = gm.BuildRectangle($"CallPoint{i}", sbCallPoints.transform, 2, 5, 1 + (3 * i), 25);
+                callPoints[i] = ScreenElement.BuildRectangle($"CallPoint{i}", sbCallPoints.transform).SetSize(2, 5).SetPosition(1 + (3 * i), 25);
             }
             yield return new WaitForSeconds(1f);
             audioMgr.PlayButtonA();
@@ -507,8 +507,8 @@ namespace Kaisa.Digivice {
             SpriteBuilder[] spDigimon = new SpriteBuilder[4];
 
             for(int i = 0; i < 4; i++) {
-                spDigimon[i] = gm.BuildSprite($"Deport{i}", animParent, dim, dim, 0, 0, sprite, true).SetActive<SpriteBuilder>(false);
-                spDigimon[i].Center();
+                spDigimon[i] = ScreenElement.BuildSprite($"Deport{i}", animParent)
+                    .SetSize(dim, dim).SetSprite(sprite).SetTransparent(true).SetActive(false).Center();
             }
             spDigimon[0].SetActive(true);
             audioMgr.PlaySound(audioMgr.deport);
@@ -526,10 +526,10 @@ namespace Kaisa.Digivice {
 
             yield return new WaitForSeconds(0.75f);
             for(int i = 0; i < 32; i++) {
-                spDigimon[0].MoveSprite(Direction.Left);
-                spDigimon[1].MoveSprite(Direction.Right);
-                spDigimon[2].MoveSprite(Direction.Up);
-                spDigimon[3].MoveSprite(Direction.Down);
+                spDigimon[0].Move(Direction.Left);
+                spDigimon[1].Move(Direction.Right);
+                spDigimon[2].Move(Direction.Up);
+                spDigimon[3].Move(Direction.Down);
                 yield return new WaitForSeconds(1.5f / 32);
             }
             yield return new WaitForSeconds(0.2f);
@@ -537,11 +537,9 @@ namespace Kaisa.Digivice {
         public IEnumerator ALevelUp(int levelBefore, int levelAfter) {
             Sprite[] sLevelUpBG = spriteDB.rewardBackground;
             Sprite sLevelUpIcon = spriteDB.rewards[0];
-            SpriteBuilder sbLevelUpBG = gm.BuildSprite("LevelUpBackground", animParent, sprite: sLevelUpBG[0]);
-            SpriteBuilder sbLevelUpIcon = gm.BuildSprite("LevelUpIcon", sbLevelUpBG.transform, 16, 16, sprite: sLevelUpIcon);
-            sbLevelUpIcon.Center(); //Center: 9, 9
-            sbLevelUpIcon.SetActive(false);
-            sbLevelUpIcon.SetTransparent(false);
+            SpriteBuilder sbLevelUpBG = ScreenElement.BuildSprite("LevelUpBackground", animParent).SetSprite(sLevelUpBG[0]);
+            SpriteBuilder sbLevelUpIcon = ScreenElement.BuildSprite("LevelUpIcon", sbLevelUpBG.transform)
+                .SetSize(16, 16).SetSprite(sLevelUpIcon).Center().SetActive(false).SetTransparent(false);
 
             audioMgr.PlaySound(audioMgr.levelUp);
 
@@ -565,12 +563,14 @@ namespace Kaisa.Digivice {
             }
             sbLevelUpBG.SetSprite(null);
             for (int i = 0; i < 9; i++) {
-                sbLevelUpIcon.MoveSprite(Direction.Up);
+                sbLevelUpIcon.Move(Direction.Up);
                 yield return new WaitForSeconds(0.5f / 9);
             }
 
-            gm.BuildTextBox("Level", sbLevelUpBG.transform, "LEVEL", DFont.Regular, 32, 5, 0, 17, TextAnchor.UpperCenter);
-            TextBoxBuilder tbLevel = gm.BuildTextBox("LevelNumber", sbLevelUpBG.transform, levelBefore.ToString(), DFont.Regular, 29, 5, 2, 24, TextAnchor.UpperRight);
+            ScreenElement.BuildTextBox("Level", sbLevelUpBG.transform, DFont.Regular)
+                .SetText("LEVEL").SetSize(32, 5).SetPosition(0, 17).SetAlignment(TextAnchor.UpperCenter);
+            TextBoxBuilder tbLevel = ScreenElement.BuildTextBox("LevelNumber", sbLevelUpBG.transform, DFont.Regular)
+                .SetText(levelBefore.ToString()).SetSize(29, 5).SetPosition(2, 24).SetAlignment(TextAnchor.UpperRight);
 
             audioMgr.PlayButtonA();
             yield return new WaitForSeconds(1f);
@@ -581,8 +581,8 @@ namespace Kaisa.Digivice {
         public IEnumerator ALevelDown(int levelBefore, int levelAfter) {
             Sprite[] sLevelUpBG = spriteDB.rewardBackground.ReorderedAs(0, 3, 2, 1);
             Sprite sLevelUpIcon = spriteDB.rewards[0];
-            SpriteBuilder sbLevelUpBG = gm.BuildSprite("LevelUpBackground", animParent, sprite: sLevelUpBG[0]);
-            SpriteBuilder sbLevelUpIcon = gm.BuildSprite("LevelUpIcon", sbLevelUpBG.transform, 16, 16, sprite: sLevelUpIcon);
+            SpriteBuilder sbLevelUpBG = ScreenElement.BuildSprite("LevelUpBackground", animParent).SetSprite(sLevelUpBG[0]);
+            SpriteBuilder sbLevelUpIcon = ScreenElement.BuildSprite("LevelUpIcon", sbLevelUpBG.transform).SetSize(16, 16).SetSprite(sLevelUpIcon);
             sbLevelUpIcon.Center(); //Center: 9, 9
             sbLevelUpIcon.SetActive(false);
             sbLevelUpIcon.SetTransparent(false);
@@ -609,12 +609,14 @@ namespace Kaisa.Digivice {
             }
             sbLevelUpBG.SetSprite(null);
             for (int i = 0; i < 9; i++) {
-                sbLevelUpIcon.MoveSprite(Direction.Up);
+                sbLevelUpIcon.Move(Direction.Up);
                 yield return new WaitForSeconds(0.5f / 9);
             }
 
-            gm.BuildTextBox("Level", sbLevelUpBG.transform, "LEVEL", DFont.Regular, 32, 5, 0, 17, TextAnchor.UpperCenter);
-            TextBoxBuilder tbLevel = gm.BuildTextBox("LevelNumber", sbLevelUpBG.transform, levelBefore.ToString(), DFont.Regular, 29, 5, 2, 24, TextAnchor.UpperRight);
+            ScreenElement.BuildTextBox("Level", sbLevelUpBG.transform, DFont.Regular)
+                .SetText("LEVEL").SetSize(32, 5).SetPosition(0, 17).SetAlignment(TextAnchor.UpperCenter);
+            TextBoxBuilder tbLevel = ScreenElement.BuildTextBox("LevelNumber", sbLevelUpBG.transform, DFont.Regular)
+                .SetText(levelBefore.ToString()).SetSize(29, 5).SetPosition(2, 24).SetAlignment(TextAnchor.UpperRight);
 
             audioMgr.PlayButtonA();
             yield return new WaitForSeconds(1f);
@@ -624,8 +626,9 @@ namespace Kaisa.Digivice {
         }
         //Note: this is not the same as ARewardDistance
         public IEnumerator AChangeDistance(int distanceBefore, int distanceAfter) {
-            gm.BuildSprite("Distance", animParent, 32, 5, 0, 17, spriteDB.animDistance);
-            TextBoxBuilder tbLevel = gm.BuildTextBox("DistanceNumber", animParent, distanceBefore.ToString(), DFont.Regular, 29, 5, 2, 24, TextAnchor.UpperRight);
+            ScreenElement.BuildSprite("Distance", animParent).SetSize(32, 5).SetPosition(0, 17).SetSprite(spriteDB.animDistance);
+            TextBoxBuilder tbLevel = ScreenElement.BuildTextBox("DistanceNumber", animParent, DFont.Regular)
+                .SetText(distanceBefore.ToString()).SetSize(29, 5).SetPosition(2, 24).SetAlignment(TextAnchor.UpperRight);
 
             audioMgr.PlayButtonA();
             yield return new WaitForSeconds(1f);
@@ -666,10 +669,11 @@ namespace Kaisa.Digivice {
             }
         }
         public IEnumerator AAWardSpiritPower(int SPbefore) {
-            SpriteBuilder sbSPBackground = gm.BuildSprite("SPBackground", animParent);
+            SpriteBuilder sbSPBackground = ScreenElement.BuildSprite("SPBackground", animParent);
             Coroutine bgAnimation = StartCoroutine(PAAnimateSPScreen(sbSPBackground));
 
-            TextBoxBuilder tbSpirits = gm.BuildTextBox("SPAmount", animParent, SPbefore.ToString(), DFont.Small, 32, 11, 0, 21, TextAnchor.UpperRight);
+            TextBoxBuilder tbSpirits = ScreenElement.BuildTextBox("SPAmount", animParent, DFont.Small)
+                .SetText(SPbefore.ToString()).SetSize(32, 11).SetPosition(0, 21).SetAlignment(TextAnchor.UpperRight);
             tbSpirits.InvertColors(true);
             tbSpirits.SetComponentSize(28, 5);
             tbSpirits.SetComponentPosition(2, 3);
@@ -692,10 +696,11 @@ namespace Kaisa.Digivice {
             StopCoroutine(bgAnimation);
         }
         public IEnumerator APaySpiritPower(int SPbefore, int SPafter) {
-            SpriteBuilder sbSPBackground = gm.BuildSprite("SPBackground", animParent);
+            SpriteBuilder sbSPBackground = ScreenElement.BuildSprite("SPBackground", animParent);
             Coroutine bgAnimation = StartCoroutine(PAAnimateSPScreen(sbSPBackground));
 
-            TextBoxBuilder tbSpirits = gm.BuildTextBox("SPAmount", animParent, SPbefore.ToString(), DFont.Small, 32, 11, 0, 21, TextAnchor.UpperRight);
+            TextBoxBuilder tbSpirits = ScreenElement.BuildTextBox("SPAmount", animParent, DFont.Small)
+                .SetText(SPbefore.ToString()).SetSize(32, 11).SetPosition(0, 21).SetAlignment(TextAnchor.UpperRight);
             tbSpirits.InvertColors(true);
             tbSpirits.SetComponentSize(28, 5);
             tbSpirits.SetComponentPosition(2, 3);
@@ -719,11 +724,8 @@ namespace Kaisa.Digivice {
             Sprite sDigimonAfter = spriteDB.GetDigimonSprite(digimonAfter);
             Sprite sGivePower = spriteDB.givePower;
 
-            SpriteBuilder sbDigimon = gm.BuildSprite("Digimon", animParent, 24, 24, sprite: sDigimonBefore);
-            sbDigimon.Center();
-            SpriteBuilder sbGivePower = gm.BuildSprite("Digimon", animParent, sprite: sGivePower);
-            sbGivePower.SetTransparent(true);
-            sbGivePower.SetActive(false);
+            SpriteBuilder sbDigimon = ScreenElement.BuildSprite("Digimon", animParent).SetSize(24, 24).Center().SetSprite(sDigimonBefore);
+            SpriteBuilder sbGivePower = ScreenElement.BuildSprite("Digimon", animParent).SetSprite(sGivePower).SetTransparent(true).SetActive(false);
 
             audioMgr.PlaySound(audioMgr.evolutionRegular);
             for(int i = 0; i < 2; i++) {
@@ -757,11 +759,11 @@ namespace Kaisa.Digivice {
             Sprite[] sCharacter = spriteDB.GetCharacterSprites(character);
             Sprite[] sDigimon = spriteDB.GetAllDigimonSprites(digimon);
 
-            SpriteBuilder sbBackground = gm.BuildSprite("BlackBackground", animParent, sprite: sBlackScreen).SetActive<SpriteBuilder>(false);
-            SpriteBuilder sbCharacter = gm.BuildSprite("Char", animParent, sprite: sCharacter[0]);
+            SpriteBuilder sbBackground = ScreenElement.BuildSprite("BlackBackground", animParent).SetSprite(sBlackScreen).SetActive(false);
+            SpriteBuilder sbCharacter = ScreenElement.BuildSprite("Char", animParent).SetSprite(sCharacter[0]);
             audioMgr.PlaySound(audioMgr.evolutionSpirit);
             yield return new WaitForSeconds(0.5f);
-            SpriteBuilder sbGiveMassivePower = gm.BuildSprite("GivePower", animParent, sprite: sGiveMassivePowerBlack).SetTransparent<SpriteBuilder>(true);
+            SpriteBuilder sbGiveMassivePower = ScreenElement.BuildSprite("GivePower", animParent).SetSprite(sGiveMassivePowerBlack).SetTransparent(true);
 
             for (int i = 0; i < 3; i++) {
                 yield return new WaitForSeconds(0.2f);
@@ -784,7 +786,7 @@ namespace Kaisa.Digivice {
             sbCharacter.SetSprite(sCharacter[0]);
 
             SpriteBuilder[] sbDigimon = new SpriteBuilder[4];
-            sbDigimon[0] = gm.BuildSprite("Spirit", animParent, 24, 24, sprite: sDigimon[3]).Center<SpriteBuilder>();
+            sbDigimon[0] = ScreenElement.BuildSprite("Spirit", animParent).SetSize(24, 24).SetSprite(sDigimon[3]).Center();
 
             for (int i = 0; i < 2; i++) {
                 yield return new WaitForSeconds(0.15f);
@@ -795,15 +797,15 @@ namespace Kaisa.Digivice {
             yield return new WaitForSeconds(0.7f);
 
             for(int i = 1; i < 4; i++) {
-                sbDigimon[i] = gm.BuildSprite("Spirit", animParent, 24, 24, sprite: sDigimon[3]).Center<SpriteBuilder>();
+                sbDigimon[i] = ScreenElement.BuildSprite("Spirit", animParent).SetSize(24, 24).SetSprite(sDigimon[3]).Center();
                 sbDigimon[i].SetTransparent(true);
             }
 
             for(int i = 0; i < 32; i++) {
-                sbDigimon[0].MoveSprite(Direction.Left);
-                sbDigimon[1].MoveSprite(Direction.Right);
-                sbDigimon[2].MoveSprite(Direction.Up);
-                sbDigimon[3].MoveSprite(Direction.Down);
+                sbDigimon[0].Move(Direction.Left);
+                sbDigimon[1].Move(Direction.Right);
+                sbDigimon[2].Move(Direction.Up);
+                sbDigimon[3].Move(Direction.Down);
                 yield return new WaitForSeconds(3f / 32);
             }
 
@@ -811,7 +813,7 @@ namespace Kaisa.Digivice {
 
             yield return new WaitForSeconds(0.3f);
             for (int i = 0; i < 64; i++) {
-                sbCharacter.MoveSprite(Direction.Up);
+                sbCharacter.Move(Direction.Up);
                 yield return new WaitForSeconds(1f / 64);
             }
             yield return new WaitForSeconds(0.7f);
@@ -826,7 +828,7 @@ namespace Kaisa.Digivice {
                 yield return new WaitForSeconds(0.5f);
             }
 
-            SpriteBuilder sbBlackSprite = gm.BuildSprite("BlackSprite", animParent, sprite: sDigimon[4]);
+            SpriteBuilder sbBlackSprite = ScreenElement.BuildSprite("BlackSprite", animParent).SetSprite(sDigimon[4]);
             yield return new WaitForSeconds(0.1f);
             
             sbBlackSprite.SetActive(false);
@@ -858,7 +860,7 @@ namespace Kaisa.Digivice {
             sbBlackSprite.SetActive(true);
 
             for (int i = 0; i < 64; i++) {
-                sbBlackSprite.MoveSprite(Direction.Up);
+                sbBlackSprite.Move(Direction.Up);
                 yield return new WaitForSeconds(3f / 64);
             }
 
@@ -904,11 +906,11 @@ namespace Kaisa.Digivice {
             }
 
             //Common animation.
-            SpriteBuilder sbBackground = gm.BuildSprite("BlackBackground", animParent, sprite: sBlackScreen).SetActive<SpriteBuilder>(false);
-            SpriteBuilder sbCharacter = gm.BuildSprite("Char", animParent, sprite: sCharacter[0]);
+            SpriteBuilder sbBackground = ScreenElement.BuildSprite("BlackBackground", animParent).SetSprite(sBlackScreen).SetActive(false);
+            SpriteBuilder sbCharacter = ScreenElement.BuildSprite("Char", animParent).SetSprite(sCharacter[0]);
             audioMgr.PlaySound(audioMgr.evolutionSpirit);
             yield return new WaitForSeconds(0.5f);
-            SpriteBuilder sbGiveMassivePower = gm.BuildSprite("Char", animParent, sprite: sGiveMassivePowerBlack).SetTransparent<SpriteBuilder>(true);
+            SpriteBuilder sbGiveMassivePower = ScreenElement.BuildSprite("Char", animParent).SetSprite(sGiveMassivePowerBlack).SetTransparent(true);
 
             for (int i = 0; i < 3; i++) {
                 yield return new WaitForSeconds(0.2f);
@@ -929,39 +931,39 @@ namespace Kaisa.Digivice {
 
             //Small spirits display - total animation duration: 3.0 s.
             sbCharacter.Dispose();
-            SpriteBuilder sbSmallHuman = gm.BuildSprite("Human", animParent, 14, 16);
-            SpriteBuilder sbSmallAnimal = gm.BuildSprite("Animal", animParent, 14, 16);
+            SpriteBuilder sbSmallHuman = ScreenElement.BuildSprite("Human", animParent).SetSize(14, 16);
+            SpriteBuilder sbSmallAnimal = ScreenElement.BuildSprite("Animal", animParent).SetSize(14, 16);
             for (int i = 0; i < 5; i++) {
-                sbSmallHuman.SetY<SpriteBuilder>(16).PlaceOutside<SpriteBuilder>(Direction.Left).MoveSprite(Direction.Left);
-                sbSmallAnimal.SetY<SpriteBuilder>(16).PlaceOutside<SpriteBuilder>(Direction.Right).MoveSprite(Direction.Right);
+                sbSmallHuman.SetY(16).PlaceOutside(Direction.Left).Move(Direction.Left);
+                sbSmallAnimal.SetY(16).PlaceOutside(Direction.Right).Move(Direction.Right);
                 sbSmallHuman.SetSprite(sHumans[i]);
                 sbSmallAnimal.SetSprite(sAnimals[i]);
                 for(int j = 0; j < 4; j++) {
-                    sbSmallHuman.MoveSprite(Direction.Right, 4);
-                    sbSmallAnimal.MoveSprite(Direction.Left, 4);
+                    sbSmallHuman.Move(Direction.Right, 4);
+                    sbSmallAnimal.Move(Direction.Left, 4);
                     yield return new WaitForSeconds(0.6f / 10);
                 }
                 for (int j = 0; j < 6; j++) {
-                    sbSmallHuman.MoveSprite(Direction.Up, 4);
-                    sbSmallAnimal.MoveSprite(Direction.Up, 4);
+                    sbSmallHuman.Move(Direction.Up, 4);
+                    sbSmallAnimal.Move(Direction.Up, 4);
                     yield return new WaitForSeconds(0.6f / 10);
                 }
             }
             sbSmallHuman.Dispose();
             sbSmallAnimal.Dispose();
             //Create Transcendent spirit - total animation duration: 3.2 s
-            SpriteBuilder sbTranscendent = gm.BuildSprite("Transcendent", animParent, 24, 24, sprite: sDigimon[3]).Center<SpriteBuilder>();
-            RectangleBuilder sbCover = gm.BuildRectangle("Cover", animParent, 32, 32, fillBlack: false);
-            SpriteBuilder sbCurtain = gm.BuildSprite("Curtain", animParent, sprite: sCurtainSpecial).PlaceOutside<SpriteBuilder>(Direction.Up);
+            SpriteBuilder sbTranscendent = ScreenElement.BuildSprite("Transcendent", animParent).SetSize(24, 24).SetSprite(sDigimon[3]).Center();
+            RectangleBuilder sbCover = ScreenElement.BuildRectangle("Cover", animParent).SetSize(32, 32).SetColor(false);
+            SpriteBuilder sbCurtain = ScreenElement.BuildSprite("Curtain", animParent).SetSprite(sCurtainSpecial).PlaceOutside(Direction.Up);
             sbCurtain.SetTransparent(true);
-            SpriteBuilder sbGivePower = gm.BuildSprite("MassivePower", animParent, sprite: sGiveMassivePowerBlack);
+            SpriteBuilder sbGivePower = ScreenElement.BuildSprite("MassivePower", animParent).SetSprite(sGiveMassivePowerBlack);
             sbGivePower.SetTransparent(true);
             sbGivePower.SetActive(false);
             for(int i = 0; i < 32; i++) {
                 if (i == 14 || i == 28) sbGivePower.SetActive(true);
                 if (i == 15 || i == 29) sbGivePower.SetActive(false);
-                sbCover.MoveSprite(Direction.Down);
-                sbCurtain.MoveSprite(Direction.Down);
+                sbCover.Move(Direction.Down);
+                sbCurtain.Move(Direction.Down);
                 yield return new WaitForSeconds(3.2f / 32);
             }
             sbCurtain.PlaceOutside(Direction.Down);
@@ -974,21 +976,21 @@ namespace Kaisa.Digivice {
                 yield return new WaitForSeconds(0.35f);
             }
             for (int i = 0; i < 32; i++) {
-                sbTranscendent.MoveSprite(Direction.Up);
+                sbTranscendent.Move(Direction.Up);
                 yield return new WaitForSeconds(1.4f / 32);
             }
             //Digimon runs twice.
             sbTranscendent.SetSprite(sDigimon[2]);
-            sbTranscendent.SetY<SpriteBuilder>(4).PlaceOutside(Direction.Right);
+            sbTranscendent.SetY(4).PlaceOutside(Direction.Right);
             for (int i = 0; i < 12; i++) {
-                sbTranscendent.MoveSprite(Direction.Left, 6);
+                sbTranscendent.Move(Direction.Left, 6);
                 yield return new WaitForSeconds(1f / 12);
             }
             yield return new WaitForSeconds(0.7f);
             sbTranscendent.SetSprite(sDigimon[2]);
             sbTranscendent.PlaceOutside(Direction.Right);
             for (int i = 0; i < 14; i++) {
-                sbTranscendent.MoveSprite(Direction.Left, 2);
+                sbTranscendent.Move(Direction.Left, 2);
                 yield return new WaitForSeconds(0.7f / 14);
             }
             sbTranscendent.SetSprite(sDigimon[0]);
@@ -997,7 +999,7 @@ namespace Kaisa.Digivice {
             sbCurtain.SetActive(true);
 
             for (int i = 0; i < 64; i++) {
-                sbCurtain.MoveSprite(Direction.Up);
+                sbCurtain.Move(Direction.Up);
                 yield return new WaitForSeconds(3f / 64);
             }
 
@@ -1042,11 +1044,11 @@ namespace Kaisa.Digivice {
             }
 
             //Common animation.
-            SpriteBuilder sbBackground = gm.BuildSprite("BlackBackground", animParent, sprite: sBlackScreen).SetActive<SpriteBuilder>(false);
-            SpriteBuilder sbCharacter = gm.BuildSprite("Char", animParent, sprite: sCharacter[0]);
+            SpriteBuilder sbBackground = ScreenElement.BuildSprite("BlackBackground", animParent).SetSprite(sBlackScreen).SetActive(false);
+            SpriteBuilder sbCharacter = ScreenElement.BuildSprite("Char", animParent).SetSprite(sCharacter[0]);
             audioMgr.PlaySound(audioMgr.evolutionSpirit);
             yield return new WaitForSeconds(0.5f);
-            SpriteBuilder sbGiveMassivePower = gm.BuildSprite("Char", animParent, sprite: sGiveMassivePowerBlack).SetTransparent<SpriteBuilder>(true);
+            SpriteBuilder sbGiveMassivePower = ScreenElement.BuildSprite("Char", animParent).SetSprite(sGiveMassivePowerBlack).SetTransparent(true);
 
             for (int i = 0; i < 3; i++) {
                 yield return new WaitForSeconds(0.2f);
@@ -1067,8 +1069,8 @@ namespace Kaisa.Digivice {
             sbCharacter.PlaceOutside(Direction.Down);
             sbCharacter.SetSprite(sCharacter[0]);
 
-            SpriteBuilder sbTranscendent = gm.BuildSprite("Transcendent", animParent, 24, 24, sprite: sKaiserGreymon).Center<SpriteBuilder>();
-            SpriteBuilder sbSmallSpirit = gm.BuildSprite("SmallSpirit", animParent, 14, 16).SetActive<SpriteBuilder>(false);
+            SpriteBuilder sbTranscendent = ScreenElement.BuildSprite("Transcendent", animParent).SetSize(24, 24).SetSprite(sKaiserGreymon).Center();
+            SpriteBuilder sbSmallSpirit = ScreenElement.BuildSprite("SmallSpirit", animParent).SetSize(14, 16).SetActive(false);
             //KaiserGreymon's small spirits - total animation duration: 3.1 s.
             for (int i = 0; i < 4; i++) {
                 yield return new WaitForSeconds(0.15f);
@@ -1117,25 +1119,25 @@ namespace Kaisa.Digivice {
             sbTranscendent.SetActive(false);
             //Quick player down-to-up
             for (int i = 0; i < 12; i++) {
-                sbCharacter.MoveSprite(Direction.Up, 6);
+                sbCharacter.Move(Direction.Up, 6);
                 yield return new WaitForSeconds(1f / 12);
             }
             //Show all small spirits
-            SpriteBuilder sbSmallHuman = gm.BuildSprite("Human", animParent, 14, 16);
-            SpriteBuilder sbSmallAnimal = gm.BuildSprite("Animal", animParent, 14, 16);
+            SpriteBuilder sbSmallHuman = ScreenElement.BuildSprite("Human", animParent).SetSize(14, 16);
+            SpriteBuilder sbSmallAnimal = ScreenElement.BuildSprite("Animal", animParent).SetSize(14, 16);
             for (int i = 0; i < 10; i++) {
-                sbSmallHuman.SetY<SpriteBuilder>(16).PlaceOutside<SpriteBuilder>(Direction.Left).MoveSprite(Direction.Left);
-                sbSmallAnimal.SetY<SpriteBuilder>(16).PlaceOutside<SpriteBuilder>(Direction.Right).MoveSprite(Direction.Right);
+                sbSmallHuman.SetY(16).PlaceOutside(Direction.Left).Move(Direction.Left);
+                sbSmallAnimal.SetY(16).PlaceOutside(Direction.Right).Move(Direction.Right);
                 sbSmallHuman.SetSprite(sHumans[i]);
                 sbSmallAnimal.SetSprite(sAnimals[i]);
                 for (int j = 0; j < 4; j++) {
-                    sbSmallHuman.MoveSprite(Direction.Right, 4);
-                    sbSmallAnimal.MoveSprite(Direction.Left, 4);
+                    sbSmallHuman.Move(Direction.Right, 4);
+                    sbSmallAnimal.Move(Direction.Left, 4);
                     yield return new WaitForSeconds(0.6f / 10);
                 }
                 for (int j = 0; j < 6; j++) {
-                    sbSmallHuman.MoveSprite(Direction.Up, 4);
-                    sbSmallAnimal.MoveSprite(Direction.Up, 4);
+                    sbSmallHuman.Move(Direction.Up, 4);
+                    sbSmallAnimal.Move(Direction.Up, 4);
                     yield return new WaitForSeconds(0.6f / 10);
                 }
             }
@@ -1143,9 +1145,9 @@ namespace Kaisa.Digivice {
             sbSmallAnimal.Dispose();
             //Form Susanoomon
             sbTranscendent.SetSprite(sSusanoomon[0]).SetActive(true);
-            SpriteBuilder sbCurtain = gm.BuildSprite("Curtain", animParent, sprite: sCurtainSpecial);
+            SpriteBuilder sbCurtain = ScreenElement.BuildSprite("Curtain", animParent).SetSprite(sCurtainSpecial);
             for (int i = 0; i < 32; i++) {
-                sbCurtain.MoveSprite(Direction.Up);
+                sbCurtain.Move(Direction.Up);
                 yield return new WaitForSeconds(2.2f / 32);
             }
             sbCurtain.PlaceOutside(Direction.Down);
@@ -1207,10 +1209,10 @@ namespace Kaisa.Digivice {
             Sprite sBlackScreen = spriteDB.blackScreen;
             Sprite[] sCharacter = spriteDB.GetCharacterSprites(character);
 
-            SpriteBuilder sbSpiral = gm.BuildSprite("Spiral", animParent);
-            SpriteBuilder sbCircle = gm.BuildSprite("Circle", animParent).SetTransparent<SpriteBuilder>(true);
-            SpriteBuilder sbDigimon = gm.BuildSprite("Digimon", animParent, 24, 24).Center<SpriteBuilder>().PlaceOutside<SpriteBuilder>(Direction.Down);
-            SpriteBuilder sbGiveMassivePower = gm.BuildSprite("GivePower", animParent, sprite: sGiveMassivePowerBlack).SetTransparent<SpriteBuilder>(true);
+            SpriteBuilder sbSpiral = ScreenElement.BuildSprite("Spiral", animParent);
+            SpriteBuilder sbCircle = ScreenElement.BuildSprite("Circle", animParent).SetTransparent(true);
+            SpriteBuilder sbDigimon = ScreenElement.BuildSprite("Digimon", animParent).SetSize(24, 24).Center().PlaceOutside(Direction.Down);
+            SpriteBuilder sbGiveMassivePower = ScreenElement.BuildSprite("GivePower", animParent).SetSprite(sGiveMassivePowerBlack).SetTransparent(true);
             sbGiveMassivePower.SetActive(false);
 
             audioMgr.PlaySound(audioMgr.evolutionAncient);
@@ -1218,7 +1220,7 @@ namespace Kaisa.Digivice {
             //Show human spirit
             sbDigimon.SetSprite(sHumanSpirit);
             for(int i = 0; i < 28; i++) {
-                sbDigimon.MoveSprite(Direction.Up);
+                sbDigimon.Move(Direction.Up);
                 yield return new WaitForSeconds(0.95f / 28);
             }
             yield return new WaitForSeconds(0.2f);
@@ -1229,14 +1231,14 @@ namespace Kaisa.Digivice {
                 yield return new WaitForSeconds(0.3f);
             }
             for (int i = 0; i < 28; i++) {
-                sbDigimon.MoveSprite(Direction.Up);
+                sbDigimon.Move(Direction.Up);
                 yield return new WaitForSeconds(0.95f / 28);
             }
             //Show animal spirit
             sbDigimon.SetSprite(sAnimalSpirit);
             sbDigimon.PlaceOutside(Direction.Down);
             for (int i = 0; i < 28; i++) {
-                sbDigimon.MoveSprite(Direction.Up);
+                sbDigimon.Move(Direction.Up);
                 yield return new WaitForSeconds(0.95f / 28);
             }
             yield return new WaitForSeconds(0.2f);
@@ -1247,7 +1249,7 @@ namespace Kaisa.Digivice {
                 yield return new WaitForSeconds(0.3f);
             }
             for (int i = 0; i < 28; i++) {
-                sbDigimon.MoveSprite(Direction.Up);
+                sbDigimon.Move(Direction.Up);
                 yield return new WaitForSeconds(0.95f / 28);
             }
             //Spiral and circle
@@ -1309,8 +1311,8 @@ namespace Kaisa.Digivice {
 
             audioMgr.PlaySound(audioMgr.digiPowerFailed);
 
-            SpriteBuilder sbDigimon = gm.BuildSprite("GivePower", animParent, 24, 24, sprite: sSacrifice).Center<SpriteBuilder>();
-            SpriteBuilder sbGivePower = gm.BuildSprite("GivePower", animParent, sprite: sGivePowerBlack);
+            SpriteBuilder sbDigimon = ScreenElement.BuildSprite("GivePower", animParent).SetSize(24, 24).SetSprite(sSacrifice).Center();
+            SpriteBuilder sbGivePower = ScreenElement.BuildSprite("GivePower", animParent).SetSprite(sGivePowerBlack);
 
             for (int i = 0; i < 2; i++) {
                 sbGivePower.SetSprite(sGivePowerBlack).SetActive(true);
@@ -1349,8 +1351,8 @@ namespace Kaisa.Digivice {
 
             audioMgr.PlaySound(audioMgr.digiPowerSucceed);
 
-            SpriteBuilder sbDigimon = gm.BuildSprite("GivePower", animParent, 24, 24, sprite: sSacrifice).Center<SpriteBuilder>();
-            SpriteBuilder sbGivePower = gm.BuildSprite("GivePower", animParent, sprite: sGivePowerBlack);
+            SpriteBuilder sbDigimon = ScreenElement.BuildSprite("GivePower", animParent).SetSize(24, 24).SetSprite(sSacrifice).Center();
+            SpriteBuilder sbGivePower = ScreenElement.BuildSprite("GivePower", animParent).SetSprite(sGivePowerBlack);
 
             for (int i = 0; i < 2; i++) {
                 sbGivePower.SetSprite(sGivePowerBlack).SetActive(true);
@@ -1363,11 +1365,11 @@ namespace Kaisa.Digivice {
 
             yield return new WaitForSeconds(0.4f);
 
-            SpriteBuilder sbCurtain = gm.BuildSprite("GivePower", animParent, sprite: sCurtain).PlaceOutside<SpriteBuilder>(Direction.Up);
+            SpriteBuilder sbCurtain = ScreenElement.BuildSprite("GivePower", animParent).SetSprite(sCurtain).PlaceOutside(Direction.Up);
 
             for(int i = 0; i < 64; i++) {
                 if (i == 32) sbDigimon.SetActive(false);
-                sbCurtain.MoveSprite(Direction.Down);
+                sbCurtain.Move(Direction.Down);
                 yield return new WaitForSeconds(3.5f / 64);
             }
 
@@ -1378,7 +1380,7 @@ namespace Kaisa.Digivice {
 
             for (int i = 0; i < 64; i++) {
                 if (i == 32) sbDigimon.SetActive(true);
-                sbCurtain.MoveSprite(Direction.Up);
+                sbCurtain.Move(Direction.Up);
                 yield return new WaitForSeconds(3.5f / 64);
             }
             yield return new WaitForSeconds(0.4f);
@@ -1406,8 +1408,8 @@ namespace Kaisa.Digivice {
         }
         private IEnumerator PALaunchAttack(Sprite[] digimonSprites, int attack, bool isEnemy, bool disobeyed) {
             Direction launchDir = isEnemy ? Direction.Right : Direction.Left;
-            SpriteBuilder sbAttack = gm.BuildSprite("Attack", animParent, 24, 24, 4, 4);
-            SpriteBuilder sbDigimon = gm.BuildSprite("Attacker", animParent, 24, 24, 4, 4, digimonSprites[0]);
+            SpriteBuilder sbAttack = ScreenElement.BuildSprite("Attack", animParent).SetSize(24, 24).Center();
+            SpriteBuilder sbDigimon = ScreenElement.BuildSprite("Attacker", animParent).SetSize(24, 24).Center().SetSprite(digimonSprites[0]);
             sbAttack.SetComponentSize(24, 24);
 
             sbAttack.SnapComponentToSide(launchDir, true);
@@ -1418,13 +1420,13 @@ namespace Kaisa.Digivice {
                 //Show exclamation mark.
                 if (disobeyed) {
                     yield return new WaitForSeconds(0.1f);
-                    SpriteBuilder sbDisobey = gm.BuildSprite("Disobey", animParent, 3, 9, 1, 1, spriteDB.battle_disobey);
+                    SpriteBuilder sbDisobey = ScreenElement.BuildSprite("Disobey", animParent).SetSize(3, 9).SetPosition(1, 1).SetSprite(spriteDB.battle_disobey);
                     yield return new WaitForSeconds(0.3f);
                     sbDisobey.Dispose();
                 }
                 yield return new WaitForSeconds(0.2f);
-                sbDigimon.MoveSprite(launchDir.Opposite(), 3);
-                sbAttack.MoveSprite(launchDir.Opposite(), 3);
+                sbDigimon.Move(launchDir.Opposite(), 3);
+                sbAttack.Move(launchDir.Opposite(), 3);
             }
             if (attack == 0 || attack == 2) {
                 sbDigimon.SetSprite(digimonSprites[1]);
@@ -1433,7 +1435,7 @@ namespace Kaisa.Digivice {
                 audioMgr.PlaySound(audioMgr.launchAttack);
                 for (int i = 0; i < 38; i++) {
                     yield return new WaitForSeconds(1.7f / 32f);
-                    sbAttack.MoveSprite(launchDir);
+                    sbAttack.Move(launchDir);
                 }
                 yield return new WaitForSeconds(0.3f);
             }
@@ -1442,7 +1444,7 @@ namespace Kaisa.Digivice {
 
                 audioMgr.PlaySound(audioMgr.launchAttack);
                 for (int i = 0; i < 7; i++) {
-                    gm.BuildSprite($"Crush{i}", animParent, 24, 24, 4, 4, digimonSprites[2]).FlipHorizontal(isEnemy).MoveSprite(launchDir, 4 * i);
+                    ScreenElement.BuildSprite($"Crush{i}", animParent).SetSize(24, 24).Center().SetSprite(digimonSprites[2]).FlipHorizontal(isEnemy).Move(launchDir, 4 * i);
                     yield return new WaitForSeconds(0.9f / 7);
                 }
                 yield return new WaitForSeconds(1.5f);
@@ -1460,10 +1462,10 @@ namespace Kaisa.Digivice {
         }
         private IEnumerator PAAttackCollision(int friendlyAttack, Sprite[] friendlySprites, int enemyAttack, Sprite[] enemySprites, int winner) {
 
-            SpriteBuilder sbFriendlyAttack = gm.BuildSprite("FriendlyAttack", animParent, 24, 24);
-            sbFriendlyAttack.Center<SpriteBuilder>().PlaceOutside(Direction.Right);
-            SpriteBuilder sbEnemyAttack = gm.BuildSprite("EnemyAttack", animParent, 24, 24);
-            sbEnemyAttack.Center<SpriteBuilder>().PlaceOutside(Direction.Left);
+            SpriteBuilder sbFriendlyAttack = ScreenElement.BuildSprite("FriendlyAttack", animParent).SetSize(24, 24);
+            sbFriendlyAttack.Center().PlaceOutside(Direction.Right);
+            SpriteBuilder sbEnemyAttack = ScreenElement.BuildSprite("EnemyAttack", animParent).SetSize(24, 24);
+            sbEnemyAttack.Center().PlaceOutside(Direction.Left);
             sbEnemyAttack.FlipHorizontal(true);
             
             if (winner == 0) sbFriendlyAttack.transform.SetAsLastSibling(); //Place the friendly attack above if he won.
@@ -1480,8 +1482,8 @@ namespace Kaisa.Digivice {
             audioMgr.PlaySound(audioMgr.attackTravelVeryLong);
             //Attacks approach each other.
             for (int i = 0; i < 16; i++) {
-                sbFriendlyAttack.MoveSprite(Direction.Left);
-                sbEnemyAttack.MoveSprite(Direction.Right);
+                sbFriendlyAttack.Move(Direction.Left);
+                sbEnemyAttack.Move(Direction.Right);
                 yield return new WaitForSeconds(Constants.ATTACK_TRAVEL_SPEED);
             }
             //Attacks collide. The pattern of this script is: tie, player win, player lose.
@@ -1524,7 +1526,7 @@ namespace Kaisa.Digivice {
                     _TransformAttackIntoCollision(sbEnemyAttack);
                     for (int i = 0; i < 40; i++) {
                         if (i == 3) sbEnemyAttack.Dispose();
-                        sbFriendlyAttack.MoveSprite(Direction.Left);
+                        sbFriendlyAttack.Move(Direction.Left);
                         yield return new WaitForSeconds(0.6f / 16f);
                     }
                 }
@@ -1532,7 +1534,7 @@ namespace Kaisa.Digivice {
                     _TransformAttackIntoCollision(sbFriendlyAttack);
                     for (int i = 0; i < 40; i++) {
                         if (i == 3) sbFriendlyAttack.Dispose();
-                        sbEnemyAttack.MoveSprite(Direction.Right);
+                        sbEnemyAttack.Move(Direction.Right);
                         yield return new WaitForSeconds(0.6f / 16f);
                     }
                 }
@@ -1551,7 +1553,7 @@ namespace Kaisa.Digivice {
                 _TransformAttackIntoCollision(loserSprite);
                 for (int i = 0; i < 40; i++) {
                     if (i == 3) loserSprite.Dispose();
-                    winnerSprite.MoveSprite(winnerDirection);
+                    winnerSprite.Move(winnerDirection);
                     yield return new WaitForSeconds(0.6f / 16f);
                 }
             }
@@ -1562,32 +1564,32 @@ namespace Kaisa.Digivice {
                 winnerSprite.SetTransparent(true); //The energy panel is transparent.
 
                 int brokenAbilityX = loserSprite.Position.x;
-                Sprite brokenAbilitySprite = loserSprite.GetSprite();
+                Sprite brokenAbilitySprite = loserSprite.Sprite;
                 Direction winnerDirection = (winner == 0) ? Direction.Left : Direction.Right;
 
-                ContainerBuilder cbBrokenAbilityUp = gm.BuildContainer("AbilityUp", animParent, 24, 12).SetMaskActive(true);
+                ContainerBuilder cbBrokenAbilityUp = ScreenElement.BuildContainer("AbilityUp", animParent).SetSize(24, 12).SetMaskActive(true);
                 cbBrokenAbilityUp.SetPosition(brokenAbilityX, 4);
-                gm.BuildSprite("AbilityUpSprite", cbBrokenAbilityUp.transform, 24, 24, 0, 0, brokenAbilitySprite).FlipHorizontal(winner == 0);
+                ScreenElement.BuildSprite("AbilityUpSprite", cbBrokenAbilityUp.transform).SetSize(24, 24).SetPosition(0, 0).SetSprite(brokenAbilitySprite).FlipHorizontal(winner == 0);
 
-                ContainerBuilder cbBrokenAbilityDown = gm.BuildContainer("AbilityDown", animParent, 24, 12).SetMaskActive(true);
+                ContainerBuilder cbBrokenAbilityDown = ScreenElement.BuildContainer("AbilityDown", animParent).SetSize(24, 12).SetMaskActive(true);
                 cbBrokenAbilityDown.SetPosition(brokenAbilityX, 16);
-                gm.BuildSprite("AbilityDownSprite", cbBrokenAbilityDown.transform, 24, 24, 0, -12, brokenAbilitySprite).FlipHorizontal(winner == 0);
+                ScreenElement.BuildSprite("AbilityDownSprite", cbBrokenAbilityDown.transform).SetSize(24, 24).SetPosition(0, -12).SetSprite(brokenAbilitySprite).FlipHorizontal(winner == 0);
 
                 loserSprite.Dispose();
                 winnerSprite.transform.SetAsLastSibling(); //Place the winning attack above everything else.
 
                 for (int i = 0; i < 32; i++) { //Enemy crush - player loses
-                    cbBrokenAbilityUp.MoveSprite<ContainerBuilder>(winnerDirection.Opposite()).MoveSprite(Direction.Up);
-                    cbBrokenAbilityDown.MoveSprite<ContainerBuilder>(winnerDirection.Opposite()).MoveSprite(Direction.Down);
-                    winnerSprite.MoveSprite(winnerDirection);
+                    cbBrokenAbilityUp.Move(winnerDirection.Opposite()).Move(Direction.Up);
+                    cbBrokenAbilityDown.Move(winnerDirection.Opposite()).Move(Direction.Down);
+                    winnerSprite.Move(winnerDirection);
                     yield return new WaitForSeconds(0.6f / 16f);
                 }
             }
             IEnumerator _CrushCollides() {
                 if (winner == 2) {
                     for (int i = 0; i < 40; i++) {
-                        sbFriendlyAttack.MoveSprite(Direction.Right);
-                        sbEnemyAttack.MoveSprite(Direction.Left);
+                        sbFriendlyAttack.Move(Direction.Right);
+                        sbEnemyAttack.Move(Direction.Left);
                         yield return new WaitForSeconds(0.6f / 16f);
                     }
                     audioMgr.StopSound();
@@ -1595,8 +1597,8 @@ namespace Kaisa.Digivice {
                 else {
                     Direction pushDirection = (winner == 0) ? Direction.Left : Direction.Right;
                     for (int i = 0; i < 40; i++) {
-                        sbFriendlyAttack.MoveSprite(pushDirection);
-                        sbEnemyAttack.MoveSprite(pushDirection);
+                        sbFriendlyAttack.Move(pushDirection);
+                        sbEnemyAttack.Move(pushDirection);
                         yield return new WaitForSeconds(0.6f / 16f);
                     }
                 }
@@ -1607,7 +1609,7 @@ namespace Kaisa.Digivice {
                 Direction winnerDirection = (winner == 0) ? Direction.Left : Direction.Right;
                 for (int i = 0; i < 40; i++) {
                     if (i == 16) loserSprite.Dispose(); //Remove the crush at the exact frame the ability is completely covering it.
-                    winnerSprite.MoveSprite(winnerDirection);
+                    winnerSprite.Move(winnerDirection);
                     yield return new WaitForSeconds(0.6f / 16f);
                 }
             }
@@ -1618,7 +1620,7 @@ namespace Kaisa.Digivice {
             Sprite sLoserCr = loserSprites[2];
             Sprite explosionBig = spriteDB.battle_explosion[0];
             Sprite explosionSmall = spriteDB.battle_explosion[1];
-            SpriteBuilder sbLoser = gm.BuildSprite("Loser", animParent, 24, 24).Center<SpriteBuilder>();
+            SpriteBuilder sbLoser = ScreenElement.BuildSprite("Loser", animParent).SetSize(24, 24).Center();
 
             sbLoser.FlipHorizontal(isEnemy); //Flip the sprite if the loser is the enemy.
             Direction winningDirection = isEnemy ? Direction.Left : Direction.Right;
@@ -1632,19 +1634,19 @@ namespace Kaisa.Digivice {
                 sbLoser.SetSprite(sLoserCr);
                 sbLoser.PlaceOutside(winningDirection.Opposite());
                 for(int i = 0; i < 64; i++) {
-                    sbLoser.MoveSprite(winningDirection);
+                    sbLoser.Move(winningDirection);
                     yield return new WaitForSeconds(0.6f / 16f);
                 }
                 yield return _ExplodeLoser();
             }
             else if (winningAttack == 2 && winningAbility != null) {
                 sbLoser.SetSprite(sLoser);
-                SpriteBuilder sbAbility = gm.BuildSprite("Loser", animParent, 24, 24, sprite: winningAbility).Center<SpriteBuilder>();
+                SpriteBuilder sbAbility = ScreenElement.BuildSprite("Loser", animParent).SetSize(24, 24).SetSprite(winningAbility).Center();
                 sbAbility.PlaceOutside(winningDirection.Opposite());
                 sbAbility.FlipHorizontal(!isEnemy); //Flip the ability if the loser is the ally.
                 for (int i = 0; i < 64; i++) {
                     if (i == 28) sbLoser.SetSprite(null);
-                    sbAbility.MoveSprite(winningDirection);
+                    sbAbility.Move(winningDirection);
                     yield return new WaitForSeconds(Constants.ATTACK_TRAVEL_SPEED);
                 }
                 audioMgr.StopSound();
@@ -1657,7 +1659,7 @@ namespace Kaisa.Digivice {
             sbLoser.SetSprite(sLoser);
 
             yield return new WaitForSeconds(0.5f);
-            ContainerBuilder cbLifeSign = gm.BuildStatSign("LIFE", animParent);
+            ContainerBuilder cbLifeSign = ScreenElement.BuildStatSign("LIFE", animParent);
 
             yield return new WaitForSeconds(0.5f);
             audioMgr.PlayButtonA();

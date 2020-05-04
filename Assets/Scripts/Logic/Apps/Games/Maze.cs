@@ -123,12 +123,20 @@ namespace Kaisa.Digivice.App {
         private int CalculateScore() => 12 * timeRemaining;
 
         private void DrawStartMenu() {
-            tbOptions[0] = gm.BuildTextBox("Start", screenDisplay.transform, "Start", DFont.Small, 28, 8, 2, 8, TextAnchor.UpperCenter);
-            tbOptions[0].SetComponentSize(28, 7);
-            tbOptions[0].SetComponentPosition(0, 1);
-            tbOptions[1] = gm.BuildTextBox("Cancel", screenDisplay.transform, "Cancel", DFont.Small, 28, 8, 2, 16, TextAnchor.UpperCenter);
-            tbOptions[0].SetComponentSize(28, 7);
-            tbOptions[1].SetComponentPosition(0, 1);
+            tbOptions[0] = ScreenElement.BuildTextBox("Start", screenDisplay.transform, DFont.Small)
+                .SetText("start")
+                .SetSize(28, 8)
+                .SetPosition(2, 8)
+                .SetAlignment(TextAnchor.UpperCenter)
+                .SetComponentSize(28, 7)
+                .SetComponentPosition(0, 1);
+            tbOptions[1] = ScreenElement.BuildTextBox("Cancel", screenDisplay.transform, DFont.Small)
+                .SetText("cancel")
+                .SetSize(28, 8)
+                .SetPosition(2, 16)
+                .SetAlignment(TextAnchor.UpperCenter)
+                .SetComponentSize(28, 7)
+                .SetComponentPosition(0, 1);
             HighlightSelection();
         }
         
@@ -152,11 +160,11 @@ namespace Kaisa.Digivice.App {
             tbOptions[1].Dispose();
             GenerateMaze();
             DrawMaze();
-            gm.BuildTextBox("Time", screenDisplay.transform, "TIME", DFont.Small, 18, 5, 1, 1);
-            tbTime = gm.BuildTextBox("TimeCount", screenDisplay.transform, timeRemaining.ToString(), DFont.Small, 10, 5, 22, 1);
+            ScreenElement.BuildTextBox("Time", screenDisplay.transform, DFont.Small).SetText("TIME").SetSize(18, 5).SetPosition(1, 1);
+            tbTime = ScreenElement.BuildTextBox("TimeCount", screenDisplay.transform, DFont.Small).SetText(timeRemaining.ToString()).SetSize(10, 5).SetPosition(22, 1);
             InvokeRepeating("CountDown", 1f, 1f);
 
-            playerMarker = gm.BuildRectangle("Player", screenDisplay.transform, 2, 2, 1, 29, 0.2f);
+            playerMarker = ScreenElement.BuildRectangle("Player", screenDisplay.transform).SetSize(2, 2).SetPosition(1, 29).SetFlickPeriod(0.2f);
             UpdateMarkerPos();
         }
         //Returns true if a movement is made.
@@ -383,7 +391,7 @@ namespace Kaisa.Digivice.App {
                     audioMgr.PlayButtonB();
                     currentScreen = 2;
 
-                    TextBoxBuilder tb = gm.BuildTextBox("Defeat", screenDisplay.transform, "Defeat", DFont.Small, 32, 11, 0, 14);
+                    TextBoxBuilder tb = ScreenElement.BuildTextBox("Defeat", screenDisplay.transform, DFont.Small).SetText("DEFEAT").SetSize(32, 11).SetPosition(0, 14);
                     tb.SetComponentSize(29, 8);
                     playerMarker.SetFlickPeriod(0f);
                 }
@@ -397,7 +405,7 @@ namespace Kaisa.Digivice.App {
             audioMgr.PlayButtonB();
             currentScreen = 3;
 
-            TextBoxBuilder tb = gm.BuildTextBox("Victory", screenDisplay.transform, "Victory", DFont.Small, 32, 11, 0, 14);
+            TextBoxBuilder tb = ScreenElement.BuildTextBox("Victory", screenDisplay.transform, DFont.Small).SetText("VICTORY").SetSize(32, 11).SetPosition(0, 14);
             tb.SetComponentSize(29, 8);
             playerMarker.SetFlickPeriod(0f);
         }

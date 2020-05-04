@@ -11,7 +11,10 @@ public class RectangleBuilder : ScreenElement {
     private bool isEnabled = true;
     private float flickPeriod = 0f;
 
-    public override T InvertColors<T>(bool val) {
+    public float FlickPeriod => flickPeriod;
+
+    //Overrides:
+    protected override void BaseInvertColors(bool val) {
         if (val) {
             rectangle.color = Constants.BACKGROUND_COLOR;
             background.color = Constants.ACTIVE_COLOR;
@@ -20,7 +23,52 @@ public class RectangleBuilder : ScreenElement {
             rectangle.color = Constants.ACTIVE_COLOR;
             background.color = Constants.BACKGROUND_COLOR;
         }
-        return this as T;
+    }
+
+    //Chained base methods:
+    public RectangleBuilder Center() {
+        BaseCenter();
+        return this;
+    }
+    public RectangleBuilder InvertColors(bool val) {
+        BaseInvertColors(val);
+        return this;
+    }
+    public RectangleBuilder Move(Direction direction, int amount = 1) {
+        BaseMove(direction, amount);
+        return this;
+    }
+    public RectangleBuilder PlaceOutside(Direction direction) {
+        BasePlaceOutside(direction);
+        return this;
+    }
+    public RectangleBuilder SetActive(bool active) {
+        BaseSetActive(active);
+        return this;
+    }
+    public RectangleBuilder SetPosition(int x, int y) {
+        BaseSetPosition(x, y);
+        return this;
+    }
+    public RectangleBuilder SetPosition(Vector2Int pos) {
+        BaseSetPosition(pos);
+        return this;
+    }
+    public RectangleBuilder SetSize(int width, int length) {
+        BaseSetSize(width, length);
+        return this;
+    }
+    public RectangleBuilder SetTransparent(bool val) {
+        BaseSetTransparent(val);
+        return this;
+    }
+    public RectangleBuilder SetX(int x) {
+        BaseSetX(x);
+        return this;
+    }
+    public RectangleBuilder SetY(int y) {
+        BaseSetY(y);
+        return this;
     }
 
     //Specific methods:
@@ -44,9 +92,6 @@ public class RectangleBuilder : ScreenElement {
         rectangle.enabled = startEnabled;
         isEnabled = startEnabled;
         return this;
-    }
-    public float GetFlickPeriod() {
-        return flickPeriod;
     }
 
     public RectangleBuilder ResetFlick(bool startEnabled = true) {
@@ -77,11 +122,5 @@ public class RectangleBuilder : ScreenElement {
                 }
             }
         }
-    }
-
-    public override T SetComponentPosition<T>(int x, int y) {
-        //TODO: Maybe it can.
-        VisualDebug.WriteLine("A rectangle builder can't set its component position.");
-        return this as T;
     }
 }

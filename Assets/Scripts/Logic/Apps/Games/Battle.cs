@@ -391,7 +391,7 @@ namespace Kaisa.Digivice.App {
                 SetScreen(gm.spriteDB.battle_mainMenu[menuIndex]);
             }
             else if (currentScreen == BattleScreen.BattleCall_DDocks) {
-                gm.BuildDDockSprite(ddockIndex, Parent);
+                gm.GetDDockScreenElement(ddockIndex, Parent);
             }
             else if (currentScreen == BattleScreen.Combat_Menu) {
                 if (SelectedMenuOption == 0) SetScreen(gm.spriteDB.battle_combatMenu[0]); //Attack
@@ -405,7 +405,7 @@ namespace Kaisa.Digivice.App {
             }
             else if (currentScreen == BattleScreen.RegularEvolve) {
                 SetScreen(gm.spriteDB.battle_callPoints_chooser);
-                gm.BuildRectangle("EvolutionCP", Parent, 3 * callPointsForEvolution, 3, 1, 27);
+                ScreenElement.BuildRectangle("EvolutionCP", Parent).SetSize(3 * callPointsForEvolution, 3).SetPosition(1, 27);
             }
             else if (currentScreen == BattleScreen.SpiritList_Elements) {
                 if (SelectedElement < 10) {
@@ -427,7 +427,7 @@ namespace Kaisa.Digivice.App {
                     sDigimon = gm.spriteDB.GetDigimonSprite(displayDigimon, SpriteAction.Default);
                 }
 
-                gm.BuildSprite("DigimonDisplay", screenDisplay.transform, 24, 24, sprite: sDigimon).Center();
+                ScreenElement.BuildSprite("DigimonDisplay", screenDisplay.transform).SetSize(24, 24).SetSprite(sDigimon).Center();
             }
         }
 

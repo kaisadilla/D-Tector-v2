@@ -166,13 +166,15 @@ namespace Kaisa.Digivice.App {
                 for (int i = firstArea; i <= firstArea + 2; i++) {
                     if (gm.DistanceMgr.GetAreaCompleted(currentMap, i)) {
                         Vector2Int markerPos = Constants.AREA_POSITIONS[currentMap][i];
-                        RectangleBuilder marker = gm.BuildRectangle("Area" + i + "Marker", screenDisplay.transform, 2, 2, markerPos.x, markerPos.y);
+                        RectangleBuilder marker = ScreenElement.BuildRectangle("Area" + i + "Marker", screenDisplay.transform)
+                            .SetSize(2, 2).SetPosition(markerPos.x, markerPos.y);
                         markerPoints.Add(marker);
                     }
                     //If this area is the current area, use a flickering point to mark it. This point is drawn on top of the marker that indicates the area has been completed.
                     if (currentArea == i) {
                         Vector2Int markerPos = Constants.AREA_POSITIONS[currentMap][i];
-                        currentAreaMarker = gm.BuildRectangle("CurrentAreaMarker", screenDisplay.transform, 2, 2, markerPos.x, markerPos.y, 0.25f);
+                        currentAreaMarker = ScreenElement.BuildRectangle("CurrentAreaMarker", screenDisplay.transform)
+                            .SetSize(2, 2).SetPosition(markerPos.x, markerPos.y).SetFlickPeriod(0.25f);
                         markerPoints.Add(currentAreaMarker);
                     }
                 }
@@ -188,8 +190,8 @@ namespace Kaisa.Digivice.App {
             if (currentAreaMarker != null) currentAreaMarker.SetActive(false);
 
             //The marker that indicates the area that is being chosen.
-            hoveredMarker = gm.BuildRectangle("OptionMarker", screenDisplay.transform, 2, 2, flickPeriod: 0.25f);
-            hoveredAreaName = gm.BuildTextBox("AreaName", screenDisplay.transform, "area", DFont.Small, 28, 5);
+            hoveredMarker = ScreenElement.BuildRectangle("OptionMarker", screenDisplay.transform).SetSize(2, 2).SetFlickPeriod(0.25f);
+            hoveredAreaName = ScreenElement.BuildTextBox("AreaName", screenDisplay.transform, DFont.Small).SetText("area").SetPosition(28, 5);
 
             if(currentMap == 0) {
                 hoveredArea = (currentSector == loadedGameSector) ? currentArea : currentSector * 3;
@@ -229,8 +231,9 @@ namespace Kaisa.Digivice.App {
             //If the area chosen is the area the player is already in, the distance will not change. Otherwise, get the distance for the new area.
             int areaDist = (hoveredArea == currentArea) ? gm.DistanceMgr.CurrentDistance : gm.DistanceMgr.Distances[currentMap][hoveredArea];
 
-            distanceScreen = gm.BuildSprite("DistanceScreen", screenDisplay.transform, sprite: gm.spriteDB.map_distanceScreen);
-            gm.BuildTextBox("Distance", distanceScreen.transform, areaDist.ToString(), DFont.Regular, 25, 5, 6, 25, TextAnchor.UpperRight);
+            distanceScreen = ScreenElement.BuildSprite("DistanceScreen", screenDisplay.transform).SetSprite(gm.spriteDB.map_distanceScreen);
+            ScreenElement.BuildTextBox("Distance", distanceScreen.transform, DFont.Regular)
+                .SetText(areaDist.ToString()).SetSize(25, 5).SetPosition(6, 25).SetAlignment(TextAnchor.UpperRight);
         }
         private void CloseViewDistance() {
             currentScreen = ScreenMap.ChoosingArea;

@@ -17,8 +17,10 @@ namespace Kaisa.Digivice {
             get => (int)(textField.rectTransform.sizeDelta.x / Constants.PIXEL_SIZE);
         }
 
-        public override T InvertColors<T>(bool val) {
-            if(val) {
+        //Overrides:
+        //TODO: This won't work currently as sprites are always black instead of white.
+        protected override void BaseInvertColors(bool val) {
+            if (val) {
                 textField.color = Constants.BACKGROUND_COLOR;
                 background.color = Constants.ACTIVE_COLOR;
             }
@@ -26,13 +28,65 @@ namespace Kaisa.Digivice {
                 textField.color = Constants.ACTIVE_COLOR;
                 background.color = Constants.BACKGROUND_COLOR;
             }
-            return this as T;
+        }
+        protected override void BaseSetSize(int width, int height) {
+            base.BaseSetSize(width, height);
+            SetComponentSize(width, height);
+        }
+        //Chained base methods:
+        public TextBoxBuilder Center() {
+            BaseCenter();
+            return this;
+        }
+        public TextBoxBuilder InvertColors(bool val) {
+            BaseInvertColors(val);
+            return this;
+        }
+        public TextBoxBuilder Move(Direction direction, int amount = 1) {
+            BaseMove(direction, amount);
+            return this;
+        }
+        public TextBoxBuilder PlaceOutside(Direction direction) {
+            BasePlaceOutside(direction);
+            return this;
+        }
+        public TextBoxBuilder SetActive(bool active) {
+            BaseSetActive(active);
+            return this;
+        }
+        public TextBoxBuilder SetPosition(int x, int y) {
+            BaseSetPosition(x, y);
+            return this;
+        }
+        public TextBoxBuilder SetPosition(Vector2Int pos) {
+            BaseSetPosition(pos);
+            return this;
+        }
+        public TextBoxBuilder SetSize(int width, int length) {
+            BaseSetSize(width, length);
+            return this;
+        }
+        public TextBoxBuilder SetTransparent(bool val) {
+            BaseSetTransparent(val);
+            return this;
+        }
+        public TextBoxBuilder SetX(int x) {
+            BaseSetX(x);
+            return this;
+        }
+        public TextBoxBuilder SetY(int y) {
+            BaseSetY(y);
+            return this;
         }
 
         //Specific methods:
         public string Text {
             get => textField.text;
             set => textField.text = value;
+        }
+        public TextBoxBuilder SetText(string text) {
+            Text = text;
+            return this;
         }
         public TextBoxBuilder SetFont(DFont font) {
             switch(font) {
@@ -58,24 +112,10 @@ namespace Kaisa.Digivice {
             background.rectTransform.sizeDelta = new Vector2(Width, background.rectTransform.sizeDelta.y);
             return this;
         }
-
-        /// <summary>
-        /// Sets the size (in digivice pixels) of both the rectangle and the component.
-        /// </summary>
-        public override T SetSize<T>(int width, int height) {
-            base.SetSize<T>(width, height);
-            SetComponentSize(width, height);
-            return this as T;
-        }
-        public override T SetComponentPosition<T>(int x, int y) {
+        public TextBoxBuilder SetComponentPosition(int x, int y) {
             textField.gameObject.PlaceInPosition(x, y);
-            return this as T;
-        }
-        /*public TextBoxBuilder SetComponentOffset(Vector2 offsetMin, Vector2 offsetMax) {
-            textField.rectTransform.offsetMin = new Vector2(offsetMin.x * Constants.PIXEL_SIZE, offsetMin.y * Constants.PIXEL_SIZE);
-            textField.rectTransform.offsetMax = new Vector2(offsetMax.x * Constants.PIXEL_SIZE, offsetMax.y * Constants.PIXEL_SIZE);
             return this;
-        }*/
+        }
         /// <summary>
         /// Sets the size of the component sprite, without resizing the Sprite Builder.
         /// </summary>

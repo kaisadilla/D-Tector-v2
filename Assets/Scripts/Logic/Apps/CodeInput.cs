@@ -77,10 +77,10 @@ namespace Kaisa.Digivice.App {
         protected override void StartApp() {
             if (appArgs.Length >= 1 && appArgs[0] == "true") submitError = true;
             for (int i = 0; i < 5; i++) {
-                underscores[i] = gm.BuildRectangle($"Underscore{i}", screenDisplay.transform, 5, 1, 2 + (6 * i), 25);
+                underscores[i] = ScreenElement.BuildRectangle($"Underscore{i}", screenDisplay.transform).SetSize(5, 1).SetPosition(2 + (6 * i), 25);
             }
-            selectedInputDisplay = gm.BuildTextBox("Input", screenDisplay.transform, "A", DFont.Big, 6, 8, 14, 8);
-            currentInputDisplay = gm.BuildTextBox("CurrentCode", screenDisplay.transform, "", DFont.Big, 30, 8, 2, 17);
+            selectedInputDisplay = ScreenElement.BuildTextBox("Input", screenDisplay.transform, DFont.Big).SetSize(6, 8).SetPosition(14, 8);
+            currentInputDisplay = ScreenElement.BuildTextBox("CurrentCode", screenDisplay.transform, DFont.Big).SetSize(30, 8).SetPosition(2, 17);
             UpdateScreen();
             gm.SetTappingEnabled(Direction.Left, true, 0.1f);
             gm.SetTappingEnabled(Direction.Right, true, 0.1f);
@@ -98,7 +98,7 @@ namespace Kaisa.Digivice.App {
 
             for (int i = 0; i < underscores.Length; i++) {
                 if (i == currentInput.Count()) {
-                    if (underscores[i].GetFlickPeriod() == 0) {
+                    if (underscores[i].FlickPeriod == 0) {
                         underscores[i].SetFlickPeriod(0.4f, false);
                     }
                 }

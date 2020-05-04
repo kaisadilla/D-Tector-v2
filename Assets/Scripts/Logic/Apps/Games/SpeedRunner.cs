@@ -71,22 +71,22 @@ namespace Kaisa.Digivice.App {
             Sprite sExplosion = gm.spriteDB.speedRunner_rocketExplosion;
             Sprite sFinish = gm.spriteDB.speedRunner_rocketFinish;
 
-            gm.BuildRectangle("Line", Parent, 1, 32, 6, 0);
-            rocket = gm.BuildSprite("Rocket", Parent, 8, 8, 15, 32, sRocket);
+            ScreenElement.BuildRectangle("Line", Parent).SetSize(1, 32).SetPosition(6, 0);
+            rocket = ScreenElement.BuildSprite("Rocket", Parent).SetSize(8, 8).SetPosition(15, 32).SetSprite(sRocket);
             StartCoroutine(IASpawnRocket());
 
             for(int i = 0; i < visualRows.Length; i++) {
-                visualRows[i] = gm.BuildContainer($"Row{i}", Parent, 24, 6, 7, -6);
+                visualRows[i] = ScreenElement.BuildContainer($"Row{i}", Parent).SetSize(24, 6).SetPosition(7, -6);
                 for (int j = 0; j < 3; j++) {
-                    gm.BuildSprite($"Asteroid{j}", visualRows[i].transform, 7, 6, j * 8, 0, sAsteroid);
+                    ScreenElement.BuildSprite($"Asteroid{j}", visualRows[i].transform).SetSize(7, 6).SetPosition(j * 8, 0).SetSprite(sAsteroid);
                 }
             }
-            finishRow = gm.BuildContainer($"FinishRow", Parent, 25, 32, 7, -32);
+            finishRow = ScreenElement.BuildContainer($"FinishRow", Parent).SetSize(25, 32).SetPosition(7, -32);
             for (int i = 0; i < 2; i++) {
-                gm.BuildSprite($"FinishLine{i}", finishRow.transform, 6, 32, 1 + (i * 17), 0, sFinish);
+                ScreenElement.BuildSprite($"FinishLine{i}", finishRow.transform).SetSize(6, 32).SetPosition(1 + (i * 17), 0).SetSprite(sFinish);
             }
             for (int i = 0; i < speedMarks.Length; i++) {
-                speedMarks[i] = gm.BuildSprite($"SpeedMark{i}", Parent, 3, 5, 2, 26 - (i * 6), sSpeedMark);
+                speedMarks[i] = ScreenElement.BuildSprite($"SpeedMark{i}", Parent).SetSize(3, 5).SetPosition(2, 26 - (i * 6)).SetSprite(sSpeedMark);
                 speedMarks[i].SetActive(false);
             }
             InvokeRepeating("CustomUpdate", 0f, THIS_DELTA_TIME);
@@ -293,9 +293,9 @@ namespace Kaisa.Digivice.App {
 
             for (int i = 0; i < 8; i++) {
                 yield return new WaitForSeconds(1f / 8);
-                rocket.MoveSprite(Direction.Up);
+                rocket.Move(Direction.Up);
             }
-            TextBoxBuilder tbStart = gm.BuildTextBox("Start", Parent, "START", DFont.Small, 24, 5, 9, 8);
+            TextBoxBuilder tbStart = ScreenElement.BuildTextBox("Start", Parent, DFont.Small).SetText("START").SetSize(24, 5).SetPosition(9, 8);
             yield return new WaitForSeconds(0.5f);
             tbStart.SetActive(false);
             yield return new WaitForSeconds(0.5f);
@@ -313,7 +313,7 @@ namespace Kaisa.Digivice.App {
             finishRow.SetActive(false);
 
             yield return new WaitForSeconds(0.5f);
-            TextBoxBuilder tbStart = gm.BuildTextBox("Game Over", Parent, "GAME\nOVER", DFont.Small, 24, 11, 9, 8);
+            TextBoxBuilder tbStart = ScreenElement.BuildTextBox("Game Over", Parent, DFont.Small).SetText("GAME\nOVER").SetSize(24, 11).SetPosition(9, 8);
             yield return new WaitForSeconds(0.5f);
             currentScreen = 1;
             gm.UnlockInput();
@@ -322,7 +322,7 @@ namespace Kaisa.Digivice.App {
             gm.LockInput();
 
             for(int i = 0; i < 32; i++) {
-                rocket.MoveSprite(Direction.Up);
+                rocket.Move(Direction.Up);
                 yield return new WaitForSeconds(1.5f / 32);
             }
             foreach(SpriteBuilder sb in speedMarks) {
@@ -331,12 +331,12 @@ namespace Kaisa.Digivice.App {
             finishRow.SetActive(false);
 
             yield return new WaitForSeconds(0.5f);
-            TextBoxBuilder tbGoal = gm.BuildTextBox("Goal", Parent, "GOAL!", DFont.Small, 24, 5, 9, 8);
+            TextBoxBuilder tbGoal = ScreenElement.BuildTextBox("Goal", Parent, DFont.Small).SetText("GOAL!").SetSize(24, 5).SetPosition(9, 8);
             yield return new WaitForSeconds(0.5f);
             currentScreen = 1;
             gm.UnlockInput();
             while (true) {
-                tbGoal.SetActive(!tbGoal.GetActive());
+                tbGoal.SetActive(!tbGoal.Active);
                 yield return new WaitForSeconds(0.5f);
             }
         }

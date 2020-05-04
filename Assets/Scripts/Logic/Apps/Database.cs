@@ -237,14 +237,14 @@ namespace Kaisa.Digivice.App {
                     spriteAlt = gm.spriteDB.GetInvertedSprite(spriteAlt);
                 }
 
-                SpriteBuilder builder = gm.BuildSprite("DigimonDisplay", screenDisplay.transform, 24, 24, 4, 4, spriteRegular);
+                SpriteBuilder builder = ScreenElement.BuildSprite("DigimonDisplay", screenDisplay.transform).SetSize(24, 24).Center().SetSprite(spriteRegular);
 
                 StartCoroutine(AnimateSprite(builder, spriteRegular, spriteAlt));
             }
             else if (CurrentScreen == ScreenDatabase.Pages) {
                 if(digimonNameSign == null) {
                     string name = string.Format("{0:000} {1}", pageDigimon.number, pageDigimon.name);
-                    TextBoxBuilder nameBuilder = gm.BuildTextBox("NameSign", screenDisplay.transform, name, DFont.Big, 32, 7, 32, 0);
+                    TextBoxBuilder nameBuilder = ScreenElement.BuildTextBox("NameSign", screenDisplay.transform, DFont.Big).SetText(name).SetSize(32, 7).SetPosition(32, 0);
                     nameBuilder.SetFitSizeToContent(true);
                     digimonNameSign = nameBuilder.gameObject;
                     StartCoroutine(AnimateName(nameBuilder));
@@ -270,20 +270,26 @@ namespace Kaisa.Digivice.App {
 
                 if (pageIndex == 0) {
                     screenDisplay.sprite = gm.spriteDB.database_pages[0];
-                    gm.BuildTextBox("Level", screenDisplay.transform, realLevel.ToString(), DFont.Regular, 15, 5, 16, 9, TextAnchor.UpperRight);
-                    gm.BuildTextBox("HP", screenDisplay.transform, stats.HP.ToString(), DFont.Regular, 15, 5, 16, 17, TextAnchor.UpperRight);
-                    gm.BuildSprite("Element", screenDisplay.transform, 30, 5, 1, 25, gm.spriteDB.elementNames[element]);
+                    ScreenElement.BuildTextBox("Level", screenDisplay.transform, DFont.Regular)
+                        .SetText(realLevel.ToString()).SetSize(15, 5).SetPosition(16, 9).SetAlignment(TextAnchor.UpperRight);
+                    ScreenElement.BuildTextBox("HP", screenDisplay.transform, DFont.Regular)
+                        .SetText(stats.HP.ToString()).SetSize(15, 5).SetPosition(16, 17).SetAlignment(TextAnchor.UpperRight);
+                    ScreenElement.BuildSprite("Element", screenDisplay.transform).SetSize(30, 5).SetPosition(1, 25).SetSprite(gm.spriteDB.elementNames[element]);
                 }
                 else if (pageIndex == 1) {
                     screenDisplay.sprite = gm.spriteDB.database_pages[1];
-                    gm.BuildTextBox("Energy", screenDisplay.transform, stats.EN.ToString(), DFont.Regular, 15, 5, 16, 9, TextAnchor.UpperRight);
-                    gm.BuildTextBox("Crush", screenDisplay.transform, stats.CR.ToString(), DFont.Regular, 15, 5, 16, 17, TextAnchor.UpperRight);
-                    gm.BuildTextBox("Ability", screenDisplay.transform, stats.AB.ToString(), DFont.Regular, 15, 5, 16, 25, TextAnchor.UpperRight);
+                    ScreenElement.BuildTextBox("Energy", screenDisplay.transform, DFont.Regular)
+                        .SetText(stats.EN.ToString()).SetSize(15, 5).SetPosition(16, 9).SetAlignment(TextAnchor.UpperRight);
+                    ScreenElement.BuildTextBox("Crush", screenDisplay.transform, DFont.Regular)
+                        .SetText(stats.CR.ToString()).SetSize(15, 5).SetPosition(16, 17).SetAlignment(TextAnchor.UpperRight);
+                    ScreenElement.BuildTextBox("Ability", screenDisplay.transform, DFont.Regular)
+                        .SetText(stats.AB.ToString()).SetSize(15, 5).SetPosition(16, 25).SetAlignment(TextAnchor.UpperRight);
                 }
                 else if (pageIndex == 2) {
                     screenDisplay.sprite = gm.spriteDB.database_pages[2];
                     gm.DatabaseMgr.TryGetCodeOfDigimon(pageDigimon.name, out string code);
-                    gm.BuildTextBox("Code", screenDisplay.transform, code, DFont.Big, 30, 8, 2, 23, TextAnchor.UpperRight);
+                    ScreenElement.BuildTextBox("Code", screenDisplay.transform, DFont.Big)
+                        .SetText(code).SetSize(30, 8).SetPosition(2, 23).SetAlignment(TextAnchor.UpperRight);
                 }
             }
             else if (CurrentScreen == ScreenDatabase.DDockList) {
@@ -291,7 +297,7 @@ namespace Kaisa.Digivice.App {
             }
             else if (CurrentScreen == ScreenDatabase.DDockDisplay) {
                 screenDisplay.sprite = gm.spriteDB.status_ddock[ddockIndex];
-                gm.BuildDDockSprite(ddockIndex, screenDisplay.transform);
+                gm.GetDDockScreenElement(ddockIndex, screenDisplay.transform);
             }
         }
 
@@ -455,7 +461,7 @@ namespace Kaisa.Digivice.App {
             while (true) {
                 builder.SetPosition(32, 0);
                 for (int i = 0; i < goWidth + 32; i++) {
-                    builder.MoveSprite(Direction.Left);
+                    builder.Move(Direction.Left);
                     yield return new WaitForSeconds(0.1f);
                 }
                 yield return new WaitForSeconds(1.5f);

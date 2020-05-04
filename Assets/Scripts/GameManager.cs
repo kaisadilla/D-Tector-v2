@@ -63,14 +63,17 @@ namespace Kaisa.Digivice {
         }
 
         public void Start() {
-            SetupManagers();
-            DatabaseMgr = new DatabaseManager(this);
             #if UNITY_EDITOR
             Application.targetFrameRate = 60;
             DisableLeaverBuster();
-            audioMgr.SetVolume(0.12f);
+            audioMgr.SetVolume(0.48f);
             VisualDebug.WriteLine("Leaver Buster disabled by the Unity editor.");
             #endif
+
+            SetupManagers();
+            SetupStaticClasses();
+            DatabaseMgr = new DatabaseManager(this);
+
             CheckLeaverBuster();
         }
 
@@ -100,6 +103,10 @@ namespace Kaisa.Digivice {
 
             shakeDetector.AssignManagers(this);
             DistanceMgr = new DistanceManager(this, loadedGame);
+        }
+
+        private void SetupStaticClasses() {
+            ScreenElement.Initialize(pContainer, pSolidSprite, pRectangle, pTextBox);
         }
 
         private void LoadGame() {
@@ -194,75 +201,12 @@ namespace Kaisa.Digivice {
             int newDistance = DistanceMgr.CurrentDistance;
             screenMgr.EnqueueAnimation(screenMgr.AAwardDistance(score, oldDistance, newDistance));
         }
-
-        #region Create Screen Elements
-        public ScreenElement BuildScreenElement(GameObject element, Transform parent, string name = "") {
-            GameObject go = Instantiate(element, parent);
-            ScreenElement goClass = go.GetComponent<ScreenElement>();
-            if (name != "") goClass.SetName(name);
-            return goClass;
-        }
-        public SpriteBuilder BuildSprite(string name, Transform parent, int width = 32, int height = 32, int posX = 0, int posY = 0, Sprite sprite = null, bool transparent = false) {
-            GameObject go = Instantiate(pSolidSprite, parent);
-            SpriteBuilder goClass = go.GetComponent<SpriteBuilder>();
-            goClass.SetName(name);
-            if (sprite != null) goClass.SetSprite(sprite);
-            goClass.SetSize(width, height);
-            goClass.SetPosition(posX, posY);
-            goClass.SetTransparent(transparent);
-            return goClass;
-        }
-        public RectangleBuilder BuildRectangle(string name, Transform parent, int width = 1, int height = 1, int posX = 0, int posY = 0, float flickPeriod = 0f, bool fillBlack = true) {
-            GameObject go = Instantiate(pRectangle, parent);
-            RectangleBuilder goClass = go.GetComponent<RectangleBuilder>();
-            goClass.SetName(name);
-            goClass.SetSize(width, height);
-            goClass.SetPosition(posX, posY);
-            goClass.SetFlickPeriod(flickPeriod);
-            goClass.SetColor(fillBlack);
-            return goClass;
-        }
-        public TextBoxBuilder BuildTextBox(string name, Transform parent, string content, DFont font, int width = 32, int height = 5, int posX = 0, int posY = 0, TextAnchor alignment = TextAnchor.UpperLeft) {
-            GameObject go = Instantiate(pTextBox, parent);
-            TextBoxBuilder goClass = go.GetComponent<TextBoxBuilder>();
-            goClass.SetName(name);
-            goClass.SetSize(width, height);
-            goClass.SetPosition(posX, posY);
-            goClass.Text = content;
-            goClass.SetFont(font);
-            goClass.SetAlignment(alignment);
-            return goClass;
-        }
-        public Transform BuildBackground(Transform parent) {
-            RectangleBuilder goClass = BuildRectangle("Parent", parent, 32, 32, fillBlack: false);
-            return goClass.transform;
-        }
-        public ContainerBuilder BuildContainer(string name, Transform parent, int width = 1, int height = 1, int posX = 0, int posY = 0, bool transparent = true) {
-            GameObject go = Instantiate(pContainer, parent);
-            ContainerBuilder goClass = go.GetComponent<ContainerBuilder>();
-            goClass.SetName(name);
-            goClass.SetSize(width, height);
-            goClass.SetPosition(posX, posY);
-            goClass.SetTransparent(transparent);
-            return goClass;
-        }
-
-        public SpriteBuilder BuildDDockSprite(int ddock, Transform parent) {
-            SpriteBuilder sbDDockName = BuildSprite("$DDock{ddock}", parent, sprite: spriteDB.status_ddock[ddock]);
+        public SpriteBuilder GetDDockScreenElement(int ddock, Transform parent) {
+            SpriteBuilder sbDDockName = ScreenElement.BuildSprite("$DDock{ddock}", parent).SetSprite(spriteDB.status_ddock[ddock]);
             Sprite dockDigimon = spriteDB.GetDigimonSprite(logicMgr.GetDDockDigimon(ddock));
             if (dockDigimon == null) dockDigimon = spriteDB.status_ddockEmpty;
-            return BuildSprite($"DigimonDDock{ddock}", sbDDockName.transform, 24, 24, 4, 8, dockDigimon);
+            return ScreenElement.BuildSprite($"DigimonDDock{ddock}", sbDDockName.transform).SetSize(24, 24).SetPosition(4, 8).SetSprite(dockDigimon);
         }
-
-        public ContainerBuilder BuildStatSign(string message, Transform parent) {
-            ContainerBuilder cbSign = BuildContainer("Sign", parent, 32, 17, 0, 15, false).SetBackgroundBlack(true);
-            TextBoxBuilder sbMessage = BuildTextBox("Sign", cbSign.transform, message, DFont.Small, 28, 5, 2, 2);
-            sbMessage.InvertColors(true);
-            TextBoxBuilder sbValue = BuildTextBox("Sign", cbSign.transform, "", DFont.Small, 28, 5, 2, 10, TextAnchor.UpperRight);
-            sbValue.InvertColors(true);
-            return cbSign;
-        }
-        #endregion
 
         /// <summary>
         /// Returns one of the three seeds of this game at random.

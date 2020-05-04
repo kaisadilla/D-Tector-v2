@@ -7,19 +7,7 @@ namespace Kaisa.Digivice {
     public class SpriteBuilder : ScreenElement {
         public Image spriteImage;
 
-        //TODO: This won't work currently as sprites are always black instead of white.
-        public override T InvertColors<T>(bool val) {
-            if (val) {
-                spriteImage.color = Constants.BACKGROUND_COLOR;
-                background.color = Constants.ACTIVE_COLOR;
-            }
-            else {
-                spriteImage.color = Constants.ACTIVE_COLOR;
-                background.color = Constants.BACKGROUND_COLOR;
-            }
-            return this as T;
-        }
-
+        //Properties:
         public int ComponentWidth {
             get => (int)(spriteImage.rectTransform.sizeDelta.x / Constants.PIXEL_SIZE);
         }
@@ -40,59 +28,82 @@ namespace Kaisa.Digivice {
         public Quaternion ComponentRotation {
             get => spriteImage.gameObject.transform.localRotation;
         }
-
         public bool IsComponentHorizontallyFlip => ComponentRotation.y == 1;
         public bool IsComponentVerticallyFlip => ComponentRotation.x == 1;
+        public Sprite Sprite => spriteImage.sprite;
 
-        /// <summary>
-        /// Sets the size (in digivice pixels) of both the rectangle and the component.
-        /// </summary>
-        public override T SetSize<T>(int width, int height) {
-            base.SetSize<T>(width, height);
+        //Overrides:
+        //TODO: This won't work currently as sprites are always black instead of white.
+        protected override void BaseInvertColors(bool val) {
+            if (val) {
+                spriteImage.color = Constants.BACKGROUND_COLOR;
+                background.color = Constants.ACTIVE_COLOR;
+            }
+            else {
+                spriteImage.color = Constants.ACTIVE_COLOR;
+                background.color = Constants.BACKGROUND_COLOR;
+            }
+        }
+        protected override void BaseSetSize(int width, int height) {
+            base.BaseSetSize(width, height);
             SetComponentSize(width, height);
-            return this as T;
+        }
+        //Chained base methods:
+        public SpriteBuilder Center() {
+            BaseCenter();
+            return this;
+        }
+        public SpriteBuilder InvertColors(bool val) {
+            BaseInvertColors(val);
+            return this;
+        }
+        public SpriteBuilder Move(Direction direction, int amount = 1) {
+            BaseMove(direction, amount);
+            return this;
+        }
+        public SpriteBuilder PlaceOutside(Direction direction) {
+            BasePlaceOutside(direction);
+            return this;
+        }
+        public SpriteBuilder SetActive(bool active) {
+            BaseSetActive(active);
+            return this;
+        }
+        public SpriteBuilder SetPosition(int x, int y) {
+            BaseSetPosition(x, y);
+            return this;
+        }
+        public SpriteBuilder SetPosition(Vector2Int pos) {
+            BaseSetPosition(pos);
+            return this;
+        }
+        public SpriteBuilder SetSize(int width, int length) {
+            BaseSetSize(width, length);
+            return this;
+        }
+        public SpriteBuilder SetTransparent(bool val) {
+            BaseSetTransparent(val);
+            return this;
+        }
+        public SpriteBuilder SetX(int x) {
+            BaseSetX(x);
+            return this;
+        }
+        public SpriteBuilder SetY(int y) {
+            BaseSetY(y);
+            return this;
         }
 
-        /// <summary>
-        /// Sets the position of the component sprite inside the Sprite Builder.
-        /// </summary>
-        public override T SetComponentPosition<T>(int x, int y) {
-            int flipOffsetX = IsComponentHorizontallyFlip ? Width : 0;
-            int flipOffsetY = IsComponentVerticallyFlip ? Height : 0;
-            spriteImage.gameObject.PlaceInPosition(x + flipOffsetX, y + flipOffsetY);
-            return this as T;
-        }
-        public SpriteBuilder SetComponentX(int x) {
-            int flipOffset = IsComponentHorizontallyFlip ? Width : 0;
-            SetComponentPosition(x + flipOffset, ComponentPosition.y);
-            return this;
-        }
-        public SpriteBuilder SetComponentY(int y) {
-            int flipOffset = IsComponentVerticallyFlip ? Height : 0;
-            SetComponentPosition(ComponentPosition.x, y + flipOffset);
-            return this;
-        }
-        /// <summary>
-        /// Sets the size of the component sprite, without resizing the Sprite Builder.
-        /// </summary>
-        public SpriteBuilder SetComponentSize(int width, int height) {
-            width *= Constants.PIXEL_SIZE;
-            height *= Constants.PIXEL_SIZE;
-            spriteImage.rectTransform.sizeDelta = new Vector2(width, height);
-            return this;
-        }
-
+        //Extra methods:
         /// <summary>
         /// Centers the component inside the Sprite Builder.
         /// </summary>
         public SpriteBuilder CenterComponent() { //TODO: Fix a bug in which this bugs if used after FlipHorizontal/Vertical.
             int x = Mathf.RoundToInt((Width - ComponentWidth) / 2f);
             int y = Mathf.RoundToInt((Height - ComponentHeight) / 2f);
-            //Debug.Log($"centerx: {x}, y {y}");
             SetComponentPosition(x, y);
             return this;
         }
-
         /// <summary>
         /// Snaps the component to a side of the Sprite Builder.
         /// </summary>
@@ -121,7 +132,6 @@ namespace Kaisa.Digivice {
             spriteImage.sprite = sprite;
             return this;
         }
-        public Sprite GetSprite() =>spriteImage.sprite;
 
         /// <summary>
         /// Flips the component of the Sprite Builder horizontally. This does not flip the Sprite Builder itself.
@@ -158,5 +168,29 @@ namespace Kaisa.Digivice {
 
             return this;
         }
+        public SpriteBuilder SetComponentSize(int width, int height) {
+            width *= Constants.PIXEL_SIZE;
+            height *= Constants.PIXEL_SIZE;
+            spriteImage.rectTransform.sizeDelta = new Vector2(width, height);
+            return this;
+        }
+        public SpriteBuilder SetComponentPosition(int x, int y) {
+            int flipOffsetX = IsComponentHorizontallyFlip ? Width : 0;
+            int flipOffsetY = IsComponentVerticallyFlip ? Height : 0;
+            spriteImage.gameObject.PlaceInPosition(x + flipOffsetX, y + flipOffsetY);
+            return this;
+        }
+        public SpriteBuilder SetComponentPosition(Vector2Int pos) => SetComponentPosition(pos.x, pos.y);
+        public SpriteBuilder SetComponentX(int x) {
+            int flipOffset = IsComponentHorizontallyFlip ? Width : 0;
+            SetComponentPosition(x + flipOffset, ComponentPosition.y);
+            return this;
+        }
+        public SpriteBuilder SetComponentY(int y) {
+            int flipOffset = IsComponentVerticallyFlip ? Height : 0;
+            SetComponentPosition(ComponentPosition.x, y + flipOffset);
+            return this;
+        }
+
     }
 }
