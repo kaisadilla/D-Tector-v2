@@ -2,8 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityScript.Steps;
 
 namespace Kaisa.Digivice.App {
     /*IMPORTANT: Texture2D's origin (coords 0, 0) is in the lower left corner, but RectTransform's position origin is in the upper left corner.
@@ -11,8 +9,6 @@ namespace Kaisa.Digivice.App {
      * This means that moving "up" in the maze is seen as moving "down" in the screen, and vice-versa.
      */
     public class Maze : DigiviceApp {
-        new protected static string appName = "maze";
-
         //Current screen
         private int currentScreen = 0; //0: Start/cancel menu, 1: maze, 2: defeat, 3: victory
         private TextBoxBuilder[] tbOptions = new TextBoxBuilder[2];

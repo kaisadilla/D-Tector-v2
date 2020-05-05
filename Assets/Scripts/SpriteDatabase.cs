@@ -25,6 +25,9 @@ public class SpriteDatabase : MonoBehaviour {
     public Sprite invertedArrowsSmall;
     public Sprite loading;
     public Sprite loadingComplete;
+    public Sprite[] pressAButton = new Sprite[2];
+    public Sprite hourglass;
+    public Sprite error;
     public Sprite[] rewardBackground = new Sprite[4];
     public Sprite[] rewards = new Sprite[5]; //0: Level
     [Header("Menus")]

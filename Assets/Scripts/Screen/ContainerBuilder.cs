@@ -78,6 +78,7 @@ namespace Kaisa.Digivice {
         }
 
         public ContainerBuilder SetBackgroundBlack(bool val) {
+            VisualDebug.WriteLine($"Background set to black: {Constants.ACTIVE_COLOR}");
             if (val) background.color = Constants.ACTIVE_COLOR;
             else background.color = Constants.BACKGROUND_COLOR;
             return this;

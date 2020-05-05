@@ -139,6 +139,10 @@ namespace Kaisa.Digivice {
                 return "Console activated.";
             }
             if (!consoleActivated) return "Invalid command.";
+            if (command.StartsWith("/cancelbattle")) {
+                gm.DisableLeaverBuster();
+                return "LeaverBuster disabled for this battle if you close the application now.";
+            }
             if (command.StartsWith("/setspiritpower")) {
                 loadedGame.CheatsUsed = true;
                 string[] args = command.Split(' ');

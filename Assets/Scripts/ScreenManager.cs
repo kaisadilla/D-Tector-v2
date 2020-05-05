@@ -286,7 +286,7 @@ namespace Kaisa.Digivice {
         }
         public IEnumerator ACharSadShort() {
             Sprite charIdle = gm.PlayerCharSprites[0];
-            Sprite charHappy = gm.PlayerCharSprites[7];
+            Sprite charSad = gm.PlayerCharSprites[7];
 
             audioMgr.PlaySound(audioMgr.charSad);
 
@@ -294,9 +294,9 @@ namespace Kaisa.Digivice {
 
             for (int i = 0; i < 2; i++) {
                 sbChar.SetSprite(charIdle);
-                yield return new WaitForSeconds(0.45f);
-                sbChar.SetSprite(charHappy);
-                yield return new WaitForSeconds(0.45f);
+                yield return new WaitForSeconds(0.475f);
+                sbChar.SetSprite(charSad);
+                yield return new WaitForSeconds(0.475f);
             }
         }
         //TODO: Make the screen exit after the player presses A.

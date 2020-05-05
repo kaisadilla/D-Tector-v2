@@ -63,7 +63,8 @@ namespace Kaisa.Digivice {
                 if (gamesMenuIndex == 0) {
                     //TODO: This is only temporary. Find Battle is not exactly Battle.
                     audioMgr.PlayButtonA();
-                    OpenAppBattle();
+                    OpenApp(gm.pAppFinder);
+                    //CallBattle();
                 }
                 else if (gamesMenuIndex == 1) {
                     gamesRewardMenuIndex = 0;
@@ -222,6 +223,7 @@ namespace Kaisa.Digivice {
                     gm.EnqueueAnimation(gm.screenMgr.ACharHappy());
                 }
             }
+            //else if ()
             currentScreen = newScreen;
             loadedApp.Dispose();
             loadedApp = null;
@@ -232,7 +234,7 @@ namespace Kaisa.Digivice {
             loadedApp = App.DigiviceApp.LoadApp(appPrefab, gm, this);
         }
 
-        private void OpenAppBattle() {
+        public void CallBattle() {
             currentScreen = Screen.App;
             Digimon randomDigimon = gm.DatabaseMgr.GetWeightedDigimon(GetPlayerLevel());
             loadedApp = App.DigiviceApp.LoadApp(gm.pAppBattle, gm, this, randomDigimon.name, "false");

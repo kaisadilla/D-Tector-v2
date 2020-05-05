@@ -1245,6 +1245,12 @@ MonoBehaviour:
     type: 3}
   loadingComplete: {fileID: 3614090101385040326, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
     type: 3}
+  pressAButton:
+  - {fileID: 3184478962246565167, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
+  - {fileID: 3484034720047783128, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
+  hourglass: {fileID: 8226685745505926520, guid: 1a7d672ab33564f4ea3128a67ae22fc2,
+    type: 3}
+  error: {fileID: 3879625174857904980, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
   rewardBackground:
   - {fileID: 8280821644423036740, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
   - {fileID: -1436953758834424533, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
@@ -2529,7 +2535,8 @@ MonoBehaviour:
     type: 3}
   pAppCamp: {fileID: 0}
   pAppConnect: {fileID: 0}
-  pAppFinder: {fileID: 0}
+  pAppFinder: {fileID: 4770717216813437012, guid: 81b033e8835d4aa4b87df3184c8ee688,
+    type: 3}
   pAppBattle: {fileID: 4770717216813437012, guid: d090104565e69b448b32531161cfd850,
     type: 3}
   pAppSpeedRunner: {fileID: 4770717216813437012, guid: 402920bbc39067948a0a6d0ae0fcba32,
