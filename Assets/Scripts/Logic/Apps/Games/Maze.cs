@@ -110,7 +110,7 @@ namespace Kaisa.Digivice.App {
             StopNavigation();
         }
         protected override IEnumerator AutoNavigateDir(Direction dir) {
-            if (!MovePlayer(Direction.Right)) {
+            if (!MovePlayer(dir)) {
                 audioMgr.PlayButtonB();
             }
             while (true) {
@@ -237,7 +237,7 @@ namespace Kaisa.Digivice.App {
             else {
                 int posX = 1 + (3 * playerPos.x);
                 int posY = 29 - (3 * playerPos.y);
-                playerMarker.SetPosition(posX, posY);
+                if (playerMarker != null) playerMarker.SetPosition(posX, posY);
             }
         }
 
@@ -393,7 +393,9 @@ namespace Kaisa.Digivice.App {
                     audioMgr.PlayButtonB();
                     currentScreen = 2;
 
-                    TextBoxBuilder tb = ScreenElement.BuildTextBox("Defeat", screenDisplay.transform, DFont.Small).SetText("DEFEAT").SetSize(32, 11).SetPosition(0, 14);
+                    TextBoxBuilder tb = ScreenElement.BuildTextBox("Defeat", screenDisplay.transform, DFont.Small)
+                        .SetText("DEFEAT").SetSize(32, 11).SetPosition(0, 14)
+                        .SetComponentSize(29, 5).SetComponentPosition(3, 1);
                     tb.SetComponentSize(29, 8);
                     playerMarker.SetFlickPeriod(0f);
                 }
@@ -407,8 +409,9 @@ namespace Kaisa.Digivice.App {
             audioMgr.PlayButtonB();
             currentScreen = 3;
 
-            TextBoxBuilder tb = ScreenElement.BuildTextBox("Victory", screenDisplay.transform, DFont.Small).SetText("VICTORY").SetSize(32, 11).SetPosition(0, 14);
-            tb.SetComponentSize(29, 8);
+            TextBoxBuilder tb = ScreenElement.BuildTextBox("Victory", screenDisplay.transform, DFont.Small)
+                .SetText("VICTORY").SetSize(32, 7).SetPosition(0, 14)
+                .SetComponentSize(29, 5).SetComponentPosition(3, 1);
             playerMarker.SetFlickPeriod(0f);
         }
     }

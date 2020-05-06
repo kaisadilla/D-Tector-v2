@@ -23,10 +23,18 @@ namespace Kaisa.Digivice.Extensions {
             }
             return array;
         }
-
-        public static int GetRandomIndex<T>(IEnumerable<T> array) {
+        /// <summary>
+        /// Returns a random index within the bounds of the IEnumerable.
+        /// </summary>
+        public static int GetRandomIndex<T>(this IEnumerable<T> array) {
             Random rng = new Random();
             return rng.Next(array.Count());
+        }
+        /// <summary>
+        /// Returns a random element from the IEnumerable.
+        /// </summary>
+        public static T GetRandomElement<T>(this IEnumerable<T> array) {
+            return array.ElementAt(array.GetRandomIndex());
         }
 
         /// <summary>

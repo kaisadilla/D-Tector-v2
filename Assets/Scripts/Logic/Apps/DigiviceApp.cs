@@ -47,6 +47,7 @@ namespace Kaisa.Digivice.App {
         protected Coroutine navigationCoroutine;
         protected virtual IEnumerator AutoNavigateDir(Direction dir) { yield return null; }
         protected void StartNavigation(Direction dir) {
+            if (navigationCoroutine != null) StopNavigation();
             navigationCoroutine = StartCoroutine(AutoNavigateDir(dir));
         }
         protected void StopNavigation() {

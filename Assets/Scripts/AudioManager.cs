@@ -18,6 +18,8 @@ namespace Kaisa.Digivice {
         public AudioClip loseDigimon;
         public AudioClip levelUp;
         public AudioClip levelDown;
+        public AudioClip triggerEvent;
+        public AudioClip travelMap;
         [Header("Database")]
         public AudioClip changeDock;
         [Header("Game - Battle")]

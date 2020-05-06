@@ -4,17 +4,26 @@ using UnityEngine;
 
 namespace Kaisa.Digivice.App {
     public class Finder : DigiviceApp {
+        public override void InputB() {
+            if (result == 0) {
+                audioMgr.PlayButtonB();
+                CloseApp(Screen.GamesMenu);
+            }
+        }
         public override void InputADown() {
             if (result == 2) {
+                audioMgr.PlayButtonA();
                 result = 0;
             }
             else {
+                audioMgr.PlayButtonA();
                 tries = 0;
                 StartLoadingBar();
             }
         }
         public override void InputAUp() {
             if (result != 3) {
+                result = 0;
                 StopLoadingBar();
             }
         }
@@ -64,7 +73,9 @@ namespace Kaisa.Digivice.App {
                     result = 2;
                     break;
                 }
-                if (Random.Range(0, 10) == 0) {
+                int thisRoundRNG = Random.Range(0, 10);
+                VisualDebug.WriteLine($"RNG: {thisRoundRNG}");
+                if (thisRoundRNG == 0) {
                     result = 3;
                     break;
                 }
@@ -97,7 +108,7 @@ namespace Kaisa.Digivice.App {
             }
             CloseApp();
             if(controller is LogicManager logicMgr) {
-                logicMgr.CallBattle();
+                logicMgr.CallRandomBattle();
             }
         }
     }

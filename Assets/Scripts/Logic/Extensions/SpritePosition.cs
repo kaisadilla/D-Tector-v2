@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Kaisa.Digivice.Extensions {
     public static class SpritePosition {
@@ -30,6 +28,10 @@ namespace Kaisa.Digivice.Extensions {
                     go.transform.localPosition += new Vector3(displacement, 0, 0);
                     break;
             }
+        }
+        public static SpriteBuilder[] Move(this SpriteBuilder[] scrArray, Direction direction, int amount = 1) {
+            foreach (SpriteBuilder scr in scrArray) scr.Move(direction, amount);
+            return scrArray;
         }
     }
 }

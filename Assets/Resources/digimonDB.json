@@ -8,7 +8,6 @@
 		"abilityName": "flames_1",
 		"element": "Fire",
 		"evolution": "Greymon",
-		"weight": "10",
 		"rarity": "Common",
 		"disabled": "false",
 		"baseLevel": "4",
@@ -28,7 +27,6 @@
 		"abilityName": "flames_1",
 		"element": "Ice",
 		"evolution": "Garurumon",
-		"weight": "10",
 		"rarity": "Common",
 		"baseLevel": "4",
 		"stats": {
@@ -47,7 +45,6 @@
 		"abilityName": "feathers_2",
 		"element": "Fire",
 		"evolution": "Birdramon",
-		"weight": "9",
 		"rarity": "Common",
 		"baseLevel": "4",
 		"stats": {
@@ -66,7 +63,6 @@
 		"abilityName": "bright",
 		"element": "Wind",
 		"evolution": "Kabuterimon",
-		"weight": "6",
 		"rarity": "Common",
 		"baseLevel": "3",
 		"stats": {
@@ -85,7 +81,6 @@
 		"abilityName": "fish",
 		"element": "Ice",
 		"evolution": "Ikkakumon",
-		"weight": "6",
 		"rarity": "Common",
 		"baseLevel": "3",
 		"stats": {
@@ -104,7 +99,6 @@
 		"abilityName": "leaves",
 		"element": "Wind",
 		"evolution": "Togemon",
-		"weight": "6",
 		"rarity": "Common",
 		"baseLevel": "4",
 		"stats": {
@@ -123,8 +117,7 @@
 		"abilityName": "bubbles",
 		"element": "Light",
 		"evolution": "Angemon",
-		"weight": "5",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "5",
 		"stats": {
 			"HP": "40",
@@ -142,14 +135,19 @@
 		"abilityName": "labramon",
 		"element": "Light",
 		"evolution": "Gatomon",
-		"weight": "4",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "4",
 		"stats": {
 			"HP": "35",
 			"EN": "10",
 			"CR": "15",
 			"AB": "35"
+		},
+		"bossStats": {
+			"HP": "250",
+			"EN": "80",
+			"CR": "150",
+			"AB": "150"
 		}
 	},
 	{
@@ -161,7 +159,6 @@
 		"abilityName": "thunder",
 		"element": "Thunder",
 		"evolution": "ExVeemon",
-		"weight": "9",
 		"rarity": "Common",
 		"baseLevel": "4",
 		"stats": {
@@ -180,7 +177,6 @@
 		"abilityName": "web",
 		"element": "Wind",
 		"evolution": "Stingmon",
-		"weight": "9",
 		"rarity": "Common",
 		"baseLevel": "4",
 		"stats": {
@@ -199,7 +195,6 @@
 		"abilityName": "feathers_2",
 		"element": "Wind",
 		"evolution": "Aquilamon",
-		"weight": "5",
 		"rarity": "Common",
 		"baseLevel": "5",
 		"stats": {
@@ -218,7 +213,6 @@
 		"abilityName": "armadillomon",
 		"element": "Earth",
 		"evolution": "Ankylomon",
-		"weight": "5",
 		"rarity": "Common",
 		"baseLevel": "5",
 		"stats": {
@@ -237,7 +231,6 @@
 		"abilityName": "flames_1",
 		"element": "Fire",
 		"evolution": "Growlmon",
-		"weight": "8",
 		"rarity": "Common",
 		"baseLevel": "5",
 		"stats": {
@@ -256,7 +249,6 @@
 		"abilityName": "leaves",
 		"element": "Light",
 		"evolution": "Kyubimon",
-		"weight": "5",
 		"rarity": "Common",
 		"baseLevel": "5",
 		"stats": {
@@ -275,7 +267,6 @@
 		"abilityName": "gust",
 		"element": "Wind",
 		"evolution": "Gargomon",
-		"weight": "7",
 		"rarity": "Common",
 		"baseLevel": "4",
 		"stats": {
@@ -294,7 +285,6 @@
 		"abilityName": "bright",
 		"element": "Light",
 		"evolution": "Turuiemon",
-		"weight": "4",
 		"rarity": "Rare",
 		"baseLevel": "4",
 		"stats": {
@@ -313,8 +303,7 @@
 		"abilityName": "waves",
 		"element": "Wind",
 		"evolution": "Strikedramon",
-		"weight": "4",
-		"rarity": "Epic",
+		"rarity": "Rare",
 		"baseLevel": "5",
 		"stats": {
 			"HP": "50",
@@ -332,8 +321,7 @@
 		"abilityName": "bomb",
 		"element": "Dark",
 		"evolution": "Boogiemon",
-		"weight": "1",
-		"rarity": "Epic",
+		"rarity": "Rare",
 		"baseLevel": "6",
 		"stats": {
 			"HP": "40",
@@ -351,7 +339,6 @@
 		"abilityName": "numemon",
 		"element": "Dark",
 		"evolution": "ShellNumemon",
-		"weight": "5",
 		"rarity": "Common",
 		"baseLevel": "2",
 		"stats": {
@@ -370,14 +357,19 @@
 		"abilityName": "kuwagamon",
 		"element": "Light",
 		"evolution": "Liamon",
-		"weight": "0",
-		"rarity": "Epic",
+		"rarity": "none",
 		"baseLevel": "5",
 		"stats": {
 			"HP": "45",
 			"EN": "25",
 			"CR": "30",
 			"AB": "10"
+		},
+		"bossStats": {
+			"HP": "330",
+			"EN": "80",
+			"CR": "140",
+			"AB": "120"
 		}
 	},
 	{
@@ -389,8 +381,7 @@
 		"abilityName": "bones",
 		"element": "Earth",
 		"evolution": "Ogremon",
-		"weight": "5",
-		"rarity": "Rare",
+		"rarity": "Common",
 		"baseLevel": "5",
 		"stats": {
 			"HP": "50",
@@ -408,7 +399,6 @@
 		"abilityName": "rock_small",
 		"element": "Earth",
 		"evolution": "Icemon",
-		"weight": "7",
 		"rarity": "Common",
 		"baseLevel": "4",
 		"stats": {
@@ -427,7 +417,6 @@
 		"abilityName": "thunderball",
 		"element": "Thunder",
 		"evolution": "Thundermon",
-		"weight": "7",
 		"rarity": "Common",
 		"baseLevel": "4",
 		"stats": {
@@ -446,7 +435,6 @@
 		"abilityName": "gizamon",
 		"element": "Water",
 		"evolution": "Shellmon",
-		"weight": "5",
 		"rarity": "Rare",
 		"baseLevel": "6",
 		"stats": {
@@ -465,7 +453,6 @@
 		"abilityName": "garurumon",
 		"element": "Dark",
 		"evolution": "Devimon",
-		"weight": "6",
 		"rarity": "Rare",
 		"baseLevel": "4",
 		"stats": {
@@ -484,8 +471,7 @@
 		"abilityName": "dinobeemon",
 		"element": "Wood",
 		"evolution": "Sukamon",
-		"weight": "5",
-		"rarity": "Rare",
+		"rarity": "Common",
 		"baseLevel": "3",
 		"stats": {
 			"HP": "35",
@@ -503,8 +489,7 @@
 		"abilityName": "bomb",
 		"element": "Wood",
 		"evolution": "Woodmon",
-		"weight": "8",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "4",
 		"stats": {
 			"HP": "45",
@@ -522,7 +507,6 @@
 		"abilityName": "fish",
 		"element": "Water",
 		"evolution": "Seadramon",
-		"weight": "6",
 		"rarity": "Common",
 		"baseLevel": "4",
 		"stats": {
@@ -541,8 +525,7 @@
 		"abilityName": "flames_1",
 		"element": "Fire",
 		"evolution": "Wizardmon",
-		"weight": "0",
-		"rarity": "Boss",
+		"rarity": "Rare",
 		"baseLevel": "5",
 		"stats": {
 			"HP": "40",
@@ -560,7 +543,6 @@
 		"abilityName": "thunderball",
 		"element": "Thunder",
 		"evolution": "Tyrannomon",
-		"weight": "8",
 		"rarity": "Common",
 		"baseLevel": "5",
 		"stats": {
@@ -579,8 +561,7 @@
 		"abilityName": "keramon",
 		"element": "Earth",
 		"evolution": "Kurisarimon",
-		"weight": "6",
-		"rarity": "Rare",
+		"rarity": "Boss",
 		"baseLevel": "5",
 		"stats": {
 			"HP": "35",
@@ -598,7 +579,6 @@
 		"abilityName": "web",
 		"element": "Wood",
 		"evolution": "Dokugumon",
-		"weight": "0",
 		"rarity": "Epic",
 		"baseLevel": "5",
 		"stats": {
@@ -617,7 +597,6 @@
 		"abilityName": "fish",
 		"element": "Water",
 		"evolution": "Coelamon",
-		"weight": "4",
 		"rarity": "Rare",
 		"baseLevel": "3",
 		"stats": {
@@ -636,7 +615,6 @@
 		"abilityName": "leaves",
 		"element": "Wood",
 		"evolution": "Kiwimon",
-		"weight": "2",
 		"rarity": "Rare",
 		"baseLevel": "6",
 		"stats": {
@@ -655,7 +633,6 @@
 		"abilityName": "web",
 		"element": "Dark",
 		"evolution": "Flymon",
-		"weight": "6",
 		"rarity": "Rare",
 		"baseLevel": "5",
 		"stats": {
@@ -674,7 +651,6 @@
 		"abilityName": "labramon",
 		"element": "Fire",
 		"evolution": "Dobermon",
-		"weight": "0",
 		"rarity": "Epic",
 		"baseLevel": "5",
 		"stats": {
@@ -693,7 +669,6 @@
 		"abilityName": "kendo",
 		"element": "Metal",
 		"evolution": "Musyamon",
-		"weight": "0",
 		"rarity": "Epic",
 		"baseLevel": "5",
 		"stats": {
@@ -712,7 +687,6 @@
 		"abilityName": "bearmon",
 		"element": "Earth",
 		"evolution": "Grizzlymon",
-		"weight": "0",
 		"rarity": "Epic",
 		"baseLevel": "5",
 		"stats": {
@@ -731,15 +705,15 @@
 		"abilityName": "flames_1",
 		"element": "Light",
 		"evolution": "Reppamon",
-		"weight": "0",
-		"rarity": "Epic",
+		"rarity": "Legendary",
 		"baseLevel": "4",
 		"stats": {
 			"HP": "45",
 			"EN": "15",
 			"CR": "10",
 			"AB": "25"
-		}
+		},
+		"exclusive": "true"
 	},
 	{
 		"number": "157",
@@ -750,7 +724,6 @@
 		"abilityName": "bomb",
 		"element": "Metal",
 		"evolution": "BigMamemon",
-		"weight": "6",
 		"rarity": "Common",
 		"baseLevel": "7",
 		"stats": {
@@ -769,7 +742,6 @@
 		"abilityName": "bones",
 		"element": "Earth",
 		"evolution": "Apemon",
-		"weight": "3",
 		"rarity": "Rare",
 		"baseLevel": "5",
 		"stats": {
@@ -788,8 +760,7 @@
 		"abilityName": "waves",
 		"element": "Light",
 		"evolution": "Drimogemon",
-		"weight": "0",
-		"rarity": "Legendary",
+		"rarity": "none",
 		"baseLevel": "5",
 		"stats": {
 			"HP": "45",
@@ -807,8 +778,7 @@
 		"abilityName": "poop",
 		"element": "Dark",
 		"evolution": "Deputymon",
-		"weight": "0",
-		"rarity": "Legendary",
+		"rarity": "none",
 		"baseLevel": "5",
 		"stats": {
 			"HP": "45",
@@ -826,8 +796,7 @@
 		"abilityName": "flames_1",
 		"element": "Dark",
 		"evolution": "Meramon",
-		"weight": "6",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "3",
 		"stats": {
 			"HP": "25",
@@ -845,7 +814,6 @@
 		"abilityName": "bearmon",
 		"element": "Wind",
 		"evolution": "Deltamon",
-		"weight": "6",
 		"rarity": "Common",
 		"baseLevel": "5",
 		"stats": {
@@ -864,7 +832,6 @@
 		"abilityName": "bearmon",
 		"element": "Light",
 		"evolution": "Nanimon",
-		"weight": "0",
 		"rarity": "Epic",
 		"baseLevel": "3",
 		"stats": {
@@ -872,6 +839,12 @@
 			"EN": "15",
 			"CR": "10",
 			"AB": "25"
+		},
+		"bossStats": {
+			"HP": "300",
+			"EN": "150",
+			"CR": "50",
+			"AB": "150"
 		}
 	},
 	{
@@ -883,15 +856,15 @@
 		"abilityName": "venommyotismon",
 		"element": "Dark",
 		"evolution": "Devidramon",
-		"weight": "2",
-		"rarity": "Rare",
+		"rarity": "Legendary",
 		"baseLevel": "3",
 		"stats": {
 			"HP": "30",
 			"EN": "25",
 			"CR": "25",
 			"AB": "15"
-		}
+		},
+		"exclusive": "true"
 	},
 	{
 		"number": "181",
@@ -902,8 +875,7 @@
 		"abilityName": "bubbles",
 		"element": "Light",
 		"evolution": "Piddomon",
-		"weight": "1",
-		"rarity": "Rare",
+		"rarity": "Legendary",
 		"baseLevel": "5",
 		"stats": {
 			"HP": "40",
@@ -921,8 +893,7 @@
 		"abilityName": "waves",
 		"element": "Wind",
 		"evolution": "Boarmon",
-		"weight": "0",
-		"rarity": "Boss",
+		"rarity": "Common",
 		"baseLevel": "8",
 		"stats": {
 			"HP": "50",
@@ -940,7 +911,6 @@
 		"abilityName": "icedoll",
 		"element": "Ice",
 		"evolution": "Hyogamon",
-		"weight": "2",
 		"rarity": "Epic",
 		"baseLevel": "5",
 		"stats": {
@@ -959,8 +929,7 @@
 		"abilityName": "thunder",
 		"element": "Fire",
 		"evolution": "Guardromon",
-		"weight": "4",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "4",
 		"stats": {
 			"HP": "40",
@@ -978,8 +947,7 @@
 		"abilityName": "wave",
 		"element": "Water",
 		"evolution": "Gesomon",
-		"weight": "3",
-		"rarity": "Common",
+		"rarity": "Epic",
 		"baseLevel": "4",
 		"stats": {
 			"HP": "55",
@@ -997,8 +965,7 @@
 		"abilityName": "fish",
 		"element": "Ice",
 		"evolution": "Dolphmon",
-		"weight": "3",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "4",
 		"stats": {
 			"HP": "45",
@@ -1016,8 +983,7 @@
 		"abilityName": "bearmon",
 		"element": "Wind",
 		"evolution": "Kokatorimon",
-		"weight": "3",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "4",
 		"stats": {
 			"HP": "45",
@@ -1035,8 +1001,7 @@
 		"abilityName": "wave",
 		"element": "Water",
 		"evolution": "Gekomon",
-		"weight": "3",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "3",
 		"stats": {
 			"HP": "40",
@@ -1054,8 +1019,7 @@
 		"abilityName": "flames_1",
 		"element": "Ice",
 		"evolution": "Gururumon",
-		"weight": "1",
-		"rarity": "Epic",
+		"rarity": "Legendary",
 		"baseLevel": "5",
 		"stats": {
 			"HP": "45",
@@ -1073,7 +1037,6 @@
 		"abilityName": "bubbles",
 		"element": "Dark",
 		"evolution": "Raremon",
-		"weight": "5",
 		"rarity": "Common",
 		"baseLevel": "3",
 		"stats": {
@@ -1092,8 +1055,7 @@
 		"abilityName": "bubbles",
 		"element": "Water",
 		"evolution": "Tuskmon",
-		"weight": "2",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "4",
 		"stats": {
 			"HP": "35",
@@ -1111,8 +1073,7 @@
 		"abilityName": "thunder",
 		"element": "Metal",
 		"evolution": "Mekanorimon",
-		"weight": "4",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "4",
 		"stats": {
 			"HP": "40",
@@ -1130,8 +1091,7 @@
 		"abilityName": "toyagumon",
 		"element": "Metal",
 		"evolution": "ExTyrannomon",
-		"weight": "0",
-		"rarity": "Boss",
+		"rarity": "Rare",
 		"baseLevel": "5",
 		"stats": {
 			"HP": "40",
@@ -1149,8 +1109,7 @@
 		"abilityName": "dinobeemon",
 		"element": "Dark",
 		"evolution": "Arkadimon (Champion)",
-		"weight": "0",
-		"rarity": "Legendary",
+		"rarity": "none",
 		"baseLevel": "7",
 		"stats": {
 			"HP": "55",
@@ -1167,8 +1126,7 @@
 		"spiritType": "None",
 		"abilityName": "bubbles",
 		"element": "Light",
-		"weight": "0",
-		"rarity": "Legendary",
+		"rarity": "none",
 		"baseLevel": "2",
 		"stats": {
 			"HP": "30",
@@ -1186,7 +1144,6 @@
 		"abilityName": "big_flame",
 		"element": "Fire",
 		"evolution": "MetalGreymon",
-		"weight": "10",
 		"rarity": "Common",
 		"baseLevel": "18",
 		"stats": {
@@ -1205,7 +1162,6 @@
 		"abilityName": "garurumon",
 		"element": "Ice",
 		"evolution": "WereGarurumon",
-		"weight": "10",
 		"rarity": "Common",
 		"baseLevel": "18",
 		"stats": {
@@ -1224,7 +1180,6 @@
 		"abilityName": "flames_3",
 		"element": "Fire",
 		"evolution": "Garudamon",
-		"weight": "9",
 		"rarity": "Common",
 		"baseLevel": "17",
 		"stats": {
@@ -1243,7 +1198,6 @@
 		"abilityName": "kuwagamon",
 		"element": "Wind",
 		"evolution": "MegaKabuterimon",
-		"weight": "6",
 		"rarity": "Common",
 		"baseLevel": "15",
 		"stats": {
@@ -1262,7 +1216,6 @@
 		"abilityName": "dinobeemon",
 		"element": "Ice",
 		"evolution": "Zudomon",
-		"weight": "6",
 		"rarity": "Common",
 		"baseLevel": "16",
 		"stats": {
@@ -1281,7 +1234,6 @@
 		"abilityName": "punch_2",
 		"element": "Wood",
 		"evolution": "Lillymon",
-		"weight": "6",
 		"rarity": "Common",
 		"baseLevel": "16",
 		"stats": {
@@ -1300,8 +1252,7 @@
 		"abilityName": "angemon",
 		"element": "Wind",
 		"evolution": "MagnaAngemon",
-		"weight": "5",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "24",
 		"stats": {
 			"HP": "85",
@@ -1319,8 +1270,7 @@
 		"abilityName": "gust",
 		"element": "Light",
 		"evolution": "Angewomon",
-		"weight": "4",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "65",
@@ -1338,7 +1288,6 @@
 		"abilityName": "exveemon",
 		"element": "Thunder",
 		"evolution": "Paildramon",
-		"weight": "9",
 		"rarity": "Common",
 		"baseLevel": "17",
 		"stats": {
@@ -1357,7 +1306,6 @@
 		"abilityName": "stingmon",
 		"element": "Wind",
 		"evolution": "Dinobeemon",
-		"weight": "9",
 		"rarity": "Common",
 		"baseLevel": "16",
 		"stats": {
@@ -1376,7 +1324,6 @@
 		"abilityName": "feathers",
 		"element": "Wind",
 		"evolution": "Silphymon",
-		"weight": "5",
 		"rarity": "Common",
 		"baseLevel": "16",
 		"stats": {
@@ -1395,7 +1342,6 @@
 		"abilityName": "steamroll_small",
 		"element": "Earth",
 		"evolution": "Shakkomon",
-		"weight": "5",
 		"rarity": "Common",
 		"baseLevel": "15",
 		"stats": {
@@ -1414,15 +1360,15 @@
 		"abilityName": "exveemon",
 		"element": "Thunder",
 		"evolution": "AeroVeedramon",
-		"weight": "5",
-		"rarity": "Rare",
+		"rarity": "Legendary",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "75",
 			"EN": "50",
 			"CR": "40",
 			"AB": "30"
-		}
+		},
+		"exclusive": "true"
 	},
 	{
 		"number": "362",
@@ -1433,7 +1379,6 @@
 		"abilityName": "big_flame",
 		"element": "Fire",
 		"evolution": "WarGrowlmon",
-		"weight": "8",
 		"rarity": "Common",
 		"baseLevel": "21",
 		"stats": {
@@ -1452,7 +1397,6 @@
 		"abilityName": "kyubimon",
 		"element": "Light",
 		"evolution": "Taomon",
-		"weight": "5",
 		"rarity": "Common",
 		"baseLevel": "22",
 		"stats": {
@@ -1471,7 +1415,6 @@
 		"abilityName": "rockets_small_2",
 		"element": "Wind",
 		"evolution": "Rapidmon",
-		"weight": "7",
 		"rarity": "Common",
 		"baseLevel": "18",
 		"stats": {
@@ -1490,7 +1433,6 @@
 		"abilityName": "shuriken",
 		"element": "Light",
 		"evolution": "Antylamon (Deva)",
-		"weight": "4",
 		"rarity": "Rare",
 		"baseLevel": "20",
 		"stats": {
@@ -1509,14 +1451,19 @@
 		"abilityName": "labramon",
 		"element": "Dark",
 		"evolution": "Antylamon (Virus)",
-		"weight": "3",
-		"rarity": "Epic",
+		"rarity": "Legendary",
 		"baseLevel": "22",
 		"stats": {
 			"HP": "80",
 			"EN": "35",
 			"CR": "50",
 			"AB": "35"
+		},
+		"bossStats": {
+			"HP": "260",
+			"EN": "100",
+			"CR": "150",
+			"AB": "100"
 		}
 	},
 	{
@@ -1528,8 +1475,7 @@
 		"abilityName": "strikedramon",
 		"element": "Wind",
 		"evolution": "Cyberdramon",
-		"weight": "4",
-		"rarity": "Epic",
+		"rarity": "Rare",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "75",
@@ -1547,8 +1493,7 @@
 		"abilityName": "rhinokabuterimon",
 		"element": "Dark",
 		"evolution": "Phelesmon",
-		"weight": "2",
-		"rarity": "Epic",
+		"rarity": "Rare",
 		"baseLevel": "16",
 		"stats": {
 			"HP": "60",
@@ -1565,7 +1510,6 @@
 		"spiritType": "None",
 		"abilityName": "numemon",
 		"element": "Dark",
-		"weight": "9",
 		"rarity": "Common",
 		"baseLevel": "7",
 		"stats": {
@@ -1584,8 +1528,7 @@
 		"abilityName": "poop",
 		"element": "Dark",
 		"evolution": "KingNumemon",
-		"weight": "0",
-		"rarity": "Boss",
+		"rarity": "Common",
 		"baseLevel": "9",
 		"stats": {
 			"HP": "55",
@@ -1603,8 +1546,7 @@
 		"abilityName": "leomon",
 		"element": "Light",
 		"evolution": "GrapLeomon",
-		"weight": "7",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "16",
 		"stats": {
 			"HP": "65",
@@ -1622,8 +1564,7 @@
 		"abilityName": "leomon",
 		"element": "Light",
 		"evolution": "LoaderLeomon",
-		"weight": "0",
-		"rarity": "Epic",
+		"rarity": "none",
 		"baseLevel": "15",
 		"stats": {
 			"HP": "60",
@@ -1641,14 +1582,19 @@
 		"abilityName": "spiked_ball",
 		"element": "Earth",
 		"evolution": "Minotarumon",
-		"weight": "6",
-		"rarity": "Rare",
+		"rarity": "Common",
 		"baseLevel": "15",
 		"stats": {
 			"HP": "75",
 			"EN": "35",
 			"CR": "30",
 			"AB": "20"
+		},
+		"bossStats": {
+			"HP": "360",
+			"EN": "120",
+			"CR": "120",
+			"AB": "50"
 		}
 	},
 	{
@@ -1660,8 +1606,7 @@
 		"abilityName": "azulongmon",
 		"element": "Earth",
 		"evolution": "Rockmon",
-		"weight": "6",
-		"rarity": "Rare",
+		"rarity": "Common",
 		"baseLevel": "14",
 		"stats": {
 			"HP": "55",
@@ -1679,7 +1624,6 @@
 		"abilityName": "rock_big",
 		"element": "Earth",
 		"evolution": "Rockmon",
-		"weight": "5",
 		"rarity": "Rare",
 		"baseLevel": "17",
 		"stats": {
@@ -1698,8 +1642,7 @@
 		"abilityName": "thunderball",
 		"element": "Thunder",
 		"evolution": "Thunderbirdmon",
-		"weight": "6",
-		"rarity": "Rare",
+		"rarity": "Common",
 		"baseLevel": "12",
 		"stats": {
 			"HP": "50",
@@ -1717,7 +1660,6 @@
 		"abilityName": "stars",
 		"element": "Metal",
 		"evolution": "SuperStarmon",
-		"weight": "6",
 		"rarity": "Common",
 		"baseLevel": "13",
 		"stats": {
@@ -1736,7 +1678,6 @@
 		"abilityName": "kuwagamon",
 		"element": "Wind",
 		"evolution": "Okuwamon",
-		"weight": "6",
 		"rarity": "Common",
 		"baseLevel": "15",
 		"stats": {
@@ -1755,7 +1696,6 @@
 		"abilityName": "wave",
 		"element": "Water",
 		"evolution": "Whamon",
-		"weight": "6",
 		"rarity": "Common",
 		"baseLevel": "12",
 		"stats": {
@@ -1774,8 +1714,7 @@
 		"abilityName": "wave",
 		"element": "Water",
 		"evolution": "Scorpiomon",
-		"weight": "3",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "12",
 		"stats": {
 			"HP": "65",
@@ -1793,8 +1732,7 @@
 		"abilityName": "fish",
 		"element": "Water",
 		"evolution": "WaruSeadramon",
-		"weight": "6",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "13",
 		"stats": {
 			"HP": "50",
@@ -1812,14 +1750,19 @@
 		"abilityName": "ravemon",
 		"element": "Dark",
 		"evolution": "Myotismon",
-		"weight": "0",
-		"rarity": "Boss",
+		"rarity": "Epic",
 		"baseLevel": "23",
 		"stats": {
 			"HP": "80",
 			"EN": "55",
 			"CR": "45",
 			"AB": "35"
+		},
+		"bossStats": {
+			"HP": "260",
+			"EN": "150",
+			"CR": "130",
+			"AB": "110"
 		}
 	},
 	{
@@ -1831,8 +1774,7 @@
 		"abilityName": "icedoll",
 		"element": "Ice",
 		"evolution": "Monzaemon",
-		"weight": "8",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "14",
 		"stats": {
 			"HP": "75",
@@ -1850,8 +1792,7 @@
 		"abilityName": "punch",
 		"element": "Earth",
 		"evolution": "Pumpkinmon",
-		"weight": "4",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "14",
 		"stats": {
 			"HP": "70",
@@ -1869,7 +1810,6 @@
 		"abilityName": "fish",
 		"element": "Water",
 		"evolution": "MarineDevimon",
-		"weight": "8",
 		"rarity": "Common",
 		"baseLevel": "12",
 		"stats": {
@@ -1888,14 +1828,19 @@
 		"abilityName": "poop",
 		"element": "Dark",
 		"evolution": "Etemon",
-		"weight": "4",
-		"rarity": "Rare",
+		"rarity": "Common",
 		"baseLevel": "10",
 		"stats": {
 			"HP": "50",
 			"EN": "25",
 			"CR": "20",
 			"AB": "35"
+		},
+		"bossStats": {
+			"HP": "200",
+			"EN": "180",
+			"CR": "40",
+			"AB": "180"
 		}
 	},
 	{
@@ -1907,14 +1852,19 @@
 		"abilityName": "gust",
 		"element": "Wood",
 		"evolution": "Cherrymon",
-		"weight": "0",
-		"rarity": "Boss",
+		"rarity": "Rare",
 		"baseLevel": "14",
 		"stats": {
 			"HP": "65",
 			"EN": "20",
 			"CR": "35",
 			"AB": "35"
+		},
+		"bossStats": {
+			"HP": "400",
+			"EN": "70",
+			"CR": "100",
+			"AB": "100"
 		}
 	},
 	{
@@ -1926,7 +1876,6 @@
 		"abilityName": "wave",
 		"element": "Water",
 		"evolution": "MegaSeadramon",
-		"weight": "8",
 		"rarity": "Common",
 		"baseLevel": "17",
 		"stats": {
@@ -1945,14 +1894,19 @@
 		"abilityName": "starbeam",
 		"element": "Metal",
 		"evolution": "Wisemon",
-		"weight": "6",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "16",
 		"stats": {
 			"HP": "60",
 			"EN": "25",
 			"CR": "20",
 			"AB": "55"
+		},
+		"bossStats": {
+			"HP": "220",
+			"EN": "150",
+			"CR": "50",
+			"AB": "220"
 		}
 	},
 	{
@@ -1964,8 +1918,7 @@
 		"abilityName": "flames_big",
 		"element": "Dark",
 		"evolution": "MetalTyrannomon",
-		"weight": "4",
-		"rarity": "Rare",
+		"rarity": "Common",
 		"baseLevel": "18",
 		"stats": {
 			"HP": "75",
@@ -1983,8 +1936,7 @@
 		"abilityName": "bearmon",
 		"element": "Wind",
 		"evolution": "ShogunGekomon",
-		"weight": "2",
-		"rarity": "Rare",
+		"rarity": "Common",
 		"baseLevel": "8",
 		"stats": {
 			"HP": "50",
@@ -2002,8 +1954,7 @@
 		"abilityName": "rockets_small_1",
 		"element": "Metal",
 		"evolution": "Andromon",
-		"weight": "6",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "15",
 		"stats": {
 			"HP": "65",
@@ -2021,7 +1972,6 @@
 		"abilityName": "gust",
 		"element": "Wind",
 		"evolution": "Okuwamon",
-		"weight": "2",
 		"rarity": "Rare",
 		"baseLevel": "13",
 		"stats": {
@@ -2040,7 +1990,6 @@
 		"abilityName": "kuwagamon",
 		"element": "Earth",
 		"evolution": "Giromon",
-		"weight": "6",
 		"rarity": "Rare",
 		"baseLevel": "14",
 		"stats": {
@@ -2059,7 +2008,6 @@
 		"abilityName": "kuwagamon",
 		"element": "Wind",
 		"evolution": "Arukenimon",
-		"weight": "2",
 		"rarity": "Rare",
 		"baseLevel": "14",
 		"stats": {
@@ -2078,7 +2026,6 @@
 		"abilityName": "rockets_small_1",
 		"element": "Metal",
 		"evolution": "Mummymon",
-		"weight": "7",
 		"rarity": "Common",
 		"baseLevel": "11",
 		"stats": {
@@ -2097,8 +2044,7 @@
 		"abilityName": "rockets_small_2",
 		"element": "Metal",
 		"evolution": "Mummymon",
-		"weight": "0",
-		"rarity": "Legendary",
+		"rarity": "Epic",
 		"baseLevel": "11",
 		"stats": {
 			"HP": "55",
@@ -2116,7 +2062,6 @@
 		"abilityName": "fish",
 		"element": "Water",
 		"evolution": "Scorpiomon",
-		"weight": "3",
 		"rarity": "Common",
 		"baseLevel": "13",
 		"stats": {
@@ -2135,7 +2080,6 @@
 		"abilityName": "chibikiwi",
 		"element": "Wood",
 		"evolution": "Blossomon",
-		"weight": "3",
 		"rarity": "Common",
 		"baseLevel": "12",
 		"stats": {
@@ -2154,7 +2098,6 @@
 		"abilityName": "kendo",
 		"element": "Dark",
 		"evolution": "Blossomon",
-		"weight": "5",
 		"rarity": "Rare",
 		"baseLevel": "11",
 		"stats": {
@@ -2173,8 +2116,7 @@
 		"abilityName": "kendo",
 		"element": "Dark",
 		"evolution": "Cherrymon",
-		"weight": "3",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "11",
 		"stats": {
 			"HP": "45",
@@ -2192,7 +2134,6 @@
 		"abilityName": "kuwagamon",
 		"element": "Earth",
 		"evolution": "BomberNanimon",
-		"weight": "6",
 		"rarity": "Common",
 		"baseLevel": "12",
 		"stats": {
@@ -2211,8 +2152,7 @@
 		"abilityName": "kurisarimon",
 		"element": "Earth",
 		"evolution": "Infermon",
-		"weight": "4",
-		"rarity": "Rare",
+		"rarity": "Boss",
 		"baseLevel": "16",
 		"stats": {
 			"HP": "60",
@@ -2230,15 +2170,15 @@
 		"abilityName": "flames_1",
 		"element": "Dark",
 		"evolution": "LadyDevimon",
-		"weight": "2",
-		"rarity": "Epic",
+		"rarity": "Legendary",
 		"baseLevel": "18",
 		"stats": {
 			"HP": "60",
 			"EN": "40",
 			"CR": "40",
 			"AB": "35"
-		}
+		},
+		"exclusive": "true"
 	},
 	{
 		"number": "392",
@@ -2249,7 +2189,6 @@
 		"abilityName": "flames_2",
 		"element": "Dark",
 		"evolution": "Cerberusmon",
-		"weight": "0",
 		"rarity": "Epic",
 		"baseLevel": "16",
 		"stats": {
@@ -2268,7 +2207,6 @@
 		"abilityName": "kamas",
 		"element": "Wind",
 		"evolution": "Asuramon",
-		"weight": "0",
 		"rarity": "Epic",
 		"baseLevel": "15",
 		"stats": {
@@ -2287,7 +2225,6 @@
 		"abilityName": "shuriken",
 		"element": "Earth",
 		"evolution": "Pandamon",
-		"weight": "0",
 		"rarity": "Epic",
 		"baseLevel": "15",
 		"stats": {
@@ -2306,7 +2243,6 @@
 		"abilityName": "kamas",
 		"element": "Metal",
 		"evolution": "Knightmon",
-		"weight": "0",
 		"rarity": "Epic",
 		"baseLevel": "15",
 		"stats": {
@@ -2325,15 +2261,15 @@
 		"abilityName": "shuriken",
 		"element": "Light",
 		"evolution": "Chirinmon",
-		"weight": "0",
-		"rarity": "Epic",
+		"rarity": "Legendary",
 		"baseLevel": "17",
 		"stats": {
 			"HP": "65",
 			"EN": "25",
 			"CR": "50",
 			"AB": "35"
-		}
+		},
+		"exclusive": "true"
 	},
 	{
 		"number": "139",
@@ -2344,7 +2280,6 @@
 		"abilityName": "bomb",
 		"element": "Metal",
 		"evolution": "MetalMamemon",
-		"weight": "4",
 		"rarity": "Common",
 		"baseLevel": "16",
 		"stats": {
@@ -2363,7 +2298,6 @@
 		"abilityName": "bones",
 		"element": "Earth",
 		"evolution": "Andromon",
-		"weight": "5",
 		"rarity": "Common",
 		"baseLevel": "17",
 		"stats": {
@@ -2382,8 +2316,7 @@
 		"abilityName": "grapleomon",
 		"element": "Dark",
 		"evolution": "Garbagemon",
-		"weight": "2",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "8",
 		"stats": {
 			"HP": "35",
@@ -2401,8 +2334,7 @@
 		"abilityName": "thunder",
 		"element": "Light",
 		"evolution": "Hippogriffomon",
-		"weight": "2",
-		"rarity": "Common",
+		"rarity": "Epic",
 		"baseLevel": "14",
 		"stats": {
 			"HP": "50",
@@ -2420,7 +2352,6 @@
 		"abilityName": "vegiemon",
 		"element": "Wood",
 		"evolution": "Pumpkinmon",
-		"weight": "6",
 		"rarity": "Common",
 		"baseLevel": "13",
 		"stats": {
@@ -2439,8 +2370,7 @@
 		"abilityName": "vegiemon",
 		"element": "Wood",
 		"evolution": "ShogunGekomon",
-		"weight": "3",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "14",
 		"stats": {
 			"HP": "50",
@@ -2458,7 +2388,6 @@
 		"abilityName": "icedoll",
 		"element": "Ice",
 		"evolution": "Piximon",
-		"weight": "5",
 		"rarity": "Rare",
 		"disabled": "true",
 		"baseLevel": "13",
@@ -2478,8 +2407,7 @@
 		"abilityName": "bones",
 		"element": "Earth",
 		"evolution": "Jagamon",
-		"weight": "2",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "13",
 		"stats": {
 			"HP": "70",
@@ -2497,8 +2425,7 @@
 		"abilityName": "flames_3",
 		"element": "Fire",
 		"evolution": "SkullMeramon",
-		"weight": "6",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "16",
 		"stats": {
 			"HP": "65",
@@ -2516,8 +2443,7 @@
 		"abilityName": "big_flame",
 		"element": "Earth",
 		"evolution": "Orochimon",
-		"weight": "6",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "17",
 		"stats": {
 			"HP": "70",
@@ -2535,7 +2461,6 @@
 		"abilityName": "metalgarurumon",
 		"element": "Dark",
 		"evolution": "Gigadramon",
-		"weight": "5",
 		"rarity": "Rare",
 		"baseLevel": "17",
 		"stats": {
@@ -2554,8 +2479,7 @@
 		"abilityName": "gigasmon",
 		"element": "Earth",
 		"evolution": "Jagamon",
-		"weight": "3",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "16",
 		"stats": {
 			"HP": "80",
@@ -2573,8 +2497,7 @@
 		"abilityName": "gigasmon",
 		"element": "Earth",
 		"evolution": "Triceramon",
-		"weight": "6",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "18",
 		"stats": {
 			"HP": "75",
@@ -2592,8 +2515,7 @@
 		"abilityName": "big_flame",
 		"element": "Fire",
 		"evolution": "BlackWarGrowlmon",
-		"weight": "3",
-		"rarity": "Epic",
+		"rarity": "Legendary",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "80",
@@ -2611,8 +2533,7 @@
 		"abilityName": "kyubimon",
 		"element": "Light",
 		"evolution": "Doumon",
-		"weight": "3",
-		"rarity": "Epic",
+		"rarity": "Legendary",
 		"baseLevel": "21",
 		"stats": {
 			"HP": "75",
@@ -2630,8 +2551,7 @@
 		"abilityName": "rockets_small_2",
 		"element": "Wind",
 		"evolution": "BlackRapidmon",
-		"weight": "3",
-		"rarity": "Epic",
+		"rarity": "Legendary",
 		"baseLevel": "17",
 		"stats": {
 			"HP": "60",
@@ -2649,14 +2569,19 @@
 		"abilityName": "garurumon",
 		"element": "Dark",
 		"evolution": "Dragomon",
-		"weight": "0",
-		"rarity": "Boss",
+		"rarity": "Common",
 		"baseLevel": "15",
 		"stats": {
 			"HP": "75",
 			"EN": "25",
 			"CR": "25",
 			"AB": "35"
+		},
+		"bossStats": {
+			"HP": "350",
+			"EN": "110",
+			"CR": "110",
+			"AB": "110"
 		}
 	},
 	{
@@ -2668,7 +2593,6 @@
 		"abilityName": "fish",
 		"element": "Water",
 		"evolution": "Dragomon",
-		"weight": "2",
 		"rarity": "Rare",
 		"baseLevel": "13",
 		"stats": {
@@ -2687,8 +2611,7 @@
 		"abilityName": "snimon",
 		"element": "Wind",
 		"evolution": "JewelBeemon",
-		"weight": "0",
-		"rarity": "Boss",
+		"rarity": "Common",
 		"baseLevel": "14",
 		"stats": {
 			"HP": "55",
@@ -2706,8 +2629,7 @@
 		"abilityName": "waves_2",
 		"element": "Dark",
 		"evolution": "Phantomon",
-		"weight": "6",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "13",
 		"stats": {
 			"HP": "45",
@@ -2725,8 +2647,7 @@
 		"abilityName": "waves_2",
 		"element": "Dark",
 		"evolution": "IceDevimon",
-		"weight": "2",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "14",
 		"stats": {
 			"HP": "60",
@@ -2744,8 +2665,7 @@
 		"abilityName": "happy_missile",
 		"element": "Metal",
 		"evolution": "Tankdramon",
-		"weight": "6",
-		"rarity": "Legendary",
+		"rarity": "Rare",
 		"baseLevel": "18",
 		"stats": {
 			"HP": "75",
@@ -2763,7 +2683,6 @@
 		"abilityName": "icedoll",
 		"element": "Ice",
 		"evolution": "IceLeomon",
-		"weight": "5",
 		"rarity": "Epic",
 		"baseLevel": "15",
 		"stats": {
@@ -2782,8 +2701,7 @@
 		"abilityName": "rockets_small_1",
 		"element": "Metal",
 		"evolution": "Datamon",
-		"weight": "6",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "14",
 		"stats": {
 			"HP": "60",
@@ -2801,8 +2719,7 @@
 		"abilityName": "angemon",
 		"element": "Light",
 		"evolution": "Pegasusmon",
-		"weight": "1",
-		"rarity": "Epic",
+		"rarity": "Legendary",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "70",
@@ -2820,14 +2737,19 @@
 		"abilityName": "imperialdramon",
 		"element": "Dark",
 		"evolution": "Mephistomon",
-		"weight": "3",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "22",
 		"stats": {
 			"HP": "80",
 			"EN": "35",
 			"CR": "40",
 			"AB": "50"
+		},
+		"bossStats": {
+			"HP": "100",
+			"EN": "90",
+			"CR": "100",
+			"AB": "120"
 		}
 	},
 	{
@@ -2839,7 +2761,6 @@
 		"abilityName": "labramon",
 		"element": "Dark",
 		"evolution": "Cerberusmon",
-		"weight": "0",
 		"rarity": "Rare",
 		"baseLevel": "11",
 		"stats": {
@@ -2847,7 +2768,14 @@
 			"EN": "20",
 			"CR": "35",
 			"AB": "30"
-		}
+		},
+		"bossStats": {
+			"HP": "290",
+			"EN": "80",
+			"CR": "120",
+			"AB": "110"
+		},
+		"exclusive": "true"
 	},
 	{
 		"number": "179",
@@ -2858,8 +2786,7 @@
 		"abilityName": "garurumon",
 		"element": "Ice",
 		"evolution": "MachGaogamon",
-		"weight": "1",
-		"rarity": "Epic",
+		"rarity": "Legendary",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "75",
@@ -2877,7 +2804,6 @@
 		"abilityName": "gust",
 		"element": "Wind",
 		"evolution": "Megadramon",
-		"weight": "6",
 		"rarity": "Rare",
 		"baseLevel": "20",
 		"stats": {
@@ -2896,7 +2822,6 @@
 		"abilityName": "rhinokabuterimon",
 		"element": "Metal",
 		"evolution": "MetalTyrannomon",
-		"weight": "4",
 		"rarity": "Rare",
 		"baseLevel": "17",
 		"stats": {
@@ -2915,7 +2840,6 @@
 		"abilityName": "kendo",
 		"element": "Metal",
 		"evolution": "Knightmon",
-		"weight": "1",
 		"rarity": "Epic",
 		"baseLevel": "13",
 		"stats": {
@@ -2934,7 +2858,6 @@
 		"abilityName": "kuwagamon",
 		"element": "Wind",
 		"evolution": "Dinobeemon",
-		"weight": "6",
 		"rarity": "Rare",
 		"baseLevel": "12",
 		"stats": {
@@ -2953,8 +2876,7 @@
 		"abilityName": "kuwagamon",
 		"element": "Earth",
 		"evolution": "Okuwamon",
-		"weight": "4",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "12",
 		"stats": {
 			"HP": "50",
@@ -2972,8 +2894,7 @@
 		"abilityName": "punch",
 		"element": "Earth",
 		"evolution": "Volcamon",
-		"weight": "5",
-		"rarity": "Common",
+		"rarity": "Epic",
 		"baseLevel": "16",
 		"stats": {
 			"HP": "75",
@@ -2991,8 +2912,7 @@
 		"abilityName": "kyubimon",
 		"element": "Fire",
 		"evolution": "Karatenmon",
-		"weight": "6",
-		"rarity": "Common",
+		"rarity": "Epic",
 		"baseLevel": "17",
 		"stats": {
 			"HP": "85",
@@ -3010,8 +2930,7 @@
 		"abilityName": "ravemon",
 		"element": "Metal",
 		"evolution": "Bulbmon",
-		"weight": "4",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"disabled": "true",
 		"baseLevel": "17",
 		"stats": {
@@ -3030,15 +2949,15 @@
 		"abilityName": "ravemon",
 		"element": "Light",
 		"evolution": "Beastmon",
-		"weight": "0",
-		"rarity": "Epic",
+		"rarity": "Legendary",
 		"baseLevel": "19",
 		"stats": {
 			"HP": "65",
 			"EN": "40",
 			"CR": "45",
 			"AB": "35"
-		}
+		},
+		"exclusive": "true"
 	},
 	{
 		"number": "200",
@@ -3049,8 +2968,7 @@
 		"abilityName": "flames_2",
 		"element": "Fire",
 		"evolution": "MetalGreymon",
-		"weight": "3",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "16",
 		"stats": {
 			"HP": "60",
@@ -3068,8 +2986,7 @@
 		"abilityName": "flames_2",
 		"element": "Dark",
 		"evolution": "MetalTyrannomon",
-		"weight": "3",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "16",
 		"stats": {
 			"HP": "60",
@@ -3087,8 +3004,7 @@
 		"abilityName": "flames_3",
 		"element": "Fire",
 		"evolution": "Gigadramon",
-		"weight": "2",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "21",
 		"stats": {
 			"HP": "70",
@@ -3106,7 +3022,6 @@
 		"abilityName": "feathers",
 		"element": "Wind",
 		"evolution": "Crowmon",
-		"weight": "2",
 		"rarity": "Epic",
 		"baseLevel": "14",
 		"stats": {
@@ -3125,8 +3040,7 @@
 		"abilityName": "kuwagamon",
 		"element": "Dark",
 		"evolution": "MegaKabuterimon",
-		"weight": "3",
-		"rarity": "Epic",
+		"rarity": "Rare",
 		"baseLevel": "12",
 		"stats": {
 			"HP": "55",
@@ -3144,8 +3058,7 @@
 		"abilityName": "flames_2",
 		"element": "Fire",
 		"evolution": "Asuramon",
-		"weight": "3",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "13",
 		"stats": {
 			"HP": "45",
@@ -3163,8 +3076,7 @@
 		"abilityName": "waves_2",
 		"element": "Metal",
 		"evolution": "Bulbmon",
-		"weight": "0",
-		"rarity": "Epic",
+		"rarity": "Legendary",
 		"baseLevel": "18",
 		"stats": {
 			"HP": "100",
@@ -3182,7 +3094,6 @@
 		"abilityName": "waves_2",
 		"element": "Metal",
 		"evolution": "Datamon",
-		"weight": "0",
 		"rarity": "Legendary",
 		"baseLevel": "14",
 		"stats": {
@@ -3201,7 +3112,6 @@
 		"abilityName": "wave",
 		"element": "Water",
 		"evolution": "MarineDevimon",
-		"weight": "2",
 		"rarity": "Epic",
 		"baseLevel": "13",
 		"stats": {
@@ -3220,8 +3130,7 @@
 		"abilityName": "saberleomon",
 		"element": "Wind",
 		"evolution": "Cerberusmon",
-		"weight": "2",
-		"rarity": "Epic",
+		"rarity": "Legendary",
 		"baseLevel": "15",
 		"stats": {
 			"HP": "50",
@@ -3239,7 +3148,6 @@
 		"abilityName": "stars",
 		"element": "Dark",
 		"evolution": "Beastmon",
-		"weight": "1",
 		"rarity": "Epic",
 		"baseLevel": "17",
 		"stats": {
@@ -3258,7 +3166,6 @@
 		"abilityName": "wave",
 		"element": "Water",
 		"evolution": "Whamon",
-		"weight": "5",
 		"rarity": "Rare",
 		"baseLevel": "16",
 		"stats": {
@@ -3277,8 +3184,7 @@
 		"abilityName": "grankuwagamon",
 		"element": "Dark",
 		"evolution": "Arkadimon (Perfect)",
-		"weight": "0",
-		"rarity": "Legendary",
+		"rarity": "none",
 		"baseLevel": "23",
 		"stats": {
 			"HP": "90",
@@ -3296,8 +3202,7 @@
 		"abilityName": "starbeam",
 		"element": "Metal",
 		"evolution": "Datamon",
-		"weight": "0",
-		"rarity": "Legendary",
+		"rarity": "none",
 		"baseLevel": "12",
 		"stats": {
 			"HP": "50",
@@ -3315,7 +3220,6 @@
 		"abilityName": "missiles_1",
 		"element": "Fire",
 		"evolution": "WarGreymon",
-		"weight": "10",
 		"rarity": "Common",
 		"baseLevel": "35",
 		"stats": {
@@ -3334,7 +3238,6 @@
 		"abilityName": "punch",
 		"element": "Ice",
 		"evolution": "MetalGarurumon",
-		"weight": "10",
 		"rarity": "Common",
 		"baseLevel": "35",
 		"stats": {
@@ -3353,7 +3256,6 @@
 		"abilityName": "punch",
 		"element": "Fire",
 		"evolution": "Phoenixmon",
-		"weight": "9",
 		"rarity": "Common",
 		"baseLevel": "33",
 		"stats": {
@@ -3372,7 +3274,6 @@
 		"abilityName": "grankuwagamon",
 		"element": "Wind",
 		"evolution": "HerculesKabuterimon",
-		"weight": "6",
 		"rarity": "Common",
 		"baseLevel": "29",
 		"stats": {
@@ -3391,7 +3292,6 @@
 		"abilityName": "zudomon",
 		"element": "Ice",
 		"evolution": "Vikemon",
-		"weight": "6",
 		"rarity": "Common",
 		"baseLevel": "31",
 		"stats": {
@@ -3410,7 +3310,6 @@
 		"abilityName": "lillymon",
 		"element": "Wood",
 		"evolution": "Rosemon",
-		"weight": "6",
 		"rarity": "Common",
 		"baseLevel": "32",
 		"stats": {
@@ -3429,8 +3328,7 @@
 		"abilityName": "magnaangemon",
 		"element": "Wind",
 		"evolution": "Seraphimon",
-		"weight": "5",
-		"rarity": "Common",
+		"rarity": "Epic",
 		"baseLevel": "46",
 		"stats": {
 			"HP": "130",
@@ -3448,8 +3346,7 @@
 		"abilityName": "arrows_2",
 		"element": "Light",
 		"evolution": "Ophanimon",
-		"weight": "4",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "39",
 		"stats": {
 			"HP": "110",
@@ -3467,7 +3364,6 @@
 		"abilityName": "missiles_1",
 		"element": "Dark",
 		"evolution": "BlackWarGreymon",
-		"weight": "6",
 		"rarity": "Rare",
 		"baseLevel": "40",
 		"stats": {
@@ -3486,7 +3382,6 @@
 		"abilityName": "spikes",
 		"element": "Thunder",
 		"evolution": "Imperialdramon",
-		"weight": "9",
 		"rarity": "Common",
 		"baseLevel": "33",
 		"stats": {
@@ -3505,7 +3400,6 @@
 		"abilityName": "dinobeemon",
 		"element": "Wind",
 		"evolution": "GranKuwagamon",
-		"weight": "9",
 		"rarity": "Common",
 		"baseLevel": "32",
 		"stats": {
@@ -3524,7 +3418,6 @@
 		"abilityName": "silphymon",
 		"element": "Wind",
 		"evolution": "Valkyrimon",
-		"weight": "5",
 		"rarity": "Common",
 		"baseLevel": "30",
 		"stats": {
@@ -3543,7 +3436,6 @@
 		"abilityName": "garurumon",
 		"element": "Earth",
 		"evolution": "Lampmon",
-		"weight": "5",
 		"rarity": "Common",
 		"baseLevel": "29",
 		"stats": {
@@ -3562,15 +3454,15 @@
 		"abilityName": "arukenimon",
 		"element": "Thunder",
 		"evolution": "UlforceVeedramon",
-		"weight": "5",
-		"rarity": "Rare",
+		"rarity": "Legendary",
 		"baseLevel": "37",
 		"stats": {
 			"HP": "110",
 			"EN": "65",
 			"CR": "55",
 			"AB": "45"
-		}
+		},
+		"exclusive": "true"
 	},
 	{
 		"number": "484",
@@ -3581,15 +3473,15 @@
 		"abilityName": "unknown_3",
 		"element": "Wind",
 		"evolution": "MegaGargomon",
-		"weight": "6",
-		"rarity": "Rare",
+		"rarity": "Legendary",
 		"baseLevel": "33",
 		"stats": {
 			"HP": "75",
 			"EN": "75",
 			"CR": "30",
 			"AB": "75"
-		}
+		},
+		"exclusive": "true"
 	},
 	{
 		"number": "364",
@@ -3600,7 +3492,6 @@
 		"abilityName": "wargrowlmon",
 		"element": "Fire",
 		"evolution": "Gallantmon",
-		"weight": "8",
 		"rarity": "Common",
 		"baseLevel": "40",
 		"stats": {
@@ -3619,7 +3510,6 @@
 		"abilityName": "taomon",
 		"element": "Light",
 		"evolution": "Sakuyamon",
-		"weight": "5",
 		"rarity": "Common",
 		"baseLevel": "42",
 		"stats": {
@@ -3638,7 +3528,6 @@
 		"abilityName": "rockets_big",
 		"element": "Wind",
 		"evolution": "MegaGargomon",
-		"weight": "7",
 		"rarity": "Common",
 		"baseLevel": "35",
 		"stats": {
@@ -3657,7 +3546,6 @@
 		"abilityName": "antylamon",
 		"element": "Light",
 		"evolution": "Kerpymon (Good)",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "41",
 		"stats": {
@@ -3676,8 +3564,7 @@
 		"abilityName": "antylamon",
 		"element": "Dark",
 		"evolution": "Kerpymon (Evil)",
-		"weight": "3",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "38",
 		"stats": {
 			"HP": "120",
@@ -3695,8 +3582,7 @@
 		"abilityName": "cyberdramon",
 		"element": "Wind",
 		"evolution": "Justimon",
-		"weight": "4",
-		"rarity": "Epic",
+		"rarity": "Rare",
 		"baseLevel": "37",
 		"stats": {
 			"HP": "110",
@@ -3714,8 +3600,7 @@
 		"abilityName": "gulfmon",
 		"element": "Dark",
 		"evolution": "Beelzemon",
-		"weight": "2",
-		"rarity": "Epic",
+		"rarity": "Rare",
 		"baseLevel": "32",
 		"stats": {
 			"HP": "90",
@@ -3732,8 +3617,7 @@
 		"spiritType": "None",
 		"abilityName": "poop",
 		"element": "Dark",
-		"weight": "5",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "25",
 		"stats": {
 			"HP": "75",
@@ -3750,8 +3634,7 @@
 		"spiritType": "None",
 		"abilityName": "poop",
 		"element": "Dark",
-		"weight": "5",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "26",
 		"stats": {
 			"HP": "80",
@@ -3769,8 +3652,7 @@
 		"abilityName": "grapleomon",
 		"element": "Light",
 		"evolution": "BanchoLeomon",
-		"weight": "7",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "33",
 		"stats": {
 			"HP": "100",
@@ -3788,8 +3670,7 @@
 		"abilityName": "millenniummon",
 		"element": "Light",
 		"evolution": "SaberLeomon",
-		"weight": "4",
-		"rarity": "Epic",
+		"rarity": "none",
 		"baseLevel": "34",
 		"stats": {
 			"HP": "100",
@@ -3807,8 +3688,7 @@
 		"abilityName": "megidramon",
 		"element": "Earth",
 		"evolution": "Marsmon",
-		"weight": "6",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "29",
 		"stats": {
 			"HP": "90",
@@ -3826,7 +3706,6 @@
 		"abilityName": "rock_big",
 		"element": "Earth",
 		"evolution": "ElDoradimon",
-		"weight": "7",
 		"rarity": "Common",
 		"baseLevel": "33",
 		"stats": {
@@ -3845,7 +3724,6 @@
 		"abilityName": "thunder",
 		"element": "Thunder",
 		"evolution": "Azulongmon",
-		"weight": "7",
 		"rarity": "Common",
 		"baseLevel": "36",
 		"stats": {
@@ -3863,8 +3741,7 @@
 		"spiritType": "None",
 		"abilityName": "stars",
 		"element": "Metal",
-		"weight": "6",
-		"rarity": "Common",
+		"rarity": "Epic",
 		"baseLevel": "26",
 		"stats": {
 			"HP": "85",
@@ -3882,7 +3759,6 @@
 		"abilityName": "unknown_2",
 		"element": "Wind",
 		"evolution": "GranKuwagamon",
-		"weight": "4",
 		"rarity": "Rare",
 		"baseLevel": "29",
 		"stats": {
@@ -3901,7 +3777,6 @@
 		"abilityName": "wave",
 		"element": "Water",
 		"evolution": "Plesiomon",
-		"weight": "4",
 		"rarity": "Rare",
 		"baseLevel": "33",
 		"stats": {
@@ -3920,8 +3795,7 @@
 		"abilityName": "labramon",
 		"element": "Water",
 		"evolution": "MarineAngemon",
-		"weight": "3",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "30",
 		"stats": {
 			"HP": "80",
@@ -3939,8 +3813,7 @@
 		"abilityName": "wave",
 		"element": "Water",
 		"evolution": "Pukumon",
-		"weight": "3",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "34",
 		"stats": {
 			"HP": "95",
@@ -3958,8 +3831,7 @@
 		"abilityName": "vademon",
 		"element": "Metal",
 		"evolution": "Ebemon",
-		"weight": "6",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "27",
 		"stats": {
 			"HP": "80",
@@ -3977,8 +3849,7 @@
 		"abilityName": "waves_2",
 		"element": "Dark",
 		"evolution": "Devitamamon",
-		"weight": "4",
-		"rarity": "Common",
+		"rarity": "Epic",
 		"baseLevel": "28",
 		"stats": {
 			"HP": "85",
@@ -3996,7 +3867,6 @@
 		"abilityName": "gigasmon",
 		"element": "Earth",
 		"evolution": "Spinomon",
-		"weight": "6",
 		"rarity": "Common",
 		"baseLevel": "31",
 		"stats": {
@@ -4015,8 +3885,7 @@
 		"abilityName": "myotismon",
 		"element": "Dark",
 		"evolution": "VenomMyotismon",
-		"weight": "5",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "41",
 		"stats": {
 			"HP": "125",
@@ -4034,7 +3903,6 @@
 		"abilityName": "malomyotismon",
 		"element": "Dark",
 		"evolution": "Daemon (Cloaked)",
-		"weight": "5",
 		"rarity": "Rare",
 		"baseLevel": "38",
 		"stats": {
@@ -4053,8 +3921,7 @@
 		"abilityName": "leomon",
 		"element": "Ice",
 		"evolution": "Vikemon",
-		"weight": "4",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "31",
 		"stats": {
 			"HP": "100",
@@ -4072,7 +3939,6 @@
 		"abilityName": "wave",
 		"element": "Water",
 		"evolution": "Leviamon",
-		"weight": "8",
 		"rarity": "Common",
 		"baseLevel": "34",
 		"stats": {
@@ -4091,8 +3957,7 @@
 		"abilityName": "etemon",
 		"element": "Wood",
 		"evolution": "MetalEtemon",
-		"weight": "7",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "30",
 		"stats": {
 			"HP": "95",
@@ -4110,8 +3975,7 @@
 		"abilityName": "tree_2",
 		"element": "Wood",
 		"evolution": "Puppetmon",
-		"weight": "6",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "32",
 		"stats": {
 			"HP": "120",
@@ -4129,8 +3993,7 @@
 		"abilityName": "unknown_2",
 		"element": "Water",
 		"evolution": "MetalSeadramon",
-		"weight": "5",
-		"rarity": "Common",
+		"rarity": "Epic",
 		"baseLevel": "35",
 		"stats": {
 			"HP": "95",
@@ -4148,7 +4011,6 @@
 		"abilityName": "stars",
 		"element": "Metal",
 		"evolution": "Piedmon",
-		"weight": "2",
 		"rarity": "Epic",
 		"baseLevel": "35",
 		"stats": {
@@ -4167,7 +4029,6 @@
 		"abilityName": "kazemon",
 		"element": "Metal",
 		"evolution": "Machinedramon",
-		"weight": "6",
 		"rarity": "Rare",
 		"baseLevel": "36",
 		"stats": {
@@ -4186,8 +4047,7 @@
 		"abilityName": "dreaper",
 		"element": "Wind",
 		"evolution": "Boltmon",
-		"weight": "5",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "30",
 		"stats": {
 			"HP": "110",
@@ -4205,7 +4065,6 @@
 		"abilityName": "missiles_2",
 		"element": "Metal",
 		"evolution": "HiAndromon",
-		"weight": "8",
 		"rarity": "Common",
 		"baseLevel": "29",
 		"stats": {
@@ -4224,7 +4083,6 @@
 		"abilityName": "kimeramon",
 		"element": "Dark",
 		"evolution": "Millenniummon",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "28",
 		"stats": {
@@ -4243,8 +4101,7 @@
 		"abilityName": "arukenimon",
 		"element": "Wood",
 		"evolution": "Parasimon",
-		"weight": "7",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "32",
 		"stats": {
 			"HP": "85",
@@ -4262,8 +4119,7 @@
 		"abilityName": "pharaoh",
 		"element": "Earth",
 		"evolution": "Pharaohmon",
-		"weight": "7",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "29",
 		"stats": {
 			"HP": "90",
@@ -4281,8 +4137,7 @@
 		"abilityName": "wave",
 		"element": "Water",
 		"evolution": "SkullScorpiomon",
-		"weight": "6",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "28",
 		"stats": {
 			"HP": "85",
@@ -4300,8 +4155,7 @@
 		"abilityName": "lillymon",
 		"element": "Wood",
 		"evolution": "Murmukusmon",
-		"weight": "6",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "31",
 		"stats": {
 			"HP": "110",
@@ -4319,8 +4173,7 @@
 		"abilityName": "bomb",
 		"element": "Metal",
 		"evolution": "PileVolcamon",
-		"weight": "2",
-		"rarity": "Epic",
+		"rarity": "Rare",
 		"baseLevel": "24",
 		"stats": {
 			"HP": "75",
@@ -4338,8 +4191,7 @@
 		"abilityName": "grapleomon",
 		"element": "Earth",
 		"evolution": "SkullMammothmon",
-		"weight": "6",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "33",
 		"stats": {
 			"HP": "100",
@@ -4357,8 +4209,7 @@
 		"abilityName": "infermon",
 		"element": "Earth",
 		"evolution": "Diaboromon",
-		"weight": "6",
-		"rarity": "Common",
+		"rarity": "Boss",
 		"baseLevel": "36",
 		"stats": {
 			"HP": "100",
@@ -4376,7 +4227,6 @@
 		"abilityName": "myotismon",
 		"element": "Dark",
 		"evolution": "Lilithmon",
-		"weight": "4",
 		"rarity": "Rare",
 		"baseLevel": "38",
 		"stats": {
@@ -4395,8 +4245,7 @@
 		"abilityName": "goldramon",
 		"element": "Water",
 		"evolution": "Ghoulmon",
-		"weight": "0",
-		"rarity": "Boss",
+		"rarity": "Legendary",
 		"baseLevel": "43",
 		"stats": {
 			"HP": "125",
@@ -4414,8 +4263,7 @@
 		"abilityName": "kyubimon",
 		"element": "Light",
 		"evolution": "Magnadramon",
-		"weight": "5",
-		"rarity": "Rare",
+		"rarity": "Legendary",
 		"baseLevel": "40",
 		"stats": {
 			"HP": "60",
@@ -4433,8 +4281,7 @@
 		"abilityName": "flames_big",
 		"element": "Dark",
 		"evolution": "Anubismon",
-		"weight": "0",
-		"rarity": "Boss",
+		"rarity": "Rare",
 		"baseLevel": "32",
 		"stats": {
 			"HP": "80",
@@ -4452,8 +4299,7 @@
 		"abilityName": "flames_3",
 		"element": "Fire",
 		"evolution": "Zanbamon",
-		"weight": "4",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "36",
 		"stats": {
 			"HP": "90",
@@ -4471,8 +4317,7 @@
 		"abilityName": "birds",
 		"element": "Wind",
 		"evolution": "Ravemon",
-		"weight": "0",
-		"rarity": "Boss",
+		"rarity": "Rare",
 		"baseLevel": "36",
 		"stats": {
 			"HP": "85",
@@ -4490,8 +4335,7 @@
 		"abilityName": "missiles_3",
 		"element": "Fire",
 		"evolution": "PileVolcamon",
-		"weight": "6",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "36",
 		"stats": {
 			"HP": "100",
@@ -4509,8 +4353,7 @@
 		"abilityName": "kendo",
 		"element": "Metal",
 		"evolution": "Gallantmon",
-		"weight": "6",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "31",
 		"stats": {
 			"HP": "110",
@@ -4528,15 +4371,15 @@
 		"abilityName": "snimon",
 		"element": "Light",
 		"evolution": "Kentaurosmon",
-		"weight": "2",
-		"rarity": "Rare",
+		"rarity": "Legendary",
 		"baseLevel": "35",
 		"stats": {
 			"HP": "100",
 			"EN": "40",
 			"CR": "75",
 			"AB": "50"
-		}
+		},
+		"exclusive": "true"
 	},
 	{
 		"number": "158",
@@ -4547,7 +4390,6 @@
 		"abilityName": "bomb_small",
 		"element": "Metal",
 		"evolution": "PrinceMamemon",
-		"weight": "6",
 		"rarity": "Common",
 		"baseLevel": "29",
 		"stats": {
@@ -4566,8 +4408,7 @@
 		"abilityName": "bomb",
 		"element": "Metal",
 		"evolution": "HiAndromon",
-		"weight": "5",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "32",
 		"stats": {
 			"HP": "95",
@@ -4585,8 +4426,7 @@
 		"abilityName": "bomb",
 		"element": "Metal",
 		"evolution": "Reapermon",
-		"weight": "2",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "32",
 		"stats": {
 			"HP": "95",
@@ -4603,8 +4443,7 @@
 		"spiritType": "None",
 		"abilityName": "poop",
 		"element": "Metal",
-		"weight": "5",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "24",
 		"stats": {
 			"HP": "65",
@@ -4622,8 +4461,7 @@
 		"abilityName": "hippogriffomon",
 		"element": "Wind",
 		"evolution": "Gryphonmon",
-		"weight": "3",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "34",
 		"stats": {
 			"HP": "105",
@@ -4641,8 +4479,7 @@
 		"abilityName": "mephistomon",
 		"element": "Wood",
 		"evolution": "Boltmon",
-		"weight": "4",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "33",
 		"stats": {
 			"HP": "90",
@@ -4660,8 +4497,7 @@
 		"abilityName": "murmukusmon",
 		"element": "Metal",
 		"evolution": "Boltmon",
-		"weight": "3",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "33",
 		"stats": {
 			"HP": "100",
@@ -4679,8 +4515,7 @@
 		"abilityName": "flames_3",
 		"element": "Fire",
 		"evolution": "Boltmon",
-		"weight": "3",
-		"rarity": "Common",
+		"rarity": "Epic",
 		"baseLevel": "31",
 		"stats": {
 			"HP": "90",
@@ -4698,8 +4533,7 @@
 		"abilityName": "flames_3",
 		"element": "Metal",
 		"evolution": "Quetzalmon",
-		"weight": "0",
-		"rarity": "Boss",
+		"rarity": "Rare",
 		"baseLevel": "39",
 		"stats": {
 			"HP": "115",
@@ -4717,8 +4551,7 @@
 		"abilityName": "mephistomon",
 		"element": "Dark",
 		"evolution": "Gulfmon",
-		"weight": "7",
-		"rarity": "Common",
+		"rarity": "Epic",
 		"baseLevel": "38",
 		"stats": {
 			"HP": "105",
@@ -4736,8 +4569,7 @@
 		"abilityName": "wargrowlmon",
 		"element": "Fire",
 		"evolution": "ChaosGallantmon",
-		"weight": "3",
-		"rarity": "Epic",
+		"rarity": "Legendary",
 		"baseLevel": "38",
 		"stats": {
 			"HP": "115",
@@ -4755,8 +4587,7 @@
 		"abilityName": "taomon",
 		"element": "Light",
 		"evolution": "Kuzuhamon",
-		"weight": "3",
-		"rarity": "Epic",
+		"rarity": "Legendary",
 		"baseLevel": "40",
 		"stats": {
 			"HP": "110",
@@ -4774,8 +4605,7 @@
 		"abilityName": "rockets_big",
 		"element": "Wind",
 		"evolution": "BlackMegaGargomon",
-		"weight": "3",
-		"rarity": "Epic",
+		"rarity": "Legendary",
 		"baseLevel": "33",
 		"stats": {
 			"HP": "100",
@@ -4792,7 +4622,6 @@
 		"spiritType": "None",
 		"abilityName": "labramon",
 		"element": "Wind",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "37",
 		"stats": {
@@ -4810,7 +4639,6 @@
 		"spiritType": "None",
 		"abilityName": "grankuwagamon",
 		"element": "Wind",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "41",
 		"stats": {
@@ -4828,7 +4656,6 @@
 		"spiritType": "None",
 		"abilityName": "goldramon",
 		"element": "Earth",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "37",
 		"stats": {
@@ -4846,7 +4673,6 @@
 		"spiritType": "None",
 		"abilityName": "imperialdramon",
 		"element": "Dark",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "38",
 		"stats": {
@@ -4864,7 +4690,6 @@
 		"spiritType": "None",
 		"abilityName": "arrows",
 		"element": "Light",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "34",
 		"stats": {
@@ -4882,7 +4707,6 @@
 		"spiritType": "None",
 		"abilityName": "lucemon",
 		"element": "Metal",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "33",
 		"stats": {
@@ -4900,7 +4724,6 @@
 		"spiritType": "None",
 		"abilityName": "feathers_2",
 		"element": "Wind",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "31",
 		"stats": {
@@ -4918,7 +4741,6 @@
 		"spiritType": "None",
 		"abilityName": "garurumon",
 		"element": "Water",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "39",
 		"stats": {
@@ -4936,7 +4758,6 @@
 		"spiritType": "None",
 		"abilityName": "stingmon",
 		"element": "Wood",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "40",
 		"stats": {
@@ -4954,7 +4775,6 @@
 		"spiritType": "None",
 		"abilityName": "leaves",
 		"element": "Ice",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "29",
 		"stats": {
@@ -4972,7 +4792,6 @@
 		"spiritType": "None",
 		"abilityName": "infermon",
 		"element": "Dark",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "36",
 		"stats": {
@@ -4991,7 +4810,6 @@
 		"abilityName": "toyagumon",
 		"element": "Wind",
 		"evolution": "WaruMonzaemon",
-		"weight": "7",
 		"rarity": "Common",
 		"baseLevel": "28",
 		"stats": {
@@ -5009,8 +4827,7 @@
 		"spiritType": "None",
 		"abilityName": "bright",
 		"element": "Wood",
-		"weight": "5",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "29",
 		"stats": {
 			"HP": "80",
@@ -5028,8 +4845,7 @@
 		"abilityName": "cyberdramon",
 		"element": "Dark",
 		"evolution": "MetalPhantomon",
-		"weight": "0",
-		"rarity": "Boss",
+		"rarity": "Common",
 		"baseLevel": "36",
 		"stats": {
 			"HP": "95",
@@ -5047,8 +4863,7 @@
 		"abilityName": "grizzlymon",
 		"element": "Ice",
 		"evolution": "SkullSatamon",
-		"weight": "0",
-		"rarity": "Boss",
+		"rarity": "Epic",
 		"baseLevel": "42",
 		"stats": {
 			"HP": "120",
@@ -5066,7 +4881,6 @@
 		"abilityName": "missiles_4",
 		"element": "Metal",
 		"evolution": "Raidenmon",
-		"weight": "5",
 		"rarity": "Epic",
 		"baseLevel": "36",
 		"stats": {
@@ -5085,8 +4899,7 @@
 		"abilityName": "missiles_5",
 		"element": "Metal",
 		"evolution": "Machinedramon",
-		"weight": "7",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "27",
 		"stats": {
 			"HP": "85",
@@ -5104,8 +4917,7 @@
 		"abilityName": "pyramid",
 		"element": "Light",
 		"evolution": "SlashAngemon",
-		"weight": "5",
-		"rarity": "Epic",
+		"rarity": "Legendary",
 		"baseLevel": "35",
 		"stats": {
 			"HP": "110",
@@ -5123,7 +4935,6 @@
 		"abilityName": "hiandromon",
 		"element": "Earth",
 		"evolution": "Cannondramon",
-		"weight": "7",
 		"rarity": "Common",
 		"baseLevel": "33",
 		"stats": {
@@ -5142,8 +4953,7 @@
 		"abilityName": "lobomon",
 		"element": "Ice",
 		"evolution": "MirageGaogamon",
-		"weight": "4",
-		"rarity": "Epic",
+		"rarity": "Legendary",
 		"baseLevel": "34",
 		"stats": {
 			"HP": "105",
@@ -5161,8 +4971,7 @@
 		"abilityName": "millenniummon",
 		"element": "Fire",
 		"evolution": "Megidramon",
-		"weight": "8",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "38",
 		"stats": {
 			"HP": "100",
@@ -5180,8 +4989,7 @@
 		"abilityName": "millenniummon",
 		"element": "Metal",
 		"evolution": "Goldramon",
-		"weight": "7",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "38",
 		"stats": {
 			"HP": "100",
@@ -5199,7 +5007,6 @@
 		"abilityName": "arrows_2",
 		"element": "Light",
 		"evolution": "Ophanimon",
-		"weight": "2",
 		"rarity": "Legendary",
 		"baseLevel": "40",
 		"stats": {
@@ -5207,7 +5014,8 @@
 			"EN": "60",
 			"CR": "60",
 			"AB": "60"
-		}
+		},
+		"exclusive": "true"
 	},
 	{
 		"number": "477",
@@ -5218,8 +5026,7 @@
 		"abilityName": "garurumon",
 		"element": "Dark",
 		"evolution": "Barbamon",
-		"weight": "0",
-		"rarity": "Legendary",
+		"rarity": "Epic",
 		"baseLevel": "34",
 		"stats": {
 			"HP": "90",
@@ -5237,8 +5044,7 @@
 		"abilityName": "gust",
 		"element": "Wind",
 		"evolution": "Eaglemon",
-		"weight": "2",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "30",
 		"stats": {
 			"HP": "95",
@@ -5256,7 +5062,6 @@
 		"abilityName": "leaves",
 		"element": "Wood",
 		"evolution": "Rosemon",
-		"weight": "2",
 		"rarity": "Rare",
 		"baseLevel": "26",
 		"stats": {
@@ -5275,8 +5080,7 @@
 		"abilityName": "rock_small",
 		"element": "Earth",
 		"evolution": "Spinomon",
-		"weight": "6",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "28",
 		"stats": {
 			"HP": "135",
@@ -5294,8 +5098,7 @@
 		"abilityName": "clouds_black",
 		"element": "Metal",
 		"evolution": "GranLocomon",
-		"weight": "1",
-		"rarity": "Legendary",
+		"rarity": "Epic",
 		"baseLevel": "36",
 		"stats": {
 			"HP": "155",
@@ -5313,8 +5116,7 @@
 		"abilityName": "kuwagamon",
 		"element": "Dark",
 		"evolution": "Goldramon",
-		"weight": "3",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "33",
 		"stats": {
 			"HP": "115",
@@ -5332,8 +5134,7 @@
 		"abilityName": "steamroll_small",
 		"element": "Metal",
 		"evolution": "Apocalymon",
-		"weight": "2",
-		"rarity": "Rare",
+		"rarity": "Legendary",
 		"baseLevel": "30",
 		"stats": {
 			"HP": "105",
@@ -5351,8 +5152,7 @@
 		"abilityName": "unknown_2",
 		"element": "Earth",
 		"evolution": "Cannondramon",
-		"weight": "2",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "36",
 		"stats": {
 			"HP": "125",
@@ -5370,8 +5170,7 @@
 		"abilityName": "rockets_small_1",
 		"element": "Metal",
 		"evolution": "Gundramon",
-		"weight": "4",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "32",
 		"stats": {
 			"HP": "100",
@@ -5388,7 +5187,6 @@
 		"spiritType": "None",
 		"abilityName": "numemon",
 		"element": "Light",
-		"weight": "0",
 		"rarity": "Legendary",
 		"baseLevel": "25",
 		"stats": {
@@ -5396,7 +5194,8 @@
 			"EN": "35",
 			"CR": "50",
 			"AB": "35"
-		}
+		},
+		"exclusive": "true"
 	},
 	{
 		"number": "511",
@@ -5407,8 +5206,7 @@
 		"abilityName": "justimon",
 		"element": "Dark",
 		"evolution": "Arkadimon (Mega)",
-		"weight": "0",
-		"rarity": "Legendary",
+		"rarity": "none",
 		"baseLevel": "45",
 		"stats": {
 			"HP": "135",
@@ -5426,8 +5224,7 @@
 		"abilityName": "labramon",
 		"element": "Fire",
 		"evolution": "BanchoLeomon",
-		"weight": "0",
-		"rarity": "Legendary",
+		"rarity": "none",
 		"baseLevel": "33",
 		"stats": {
 			"HP": "95",
@@ -5445,7 +5242,6 @@
 		"abilityName": "wargreymon",
 		"element": "Fire",
 		"evolution": "Omnimon",
-		"weight": "10",
 		"rarity": "Common",
 		"baseLevel": "55",
 		"stats": {
@@ -5464,7 +5260,6 @@
 		"abilityName": "metalgarurumon",
 		"element": "Ice",
 		"evolution": "Omnimon",
-		"weight": "10",
 		"rarity": "Common",
 		"baseLevel": "55",
 		"stats": {
@@ -5483,7 +5278,6 @@
 		"abilityName": "feathers_2",
 		"element": "Fire",
 		"evolution": "Ornismon",
-		"weight": "9",
 		"rarity": "Common",
 		"baseLevel": "53",
 		"stats": {
@@ -5501,7 +5295,6 @@
 		"spiritType": "None",
 		"abilityName": "dreaper",
 		"element": "Wind",
-		"weight": "6",
 		"rarity": "Common",
 		"baseLevel": "50",
 		"stats": {
@@ -5519,7 +5312,6 @@
 		"spiritType": "None",
 		"abilityName": "steamroll_big",
 		"element": "Ice",
-		"weight": "6",
 		"rarity": "Common",
 		"baseLevel": "52",
 		"stats": {
@@ -5537,7 +5329,6 @@
 		"spiritType": "None",
 		"abilityName": "arukenimon",
 		"element": "Wood",
-		"weight": "6",
 		"rarity": "Common",
 		"baseLevel": "54",
 		"stats": {
@@ -5555,7 +5346,6 @@
 		"spiritType": "None",
 		"abilityName": "wargreymon",
 		"element": "Thunder",
-		"weight": "6",
 		"rarity": "Rare",
 		"baseLevel": "57",
 		"stats": {
@@ -5574,7 +5364,6 @@
 		"abilityName": "imperialdramon",
 		"element": "Thunder",
 		"evolution": "Imperialdramon (Fighter)",
-		"weight": "9",
 		"rarity": "Common",
 		"baseLevel": "58",
 		"stats": {
@@ -5592,7 +5381,6 @@
 		"spiritType": "None",
 		"abilityName": "grankuwagamon",
 		"element": "Wind",
-		"weight": "9",
 		"rarity": "Common",
 		"baseLevel": "53",
 		"stats": {
@@ -5610,7 +5398,6 @@
 		"spiritType": "None",
 		"abilityName": "arrows",
 		"element": "Wind",
-		"weight": "5",
 		"rarity": "Common",
 		"baseLevel": "50",
 		"stats": {
@@ -5628,7 +5415,6 @@
 		"spiritType": "None",
 		"abilityName": "kuwagamon",
 		"element": "Earth",
-		"weight": "5",
 		"rarity": "Common",
 		"baseLevel": "48",
 		"stats": {
@@ -5646,15 +5432,15 @@
 		"spiritType": "None",
 		"abilityName": "ornismon",
 		"element": "Thunder",
-		"weight": "5",
-		"rarity": "Rare",
+		"rarity": "Legendary",
 		"baseLevel": "63",
 		"stats": {
 			"HP": "180",
 			"EN": "100",
 			"CR": "80",
 			"AB": "60"
-		}
+		},
+		"exclusive": "true"
 	},
 	{
 		"number": "999",
@@ -5665,7 +5451,6 @@
 		"abilityName": "gallantmon",
 		"element": "Fire",
 		"evolution": "Gallantmon (Crimson)",
-		"weight": "8",
 		"rarity": "Common",
 		"baseLevel": "59",
 		"stats": {
@@ -5683,7 +5468,6 @@
 		"spiritType": "None",
 		"abilityName": "sakuyamon",
 		"element": "Light",
-		"weight": "5",
 		"rarity": "Common",
 		"baseLevel": "65",
 		"stats": {
@@ -5701,7 +5485,6 @@
 		"spiritType": "None",
 		"abilityName": "missiles_5",
 		"element": "Wind",
-		"weight": "7",
 		"rarity": "Common",
 		"baseLevel": "55",
 		"stats": {
@@ -5720,8 +5503,7 @@
 		"abilityName": "justimon",
 		"element": "Wind",
 		"evolution": "LordKnightmon",
-		"weight": "4",
-		"rarity": "Epic",
+		"rarity": "Rare",
 		"baseLevel": "57",
 		"stats": {
 			"HP": "165",
@@ -5739,8 +5521,7 @@
 		"abilityName": "rockets_small_2",
 		"element": "Dark",
 		"evolution": "Beelzemon (Blast)",
-		"weight": "2",
-		"rarity": "Epic",
+		"rarity": "Rare",
 		"baseLevel": "52",
 		"stats": {
 			"HP": "145",
@@ -5757,7 +5538,6 @@
 		"spiritType": "None",
 		"abilityName": "megidramon",
 		"element": "Fire",
-		"weight": "4",
 		"rarity": "Rare",
 		"baseLevel": "60",
 		"stats": {
@@ -5775,8 +5555,7 @@
 		"spiritType": "None",
 		"abilityName": "leomon",
 		"element": "Light",
-		"weight": "2",
-		"rarity": "Epic",
+		"rarity": "none",
 		"baseLevel": "53",
 		"stats": {
 			"HP": "160",
@@ -5793,8 +5572,7 @@
 		"spiritType": "None",
 		"abilityName": "saberleomon",
 		"element": "Light",
-		"weight": "8",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "55",
 		"stats": {
 			"HP": "160",
@@ -5811,8 +5589,7 @@
 		"spiritType": "None",
 		"abilityName": "ancientmermaimon",
 		"element": "Water",
-		"weight": "6",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "54",
 		"stats": {
 			"HP": "220",
@@ -5829,7 +5606,6 @@
 		"spiritType": "None",
 		"abilityName": "love",
 		"element": "Water",
-		"weight": "10",
 		"rarity": "Common",
 		"baseLevel": "48",
 		"stats": {
@@ -5847,8 +5623,7 @@
 		"spiritType": "None",
 		"abilityName": "fish",
 		"element": "Water",
-		"weight": "4",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "48",
 		"stats": {
 			"HP": "145",
@@ -5865,8 +5640,7 @@
 		"spiritType": "None",
 		"abilityName": "lucemon",
 		"element": "Metal",
-		"weight": "6",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "47",
 		"stats": {
 			"HP": "135",
@@ -5883,8 +5657,7 @@
 		"spiritType": "None",
 		"abilityName": "dinobeemon",
 		"element": "Dark",
-		"weight": "2",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "49",
 		"stats": {
 			"HP": "150",
@@ -5902,8 +5675,7 @@
 		"abilityName": "venommyotismon",
 		"element": "Dark",
 		"evolution": "MaloMyotismon",
-		"weight": "6",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "60",
 		"stats": {
 			"HP": "170",
@@ -5921,7 +5693,6 @@
 		"abilityName": "clouds_black",
 		"element": "Dark",
 		"evolution": "Daemon (Ultimate)",
-		"weight": "0",
 		"rarity": "Legendary",
 		"baseLevel": "56",
 		"stats": {
@@ -5939,7 +5710,6 @@
 		"spiritType": "None",
 		"abilityName": "etemon",
 		"element": "Wood",
-		"weight": "7",
 		"rarity": "Common",
 		"baseLevel": "50",
 		"stats": {
@@ -5957,8 +5727,7 @@
 		"spiritType": "None",
 		"abilityName": "kingetemon",
 		"element": "Wood",
-		"weight": "5",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "68",
 		"stats": {
 			"HP": "180",
@@ -5975,8 +5744,7 @@
 		"spiritType": "None",
 		"abilityName": "arbormon",
 		"element": "Wood",
-		"weight": "6",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "53",
 		"stats": {
 			"HP": "150",
@@ -5993,8 +5761,7 @@
 		"spiritType": "None",
 		"abilityName": "goldramon",
 		"element": "Water",
-		"weight": "6",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "55",
 		"stats": {
 			"HP": "140",
@@ -6011,8 +5778,7 @@
 		"spiritType": "None",
 		"abilityName": "angemon",
 		"element": "Metal",
-		"weight": "6",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "57",
 		"stats": {
 			"HP": "155",
@@ -6030,8 +5796,7 @@
 		"abilityName": "grankuwagamon",
 		"element": "Metal",
 		"evolution": "Chaosdramon",
-		"weight": "6",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "59",
 		"stats": {
 			"HP": "180",
@@ -6049,7 +5814,6 @@
 		"abilityName": "hiandromon",
 		"element": "Metal",
 		"evolution": "Craniamon",
-		"weight": "7",
 		"rarity": "Common",
 		"baseLevel": "53",
 		"stats": {
@@ -6068,7 +5832,6 @@
 		"abilityName": "millenniummon",
 		"element": "Metal",
 		"evolution": "ZeedMillenniummon",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "63",
 		"stats": {
@@ -6086,8 +5849,7 @@
 		"spiritType": "None",
 		"abilityName": "zeedmillenniummon",
 		"element": "Wood",
-		"weight": "7",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "52",
 		"stats": {
 			"HP": "145",
@@ -6104,8 +5866,7 @@
 		"spiritType": "None",
 		"abilityName": "pyramid",
 		"element": "Earth",
-		"weight": "7",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "56",
 		"stats": {
 			"HP": "170",
@@ -6122,7 +5883,6 @@
 		"spiritType": "None",
 		"abilityName": "pincers",
 		"element": "Water",
-		"weight": "7",
 		"rarity": "Common",
 		"baseLevel": "47",
 		"stats": {
@@ -6140,8 +5900,7 @@
 		"spiritType": "None",
 		"abilityName": "murmukusmon",
 		"element": "Wood",
-		"weight": "8",
-		"rarity": "Common",
+		"rarity": "Boss",
 		"baseLevel": "63",
 		"stats": {
 			"HP": "180",
@@ -6158,8 +5917,7 @@
 		"spiritType": "None",
 		"abilityName": "saberleomon",
 		"element": "Earth",
-		"weight": "4",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "51",
 		"stats": {
 			"HP": "160",
@@ -6176,7 +5934,6 @@
 		"spiritType": "None",
 		"abilityName": "shinegreymon",
 		"element": "Light",
-		"weight": "6",
 		"rarity": "Rare",
 		"baseLevel": "65",
 		"stats": {
@@ -6195,8 +5952,7 @@
 		"abilityName": "missiles_4",
 		"element": "Earth",
 		"evolution": "Armageddemon",
-		"weight": "6",
-		"rarity": "Rare",
+		"rarity": "Boss",
 		"baseLevel": "58",
 		"stats": {
 			"HP": "150",
@@ -6213,8 +5969,7 @@
 		"spiritType": "None",
 		"abilityName": "unknown_2",
 		"element": "Dark",
-		"weight": "8",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "61",
 		"stats": {
 			"HP": "180",
@@ -6231,8 +5986,7 @@
 		"spiritType": "None",
 		"abilityName": "pyramid",
 		"element": "Dark",
-		"weight": "7",
-		"rarity": "Common",
+		"rarity": "Epic",
 		"baseLevel": "65",
 		"stats": {
 			"HP": "190",
@@ -6249,8 +6003,7 @@
 		"spiritType": "None",
 		"abilityName": "ravemon",
 		"element": "Wind",
-		"weight": "7",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "53",
 		"stats": {
 			"HP": "145",
@@ -6267,7 +6020,6 @@
 		"spiritType": "None",
 		"abilityName": "ravemon",
 		"element": "Wind",
-		"weight": "7",
 		"rarity": "Epic",
 		"baseLevel": "56",
 		"stats": {
@@ -6285,8 +6037,7 @@
 		"spiritType": "None",
 		"abilityName": "missiles_3",
 		"element": "Fire",
-		"weight": "6",
-		"rarity": "Common",
+		"rarity": "Epic",
 		"baseLevel": "53",
 		"stats": {
 			"HP": "160",
@@ -6303,8 +6054,7 @@
 		"spiritType": "None",
 		"abilityName": "dinobeemon",
 		"element": "Metal",
-		"weight": "4",
-		"rarity": "Rare",
+		"rarity": "Legendary",
 		"baseLevel": "49",
 		"stats": {
 			"HP": "125",
@@ -6321,8 +6071,7 @@
 		"spiritType": "None",
 		"abilityName": "zephyrmon",
 		"element": "Wind",
-		"weight": "5",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "53",
 		"stats": {
 			"HP": "150",
@@ -6339,8 +6088,7 @@
 		"spiritType": "None",
 		"abilityName": "boltmon",
 		"element": "Metal",
-		"weight": "7",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "53",
 		"stats": {
 			"HP": "160",
@@ -6357,8 +6105,7 @@
 		"spiritType": "None",
 		"abilityName": "gulfmon",
 		"element": "Dark",
-		"weight": "8",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "60",
 		"stats": {
 			"HP": "210",
@@ -6375,7 +6122,6 @@
 		"spiritType": "None",
 		"abilityName": "goldramon",
 		"element": "Wood",
-		"weight": "8",
 		"rarity": "Common",
 		"baseLevel": "64",
 		"stats": {
@@ -6393,8 +6139,7 @@
 		"spiritType": "None",
 		"abilityName": "velgemon",
 		"element": "Metal",
-		"weight": "7",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "52",
 		"stats": {
 			"HP": "145",
@@ -6411,8 +6156,7 @@
 		"spiritType": "None",
 		"abilityName": "gallantmon",
 		"element": "Fire",
-		"weight": "3",
-		"rarity": "Epic",
+		"rarity": "Legendary",
 		"baseLevel": "56",
 		"stats": {
 			"HP": "160",
@@ -6429,8 +6173,7 @@
 		"spiritType": "None",
 		"abilityName": "sakuyamon",
 		"element": "Light",
-		"weight": "3",
-		"rarity": "Epic",
+		"rarity": "Legendary",
 		"baseLevel": "62",
 		"stats": {
 			"HP": "180",
@@ -6447,8 +6190,7 @@
 		"spiritType": "None",
 		"abilityName": "missiles_5",
 		"element": "Wind",
-		"weight": "3",
-		"rarity": "Epic",
+		"rarity": "Legendary",
 		"baseLevel": "52",
 		"stats": {
 			"HP": "155",
@@ -6465,7 +6207,6 @@
 		"spiritType": "None",
 		"abilityName": "ravemon",
 		"element": "Dark",
-		"weight": "6",
 		"rarity": "Common",
 		"baseLevel": "44",
 		"stats": {
@@ -6483,8 +6224,7 @@
 		"spiritType": "None",
 		"abilityName": "cyberdramon",
 		"element": "Metal",
-		"weight": "0",
-		"rarity": "Legendary",
+		"rarity": "Epic",
 		"baseLevel": "55",
 		"stats": {
 			"HP": "230",
@@ -6501,8 +6241,7 @@
 		"spiritType": "None",
 		"abilityName": "unknown_3",
 		"element": "Wind",
-		"weight": "5",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "50",
 		"stats": {
 			"HP": "120",
@@ -6519,8 +6258,7 @@
 		"spiritType": "None",
 		"abilityName": "unknown_3",
 		"element": "Earth",
-		"weight": "5",
-		"rarity": "Common",
+		"rarity": "Rare",
 		"baseLevel": "50",
 		"stats": {
 			"HP": "130",
@@ -6537,7 +6275,6 @@
 		"spiritType": "None",
 		"abilityName": "kurisarimon",
 		"element": "Dark",
-		"weight": "6",
 		"rarity": "Rare",
 		"baseLevel": "60",
 		"stats": {
@@ -6555,8 +6292,7 @@
 		"spiritType": "None",
 		"abilityName": "megidramon",
 		"element": "Dark",
-		"weight": "0",
-		"rarity": "Boss",
+		"rarity": "Rare",
 		"baseLevel": "68",
 		"stats": {
 			"HP": "210",
@@ -6573,8 +6309,7 @@
 		"spiritType": "None",
 		"abilityName": "metalgarurumon",
 		"element": "Fire",
-		"weight": "3",
-		"rarity": "Rare",
+		"rarity": "Epic",
 		"baseLevel": "59",
 		"stats": {
 			"HP": "170",
@@ -6591,7 +6326,6 @@
 		"spiritType": "None",
 		"abilityName": "gigasmon",
 		"element": "Earth",
-		"weight": "0",
 		"rarity": "Legendary",
 		"baseLevel": "65",
 		"stats": {
@@ -6599,7 +6333,8 @@
 			"EN": "35",
 			"CR": "55",
 			"AB": "45"
-		}
+		},
+		"exclusive": "true"
 	},
 	{
 		"number": "999",
@@ -6609,7 +6344,6 @@
 		"spiritType": "None",
 		"abilityName": "gigasmon",
 		"element": "Earth",
-		"weight": "2",
 		"rarity": "Rare",
 		"baseLevel": "48",
 		"stats": {
@@ -6627,7 +6361,6 @@
 		"spiritType": "None",
 		"abilityName": "shinegreymon",
 		"element": "Metal",
-		"weight": "6",
 		"rarity": "Rare",
 		"baseLevel": "66",
 		"stats": {
@@ -6645,7 +6378,6 @@
 		"spiritType": "None",
 		"abilityName": "missiles_3",
 		"element": "Earth",
-		"weight": "6",
 		"rarity": "Rare",
 		"baseLevel": "58",
 		"stats": {
@@ -6663,8 +6395,7 @@
 		"spiritType": "None",
 		"abilityName": "beelzemon_blast",
 		"element": "Ice",
-		"weight": "2",
-		"rarity": "Epic",
+		"rarity": "Legendary",
 		"baseLevel": "57",
 		"stats": {
 			"HP": "170",
@@ -6681,7 +6412,6 @@
 		"spiritType": "None",
 		"abilityName": "feathers",
 		"element": "Wind",
-		"weight": "5",
 		"rarity": "Rare",
 		"baseLevel": "50",
 		"stats": {
@@ -6699,8 +6429,7 @@
 		"spiritType": "None",
 		"abilityName": "missiles_4",
 		"element": "Metal",
-		"weight": "5",
-		"rarity": "Rare",
+		"rarity": "Legendary",
 		"baseLevel": "50",
 		"stats": {
 			"HP": "160",
@@ -6717,7 +6446,6 @@
 		"spiritType": "None",
 		"abilityName": "fish",
 		"element": "Metal",
-		"weight": "0",
 		"rarity": "none",
 		"disabled": "true",
 		"baseLevel": "48",
@@ -6736,8 +6464,7 @@
 		"spiritType": "None",
 		"abilityName": "kendogarurumon",
 		"element": "Light",
-		"weight": "3",
-		"rarity": "Epic",
+		"rarity": "Legendary",
 		"baseLevel": "55",
 		"stats": {
 			"HP": "160",
@@ -6754,7 +6481,6 @@
 		"spiritType": "None",
 		"abilityName": "rockets_small_2",
 		"element": "Metal",
-		"weight": "0",
 		"rarity": "none",
 		"disabled": "true",
 		"baseLevel": "52",
@@ -6773,8 +6499,7 @@
 		"spiritType": "None",
 		"abilityName": "ancientmegatheriummon",
 		"element": "Dark",
-		"weight": "0",
-		"rarity": "Legendary",
+		"rarity": "none",
 		"baseLevel": "70",
 		"stats": {
 			"HP": "220",
@@ -6791,8 +6516,7 @@
 		"spiritType": "None",
 		"abilityName": "wargrowlmon",
 		"element": "Metal",
-		"weight": "0",
-		"rarity": "Epic",
+		"rarity": "Legendary",
 		"baseLevel": "62",
 		"stats": {
 			"HP": "150",
@@ -6809,8 +6533,7 @@
 		"spiritType": "None",
 		"abilityName": "missiles_5",
 		"element": "Metal",
-		"weight": "0",
-		"rarity": "Epic",
+		"rarity": "Legendary",
 		"baseLevel": "62",
 		"stats": {
 			"HP": "150",
@@ -6827,8 +6550,7 @@
 		"spiritType": "None",
 		"abilityName": "missiles_5",
 		"element": "Metal",
-		"weight": "0",
-		"rarity": "Epic",
+		"rarity": "Legendary",
 		"baseLevel": "62",
 		"stats": {
 			"HP": "210",
@@ -6845,7 +6567,6 @@
 		"spiritType": "None",
 		"abilityName": "azulongmon",
 		"element": "Wind",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "80",
 		"stats": {
@@ -6863,7 +6584,6 @@
 		"spiritType": "None",
 		"abilityName": "baihumon",
 		"element": "Water",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "80",
 		"stats": {
@@ -6881,7 +6601,6 @@
 		"spiritType": "None",
 		"abilityName": "zhuqiaomon",
 		"element": "Fire",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "80",
 		"stats": {
@@ -6899,7 +6618,6 @@
 		"spiritType": "None",
 		"abilityName": "ebonwumon",
 		"element": "Wood",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "80",
 		"stats": {
@@ -6917,7 +6635,6 @@
 		"spiritType": "None",
 		"abilityName": "ornismon",
 		"element": "Wind",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "78",
 		"stats": {
@@ -6929,13 +6646,48 @@
 	},
 	{
 		"number": "999",
+		"order": "8",
+		"name": "Seraphimon",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "seraphimon",
+		"element": "Light",
+		"rarity": "Epic",
+		"baseLevel": "75",
+		"stats": {
+			"HP": "200",
+			"EN": "120",
+			"CR": "100",
+			"AB": "70"
+		},
+		"exclusive": "true"
+	},
+	{
+		"number": "999",
+		"order": "9",
+		"name": "Ophanimon",
+		"stage": "Ultimate",
+		"spiritType": "None",
+		"abilityName": "ophanimon",
+		"element": "Light",
+		"rarity": "Epic",
+		"baseLevel": "75",
+		"stats": {
+			"HP": "180",
+			"EN": "80",
+			"CR": "100",
+			"AB": "130"
+		},
+		"exclusive": "true"
+	},
+	{
+		"number": "999",
 		"order": "6",
 		"name": "Duskmon",
 		"stage": "Ultimate",
 		"spiritType": "None",
 		"abilityName": "duskmon",
 		"element": "Dark",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "70",
 		"stats": {
@@ -6953,7 +6705,6 @@
 		"spiritType": "None",
 		"abilityName": "velgemon",
 		"element": "Dark",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "85",
 		"stats": {
@@ -6965,49 +6716,12 @@
 	},
 	{
 		"number": "999",
-		"order": "8",
-		"name": "Seraphimon",
-		"stage": "Ultimate",
-		"spiritType": "None",
-		"abilityName": "seraphimon",
-		"element": "Light",
-		"weight": "0",
-		"rarity": "Boss",
-		"baseLevel": "75",
-		"stats": {
-			"HP": "200",
-			"EN": "120",
-			"CR": "100",
-			"AB": "70"
-		}
-	},
-	{
-		"number": "999",
-		"order": "9",
-		"name": "Ophanimon",
-		"stage": "Ultimate",
-		"spiritType": "None",
-		"abilityName": "ophanimon",
-		"element": "Light",
-		"weight": "0",
-		"rarity": "Boss",
-		"baseLevel": "75",
-		"stats": {
-			"HP": "180",
-			"EN": "80",
-			"CR": "100",
-			"AB": "130"
-		}
-	},
-	{
-		"number": "999",
 		"order": "10",
 		"name": "Kerpymon (Evil)",
 		"stage": "Ultimate",
 		"spiritType": "None",
 		"abilityName": "kerpymon_evil",
 		"element": "Dark",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "75",
 		"stats": {
@@ -7025,15 +6739,15 @@
 		"spiritType": "None",
 		"abilityName": "kerpymon_evil",
 		"element": "Dark",
-		"weight": "0",
-		"rarity": "Boss",
+		"rarity": "none",
 		"baseLevel": "95",
 		"stats": {
 			"HP": "350",
 			"EN": "100",
 			"CR": "150",
 			"AB": "100"
-		}
+		},
+		"isPseudo": "true"
 	},
 	{
 		"number": "999",
@@ -7043,7 +6757,6 @@
 		"spiritType": "None",
 		"abilityName": "kerpymon_good",
 		"element": "Light",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "75",
 		"stats": {
@@ -7061,15 +6774,15 @@
 		"spiritType": "None",
 		"abilityName": "imperialdramon_fighter",
 		"element": "Thunder",
-		"weight": "0",
-		"rarity": "Boss",
+		"rarity": "Common",
 		"baseLevel": "72",
 		"stats": {
 			"HP": "210",
 			"EN": "75",
 			"CR": "105",
 			"AB": "100"
-		}
+		},
+		"exclusive": "true"
 	},
 	{
 		"number": "999",
@@ -7079,7 +6792,6 @@
 		"spiritType": "None",
 		"abilityName": "seraphimon",
 		"element": "Dark",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "80",
 		"stats": {
@@ -7097,7 +6809,6 @@
 		"spiritType": "None",
 		"abilityName": "omnimon",
 		"element": "Light",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "75",
 		"stats": {
@@ -7115,7 +6826,6 @@
 		"spiritType": "None",
 		"abilityName": "gallantmon_crimson",
 		"element": "Fire",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "75",
 		"stats": {
@@ -7133,7 +6843,6 @@
 		"spiritType": "None",
 		"abilityName": "dynasmon",
 		"element": "Light",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "82",
 		"stats": {
@@ -7151,7 +6860,6 @@
 		"spiritType": "None",
 		"abilityName": "lordknightmon",
 		"element": "Wind",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "78",
 		"stats": {
@@ -7169,7 +6877,6 @@
 		"spiritType": "None",
 		"abilityName": "ophanimon",
 		"element": "Light",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "75",
 		"stats": {
@@ -7187,8 +6894,7 @@
 		"spiritType": "None",
 		"abilityName": "imperialdramon",
 		"element": "Thunder",
-		"weight": "0",
-		"rarity": "Epic",
+		"rarity": "Boss",
 		"baseLevel": "76",
 		"stats": {
 			"HP": "200",
@@ -7205,7 +6911,6 @@
 		"spiritType": "None",
 		"abilityName": "metalkabuterimon",
 		"element": "Metal",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "77",
 		"stats": {
@@ -7223,8 +6928,7 @@
 		"spiritType": "None",
 		"abilityName": "loweemon",
 		"element": "Metal",
-		"weight": "5",
-		"rarity": "Boss",
+		"rarity": "Rare",
 		"baseLevel": "74",
 		"stats": {
 			"HP": "230",
@@ -7241,7 +6945,6 @@
 		"spiritType": "None",
 		"abilityName": "apocalymon",
 		"element": "Dark",
-		"weight": "0",
 		"rarity": "Rare",
 		"baseLevel": "70",
 		"stats": {
@@ -7259,8 +6962,7 @@
 		"spiritType": "None",
 		"abilityName": "malomyotismon",
 		"element": "Dark",
-		"weight": "0",
-		"rarity": "Boss",
+		"rarity": "Rare",
 		"baseLevel": "78",
 		"stats": {
 			"HP": "225",
@@ -7277,7 +6979,6 @@
 		"spiritType": "None",
 		"abilityName": "armageddemon",
 		"element": "Earth",
-		"weight": "5",
 		"rarity": "Boss",
 		"baseLevel": "75",
 		"stats": {
@@ -7295,7 +6996,6 @@
 		"spiritType": "None",
 		"abilityName": "waves_2",
 		"element": "Dark",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "70",
 		"stats": {
@@ -7313,7 +7013,6 @@
 		"spiritType": "None",
 		"abilityName": "zeedmillenniummon",
 		"element": "Dark",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "88",
 		"stats": {
@@ -7331,7 +7030,6 @@
 		"spiritType": "None",
 		"abilityName": "ancientgreymon",
 		"element": "Dark",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "76",
 		"stats": {
@@ -7349,7 +7047,6 @@
 		"spiritType": "None",
 		"abilityName": "lucemon",
 		"element": "Dark",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "72",
 		"stats": {
@@ -7367,7 +7064,6 @@
 		"spiritType": "None",
 		"abilityName": "lucemon_chaos",
 		"element": "Dark",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "80",
 		"stats": {
@@ -7385,7 +7081,6 @@
 		"spiritType": "None",
 		"abilityName": "lucemon_satan",
 		"element": "Dark",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "88",
 		"stats": {
@@ -7403,7 +7098,6 @@
 		"spiritType": "None",
 		"abilityName": "beelzemon_blast",
 		"element": "Dark",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "71",
 		"stats": {
@@ -7421,7 +7115,6 @@
 		"spiritType": "None",
 		"abilityName": "myotismon",
 		"element": "Dark",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "78",
 		"stats": {
@@ -7439,7 +7132,6 @@
 		"spiritType": "None",
 		"abilityName": "metalgarurumon",
 		"element": "Dark",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "75",
 		"stats": {
@@ -7457,7 +7149,6 @@
 		"spiritType": "None",
 		"abilityName": "snimon",
 		"element": "Dark",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "70",
 		"stats": {
@@ -7475,7 +7166,6 @@
 		"spiritType": "None",
 		"abilityName": "keramon",
 		"element": "Dark",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "76",
 		"stats": {
@@ -7491,8 +7181,7 @@
 		"name": "Flamedramon",
 		"stage": "Armor",
 		"element": "Fire",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "240",
@@ -7507,8 +7196,7 @@
 		"name": "Raidramon",
 		"stage": "Armor",
 		"element": "Thunder",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "260",
@@ -7523,8 +7211,7 @@
 		"name": "Halsemon",
 		"stage": "Armor",
 		"element": "Wind",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "260",
@@ -7539,8 +7226,7 @@
 		"name": "Shurimon",
 		"stage": "Armor",
 		"element": "Metal",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "230",
@@ -7555,8 +7241,7 @@
 		"name": "Digmon",
 		"stage": "Armor",
 		"element": "Earth",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "220",
@@ -7571,8 +7256,7 @@
 		"name": "Submarimon",
 		"stage": "Armor",
 		"element": "Water",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "270",
@@ -7589,8 +7273,7 @@
 		"spiritType": "None",
 		"abilityName": "flames_2",
 		"element": "Light",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "250",
@@ -7605,8 +7288,7 @@
 		"name": "Nefertimon",
 		"stage": "Armor",
 		"element": "Light",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "250",
@@ -7621,8 +7303,7 @@
 		"name": "Sethmon",
 		"stage": "Armor",
 		"element": "Wind",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "260",
@@ -7637,8 +7318,7 @@
 		"name": "Yasyamon",
 		"stage": "Armor",
 		"element": "Wood",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "230",
@@ -7653,8 +7333,7 @@
 		"name": "Honeybeemon",
 		"stage": "Armor",
 		"element": "Wind",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "180",
@@ -7669,8 +7348,7 @@
 		"name": "Depthmon",
 		"stage": "Armor",
 		"element": "Water",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "210",
@@ -7685,8 +7363,7 @@
 		"name": "Sagittarimon",
 		"stage": "Armor",
 		"element": "Light",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "320",
@@ -7701,8 +7378,7 @@
 		"name": "Gargoylemon",
 		"stage": "Armor",
 		"element": "Light",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "280",
@@ -7717,8 +7393,7 @@
 		"name": "Kangarumon",
 		"stage": "Armor",
 		"element": "Earth",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "270",
@@ -7733,8 +7408,7 @@
 		"name": "Magnamon",
 		"stage": "Armor",
 		"element": "Metal",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "250",
@@ -7749,8 +7423,7 @@
 		"name": "Allomon",
 		"stage": "Armor",
 		"element": "Earth",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "280",
@@ -7765,8 +7438,7 @@
 		"name": "Rinkmon",
 		"stage": "Armor",
 		"element": "Metal",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "230",
@@ -7781,8 +7453,7 @@
 		"name": "Flybeemon",
 		"stage": "Armor",
 		"element": "Wind",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "190",
@@ -7797,8 +7468,7 @@
 		"name": "Orcamon",
 		"stage": "Armor",
 		"element": "Water",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "290",
@@ -7813,8 +7483,7 @@
 		"name": "Moosemon",
 		"stage": "Armor",
 		"element": "Light",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "260",
@@ -7829,8 +7498,7 @@
 		"name": "Harpymon",
 		"stage": "Armor",
 		"element": "Light",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "220",
@@ -7845,8 +7513,7 @@
 		"name": "Toucanmon",
 		"stage": "Armor",
 		"element": "Wind",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "165",
@@ -7861,8 +7528,7 @@
 		"name": "Peacockmon",
 		"stage": "Armor",
 		"element": "Wind",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "190",
@@ -7877,8 +7543,7 @@
 		"name": "Boarmon",
 		"stage": "Armor",
 		"element": "Fire",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "260",
@@ -7893,8 +7558,7 @@
 		"name": "Sepikmon",
 		"stage": "Armor",
 		"element": "Wood",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "220",
@@ -7909,8 +7573,7 @@
 		"name": "Pteramon",
 		"stage": "Armor",
 		"element": "Metal",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "260",
@@ -7925,8 +7588,7 @@
 		"name": "Frogmon",
 		"stage": "Armor",
 		"element": "Water",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "240",
@@ -7941,8 +7603,7 @@
 		"name": "Sheepmon",
 		"stage": "Armor",
 		"element": "Wood",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "290",
@@ -7957,8 +7618,7 @@
 		"name": "Seahomon",
 		"stage": "Armor",
 		"element": "Water",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "205",
@@ -7973,8 +7633,7 @@
 		"name": "Chamelemon",
 		"stage": "Armor",
 		"element": "Earth",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "260",
@@ -7989,8 +7648,7 @@
 		"name": "Elephantmon",
 		"stage": "Armor",
 		"element": "Wind",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "320",
@@ -8005,8 +7663,7 @@
 		"name": "Baromon",
 		"stage": "Armor",
 		"element": "Fire",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "250",
@@ -8021,8 +7678,7 @@
 		"name": "Stegomon",
 		"stage": "Armor",
 		"element": "Metal",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "280",
@@ -8037,8 +7693,7 @@
 		"name": "Pipismon",
 		"stage": "Armor",
 		"element": "Wind",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "220",
@@ -8053,8 +7708,7 @@
 		"name": "Ponchomon",
 		"stage": "Armor",
 		"element": "Wood",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "250",
@@ -8069,8 +7723,7 @@
 		"name": "Mothmon",
 		"stage": "Armor",
 		"element": "Wind",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "215",
@@ -8085,8 +7738,7 @@
 		"name": "Mantaraymon",
 		"stage": "Armor",
 		"element": "Water",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "235",
@@ -8101,8 +7753,7 @@
 		"name": "Manbomon",
 		"stage": "Armor",
 		"element": "Water",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "240",
@@ -8117,8 +7768,7 @@
 		"name": "Prairiemon",
 		"stage": "Armor",
 		"element": "Wood",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "240",
@@ -8133,8 +7783,7 @@
 		"name": "Rhinomon",
 		"stage": "Armor",
 		"element": "Metal",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "290",
@@ -8149,8 +7798,7 @@
 		"name": "Lynxmon",
 		"stage": "Armor",
 		"element": "Fire",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "250",
@@ -8165,8 +7813,7 @@
 		"name": "Rabbitmon",
 		"stage": "Armor",
 		"element": "Wind",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "230",
@@ -8181,8 +7828,7 @@
 		"name": "Swanmon",
 		"stage": "Armor",
 		"element": "Wind",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "250",
@@ -8197,8 +7843,7 @@
 		"name": "Kabukimon",
 		"stage": "Armor",
 		"element": "Wind",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "245",
@@ -8213,8 +7858,7 @@
 		"name": "Butterflymon",
 		"stage": "Armor",
 		"element": "Wind",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "195",
@@ -8229,8 +7873,7 @@
 		"name": "Tylomon",
 		"stage": "Armor",
 		"element": "Water",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "215",
@@ -8245,8 +7888,7 @@
 		"name": "Oryxmon",
 		"stage": "Armor",
 		"element": "Earth",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "275",
@@ -8261,8 +7903,7 @@
 		"name": "Opossumon",
 		"stage": "Armor",
 		"element": "Wind",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "245",
@@ -8277,8 +7918,7 @@
 		"name": "Maildramon",
 		"stage": "Armor",
 		"element": "Metal",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "270",
@@ -8293,8 +7933,7 @@
 		"name": "Shadramon",
 		"stage": "Armor",
 		"element": "Fire",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "260",
@@ -8309,8 +7948,7 @@
 		"name": "Togemogumon",
 		"stage": "Armor",
 		"element": "Earth",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "280",
@@ -8325,8 +7963,7 @@
 		"name": "Aurumon",
 		"stage": "Armor",
 		"element": "Wind",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "200",
@@ -8341,8 +7978,7 @@
 		"name": "Nohemon",
 		"stage": "Armor",
 		"element": "Wind",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "230",
@@ -8357,8 +7993,7 @@
 		"name": "Searchmon",
 		"stage": "Armor",
 		"element": "Metal",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "240",
@@ -8373,8 +8008,7 @@
 		"name": "Archelomon",
 		"stage": "Armor",
 		"element": "Metal",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "240",
@@ -8389,8 +8023,7 @@
 		"name": "Bullmon",
 		"stage": "Armor",
 		"element": "Earth",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "275",
@@ -8405,8 +8038,7 @@
 		"name": "FlameWizardmon",
 		"stage": "Armor",
 		"element": "Fire",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "230",
@@ -8421,8 +8053,7 @@
 		"name": "Bucchiemon",
 		"stage": "Armor",
 		"element": "Wind",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "220",
@@ -8437,8 +8068,7 @@
 		"name": "Kongoumon",
 		"stage": "Armor",
 		"element": "Metal",
-		"weight": "0",
-		"rarity": "Common",
+		"rarity": "none",
 		"baseLevel": "20",
 		"stats": {
 			"HP": "320",
@@ -8455,7 +8085,6 @@
 		"spiritType": "Human",
 		"abilityName": "agunimon",
 		"element": "Fire",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8473,7 +8102,6 @@
 		"spiritType": "Animal",
 		"abilityName": "burninggreymon",
 		"element": "Fire",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8491,7 +8119,6 @@
 		"spiritType": "Human",
 		"abilityName": "lobomon",
 		"element": "Light",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8509,7 +8136,6 @@
 		"spiritType": "Animal",
 		"abilityName": "kendogarurumon",
 		"element": "Light",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8527,7 +8153,6 @@
 		"spiritType": "Human",
 		"abilityName": "beetlemon",
 		"element": "Thunder",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8545,7 +8170,6 @@
 		"spiritType": "Animal",
 		"abilityName": "metalkabuterimon",
 		"element": "Thunder",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8563,7 +8187,6 @@
 		"spiritType": "Human",
 		"abilityName": "kazemon",
 		"element": "Wind",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8581,7 +8204,6 @@
 		"spiritType": "Animal",
 		"abilityName": "zephyrmon",
 		"element": "Wind",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8599,7 +8221,6 @@
 		"spiritType": "Human",
 		"abilityName": "kumamon",
 		"element": "Ice",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8617,7 +8238,6 @@
 		"spiritType": "Animal",
 		"abilityName": "korikakumon",
 		"element": "Ice",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8635,7 +8255,6 @@
 		"spiritType": "Human",
 		"abilityName": "loweemon",
 		"element": "Dark",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8653,7 +8272,6 @@
 		"spiritType": "Animal",
 		"abilityName": "kaiserleomon",
 		"element": "Dark",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8671,7 +8289,6 @@
 		"spiritType": "Human",
 		"abilityName": "grumblemon",
 		"element": "Earth",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8689,7 +8306,6 @@
 		"spiritType": "Animal",
 		"abilityName": "gigasmon",
 		"element": "Earth",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8707,7 +8323,6 @@
 		"spiritType": "Human",
 		"abilityName": "arbormon",
 		"element": "Wood",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8725,7 +8340,6 @@
 		"spiritType": "Animal",
 		"abilityName": "petaldramon",
 		"element": "Wood",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8743,7 +8357,6 @@
 		"spiritType": "Human",
 		"abilityName": "mercurymon",
 		"element": "Metal",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8761,7 +8374,6 @@
 		"spiritType": "Animal",
 		"abilityName": "sephirothmon",
 		"element": "Metal",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8779,7 +8391,6 @@
 		"spiritType": "Human",
 		"abilityName": "lanamon",
 		"element": "Water",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8797,7 +8408,6 @@
 		"spiritType": "Animal",
 		"abilityName": "calmaramon",
 		"element": "Water",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8815,7 +8425,6 @@
 		"spiritType": "Hybrid",
 		"abilityName": "aldamon",
 		"element": "Fire",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8833,7 +8442,6 @@
 		"spiritType": "Hybrid",
 		"abilityName": "beowolfmon",
 		"element": "Light",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8851,7 +8459,6 @@
 		"spiritType": "Hybrid",
 		"abilityName": "rhinokabuterimon",
 		"element": "Thunder",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8869,7 +8476,6 @@
 		"spiritType": "Hybrid",
 		"abilityName": "jetsilphymon",
 		"element": "Wind",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8887,7 +8493,6 @@
 		"spiritType": "Hybrid",
 		"abilityName": "icedoll",
 		"element": "Ice",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8905,7 +8510,6 @@
 		"spiritType": "Hybrid",
 		"abilityName": "rhihimon",
 		"element": "Dark",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8923,7 +8527,6 @@
 		"spiritType": "Hybrid",
 		"abilityName": "shinegreymon",
 		"element": "Earth",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8941,7 +8544,6 @@
 		"spiritType": "Hybrid",
 		"abilityName": "trees_2",
 		"element": "Wood",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8959,7 +8561,6 @@
 		"spiritType": "Hybrid",
 		"abilityName": "stars",
 		"element": "Metal",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8977,7 +8578,6 @@
 		"spiritType": "Hybrid",
 		"abilityName": "goldramon",
 		"element": "Water",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -8995,7 +8595,6 @@
 		"spiritType": "Ancient",
 		"abilityName": "ancientgreymon",
 		"element": "Fire",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "50",
 		"stats": {
@@ -9013,7 +8612,6 @@
 		"spiritType": "Ancient",
 		"abilityName": "ancientgarurumon",
 		"element": "Light",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "50",
 		"stats": {
@@ -9031,7 +8629,6 @@
 		"spiritType": "Ancient",
 		"abilityName": "ancientbeetlemon",
 		"element": "Thunder",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "50",
 		"stats": {
@@ -9049,7 +8646,6 @@
 		"spiritType": "Ancient",
 		"abilityName": "ancientirismon",
 		"element": "Wind",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "50",
 		"stats": {
@@ -9067,7 +8663,6 @@
 		"spiritType": "Ancient",
 		"abilityName": "ancientmegatheriummon",
 		"element": "Ice",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "50",
 		"stats": {
@@ -9085,7 +8680,6 @@
 		"spiritType": "Ancient",
 		"abilityName": "ancientsphinxmon",
 		"element": "Dark",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "50",
 		"stats": {
@@ -9103,7 +8697,6 @@
 		"spiritType": "Ancient",
 		"abilityName": "ancientvolcamon",
 		"element": "Earth",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "50",
 		"stats": {
@@ -9121,7 +8714,6 @@
 		"spiritType": "Ancient",
 		"abilityName": "ancienttrojamon",
 		"element": "Wood",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "50",
 		"stats": {
@@ -9139,7 +8731,6 @@
 		"spiritType": "Ancient",
 		"abilityName": "ancientwisemon",
 		"element": "Metal",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "50",
 		"stats": {
@@ -9157,7 +8748,6 @@
 		"spiritType": "Ancient",
 		"abilityName": "ancientmermaimon",
 		"element": "Water",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "50",
 		"stats": {
@@ -9175,7 +8765,6 @@
 		"spiritType": "Fusion",
 		"abilityName": "kaisergreymon",
 		"element": "Fire",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -9193,7 +8782,6 @@
 		"spiritType": "Fusion",
 		"abilityName": "magnagarurumon",
 		"element": "Light",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -9211,7 +8799,6 @@
 		"spiritType": "Fusion",
 		"abilityName": "susanoomon",
 		"element": "Light",
-		"weight": "0",
 		"rarity": "Boss",
 		"baseLevel": "100",
 		"stats": {
@@ -9228,8 +8815,7 @@
 		"stage": "Spirit",
 		"spiritType": "Child",
 		"abilityName": "flames_1",
-		"weight": "0",
-		"rarity": "none",
+		"rarity": "Boss",
 		"disabled": "false",
 		"baseLevel": "100",
 		"stats": {

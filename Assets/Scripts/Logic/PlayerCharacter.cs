@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Kaisa.Digivice {
-    public class PlayerCharacter {
+    public class PlayerCharacter : MonoBehaviour {
+        private GameManager gm;
+
         public GameChar currentChar;
         public CharState currentState = CharState.Idle;
 
@@ -16,10 +18,14 @@ namespace Kaisa.Digivice {
 
         private bool usedAltSprite = false;
         private int lastValue = 0;
+        private Coroutine eventAnimation;
+        private SpriteBuilder eventLayer;
 
-        public PlayerCharacter(GameChar currentChar) {
+        public void Initialize(GameManager gm, GameChar currentChar) {
+            this.gm = gm;
             this.currentChar = currentChar;
             CurrentSprite = 0;
+            InvokeRepeating("UpdateSprite", 0.5f, 0.5f);
         }
 
         public void UpdateSprite() {
@@ -55,6 +61,29 @@ namespace Kaisa.Digivice {
                         CurrentSprite = 8;
                     }
                     break;
+            }
+        }
+
+        public void SetEventMode(bool eventMode) {
+            if(eventMode) {
+                currentState = CharState.Event;
+                eventAnimation = StartCoroutine(PAEventEffects());
+            }
+            else {
+                currentState = CharState.Idle;
+                eventLayer.Dispose();
+                if (eventAnimation != null) StopCoroutine(eventAnimation);
+            }
+        }
+
+        private IEnumerator PAEventEffects() {
+            eventLayer = ScreenElement.BuildSprite("Event", gm.screenMgr.screenDisplay.transform).SetTransparent(true);
+            eventLayer.transform.SetAsFirstSibling();
+            while (true) {
+                eventLayer.SetSprite(gm.spriteDB.triggerEvent);
+                yield return new WaitForSeconds(0.2f);
+                eventLayer.SetSprite(gm.spriteDB.emptySprite);
+                yield return new WaitForSeconds(0.2f);
             }
         }
     }

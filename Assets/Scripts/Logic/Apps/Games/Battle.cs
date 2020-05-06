@@ -727,22 +727,24 @@ namespace Kaisa.Digivice.App {
                 gm.EnqueueAnimation(gm.screenMgr.AAWardSpiritPower(SPbefore));
             }
 
+            currentScreen = BattleScreen.Combat_Menu;
+
+            if (attacksCostSP && SpiritPower < friendlyDigimon.GetSpiritCost(playerLevel)) {
+                DeportCurrentDigimon();
+            }
+
             //The player has won or lost the game.
             if (loserHPnow == 0) {
                 VisualDebug.WriteLine($"A Digimon has reached 0 HP, and the winner of this round and thus the game is (0 or 1): {winner}.");
                 if (winner == 0) {
                     WinBattle();
+                    return;
                 }
                 else {
                     LoseBattle();
+                    return;
                 }
             }
-
-            if(attacksCostSP && SpiritPower < friendlyDigimon.GetSpiritCost(playerLevel)) {
-                DeportCurrentDigimon();
-            }
-            currentScreen = BattleScreen.Combat_Menu;
-
         }
         private void WinBattle() {
             gm.DisableLeaverBuster();
@@ -753,12 +755,10 @@ namespace Kaisa.Digivice.App {
                 gm.EnqueueAnimation(gm.screenMgr.ALevelUp(playerLevel, gm.logicMgr.GetPlayerLevel()));
             }
 
-            int distanceBefore = gm.DistanceMgr.CurrentDistance;
-            gm.DistanceMgr.ReduceDistance(300, out _);
-            int distanceAfter = gm.DistanceMgr.CurrentDistance;
+            //100% chance to get the enemy as a reward for boss battles, 50% otherwise.
+            bool rewardEnemy = (isBossBattle) ? true : (Random.Range(0, 2) == 1);
 
-            bool rewardEnemy = (Random.Range(0f, 1f) < enemyDigimon.GetRewardChance());
-            if (isBossBattle) rewardEnemy = true;
+            gm.EnqueueAnimation(gm.screenMgr.ACharHappy());
 
             if (rewardEnemy) {
                 if (gm.logicMgr.RewardDigimon(enemyDigimon.name, out int levelBefore, out int levelAfter)) {
@@ -770,10 +770,15 @@ namespace Kaisa.Digivice.App {
                 }
             }
 
-            TriggerVictoryAgainstBoss();
-
-            gm.EnqueueAnimation(gm.screenMgr.ACharHappy());
-            gm.EnqueueAnimation(gm.screenMgr.AChangeDistance(distanceBefore, distanceAfter));
+            if (isBossBattle) {
+                TriggerVictoryAgainstBoss();
+            }
+            else {
+                int distanceBefore = gm.DistanceMgr.CurrentDistance;
+                gm.DistanceMgr.ReduceDistance(300);
+                int distanceAfter = gm.DistanceMgr.CurrentDistance;
+                gm.EnqueueAnimation(gm.screenMgr.AChangeDistance(distanceBefore, distanceAfter));
+            }
 
             gm.logicMgr.IncreaseTotalWins();
             gm.logicMgr.IncreaseTotalBattles();
@@ -791,7 +796,7 @@ namespace Kaisa.Digivice.App {
 
             int distanceBefore = gm.DistanceMgr.CurrentDistance;
             int amountToIncrease = isBossBattle ? 500 : 300;
-            gm.DistanceMgr.ReduceDistance(-amountToIncrease, out _);
+            gm.DistanceMgr.IncreaseDistance(amountToIncrease);
             int distanceAfter = gm.DistanceMgr.CurrentDistance;
 
             bool punishFriendly = (Random.Range(0f, 1f) < originalDigimon.GetEraseChance());
@@ -824,7 +829,7 @@ namespace Kaisa.Digivice.App {
             }
 
             int distanceBefore = gm.DistanceMgr.CurrentDistance;
-            gm.DistanceMgr.ReduceDistance(2000, out _);
+            gm.DistanceMgr.IncreaseDistance(2000);
             int distanceAfter = gm.DistanceMgr.CurrentDistance;
 
             gm.EnqueueAnimation(gm.screenMgr.ACharSad());
@@ -835,7 +840,21 @@ namespace Kaisa.Digivice.App {
             CloseApp();
         }
         private void TriggerVictoryAgainstBoss() {
-            //TODO: Process boss victory.
+            int currentMap = gm.DistanceMgr.CurrentMap;
+            int currentArea = gm.DistanceMgr.CurrentArea;
+            gm.DistanceMgr.SetAreaCompleted(currentMap, currentArea, true);
+            List<int> availableAreas = gm.DistanceMgr.GetUncompletedAreas(currentMap);
+
+            if(availableAreas.Count > 0) {
+                int newArea = availableAreas.GetRandomElement();
+                gm.DistanceMgr.MoveToArea(currentMap, newArea);
+                int newDistance = gm.DistanceMgr.CurrentDistance;
+                gm.EnqueueAnimation(gm.screenMgr.AForcedTravelMap0(currentArea, newArea, newDistance));
+            }
+            else {
+                //TODO: Move to new map.
+            }
+
         }
 
         /// <summary>
@@ -939,7 +958,7 @@ namespace Kaisa.Digivice.App {
         private void DamageDigimon(int digimon, int damage) {
             //Enemy bosses receive less damage from attacks.
             if(isBossBattle && digimon == 1) {
-                damage -= Mathf.FloorToInt(20f + (0.3f * playerLevel));
+                damage -= Mathf.FloorToInt(10f + (0.4f * playerLevel));
                 if (damage < 0) damage = 0;
             }
 

@@ -1,6 +1,5 @@
 ﻿//All menus should have their option set when they are open, not when they are closed (i.e. when you open the 'MainMenu', it is first set to be in the 'Map' tab).
 
-using Kaisa.Digivice.App;
 using Kaisa.Digivice.Extensions;
 using System;
 using UnityEngine;
@@ -17,6 +16,7 @@ namespace Kaisa.Digivice {
             audioMgr = gm.audioMgr;
         }
 
+
         public Screen currentScreen = Screen.Character;
         public MainMenu currentMainMenu = MainMenu.Map;
         //Submenues for the Game app.
@@ -25,10 +25,25 @@ namespace Kaisa.Digivice {
         public int gamesTravelMenuIndex = 0;
 
         public App.DigiviceApp loadedApp;
+        public bool IsAppLoaded => loadedApp != null;
+        public bool ShakeDisabled() {
+            if (loadedApp != null && !(loadedApp is App.Status)) return true;
+            return false;
+        }
+
+        //Trigger event.
+        private bool isEventPending = false;
+        public delegate void TriggerEvent();
+        public TriggerEvent triggerEvent;
 
         #region Input Management
         public void InputA() {
             if (currentScreen == Screen.Character) {
+                if (isEventPending) {
+                    audioMgr.PlayButtonA();
+                    triggerEvent();
+                    return;
+                }
                 audioMgr.PlayButtonA();
                 OpenGameMenu();
             }
@@ -61,10 +76,8 @@ namespace Kaisa.Digivice {
             else if (currentScreen == Screen.GamesMenu) {
                 audioMgr.PlayButtonA();
                 if (gamesMenuIndex == 0) {
-                    //TODO: This is only temporary. Find Battle is not exactly Battle.
                     audioMgr.PlayButtonA();
                     OpenApp(gm.pAppFinder);
-                    //CallBattle();
                 }
                 else if (gamesMenuIndex == 1) {
                     gamesRewardMenuIndex = 0;
@@ -91,6 +104,11 @@ namespace Kaisa.Digivice {
         }
         public void InputB() {
             if (currentScreen == Screen.Character) {
+                if (isEventPending) {
+                    audioMgr.PlayButtonB();
+                    triggerEvent();
+                    return;
+                }
                 audioMgr.PlayButtonB();
             }
             else if (currentScreen == Screen.MainMenu) {
@@ -115,6 +133,11 @@ namespace Kaisa.Digivice {
         }
         public void InputLeft() {
             if (currentScreen == Screen.App) {
+                if (isEventPending) {
+                    audioMgr.PlayButtonA();
+                    triggerEvent();
+                    return;
+                }
                 loadedApp.InputLeft();
             }
             else if (currentScreen == Screen.Character) {
@@ -139,6 +162,11 @@ namespace Kaisa.Digivice {
             }
         }
         public void InputRight() {
+            if (isEventPending) {
+                audioMgr.PlayButtonA();
+                triggerEvent();
+                return;
+            }
             if (currentScreen == Screen.App) {
                 loadedApp.InputRight();
             }
@@ -190,6 +218,45 @@ namespace Kaisa.Digivice {
             if (currentScreen == Screen.App) loadedApp.InputRightUp();
         }
         #endregion
+        public void EnqueueRegularEvent() {
+            if (loadedApp == null) currentScreen = Screen.Character;
+
+            audioMgr.PlaySound(audioMgr.triggerEvent);
+            gm.SetEventActive(true);
+            isEventPending = true;
+            triggerEvent = CallRandomBattle;
+            triggerEvent += () => {
+                loadedGame.SavedEvent = 0;
+                isEventPending = false;
+                gm.SetEventActive(false);
+            };
+        }
+        public void EnqueueBossEvent() {
+            if (loadedApp == null) currentScreen = Screen.Character;
+
+            audioMgr.PlaySound(audioMgr.triggerEvent);
+            gm.SetEventActive(true);
+            isEventPending = true;
+            triggerEvent = CallBossBattle;
+            triggerEvent += () => {
+                loadedGame.SavedEvent = 0;
+                isEventPending = false;
+                gm.SetEventActive(false);
+            };
+        }
+
+        public void CallRandomBattle() {
+            currentScreen = Screen.App;
+            Digimon randomDigimon = gm.DatabaseMgr.GetRandomDigimonForBattle(GetPlayerLevel());
+            loadedApp = App.DigiviceApp.LoadApp(gm.pAppBattle, gm, this, randomDigimon.name, "false");
+        }
+
+        public void CallBossBattle() {
+            currentScreen = Screen.App;
+            string boss = gm.GetBossOfCurrentArea();
+            loadedApp = App.DigiviceApp.LoadApp(gm.pAppBattle, gm, this, boss, "true");
+        }
+
         private void OpenGameMenu() {
             currentMainMenu = 0;
             currentScreen = Screen.MainMenu;
@@ -212,7 +279,7 @@ namespace Kaisa.Digivice {
         }
         public void FinalizeApp(Screen newScreen = Screen.MainMenu) {
             string result;
-            if (loadedApp is CodeInput ci) {
+            if (loadedApp is App.CodeInput ci) {
                 result = ci.ReturnedDigimon;
                 if(result != null) {
                     gm.logicMgr.SetDigimonUnlocked(result, true);
@@ -223,21 +290,18 @@ namespace Kaisa.Digivice {
                     gm.EnqueueAnimation(gm.screenMgr.ACharHappy());
                 }
             }
-            //else if ()
-            currentScreen = newScreen;
+
+            if (isEventPending) currentScreen = Screen.Character;
+            else currentScreen = newScreen;
+
             loadedApp.Dispose();
             loadedApp = null;
+            gm.CheckPendingEvents();
         }
 
         private void OpenApp(GameObject appPrefab) {
             currentScreen = Screen.App;
             loadedApp = App.DigiviceApp.LoadApp(appPrefab, gm, this);
-        }
-
-        public void CallBattle() {
-            currentScreen = Screen.App;
-            Digimon randomDigimon = gm.DatabaseMgr.GetWeightedDigimon(GetPlayerLevel());
-            loadedApp = App.DigiviceApp.LoadApp(gm.pAppBattle, gm, this, randomDigimon.name, "false");
         }
 
         #region Player and game stats
@@ -254,7 +318,7 @@ namespace Kaisa.Digivice {
                 loadedGame.PlayerExperience += val;
                 if (loadedGame.PlayerExperience < 0) loadedGame.PlayerExperience = 0;
             }
-
+            if (loadedGame.PlayerExperience > 1_000_000) loadedGame.PlayerExperience = 1_000_000;
             int playerLevelNow = GetPlayerLevel();
             //If the player has lost a level, activate their insurance.
             if(playerLevelNow < playerLevelBefore) {
@@ -356,6 +420,12 @@ namespace Kaisa.Digivice {
         /// <param name="digimon"></param>
         /// <returns></returns>
         public int GetDigimonExtraLevel(string digimon) => loadedGame.GetDigimonLevel(digimon) - 1;
+        /// <summary>
+        /// Returns true if the player already has that Digimon at the maximum level.
+        /// </summary>
+        public bool IsDigimonAtMaxLevel(string digimon) {
+            return GetDigimonExtraLevel(digimon) == gm.DatabaseMgr.GetDigimon(digimon).MaxExtraLevel;
+        }
         public void SetDigimonCodeUnlocked(string name, bool val) => loadedGame.SetDigimonCodeUnlocked(name, val);
         public bool GetDigimonCodeUnlocked(string name) => loadedGame.GetDigimonCodeUnlocked(name);
         /// <summary>

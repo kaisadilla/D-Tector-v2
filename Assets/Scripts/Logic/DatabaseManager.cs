@@ -8,6 +8,8 @@ namespace Kaisa.Digivice {
         private GameManager gm;
         public Digimon[] Digimons { get; private set; }
         public Dictionary<string, string> DigiCodes { get; private set; }
+        public int[] AreasPerMap; //Stores the number of areas that there are in each map.
+        public string[][][] Bosses { get; private set; }
         public DatabaseManager(GameManager gm) {
             this.gm = gm;
             LoadDatabase();
@@ -16,6 +18,8 @@ namespace Kaisa.Digivice {
         public void LoadDatabase() {
             LoadDigimonDB();
             LoadDigiCodeDB();
+            LoadBossesDB();
+            LoadAreaCount();
         }
 
         /// <summary>
@@ -39,8 +43,17 @@ namespace Kaisa.Digivice {
         }
 
         private void LoadDigiCodeDB() {
-            string digiCode = ((TextAsset)Resources.Load("codeDB")).text;
-            DigiCodes = JsonConvert.DeserializeObject<Dictionary<string, string>>(digiCode);
+            string digiCodes = ((TextAsset)Resources.Load("codeDB")).text;
+            DigiCodes = JsonConvert.DeserializeObject<Dictionary<string, string>>(digiCodes);
+        }
+
+        private void LoadBossesDB() {
+            string boses = ((TextAsset)Resources.Load("bosses")).text;
+            Bosses = JsonConvert.DeserializeObject<string[][][]>(boses);
+        }
+        private void LoadAreaCount() {
+            string areas = ((TextAsset)Resources.Load("areas")).text;
+            AreasPerMap = JsonConvert.DeserializeObject<int[]>(areas);
         }
 
         public Digimon GetDigimon(string name) {
@@ -52,11 +65,11 @@ namespace Kaisa.Digivice {
             return null;
         }
         /// <summary>
-        /// Gets a digimon at random from the database. The chances of a given digimon being selected depends on its stats and the stats of the player.
+        /// Gets a digimon at random from those in the database that can be chosen for a random battle.
+        /// The level of the Digimon will be similar to the level of the player.
         /// </summary>
         /// <param name="playerLevel">The level of the player.</param>
-        /// <param name="threshold">The maximum difference between the level of the player and the level of the digimon chosen.</param>
-        public Digimon GetWeightedDigimon(int playerLevel) {
+        public Digimon GetRandomDigimonForBattle(int playerLevel) {
             List<Digimon> candidates = new List<Digimon>();
             List<float> weightList = new List<float>();
             float totalWeight = 0f;
@@ -75,8 +88,28 @@ namespace Kaisa.Digivice {
                         && d.baseLevel >= (playerLevel - threshold)
                         && d.baseLevel <= (playerLevel + threshold))
                 {
+                    if (d.rarity == Rarity.Boss || d.rarity == Rarity.none || d.exclusive) continue; //Ignore bosses and 'none' rarity.
+
                     candidates.Add(d);
-                    float thisWeight = (1.1f - (Mathf.Abs(playerLevel - d.baseLevel) / (float)threshold)) * d.weight;
+
+                    float baseWeight = 0f;
+                    switch(d.rarity) {
+                        case Rarity.Common:
+                            baseWeight = 10f;
+                            break;
+                        case Rarity.Rare:
+                            baseWeight = 6f;
+                            break;
+                        case Rarity.Epic:
+                            baseWeight = 3f;
+                            break;
+                        case Rarity.Legendary:
+                            baseWeight = 1f;
+                            break;
+                    }
+
+
+                    float thisWeight = (1.1f - (Mathf.Abs(playerLevel - d.baseLevel) / (float)threshold)) * baseWeight;
                     weightList.Add(thisWeight);
                     totalWeight += thisWeight;
                 }
@@ -93,19 +126,30 @@ namespace Kaisa.Digivice {
 
             return null;
         }
+        /// <summary>
+        /// Gets a random Digimon of the given rarity, with level no higher than the level specified.
+        /// </summary>
+        /// <returns></returns>
+        public Digimon GetRandomDigimonOfRarity(Rarity rarity, int maximumLevel) {
+            List<Digimon> candidates = new List<Digimon>();
+            foreach(Digimon d in Digimons) {
+                if(d.rarity == rarity && d.baseLevel <= maximumLevel) {
+                    candidates.Add(d);
+                }
+            }
+            return candidates[Random.Range(0, candidates.Count)];
+        }
 
         public bool TryGetDigimonFromCode(string code, out string digimon) {
-            if (DigiCodes.TryGetValue(code.ToUpper(), out string uppercaseDigimon)) {
-                digimon = uppercaseDigimon.ToLower();
+            if (DigiCodes.TryGetValue(code.ToLower(), out digimon)) {
                 return true;
             }
-            digimon = uppercaseDigimon.ToLower();
             return false;
         }
 
         public bool TryGetCodeOfDigimon(string digimon, out string code) {
             foreach(KeyValuePair<string, string> kv in DigiCodes) {
-                if (kv.Value.ToLower() == digimon) {
+                if (kv.Value == digimon) {
                     code = kv.Key;
                     return true;
                 }

@@ -1,7 +1,7 @@
-﻿using Kaisa.Digivice.App;
+﻿using Kaisa.Digivice.Extensions;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
+using System.Linq;
 using UnityEngine;
 
 namespace Kaisa.Digivice {
@@ -20,10 +20,9 @@ namespace Kaisa.Digivice {
         public SpriteDatabase spriteDB;
         public DatabaseManager DatabaseMgr { get; private set; }
         public DistanceManager DistanceMgr { get; private set; }
-
         //Other objects
         [SerializeField] private ShakeDetector shakeDetector;
-        private PlayerCharacter playerChar;
+        [SerializeField] private PlayerCharacter playerChar;
         private SavedGame loadedGame;
 
         [SerializeField] private GameObject mainScreen;
@@ -76,6 +75,12 @@ namespace Kaisa.Digivice {
             DatabaseMgr = new DatabaseManager(this);
 
             CheckLeaverBuster();
+            CheckPendingEvents();
+            //loadedGame.SetAreaCompleted(0, 1, true);
+            //loadedGame.SetAreaCompleted(0, 2, true);
+            //loadedGame.SetAreaCompleted(0, 4, true);
+            //loadedGame.SetAreaCompleted(0, 5, true);
+            //loadedGame.SetAreaCompleted(0, 11, true);
         }
 
         /// <summary>
@@ -113,8 +118,7 @@ namespace Kaisa.Digivice {
         private void LoadGame() {
             loadedGame = SavedGame.LoadSavedGame(0);
             GameChar gameChar = loadedGame.PlayerChar;
-            playerChar = new PlayerCharacter(gameChar);
-            InvokeRepeating("UpdateCharSprite", 0.5f, 0.5f);
+            playerChar.Initialize(this, gameChar);
         }
 
         private void CheckLeaverBuster() {
@@ -128,10 +132,24 @@ namespace Kaisa.Digivice {
                 DisableLeaverBuster();
             }
         }
+        /// <summary>
+        /// Triggers an event if there's any event pending in the distance manager.
+        /// </summary>
+        public void CheckPendingEvents() {
+            if (logicMgr.IsAppLoaded) return; //Don't trigger while an app is loaded. When an app is closed, this is called again.
+
+            int savedEvent = loadedGame.SavedEvent;
+            if (savedEvent == 0) return;
+            else if (savedEvent == 1) {
+                logicMgr.EnqueueRegularEvent();
+            }
+            else if(savedEvent == 2) {
+                logicMgr.EnqueueBossEvent();
+            }
+        }
 
         public GameChar CurrentPlayerChar => playerChar.currentChar;
         //This should be done with a Task in PlayerCharacter, but I avoided installing the necessary plugins to make async Tasks work in this project.
-        private void UpdateCharSprite() => playerChar.UpdateSprite();
         /// <summary>
         /// Creates the necessary keys in the SavedGame to run the game for the first time.
         /// </summary>
@@ -154,13 +172,16 @@ namespace Kaisa.Digivice {
             //LoadedGame.SetAreaCompleted(0, 5, true);
             //LoadedGame.SetAreaCompleted(0, 11, true);
             //loadedGame.CheatsUsed = false;
+            //AssignRandomBosses();
         }
 
         public void DebugInitialize() {
             loadedGame.SetRandomSeed(0, Random.Range(0, 2147483647));
             loadedGame.SetRandomSeed(1, Random.Range(0, 2147483647));
             loadedGame.SetRandomSeed(2, Random.Range(0, 2147483647));
-            loadedGame.CheatsUsed = false;
+            //loadedGame.CheatsUsed = false;
+            AssignRandomBosses();
+            loadedGame.StepsToNextEvent = 300;
         }
 
         /// <summary>
@@ -169,7 +190,8 @@ namespace Kaisa.Digivice {
         public void TakeAStep() {
             //TODO: Trigger both methods' events if needed.
             DistanceMgr.TakeSteps(1);
-            DistanceMgr.ReduceDistance(1, out _);
+            DistanceMgr.ReduceDistance(1);
+            CheckPendingEvents();
         }
         /// <summary>
         /// Returns the Transform of the main screen, usually to submit it as a parent to other gameobjects.
@@ -188,6 +210,7 @@ namespace Kaisa.Digivice {
         public CharState GetPlayerCharState() => playerChar.currentState;
         public void SetPlayerCharState(CharState state) => playerChar.currentState = state;
         public int CurrentPlayerCharSprite => playerChar.CurrentSprite;
+        public void SetEventActive(bool triggerEvent) => playerChar.SetEventMode(triggerEvent);
         #endregion
 
         /// <summary>
@@ -195,8 +218,9 @@ namespace Kaisa.Digivice {
         /// </summary>
         public void SubmitGameScore(int score) {
             int oldDistance = DistanceMgr.CurrentDistance;
-            DistanceMgr.ReduceDistance(score, out _);
+            DistanceMgr.ReduceDistance(score);
             int newDistance = DistanceMgr.CurrentDistance;
+            DistanceMgr.TakeSteps(Mathf.RoundToInt(score / 5f));
             screenMgr.EnqueueAnimation(screenMgr.AAwardDistance(score, oldDistance, newDistance));
         }
         public SpriteBuilder GetDDockScreenElement(int ddock, Transform parent) {
@@ -338,6 +362,57 @@ namespace Kaisa.Digivice {
             loadedGame.IsLeaverBusterActive = false;
             loadedGame.LeaverBusterExpLoss = 0;
             loadedGame.LeaverBusterDigimonLoss = "";
+        }
+
+        public void AssignRandomBosses() {
+            string[][][] bosses = DatabaseMgr.Bosses;
+            for (int map = 0; map < bosses.Length; map++) {
+                List<string> worldBosses = bosses[map][0].ToList();
+                //Take the initial Human spirit of the player from the list.
+                if (map == 0) {
+                    if (!worldBosses.Remove(GetPlayerSpirit(playerChar.currentChar))) {
+                        VisualDebug.WriteLine("No suitable Digimon was found to be removed from the first list of bosses. This should never happen.");
+                    }
+                }
+                else if (map == 6) {
+                    loadedGame.SetSemibossGroupForMap(6, Random.Range(1, bosses[map].Length));
+                }
+
+                worldBosses.Shuffle();
+
+                //If the world has semibosses, choose one set at random.
+                if(bosses[map].Length > 1) {
+                    string[] semibosses = bosses[map][Random.Range(1, bosses[map].Length)];
+                    for (int i = 0; i < semibosses.Length; i++) {
+                        int semibossIndexInMainList = worldBosses.FindIndex(val => val.Equals($"<sp-{i}>"));
+                        if(semibossIndexInMainList > -1) {
+                            worldBosses[semibossIndexInMainList] = semibosses[i];
+                        }
+                    }
+                }
+
+                loadedGame.SetBossesForMap(map, worldBosses.ToArray());
+            }
+        }
+
+        public string GetPlayerSpirit(GameChar playerChar) {
+            switch(playerChar) {
+                case GameChar.Takuya: return "agunimon";
+                case GameChar.Koji: return "lobomon";
+                case GameChar.Zoe: return "kazemon";
+                case GameChar.JP: return "beetlemon";
+                case GameChar.Tommy: return "kumamon";
+                case GameChar.Koichi: return "loweemon";
+                default: return "";
+            }
+        }
+
+        public string GetBossOfCurrentArea() {
+            int currentMap = DistanceMgr.CurrentMap;
+            int areasInMap = DistanceMgr.GetNumberOfAreasInMap(currentMap);
+            int currentArea = DistanceMgr.CurrentArea;
+
+            return loadedGame.GetBossesForMap(currentMap, areasInMap)[currentArea];
         }
 
         #region Animations

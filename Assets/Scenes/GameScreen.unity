@@ -501,7 +501,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -545.3, y: 608.82}
+  m_AnchoredPosition: {x: -545.3, y: 602.92}
   m_SizeDelta: {x: 162.61621, y: 47.944336}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &213591823
@@ -1241,6 +1241,8 @@ MonoBehaviour:
     type: 3}
   invertedArrowsSmall: {fileID: 2872405000399901243, guid: 9808cb78e43dade47a5fdc1075f4429c,
     type: 3}
+  triggerEvent: {fileID: 5443238823122320650, guid: 1a7d672ab33564f4ea3128a67ae22fc2,
+    type: 3}
   loading: {fileID: -1056871815479138359, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
     type: 3}
   loadingComplete: {fileID: 3614090101385040326, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
@@ -1822,8 +1824,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -545.3, y: 643}
-  m_SizeDelta: {x: 228.31754, y: 67.7}
+  m_AnchoredPosition: {x: -545.3, y: 623.5}
+  m_SizeDelta: {x: 228.31754, y: 106.77864}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &649221596
 MonoBehaviour:
@@ -2525,6 +2527,7 @@ MonoBehaviour:
   screenMgr: {fileID: 1069775828}
   spriteDB: {fileID: 460819916}
   shakeDetector: {fileID: 1861374542}
+  playerChar: {fileID: 1523415254}
   mainScreen: {fileID: 1688264598}
   pAppMap: {fileID: 4770717216813437012, guid: f05022e534ca08248978853395a687f8, type: 3}
   pAppStatus: {fileID: 4770717216813437012, guid: 06f908eb8e59b0548b807435a651cba5,
@@ -2568,6 +2571,7 @@ Transform:
   - {fileID: 1069775827}
   - {fileID: 460819917}
   - {fileID: 1861374543}
+  - {fileID: 1523415255}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3080,7 +3084,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 944781339}
         m_MethodName: TakeAStep
         m_Mode: 1
         m_Arguments:
@@ -3763,6 +3767,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1521185969}
   m_CullTransparentMesh: 0
+--- !u!1 &1523415253
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1523415255}
+  - component: {fileID: 1523415254}
+  m_Layer: 0
+  m_Name: PlayerCharacter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1523415254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523415253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 495cd1a0a31e64547b5fa68913184782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentChar: 0
+  currentState: 0
+--- !u!4 &1523415255
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523415253}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 944781340}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1600952333
 GameObject:
   m_ObjectHideFlags: 0
@@ -5403,6 +5452,8 @@ MonoBehaviour:
   loseDigimon: {fileID: 8300000, guid: 47d8ca230e53dd04390749eef274ca5f, type: 3}
   levelUp: {fileID: 8300000, guid: fff0c2b52089d884d91e128053d36e37, type: 3}
   levelDown: {fileID: 8300000, guid: 9b788820f762264418cfff230619bdc6, type: 3}
+  triggerEvent: {fileID: 8300000, guid: 8a20afa92c4b16746a8e2920f1bb86f9, type: 3}
+  travelMap: {fileID: 8300000, guid: 0f106441d8f87314ea38555d81ece692, type: 3}
   changeDock: {fileID: 8300000, guid: 9157ec63df6601844adfe3c2ed6f38aa, type: 3}
   encounterDigimon: {fileID: 8300000, guid: c5fe563eb80e6a14cb53455573d73a23, type: 3}
   encounterDigimonBoss: {fileID: 8300000, guid: fda6478b8139e8441a285d0a68e0f924,

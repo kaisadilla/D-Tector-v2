@@ -15,7 +15,6 @@ namespace Kaisa.Digivice {
             while (IsSlotUsed(candidateSlot)) candidateSlot++;
 
             SavedGame s = new SavedGame(candidateSlot);
-            s.AssignRandomBosses();
             return s;
         }
 
@@ -148,113 +147,38 @@ namespace Kaisa.Digivice {
             string key = "s" + slot + "_map" + map + "_area" + area;
             EncryptedPlayerPrefs.SetInt(key, (completed == true) ? 1 : 0);
         }
-        private void AssignRandomBosses() {
-            List<string> humanBosses = new List<string>(12) {
-            "Agunimon",
-            "Lobomon",
-            "Beetlemon",
-            "Kazemon",
-            "Kumamon",
-            "Loweemon",
-            "Grumblemon",
-            "Arbormon",
-            "Mercurymon",
-            "Lanamon",
-            "Dragomon",
-            "Orochimon"
-        };
-            List<string> humanSemiBosses = new List<string>(12) {
-            "Candlemon",
-            "ToyAgumon",
-            "Tapirmon",
-            "ShellNumemon",
-            "Snimon",
-            "Woodmon",
-            "Raremon",
-            "Devimon",
-            "Cerberumon",
-            "Phantomon",
-            "Karatenmon",
-            "IceDevimon"
-        };
-            List<string> animalBosses = new List<string>(12) {
-            "BurningGreymon",
-            "KendoGarurumon",
-            "MetalKabuterimon",
-            "Zephyrmon",
-            "Korikakumon",
-            "KaiserLeomon",
-            "Gigasmon",
-            "Petaldramon",
-            "Sephirothmon",
-            "Calmaramon",
-            "SkullSatamon",
-            "Apocalymon"
-        };
-            List<string> animalSemiBosses = new List<string>(12) {
-            "Mihiramon",
-            "Antylamon (Deva)",
-            "Majiramon",
-            "Sandiramon",
-            "Indramon",
-            "Pajiramon",
-            "Makuramon",
-            "Sinduramon",
-            "Caturamon",
-            "Vikaralamon",
-            "Kumbhiramon",
-            "Vajramon"
-        };
-            List<string> sacredBosses = new List<string>(4) {
-            "Azulongmon",
-            "Baihumon",
-            "Zhuqiaomon",
-            "Ebonwumon"
-        };
-            List<string> royalKnights = new List<string>(8) {
-            "Omnimon",
-            "Gallantmon (Crimson)",
-            "Dynasmon",
-            "LordKnightmon",
-            "Kentaurosmon",
-            "Alphamon",
-            "Craniamon",
-            "ShadowSeraphimon"
-        };
-
-            humanBosses.Shuffle();
-            animalBosses.Shuffle();
-            animalSemiBosses.Shuffle();
-            sacredBosses.Shuffle();
-            royalKnights.Shuffle();
-
-            for (int i = 0; i < 12; i++) {
-                //store human bossnames in hnbe(slot)sK(#area)j35 (i.e. hnbe1sK10j35
-                EncryptedPlayerPrefs.SetString("s" + slot + "_area" + (i + 1) + "_human_bossname", humanBosses[i]);
+        /// <summary>
+        /// Returns an array of all the bosses assigned with that map, in the order they were assigned..
+        /// </summary>
+        /// <param name="map">The map to obtain.</param>
+        /// <param name="totalAreas">The total amount of areas in this map.</param>
+        /// <returns></returns>
+        public string[] GetBossesForMap(int map, int totalAreas) {
+            string[] order = new string[totalAreas];
+            for(int i = 0; i < order.Length; i++) {
+                order[i] = EncryptedPlayerPrefs.GetString($"s{slot}_map{map}_boss{i}");
             }
-
-            for (int i = 1; i <= 12; i++) {
-                EncryptedPlayerPrefs.SetString("s" + slot + "_human_semiboss_number_" + i, humanSemiBosses[i - 1]);
+            return order;
+        }
+        public void SetBossesForMap(int map, string[] value) {
+            for(int i = 0; i < value.Length; i++) {
+                EncryptedPlayerPrefs.SetString($"s{slot}_map{map}_boss{i}", value[i]);
             }
+        }
+        public int GetSemibossGroupForMap(int map) {
+            return EncryptedPlayerPrefs.GetInt($"s{slot}_map{map}_semibossGroup");
+        }
 
-            for (int i = 0; i < 12; i++) {
-                EncryptedPlayerPrefs.SetString("s" + slot + "_area" + (i + 1) + "_animal_bossname", animalBosses[i]);
-            }
+        public void SetSemibossGroupForMap(int map, int value) {
+            EncryptedPlayerPrefs.SetInt($"s{slot}_map{map}_semibossGroup", value);
+        }
 
-            for (int i = 0; i < 12; i++) {
-                EncryptedPlayerPrefs.SetString("s" + slot + "_area" + (i + 1) + "_animal_semibossname", animalSemiBosses[i]);
-            }
-
-            for (int i = 0; i < 4; i++) {
-                EncryptedPlayerPrefs.SetString("s" + slot + "_area" + (i + 14) + "_bossname", sacredBosses[i]);
-            }
-
-            for (int i = 0; i < 8; i++) {
-                EncryptedPlayerPrefs.SetString("s" + slot + "_area" + (i + 19) + "_bossname", royalKnights[i]);
-            }
-
-            EncryptedPlayerPrefs.SetInt("s" + slot + "_hsbc", 0);
-
+        /// <summary>
+        /// Equals 0 if no event is currently active, 1 if a regular event is active and 2 if a boss event is active.
+        /// </summary>
+        public int SavedEvent {
+            get => EncryptedPlayerPrefs.GetInt($"s{slot}_pendingEvent");
+            set => EncryptedPlayerPrefs.SetInt($"s{slot}_pendingEvent", value);
         }
     }
 }

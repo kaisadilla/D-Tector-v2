@@ -23,6 +23,7 @@ public class SpriteDatabase : MonoBehaviour {
     public Sprite arrows;
     public Sprite arrowsSmall;
     public Sprite invertedArrowsSmall;
+    public Sprite triggerEvent;
     public Sprite loading;
     public Sprite loadingComplete;
     public Sprite[] pressAButton = new Sprite[2];

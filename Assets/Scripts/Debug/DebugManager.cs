@@ -130,15 +130,38 @@ namespace Kaisa.Digivice {
                     return GenerateAttackEmulationForDigimon(args[1]);
                 }
             }
+            if (command.StartsWith("/printallbosses")) {
+                string filePath = PrintAllBossesToFile();
+                return $"Report created in {filePath}";
+            }
             if (command.StartsWith("/cheatsused")) {
                 return $"Cheats used this game: {loadedGame.CheatsUsed}";
             }
-            //Commands that modify the data of the game and trigger "CheatsUsed".
+            if (command.StartsWith("/getcurrentdistance")) {
+                return loadedGame.CurrentDistance.ToString();
+            }
+            if (command.StartsWith("/getdistanceforarea")) {
+                string[] args = command.Split(' ');
+                if (args.Length == 3) {
+                    try {
+                        string result = gm.DistanceMgr.Distances[int.Parse(args[1])][int.Parse(args[2])].ToString();
+                        return result;
+                    }
+                    catch {
+                    }
+                }
+                return "Invalid parameters. Expected (int)map, (int)area";
+            }
+            //===============================================================//
+            //====== COMMANDS THAT MUST BE ALLOWED WITH /unlockconsole ======//
+            //===============================================================//
             if (command.StartsWith("/unlockconsole")) {
                 consoleActivated = true;
                 return "Console activated.";
             }
+            //These commands modify the data of the game and will trigger "CheatsUsed".
             if (!consoleActivated) return "Invalid command.";
+
             if (command.StartsWith("/cancelbattle")) {
                 gm.DisableLeaverBuster();
                 return "LeaverBuster disabled for this battle if you close the application now.";
@@ -222,12 +245,24 @@ namespace Kaisa.Digivice {
                 }
                 return "Invalid parameters. Expected (int)experience.";
             }
+            if (command.StartsWith("/setcurrentdistance")) {
+                string[] args = command.Split(' ');
+                if (args.Length == 2) {
+                    try {
+                        loadedGame.CurrentDistance = int.Parse(args[1]);
+                        return $"Current distance set to {int.Parse(args[1])}";
+                    }
+                    catch {
+                    }
+                }
+                return "Invalid parameters. Expected (int)distance";
+            }
 
             return "Invalid command.";
         }
         private void UnlockAllDigimon() {
             foreach (Digimon d in gm.DatabaseMgr.Digimons) {
-                if(d.name != Constants.DEFAULT_SPIRIT_DIGIMON) gm.logicMgr.SetDigimonUnlocked(d.name, true);
+                if (d.name != Constants.DEFAULT_SPIRIT_DIGIMON) gm.logicMgr.SetDigimonUnlocked(d.name, true);
             }
         }
         private void LockAllDigimon() {
@@ -246,7 +281,7 @@ namespace Kaisa.Digivice {
                     file.WriteLine($"==== LEVEL {level} ====");
                     file.WriteLine($"base exp: {expThisLevel}. Next level at: {expNeeded}");
                     for (int i = 0; i < 10; i++) {
-                        Digimon d = gm.DatabaseMgr.GetWeightedDigimon(level);
+                        Digimon d = gm.DatabaseMgr.GetRandomDigimonForBattle(level);
                         if (d == null) {
                             file.WriteLine($"Digimon not found.");
                         }
@@ -266,7 +301,7 @@ namespace Kaisa.Digivice {
             System.Random enemyAttackRNG;
 
             for (int level = 1; level < 100; level++) {
-                Digimon d = gm.DatabaseMgr.GetWeightedDigimon(level);
+                Digimon d = gm.DatabaseMgr.GetRandomDigimonForBattle(level);
                 if (d == null) continue;
                 enemyAttackRNG = new System.Random(gm.GetRandomSavedSeed());
                 for (int i = 0; i < 10; i++) {
@@ -328,6 +363,44 @@ namespace Kaisa.Digivice {
 
         public void ShowDebug() {
             debugConsole.SetActive(!debugConsole.activeSelf);
+        }
+        private string PrintAllBossesToFile() {
+            string filePath = GetFolderPath(SpecialFolder.MyDocuments) + @"\dtector_all_bosses.txt";
+            using (StreamWriter file = new StreamWriter(filePath)) {
+                file.WriteLine("\n==== World 0 ====");
+                for (int i = 0; i < 12; i++) {
+                    file.WriteLine($"World 0, boss {i}: {loadedGame.GetBossesForMap(0, 12)[i]}");
+                }
+                file.WriteLine("\n==== World 1 ====");
+                file.WriteLine($"World 1, boss 0: {loadedGame.GetBossesForMap(1, 1)[0]}");
+                file.WriteLine("\n==== World 2 ====");
+                for (int i = 0; i < 12; i++) {
+                    file.WriteLine($"World 2, boss {i}: {loadedGame.GetBossesForMap(2, 12)[i]}");
+                }
+                file.WriteLine("\n==== World 3 ====");
+                file.WriteLine($"World 3, boss 0: {loadedGame.GetBossesForMap(3, 1)[0]}");
+                file.WriteLine("\n==== World 4 ====");
+                for (int i = 0; i < 10; i++) {
+                    file.WriteLine($"World 4, boss {i}: {loadedGame.GetBossesForMap(4, 10)[i]}");
+                }
+                file.WriteLine("\n==== World 5 ====");
+                for (int i = 0; i < 4; i++) {
+                    file.WriteLine($"World 5, boss {i}: {loadedGame.GetBossesForMap(5, 4)[i]}");
+                }
+                file.WriteLine("\n==== World 6 ====");
+                file.WriteLine($"World 6, boss {0}: {loadedGame.GetBossesForMap(6, 4)[1]}");
+                file.WriteLine($"\nWorld 6 semiboss set: {loadedGame.GetSemibossGroupForMap(6)}");
+
+                file.WriteLine("\n==== World 7 ====");
+                for (int i = 0; i < 8; i++) {
+                    file.WriteLine($"World 7, boss {i}: {loadedGame.GetBossesForMap(7, 8)[i]}");
+                }
+                file.WriteLine("\n==== World 8 ====");
+                file.WriteLine($"World 8, boss 0: {loadedGame.GetBossesForMap(8, 1)[0]}");
+                file.WriteLine("\n==== World 9 ====");
+                file.WriteLine($"World 9, boss 0: {loadedGame.GetBossesForMap(9, 1)[0]}");
+                return filePath;
+            }
         }
     }
 }

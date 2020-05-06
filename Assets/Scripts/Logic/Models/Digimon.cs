@@ -13,7 +13,6 @@ namespace Kaisa.Digivice {
         public readonly Element element;
         public readonly string evolution;
 
-        public readonly int weight; //A number between 0 and 10, used to calculate how commonly a Digimon appears. A weight of 0 means the Digimon never appears.
         public readonly Rarity rarity; //Rarity is used to calculate the chance of unlocking a Digimon.
         public readonly bool disabled; //If this is true, the Digimon does not appear anywhere in the game.
 
@@ -22,10 +21,14 @@ namespace Kaisa.Digivice {
         //Stats used only to calculate the stats of a Digimon as a boss. At level 100, a boss Digimon's stats will be exactly those in bossStats.
         public readonly CombatStats bossStats;
 
+        public readonly bool exclusive; //If true, the Digimon can't appear in random battles.
+        public readonly bool isPseudo; //If true, the Digimon can't be obtained and is not counted as a Digimon.
+
         public Digimon(
                 int number, int order, string name, Stage stage, SpiritType spiritType,
-                string abilityName, Element element, string evolution, int weight, Rarity rarity, bool disabled,
-                int baseLevel, CombatStats stats, CombatStats bossStats)
+                string abilityName, Element element, string evolution, Rarity rarity, bool disabled,
+                int baseLevel, CombatStats stats, CombatStats bossStats,
+                bool exclusive, bool isPseudo)
         {
             this.number = number;
             this.order = order;
@@ -35,13 +38,14 @@ namespace Kaisa.Digivice {
             this.abilityName = abilityName;
             this.element = element;
             this.evolution = evolution;
-            this.weight = weight;
             this.rarity = rarity;
             this.disabled = disabled;
             this.baseLevel = baseLevel;
             this.stats = stats;
             this.bossStats = bossStats;
             this.bossStats = this.bossStats?? stats; //If the database does not have boss stats for this Digimon, use regular stats instead.
+            this.exclusive = exclusive;
+            this.isPseudo = isPseudo;
         }
 
         /// <summary>
@@ -243,6 +247,7 @@ namespace Kaisa.Digivice {
             float a = Mathf.Pow(levelDiff, 2f);
             float b = levelDiff / 10f;
             float evolChance = 1.0f - (a / 100f) + (0.05f * b);
+            if (evolChance < 0.05f) evolChance = 0.05f;
 
             return evolChance;
         }

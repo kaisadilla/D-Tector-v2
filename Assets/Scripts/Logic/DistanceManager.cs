@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Kaisa.Digivice {
@@ -16,6 +17,22 @@ namespace Kaisa.Digivice {
             Distances = JsonConvert.DeserializeObject<int[][]>(distancesJson);
             this.gm = gm;
             this.loadedGame = loadedGame;
+        }
+
+        public int GetNumberOfAreasInMap(int map) {
+            switch(map) {
+                case 0: return 12;
+                case 1: return 1;
+                case 2: return 12;
+                case 3: return 1;
+                case 4: return 10;
+                case 5: return 4;
+                case 6: return 1;
+                case 7: return 8;
+                case 8: return 1;
+                case 9: return 1;
+                default: return -1;
+            }
         }
 
         /// <summary>
@@ -51,7 +68,16 @@ namespace Kaisa.Digivice {
         /// Sets whether the area is completed or not.
         /// </summary>
         public void SetAreaCompleted(int map, int area, bool completed) => loadedGame.SetAreaCompleted(map, area, completed);
-
+        /// <summary>
+        /// Returns a list of all the areas in a map that haven't been completed yet.
+        /// </summary>
+        public List<int> GetUncompletedAreas(int map) {
+            List<int> uncompletedAreas = new List<int>();
+            for(int i = 0; i < gm.DatabaseMgr.AreasPerMap[map]; i++) {
+                if (!GetAreaCompleted(map, i)) uncompletedAreas.Add(i);
+            }
+            return uncompletedAreas;
+        }
         /// <summary>
         /// Moves the player to a new map and area, and sets the current distance to the default distance for that map and area.
         /// </summary>
@@ -71,25 +97,23 @@ namespace Kaisa.Digivice {
         /// and, in that case, resets the next event counter.
         /// </summary>
         /// <param name="steps"></param>
-        /// <returns></returns>
-        public bool TakeSteps(int steps = 1) {
+        public void TakeSteps(int steps = 1) {
             loadedGame.StepsToNextEvent -= steps;
             loadedGame.Steps += steps;
 
             if(loadedGame.StepsToNextEvent <= 0) {
                 loadedGame.StepsToNextEvent = Random.Range(3, 6) * 100;
-                return true;
+                loadedGame.SavedEvent = 1;
             }
-            return false;
         }
 
         //TODO: Test if semibosses work properly.
         /// <summary>
         /// Tries to reduce the distance by an amount, and outputs the actual distance reduced.
-        /// Returns true if the player triggers a boss or a semiboss. In that case, only the distance needed to reach that event is reduced.
+        /// Returns the actual distance reduced.
         /// </summary>
         /// <returns></returns>
-        public bool ReduceDistance(int distance, out int actualDistance) {
+        public int ReduceDistance(int distance) {
             int nextStop = 1; //Indicates the distance at which an event will trigger (and no extra distance will be removed).
             //Check semibosses for maps 4 and 8:
             if(loadedGame.CurrentMap == 4) {
@@ -106,14 +130,13 @@ namespace Kaisa.Digivice {
             }
 
             if (loadedGame.CurrentDistance - distance <= nextStop) {
-                actualDistance = loadedGame.CurrentDistance - 1 - nextStop;
                 loadedGame.CurrentDistance = nextStop;
-                return true;
+                loadedGame.SavedEvent = 2;
+                return loadedGame.CurrentDistance - 1 - nextStop;
             }
             else {
                 loadedGame.CurrentDistance -= distance;
-                actualDistance = distance;
-                return false;
+                return distance;
             }
         }
 

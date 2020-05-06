@@ -12,7 +12,7 @@ namespace Kaisa.Digivice.App {
         private const float THIS_DELTA_TIME = 0.005f;
 
         //Constants
-        private const int ROW_COUNT = 12;
+        private const int ROW_COUNT = 70;
         private const byte HAS_FIRST  = 0b001; //If the row has an asteroid on the first position.
         private const byte HAS_SECOND = 0b010;
         private const byte HAS_THIRD  = 0b100;
@@ -22,7 +22,7 @@ namespace Kaisa.Digivice.App {
         private byte[] rowData = new byte[ROW_COUNT];
         //private float[] speeds = new float[] { 2.85f, 1.85f, 1.1f, 0.8f }; //(THIS IS THE ORIGINAL D-TECTOR SPEED)
         //private float[] speeds = new float[] { 1.5f, 1f, 0.66f, 0.5f }; //Suicide.
-        private float[] speeds = new float[] { 2.5f, 1.5f, 1.0f, 0.75f }; //The times it takes for a row to travel 38 pixels.
+        private float[] speeds = new float[] { 2f, 1.5f, 1.0f, 0.75f }; //The times it takes for a row to travel 38 pixels.
         //Game stats
         private bool gameStarted = false;
         private byte rocketPosition = 1; //0, 1, 2

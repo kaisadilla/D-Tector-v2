@@ -15,7 +15,7 @@ namespace Kaisa.Digivice {
         private Transform animParent;
 
         private Queue<IEnumerator> animationQueue = new Queue<IEnumerator>();
-        private bool consumingQueue = false;
+        public bool PlayingAnimations { get; private set; }
 
         public void AssignManagers(GameManager gm) {
             this.gm = gm;
@@ -33,14 +33,14 @@ namespace Kaisa.Digivice {
         /// </summary>
         public void EnqueueAnimation(IEnumerator animation) {
             animationQueue.Enqueue(animation);
-            if (!consumingQueue) StartCoroutine(ConsumeQueue());
+            if (!PlayingAnimations) StartCoroutine(ConsumeQueue());
         }
 
         private void Start() {
             StartCoroutine(ConsumeQueue());
         }
         private IEnumerator ConsumeQueue() {
-            consumingQueue = true;
+            PlayingAnimations = true;
             while (animationQueue.Count > 0) {
                 gm.LockInput();
                 animParent = ScreenElement.BuildContainer("Anim Parent", ScreenParent, false).SetSize(32, 32).transform;
@@ -48,7 +48,8 @@ namespace Kaisa.Digivice {
                 Destroy(animParent.gameObject);
                 gm.UnlockInput();
             }
-            consumingQueue = false;
+            PlayingAnimations = false;
+            gm.CheckPendingEvents();
         }
         /*private IEnumerator ConsumeQueue() {
             while (true) {
@@ -307,21 +308,21 @@ namespace Kaisa.Digivice {
             Sprite sDistance = spriteDB.games_distance;
 
             audioMgr.PlayButtonA();
-            ScreenElement.BuildSprite("Score", animParent).SetSize(32, 5).SetSprite(sScore);
+            ScreenElement.BuildSprite("Score", animParent).SetSize(32, 5).SetPosition(1, 1).SetSprite(sScore);
             yield return new WaitForSeconds(1f);
 
             audioMgr.PlayButtonA();
             ScreenElement.BuildTextBox("ScoreText", animParent, DFont.Regular)
-                .SetText(score.ToString()).SetSize(31, 5).SetPosition(0, 8).SetAlignment(TextAnchor.UpperRight);
+                .SetText(score.ToString()).SetSize(31, 5).SetPosition(1, 9).SetAlignment(TextAnchor.UpperRight);
             yield return new WaitForSeconds(1f);
 
             audioMgr.PlayButtonA();
-            ScreenElement.BuildSprite("Distance", animParent).SetSize(32, 5).SetPosition(0, 17).SetSprite(sDistance);
+            ScreenElement.BuildSprite("Distance", animParent).SetSize(32, 5).SetPosition(1, 18).SetSprite(sDistance);
             yield return new WaitForSeconds(1f);
 
             audioMgr.PlayButtonA();
             TextBoxBuilder tbDistance = ScreenElement.BuildTextBox("DistanceText", animParent, DFont.Regular)
-                .SetText(distanceBefore.ToString()).SetSize(31, 5).SetPosition(0, 25).SetAlignment(TextAnchor.UpperRight);
+                .SetText(distanceBefore.ToString()).SetSize(31, 5).SetPosition(1, 26).SetAlignment(TextAnchor.UpperRight);
             yield return new WaitForSeconds(1f);
 
             audioMgr.PlayCharHappy();
@@ -330,9 +331,9 @@ namespace Kaisa.Digivice {
             //gm.UnlockInput();
             //yield return new WaitUntil(() => gm.inputMgr.ConsumeLastKey(Direction.Up, Direction.Down));
         }
-        public IEnumerator ATravelMap(Direction dir, int currentMap, int currentSector, int newSector) {
-            Sprite mapCurrentSprite = spriteDB.GetMapSectorSprites(currentMap)[currentSector];
-            Sprite mapNewSprite = spriteDB.GetMapSectorSprites(currentMap)[newSector];
+        public IEnumerator ATravelMap(Direction dir, int map, int oldSector, int newSector) {
+            Sprite mapCurrentSprite = spriteDB.GetMapSectorSprites(map)[oldSector];
+            Sprite mapNewSprite = spriteDB.GetMapSectorSprites(map)[newSector];
 
             SpriteBuilder sMapCurrent = ScreenElement.BuildSprite("AnimCurrentSector", animParent).SetSprite(mapCurrentSprite);
             SpriteBuilder sMapNew = ScreenElement.BuildSprite("AnimNewSector", animParent).SetSprite(mapNewSprite).PlaceOutside(dir.Opposite());
@@ -347,6 +348,118 @@ namespace Kaisa.Digivice {
             sMapCurrent.Dispose();
             sMapNew.Dispose();
         }
+        public IEnumerator AForcedTravelMap0(int areaBefore, int areaAfter, int newDistance) {
+            int sectorBefore = Mathf.FloorToInt(areaBefore / 3f);
+            int sectorAfter = Mathf.FloorToInt(areaAfter / 3f);
+            //Create the map and place the current area in the screen.
+            SpriteBuilder[] sbMap = new SpriteBuilder[4];
+            for(int i = 0; i < sbMap.Length; i++) {
+                Sprite sMap = spriteDB.GetMapSectorSprites(0)[i];
+                sbMap[i] = ScreenElement.BuildSprite($"map{i}", animParent).SetSprite(sMap);
+            }
+            sbMap[1].SetPosition(0, 32);
+            sbMap[2].SetPosition(32, 32);
+            sbMap[3].SetPosition(32, 0);
+
+            if (sectorBefore == 1) sbMap.Move(Direction.Up, 32);
+            if (sectorBefore == 2) sbMap.Move(Direction.Up, 32).Move(Direction.Left, 32);
+            if (sectorBefore == 3) sbMap.Move(Direction.Left, 32);
+
+            audioMgr.PlaySound(audioMgr.travelMap);
+
+            //Move the areas
+            float totalDuration = 3.5f;
+            //If both areas are the same:
+            if (sectorBefore == sectorAfter) {
+                yield return new WaitForSeconds(totalDuration);
+            }
+            //If the areas are consecutive of one another:
+            else if (Mathf.Abs(sectorBefore - sectorAfter) == 1
+                    || sectorBefore == 0 && sectorAfter == 3
+                    || sectorBefore == 3 && sectorAfter == 0) {
+                Direction animationDir = Direction.Right;
+                if (sectorBefore == 0 && sectorAfter == 3) animationDir = Direction.Right;
+                else if (sectorBefore == 0 && sectorAfter == 1) animationDir = Direction.Up;
+                else if (sectorBefore == 1 && sectorAfter == 0) animationDir = Direction.Down;
+                else if (sectorBefore == 1 && sectorAfter == 2) animationDir = Direction.Left;
+                else if (sectorBefore == 2 && sectorAfter == 1) animationDir = Direction.Right;
+                else if (sectorBefore == 2 && sectorAfter == 3) animationDir = Direction.Down;
+                else if (sectorBefore == 3 && sectorAfter == 2) animationDir = Direction.Up;
+                else if (sectorBefore == 3 && sectorAfter == 0) animationDir = Direction.Right;
+
+                for (int i = 0; i < 32; i++) {
+                    sbMap.Move(animationDir);
+                    yield return new WaitForSeconds(totalDuration / 32);
+                }
+            }
+            else {
+                if (sectorBefore == 0 && sectorAfter == 2) {
+                    for (int i = 0; i < 32; i++) {
+                        sbMap.Move(Direction.Up);
+                        yield return new WaitForSeconds(totalDuration / 64);
+                    }
+                    for (int i = 0; i < 32; i++) {
+                        sbMap.Move(Direction.Left);
+                        yield return new WaitForSeconds(totalDuration / 64);
+                    }
+                }
+                else if (sectorBefore == 2 && sectorAfter == 0) {
+                    for (int i = 0; i < 32; i++) {
+                        sbMap.Move(Direction.Down);
+                        yield return new WaitForSeconds(totalDuration / 64);
+                    }
+                    for (int i = 0; i < 32; i++) {
+                        sbMap.Move(Direction.Right);
+                        yield return new WaitForSeconds(totalDuration / 64);
+                    }
+                }
+                else if (sectorBefore == 1 && sectorAfter == 3) {
+                    for (int i = 0; i < 32; i++) {
+                        sbMap.Move(Direction.Left);
+                        yield return new WaitForSeconds(totalDuration / 64);
+                    }
+                    for (int i = 0; i < 32; i++) {
+                        sbMap.Move(Direction.Down);
+                        yield return new WaitForSeconds(totalDuration / 64);
+                    }
+                }
+                else if (sectorBefore == 3 && sectorAfter == 1) {
+                    for (int i = 0; i < 32; i++) {
+                        sbMap.Move(Direction.Right);
+                        yield return new WaitForSeconds(totalDuration / 64);
+                    }
+                    for (int i = 0; i < 32; i++) {
+                        sbMap.Move(Direction.Up);
+                        yield return new WaitForSeconds(totalDuration / 64);
+                    }
+                }
+            }
+
+            //Spawn the area name and marker.
+            int areaPosY = (sectorAfter == 0 || sectorAfter == 3) ? 1 : 26;
+            TextBoxBuilder tbNewAreaName = ScreenElement.BuildTextBox("AreaName", animParent, DFont.Small)
+                .SetText(string.Format("area{0:00}", areaAfter + 1))
+                .SetPosition(2, areaPosY);
+            RectangleBuilder tbNewAreaMarker = ScreenElement.BuildRectangle("OptionMarker", animParent)
+                .SetSize(2, 2).SetFlickPeriod(0.25f).SetPosition(Constants.AREA_POSITIONS[0][areaAfter]);
+            //Draw the completed area markers.
+            int firstArea = sectorAfter * 3;
+            for (int i = firstArea; i <= firstArea + 2; i++) {
+                if (gm.DistanceMgr.GetAreaCompleted(0, i)) {
+                    Vector2Int markerPos = Constants.AREA_POSITIONS[0][i];
+                    RectangleBuilder marker = ScreenElement.BuildRectangle("Area" + i + "Marker", animParent)
+                            .SetSize(2, 2).SetPosition(markerPos.x, markerPos.y);
+                }
+            }
+            yield return new WaitForSeconds(2.25f);
+
+            //Display distance.
+            SpriteBuilder sbDistance = ScreenElement.BuildSprite("DistanceBackground", animParent).SetSprite(spriteDB.map_distanceScreen);
+            ScreenElement.BuildTextBox("Distance", animParent, DFont.Regular)
+                .SetText(newDistance.ToString()).SetSize(25, 5).SetPosition(6, 25).SetAlignment(TextAnchor.UpperRight);
+            yield return new WaitForSeconds(2.5f);
+        }
+
         public IEnumerator ASwapDDock(int ddock, string newDigimon) {
             float animDuration = 1.5f;
             Sprite newDigimonSprite = spriteDB.GetDigimonSprite(newDigimon);
