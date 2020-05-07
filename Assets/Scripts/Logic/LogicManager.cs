@@ -8,10 +8,8 @@ namespace Kaisa.Digivice {
     public class LogicManager : MonoBehaviour, IAppController {
         private GameManager gm;
         private AudioManager audioMgr;
-        private SavedGame loadedGame;
-        public void Initialize(GameManager gm, SavedGame loadedGame) {
+        public void Initialize(GameManager gm) {
             this.gm = gm;
-            this.loadedGame = loadedGame;
 
             audioMgr = gm.audioMgr;
         }
@@ -246,7 +244,7 @@ namespace Kaisa.Digivice {
             isEventPending = true;
             triggerEvent = CallRandomBattle;
             triggerEvent += () => {
-                loadedGame.SavedEvent = 0;
+                SavedGame.SavedEvent = 0;
                 isEventPending = false;
                 gm.SetEventActive(false);
             };
@@ -259,7 +257,7 @@ namespace Kaisa.Digivice {
             isEventPending = true;
             triggerEvent = CallBossBattle;
             triggerEvent += () => {
-                loadedGame.SavedEvent = 0;
+                SavedGame.SavedEvent = 0;
                 isEventPending = false;
                 gm.SetEventActive(false);
             };
@@ -267,7 +265,7 @@ namespace Kaisa.Digivice {
 
         public void CallRandomBattle() {
             currentScreen = Screen.App;
-            Digimon randomDigimon = gm.DatabaseMgr.GetRandomDigimonForBattle(GetPlayerLevel());
+            Digimon randomDigimon = Database.GetRandomDigimonForBattle(GetPlayerLevel());
             loadedApp = App.DigiviceApp.LoadApp(gm.pAppBattle, gm, this, randomDigimon.name, "false");
         }
 
@@ -307,7 +305,7 @@ namespace Kaisa.Digivice {
                 result = ci.ReturnedDigimon;
                 if (result != null) {
                     gm.logicMgr.SetDigimonUnlocked(result, true);
-                    gm.logicMgr.SetDigimonCodeUnlocked(result, true);
+                    gm.logicMgr.SetDigicodeUnlocked(result, true);
 
                     gm.EnqueueAnimation(gm.screenMgr.ASummonDigimon(result));
                     gm.EnqueueAnimation(gm.screenMgr.AUnlockDigimon(result));
@@ -338,19 +336,19 @@ namespace Kaisa.Digivice {
         public bool AddPlayerExperience(int val) {
             int playerLevelBefore = GetPlayerLevel();
             //If the player has insurance and they would lose experience, don't do anything.
-            if (!(val < 0 && loadedGame.IsPlayerInsured)) {
-                loadedGame.PlayerExperience += val;
-                if (loadedGame.PlayerExperience < 0) loadedGame.PlayerExperience = 0;
+            if (!(val < 0 && SavedGame.IsPlayerInsured)) {
+                SavedGame.PlayerExperience += val;
+                if (SavedGame.PlayerExperience < 0) SavedGame.PlayerExperience = 0;
             }
-            if (loadedGame.PlayerExperience > 1_000_000) loadedGame.PlayerExperience = 1_000_000;
+            if (SavedGame.PlayerExperience > 1_000_000) SavedGame.PlayerExperience = 1_000_000;
             int playerLevelNow = GetPlayerLevel();
             //If the player has lost a level, activate their insurance.
             if (playerLevelNow < playerLevelBefore) {
-                loadedGame.IsPlayerInsured = true;
+                SavedGame.IsPlayerInsured = true;
             }
             //Else, toggle it off, regardless of whether they won or lost experience this time.
             else {
-                loadedGame.IsPlayerInsured = false;
+                SavedGame.IsPlayerInsured = false;
             }
 
             return (playerLevelBefore != playerLevelNow);
@@ -359,7 +357,7 @@ namespace Kaisa.Digivice {
         /// Returns the level of a player based on its experience.
         /// </summary>
         public int GetPlayerLevel() {
-            int playerXP = loadedGame.PlayerExperience;
+            int playerXP = SavedGame.PlayerExperience;
             if (playerXP == 0) return 1;
 
             float level = Mathf.Pow(playerXP, 1f / 3f);
@@ -371,19 +369,19 @@ namespace Kaisa.Digivice {
         public void LevelUpPlayer() {
             int playerLevel = GetPlayerLevel();
             float nextLevelExp = Mathf.Pow(playerLevel + 1, 3f);
-            loadedGame.PlayerExperience = Mathf.CeilToInt(nextLevelExp);
+            SavedGame.PlayerExperience = Mathf.CeilToInt(nextLevelExp);
         }
         public int SpiritPower {
-            get => loadedGame.SpiritPower;
+            get => SavedGame.SpiritPower;
             set {
                 int totalSpiritPower = value;
                 if (totalSpiritPower > Constants.MAX_SPIRIT_POWER) totalSpiritPower = 99;
                 if (totalSpiritPower < 0) totalSpiritPower = 0;
-                loadedGame.SpiritPower = totalSpiritPower;
+                SavedGame.SpiritPower = totalSpiritPower;
             }
         }
-        public int TotalBattles => loadedGame.TotalBattles;
-        public int TotalWins => loadedGame.TotalWins;
+        public int TotalBattles => SavedGame.TotalBattles;
+        public int TotalWins => SavedGame.TotalWins;
         public float WinPercentage {
             get {
                 if (TotalBattles == 0) return 0f;
@@ -393,11 +391,11 @@ namespace Kaisa.Digivice {
         /// <summary>
         /// Increases the total battle count by 1 and returns the new value.
         /// </summary>
-        public int IncreaseTotalBattles() => ++loadedGame.TotalBattles;
+        public int IncreaseTotalBattles() => ++SavedGame.TotalBattles;
         /// <summary>
         /// Increases the total win count by 1 and returns the new value.
         /// </summary>
-        public int IncreaseTotalWins() => ++loadedGame.TotalWins;
+        public int IncreaseTotalWins() => ++SavedGame.TotalWins;
         #endregion
 
         #region Digimon data
@@ -406,22 +404,27 @@ namespace Kaisa.Digivice {
         /// </summary>
         public void SetDigimonUnlocked(string digimon, bool val) {
             if (val == true) {
-                if (loadedGame.GetDigimonLevel(digimon) == 0) {
-                    loadedGame.SetDigimonLevel(digimon, 1);
+                if (SavedGame.GetDigimonLevel(digimon) == 0) {
+                    SavedGame.SetDigimonLevel(digimon, 1);
                     VisualDebug.WriteLine("Unlocked digimon: " + digimon);
 
-                    string[] ddocks = gm.GetAllDDockDigimons();
+                    Stage digimonStage = Database.GetDigimon(digimon).stage;
 
-                    for (int i = 0; i < ddocks.Length; i++) {
-                        if (ddocks[i] == "") {
-                            SetDDockDigimon(i, digimon);
-                            break;
+                    if(!(digimonStage == Stage.Spirit || digimonStage == Stage.Armor)) {
+                        string[] ddocks = gm.GetAllDDockDigimons();
+
+                        for (int i = 0; i < ddocks.Length; i++) {
+                            if (ddocks[i] == null || ddocks[i] == "") {
+                                SetDDockDigimon(i, digimon);
+                                break;
+                            }
                         }
                     }
+
                 }
             }
             else {
-                loadedGame.SetDigimonLevel(digimon, 0);
+                SavedGame.SetDigimonLevel(digimon, 0);
                 string[] ddocks = gm.GetAllDDockDigimons();
 
                 for (int i = 0; i < ddocks.Length; i++) {
@@ -434,30 +437,30 @@ namespace Kaisa.Digivice {
         /// <summary>
         /// Returns true if the player has unlocked that digimon
         /// </summary>
-        public bool GetDigimonUnlocked(string digimon) => loadedGame.GetDigimonLevel(digimon) > 0;
+        public bool GetDigimonUnlocked(string digimon) => SavedGame.GetDigimonLevel(digimon) > 0;
         /// <summary>
         /// Sets the level of a Digimon. This method accounts for the maximum level the Digimon can have. This method can't be used to lock a Digimon.
         /// </summary>
         public void SetDigimonExtraLevel(string digimon, int val) {
-            int maxExtraLevel = gm.DatabaseMgr.GetDigimon(digimon).MaxExtraLevel;
+            int maxExtraLevel = Database.GetDigimon(digimon).MaxExtraLevel;
             if (val > maxExtraLevel) val = maxExtraLevel;
             if (val < 1) val = 1;
-            loadedGame.SetDigimonLevel(digimon, val + 1);
+            SavedGame.SetDigimonLevel(digimon, val + 1);
         }
         /// <summary>
         /// Returns the extra level of a Digimon. Returns -1 if the Digimon is not unlocked.
         /// </summary>
         /// <param name="digimon"></param>
         /// <returns></returns>
-        public int GetDigimonExtraLevel(string digimon) => loadedGame.GetDigimonLevel(digimon) - 1;
+        public int GetDigimonExtraLevel(string digimon) => SavedGame.GetDigimonLevel(digimon) - 1;
         /// <summary>
         /// Returns true if the player already has that Digimon at the maximum level.
         /// </summary>
         public bool IsDigimonAtMaxLevel(string digimon) {
-            return GetDigimonExtraLevel(digimon) == gm.DatabaseMgr.GetDigimon(digimon).MaxExtraLevel;
+            return GetDigimonExtraLevel(digimon) == Database.GetDigimon(digimon).MaxExtraLevel;
         }
-        public void SetDigimonCodeUnlocked(string name, bool val) => loadedGame.SetDigimonCodeUnlocked(name, val);
-        public bool GetDigimonCodeUnlocked(string name) => loadedGame.GetDigimonCodeUnlocked(name);
+        public void SetDigicodeUnlocked(string name, bool val) => SavedGame.SetDigicodeUnlocked(name, val);
+        public bool GetDigicodeUnlocked(string name) => SavedGame.GetDigicodeUnlocked(name);
         /// <summary>
         /// Unlocks or levels up a Digimon. Returns true if it levels up a Digimon, false if it unlocks it.
         /// It also outputs the level before and after being rewarded.
@@ -501,12 +504,12 @@ namespace Kaisa.Digivice {
             }
         }
 
-        public string GetDDockDigimon(int ddock) => loadedGame.GetDDockDigimon(ddock);
+        public string GetDDockDigimon(int ddock) => SavedGame.DDockDigimon[ddock];
         public void SetDDockDigimon(int ddock, string digimon) {
             if (ddock > 3) return; //The player only has 4 D-Docks.
-            loadedGame.SetDDockDigimon(ddock, digimon);
+            SavedGame.DDockDigimon[ddock] = digimon;
         }
-        public bool IsDDockEmpty(int ddock) => (loadedGame.GetDDockDigimon(ddock) == "");
+        public bool IsDDockEmpty(int ddock) => (SavedGame.DDockDigimon[ddock] == "");
         #endregion
 
         #region Calculations

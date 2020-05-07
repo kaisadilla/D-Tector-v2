@@ -6,9 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Kaisa.Digivice.App {
-    public class Database : DigiviceApp {
-        new protected static string appName = "database";
-
+    public class DatabaseApp : DigiviceApp {
         private enum ScreenDatabase { //TODO: Replace with an int
             Menu,
             Menu_Spirit,
@@ -293,7 +291,7 @@ namespace Kaisa.Digivice.App {
                 }
                 else if (pageIndex == 2) {
                     screenDisplay.sprite = gm.spriteDB.database_pages[2];
-                    gm.DatabaseMgr.TryGetCodeOfDigimon(pageDigimon.name, out string code);
+                    Database.TryGetCodeOfDigimon(pageDigimon.name, out string code);
                     ScreenElement.BuildTextBox("Code", screenDisplay.transform, DFont.Big)
                         .SetText(code).SetSize(30, 8).SetPosition(2, 23).SetAlignment(TextAnchor.UpperRight);
                 }
@@ -319,7 +317,7 @@ namespace Kaisa.Digivice.App {
             HashSet<int> elementsFound = new HashSet<int>(); //a list of elements found that will contain only 1 of each.
 
             foreach(string d in galleryList) {
-                elementsFound.Add((int)gm.DatabaseMgr.GetDigimon(d).element);
+                elementsFound.Add((int)Database.GetDigimon(d).element);
             }
             if(gm.GetAllUnlockedFusionDigimon().Count > 0) {
                 elementsFound.Add(10);
@@ -344,10 +342,9 @@ namespace Kaisa.Digivice.App {
 
         private void OpenGallery() {
             if (menuIndex == 6) {
-                galleryList.Clear();
                 //If an element is chosen.
                 if(elementIndex < 10) {
-                    foreach (Digimon d in gm.DatabaseMgr.Digimons) {
+                    foreach (Digimon d in Database.Digimons) {
                         if ((int)d.stage == menuIndex && (int)d.element == elementIndex && d.spiritType != SpiritType.Fusion && gm.logicMgr.GetDigimonUnlocked(d.name)) {
                             galleryList.Add(d.name);
                         }
@@ -355,7 +352,7 @@ namespace Kaisa.Digivice.App {
                 }
                 //If fusion is chosen.
                 if (elementIndex == 10) {
-                    foreach (Digimon d in gm.DatabaseMgr.Digimons) {
+                    foreach (Digimon d in Database.Digimons) {
                         if ((int)d.stage == menuIndex && d.spiritType == SpiritType.Fusion && gm.logicMgr.GetDigimonUnlocked(d.name)) {
                             galleryList.Add(d.name);
                         }
@@ -390,13 +387,13 @@ namespace Kaisa.Digivice.App {
             pageIndex = 0;
 
             string displayDigimon = galleryList[galleryIndex];
-            pageDigimon = gm.DatabaseMgr.GetDigimon(displayDigimon);
+            pageDigimon = Database.GetDigimon(displayDigimon);
 
             DrawScreen();
         }
 
         private void NavigatePages(Direction dir) {
-            int upperBound = (gm.logicMgr.GetDigimonCodeUnlocked(pageDigimon.name)) ? 2 : 1;
+            int upperBound = (gm.logicMgr.GetDigicodeUnlocked(pageDigimon.name)) ? 2 : 1;
 
             if (dir == Direction.Left) pageIndex = pageIndex.CircularAdd(-1, upperBound);
             else pageIndex = pageIndex.CircularAdd(1, upperBound);

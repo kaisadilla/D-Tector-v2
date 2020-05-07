@@ -38,6 +38,7 @@ namespace Kaisa.Digivice {
         }
 
         private void Start() {
+            InvokeRepeating("UpdateDisplay", 0f, 0.05f);
             StartCoroutine(ConsumeQueue());
         }
         private IEnumerator ConsumeQueue() {
@@ -71,9 +72,9 @@ namespace Kaisa.Digivice {
             foreach (Transform child in animParent) Destroy(child.gameObject);
         }
 
-        private void Update() {
+        /*private void Update() {
             UpdateDisplay();
-        }
+        }*/
 
         private void UpdateDisplay() {
             foreach (Transform child in RootParent) {
@@ -1039,14 +1040,14 @@ namespace Kaisa.Digivice {
                 spriteDB.GetDigimonSprite(friendlyDigimon, SpriteAction.Attack),
                 spriteDB.GetDigimonSprite(friendlyDigimon, SpriteAction.Crush),
                 spriteDB.battle_energy[friendlyEnergyRank],
-                spriteDB.GetAbilitySprite(gm.DatabaseMgr.GetDigimon(friendlyDigimon).abilityName)
+                spriteDB.GetAbilitySprite(Database.GetDigimon(friendlyDigimon).abilityName)
             };
             Sprite[] enemySprites = new Sprite[] {
                 spriteDB.GetDigimonSprite(enemyDigimon),
                 spriteDB.GetDigimonSprite(enemyDigimon, SpriteAction.Attack),
                 spriteDB.GetDigimonSprite(enemyDigimon, SpriteAction.Crush),
                 spriteDB.battle_energy[enemyEnergyRank],
-                spriteDB.GetAbilitySprite(gm.DatabaseMgr.GetDigimon(enemyDigimon).abilityName)
+                spriteDB.GetAbilitySprite(Database.GetDigimon(enemyDigimon).abilityName)
             };
 
             yield return PALaunchAttack(friendlySprites, friendlyAttack, false, disobeyed);

@@ -10,13 +10,11 @@ namespace Kaisa.Digivice {
     public class DistanceManager {
         public int[][] Distances { get; private set; }
         private GameManager gm;
-        private SavedGame loadedGame;
 
-        public DistanceManager(GameManager gm, SavedGame loadedGame) {
+        public DistanceManager(GameManager gm) {
             string distancesJson = ((TextAsset)Resources.Load("distances")).text;
             Distances = JsonConvert.DeserializeObject<int[][]>(distancesJson);
             this.gm = gm;
-            this.loadedGame = loadedGame;
         }
 
         public int GetNumberOfAreasInMap(int map) {
@@ -39,41 +37,41 @@ namespace Kaisa.Digivice {
         /// Returns the current distance of the area the player is in.
         /// </summary>
         public int CurrentDistance {
-            get => loadedGame.CurrentDistance;
-            set => loadedGame.CurrentDistance = value;
+            get => SavedGame.CurrentDistance;
+            set => SavedGame.CurrentDistance = value;
         }
         /// <summary>
         /// Returns the current map the player is in.
         /// </summary>
         public int CurrentMap {
-            get => loadedGame.CurrentMap;
-            set => loadedGame.CurrentMap = value;
+            get => SavedGame.CurrentMap;
+            set => SavedGame.CurrentMap = value;
         }
         /// <summary>
         /// Returns the current area the player is in.
         /// </summary>
         public int CurrentArea {
-            get => loadedGame.CurrentArea;
-            set => loadedGame.CurrentArea = value;
+            get => SavedGame.CurrentArea;
+            set => SavedGame.CurrentArea = value;
         }
         /// <summary>
         /// Returns the total amount of steps taken by the player.
         /// </summary>
-        public int TotalSteps => loadedGame.Steps;
+        public int TotalSteps => SavedGame.Steps;
         /// <summary>
         /// Returns true if the area is already completed.
         /// </summary>
-        public bool GetAreaCompleted(int map, int area) => loadedGame.GetAreaCompleted(map, area);
+        public bool GetAreaCompleted(int map, int area) => SavedGame.CompletedAreas[map][area];
         /// <summary>
         /// Sets whether the area is completed or not.
         /// </summary>
-        public void SetAreaCompleted(int map, int area, bool completed) => loadedGame.SetAreaCompleted(map, area, completed);
+        public void SetAreaCompleted(int map, int area, bool completed) => SavedGame.CompletedAreas[map][area] = completed;
         /// <summary>
         /// Returns a list of all the areas in a map that haven't been completed yet.
         /// </summary>
         public List<int> GetUncompletedAreas(int map) {
             List<int> uncompletedAreas = new List<int>();
-            for(int i = 0; i < gm.DatabaseMgr.AreasPerMap[map]; i++) {
+            for(int i = 0; i < Database.AreasPerMap[map]; i++) {
                 if (!GetAreaCompleted(map, i)) uncompletedAreas.Add(i);
             }
             return uncompletedAreas;
@@ -88,9 +86,9 @@ namespace Kaisa.Digivice {
         /// Moves the player to a new map and area, and sets the current distance for that new area.
         /// </summary>
         public void MoveToArea(int map, int area, int distance) {
-            loadedGame.CurrentMap = map;
-            loadedGame.CurrentArea = area;
-            loadedGame.CurrentDistance = distance;
+            SavedGame.CurrentMap = map;
+            SavedGame.CurrentArea = area;
+            SavedGame.CurrentDistance = distance;
         }
         /// <summary>
         /// Takes a number of steps. This does not actually reduce distance. Returns true if the player takes enough steps to trigger an event, 
@@ -98,12 +96,12 @@ namespace Kaisa.Digivice {
         /// </summary>
         /// <param name="steps"></param>
         public void TakeSteps(int steps = 1) {
-            loadedGame.StepsToNextEvent -= steps;
-            loadedGame.Steps += steps;
+            SavedGame.StepsToNextEvent -= steps;
+            SavedGame.Steps += steps;
 
-            if(loadedGame.StepsToNextEvent <= 0) {
-                loadedGame.StepsToNextEvent = Random.Range(3, 6) * 100;
-                loadedGame.SavedEvent = 1;
+            if(SavedGame.StepsToNextEvent <= 0) {
+                SavedGame.StepsToNextEvent = Random.Range(3, 6) * 100;
+                SavedGame.SavedEvent = 1;
             }
         }
 
@@ -116,26 +114,26 @@ namespace Kaisa.Digivice {
         public int ReduceDistance(int distance) {
             int nextStop = 1; //Indicates the distance at which an event will trigger (and no extra distance will be removed).
             //Check semibosses for maps 4 and 8:
-            if(loadedGame.CurrentMap == 4) {
-                int firstDeva = (int)((Distances[4][loadedGame.CurrentArea] / 4f) * 3);
-                int secondDeva = (int)((Distances[4][loadedGame.CurrentArea] / 4f) * 2);
-                int thirdDeva = (int)(Distances[4][loadedGame.CurrentArea] / 4f);
-                if (loadedGame.CurrentDistance > firstDeva) nextStop = firstDeva + 1;
-                else if (loadedGame.CurrentDistance > secondDeva) nextStop = secondDeva + 1;
-                else if (loadedGame.CurrentDistance > thirdDeva) nextStop = thirdDeva + 1;
+            if(SavedGame.CurrentMap == 4) {
+                int firstDeva = (int)((Distances[4][SavedGame.CurrentArea] / 4f) * 3);
+                int secondDeva = (int)((Distances[4][SavedGame.CurrentArea] / 4f) * 2);
+                int thirdDeva = (int)(Distances[4][SavedGame.CurrentArea] / 4f);
+                if (SavedGame.CurrentDistance > firstDeva) nextStop = firstDeva + 1;
+                else if (SavedGame.CurrentDistance > secondDeva) nextStop = secondDeva + 1;
+                else if (SavedGame.CurrentDistance > thirdDeva) nextStop = thirdDeva + 1;
             }
-            else if(loadedGame.CurrentMap == 8) {
-                int murmukusmon = (int)(Distances[8][loadedGame.CurrentArea] / 2f);
-                if (loadedGame.CurrentDistance > murmukusmon) nextStop = murmukusmon + 1;
+            else if(SavedGame.CurrentMap == 8) {
+                int murmukusmon = (int)(Distances[8][SavedGame.CurrentArea] / 2f);
+                if (SavedGame.CurrentDistance > murmukusmon) nextStop = murmukusmon + 1;
             }
 
-            if (loadedGame.CurrentDistance - distance <= nextStop) {
-                loadedGame.CurrentDistance = nextStop;
+            if (SavedGame.CurrentDistance - distance <= nextStop) {
+                SavedGame.CurrentDistance = nextStop;
                 //loadedGame.SavedEvent = 2; Do not trigger boss events unless the player shakes the device or presses B.
-                return loadedGame.CurrentDistance - 1 - nextStop;
+                return SavedGame.CurrentDistance - 1 - nextStop;
             }
             else {
-                loadedGame.CurrentDistance -= distance;
+                SavedGame.CurrentDistance -= distance;
                 return distance;
             }
         }
@@ -144,11 +142,11 @@ namespace Kaisa.Digivice {
         /// Forcibly reduces distance by an amount. This method will bypass boss encounters.
         /// </summary>
         /// <param name="distance"></param>
-        public void ForceReduceDistance(int distance) => loadedGame.CurrentDistance -= distance;
+        public void ForceReduceDistance(int distance) => SavedGame.CurrentDistance -= distance;
         /// <summary>
         /// Increases the distance by an amount.
         /// </summary>
         /// <param name="distance"></param>
-        public void IncreaseDistance(int distance) => loadedGame.CurrentDistance += distance;
+        public void IncreaseDistance(int distance) => SavedGame.CurrentDistance += distance;
     }
 }

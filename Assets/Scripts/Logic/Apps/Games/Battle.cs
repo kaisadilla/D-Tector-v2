@@ -105,7 +105,7 @@ namespace Kaisa.Digivice.App {
             }
             else if (currentScreen == BattleScreen.SpiritList_Spirits) {
                 //Check if the player has the necessary spirit forms to evolve into the Digimon they chose.
-                Digimon attemptedElection = gm.DatabaseMgr.GetDigimon(galleryList[galleryIndex]);
+                Digimon attemptedElection = Database.GetDigimon(galleryList[galleryIndex]);
                 bool canChooseDigimon = false;
                 if(attemptedElection.spiritType == SpiritType.Hybrid && attemptedElection.spiritType == SpiritType.Ancient) {
                     canChooseDigimon = gm.HasBothFormsOfSpirit(attemptedElection.element);
@@ -337,7 +337,7 @@ namespace Kaisa.Digivice.App {
         private DigiviceApp loadedApp;
 
         protected override void StartApp() {
-            enemyDigimon = gm.DatabaseMgr.GetDigimon(appArgs[0]);
+            enemyDigimon = Database.GetDigimon(appArgs[0]);
             //Check for errors:
             if (enemyDigimon == null) {
                 VisualDebug.WriteLine($"The digimon passed to the Battle app ({appArgs[0]}) couldn't be found.");
@@ -420,7 +420,7 @@ namespace Kaisa.Digivice.App {
                 SetScreen(gm.spriteDB.arrowsSmall);
 
                 Sprite sDigimon;
-                if (gm.DatabaseMgr.GetDigimon(displayDigimon).spiritType != SpiritType.Ancient) {
+                if (Database.GetDigimon(displayDigimon).spiritType != SpiritType.Ancient) {
                     sDigimon = gm.spriteDB.GetDigimonSprite(displayDigimon, SpriteAction.Spirit);
                 }
                 else {
@@ -481,7 +481,7 @@ namespace Kaisa.Digivice.App {
             HashSet<int> elementsFound = new HashSet<int>(); //a list of elements found that will contain only 1 of each.
 
             foreach (string d in galleryList) {
-                elementsFound.Add((int)gm.DatabaseMgr.GetDigimon(d).element);
+                elementsFound.Add((int)Database.GetDigimon(d).element);
             }
             if (gm.GetAllUnlockedFusionDigimon().Count > 0) {
                 elementsFound.Add(10);
@@ -511,7 +511,7 @@ namespace Kaisa.Digivice.App {
         }
         private void ChooseSpiritFromGallery() {
             string chosenDigimonName = galleryList[galleryIndex];
-            Digimon chosenDigimon = gm.DatabaseMgr.GetDigimon(chosenDigimonName);
+            Digimon chosenDigimon = Database.GetDigimon(chosenDigimonName);
             if (chosenDigimon.GetSpiritCost(playerLevel) > SpiritPower) {
                 chosenDigimonName = Constants.DEFAULT_SPIRIT_DIGIMON;
             }
@@ -551,13 +551,13 @@ namespace Kaisa.Digivice.App {
         }
         
         private void SubmitCode(string digimon) {
-            Digimon d = gm.DatabaseMgr.GetDigimon(digimon);
+            Digimon d = Database.GetDigimon(digimon);
             //You can't summon Armor- or Spirit-Stage digimon from here.
             if(d.stage == Stage.Armor || d.stage == Stage.Spirit) {
                 digimon = Constants.DEFAULT_DIGIMON;
             }
             gm.logicMgr.SetDigimonUnlocked(digimon, true);
-            gm.logicMgr.SetDigimonCodeUnlocked(digimon, true);
+            gm.logicMgr.SetDigicodeUnlocked(digimon, true);
 
             currentScreen = BattleScreen.Combat_Menu;
             availableMenuOptions = new int[] { 0, 1, 4 };
@@ -589,7 +589,7 @@ namespace Kaisa.Digivice.App {
         /// <param name="digimon">The digimon to be assigned.</param>
         /// <param name="callType">The way this digimon is being called</param>
         private void AssignFriendlyDigimon(string digimon, CallType callType) {
-            friendlyDigimon = gm.DatabaseMgr.GetDigimon(digimon) ?? gm.DatabaseMgr.GetDigimon(Constants.DEFAULT_DIGIMON);
+            friendlyDigimon = Database.GetDigimon(digimon) ?? Database.GetDigimon(Constants.DEFAULT_DIGIMON);
 
             int friendlyDigimonExtraLevel = 0;
             if (callType == CallType.RegularCall) {
@@ -640,7 +640,7 @@ namespace Kaisa.Digivice.App {
         private void AttemptRegularDigivolve() {
             int callPointsBefore = CurrentCallPoints;
             string currentDigimon = friendlyDigimon.name;
-            Digimon targetEvolution = gm.DatabaseMgr.GetDigimon(friendlyDigimon.evolution);
+            Digimon targetEvolution = Database.GetDigimon(friendlyDigimon.evolution);
             
             CurrentCallPoints -= callPointsForEvolution;
             // (int) < null always evaluated to false.
@@ -655,11 +655,11 @@ namespace Kaisa.Digivice.App {
         }
 
         private void AttemptBoost(string sacrificeName) {
-            Digimon sacrifice = gm.DatabaseMgr.GetDigimon(sacrificeName);
+            Digimon sacrifice = Database.GetDigimon(sacrificeName);
             gm.logicMgr.SetDigimonUnlocked(sacrificeName, false);
             float rng;
             if (sacrifice == null) {
-                sacrifice = gm.DatabaseMgr.GetDigimon(Constants.DEFAULT_DIGIMON);
+                sacrifice = Database.GetDigimon(Constants.DEFAULT_DIGIMON);
                 rng = 1f;
             }
             else {
@@ -698,6 +698,7 @@ namespace Kaisa.Digivice.App {
             gm.UpdateLeaverBuster(defeatExp, "");
 
             gm.EnqueueAnimation(gm.screenMgr.ADeportDigimon(deportedDigimon));
+            //TODO: DEPORT SPIRIT ANIMATION (which is different)
         }
         private void SubmitTurn(int friendlyAttack) {
             int SPbefore = SpiritPower;

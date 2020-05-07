@@ -84,7 +84,6 @@ namespace Kaisa.Digivice.App {
         protected override IEnumerator AutoNavigateDir(Direction dir) {
             yield return new WaitForSeconds(0.25f);
             while(true) {
-                Debug.Log("NAVIG");
                 yield return new WaitForSeconds(0.1f);
                 audioMgr.PlayButtonA();
                 NavigateInput(dir);
@@ -153,7 +152,7 @@ namespace Kaisa.Digivice.App {
         }
 
         private void CheckCode() {
-            if (gm.DatabaseMgr.TryGetDigimonFromCode(CurrentInputString, out string digimon)) {
+            if (Database.TryGetDigimonFromCode(CurrentInputString, out string digimon)) {
                 ReturnedDigimon = digimon;
                 CloseApp();
             }

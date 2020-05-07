@@ -20,15 +20,15 @@ namespace Kaisa.Digivice {
 
         private List<BriefSavedGame> allSavedGames;
 
-        private int SelectedSlot {
+        private string SelectedFilePath {
             get {
-                return gameSlotGroup.ActiveToggles().First().GetComponent<VisualGameSlot>().Slot;
+                return gameSlotGroup.ActiveToggles().First().GetComponent<VisualGameSlot>().FilePath;
             }
         }
-        private BriefSavedGame SelectedSavedGame => SavedGame.GetBriefSavedGame(SelectedSlot);
+        private BriefSavedGame SelectedSavedGame => SavedGame.GetBriefSavedGame(SelectedFilePath);
 
         private void Awake() {
-            if (SavedGame.CurrentlyLoadedSlot != -1) {
+            if (SavedGame.CurrentlyLoadedFilePath != "") {
                 SceneManager.LoadScene("DigiviceFrontier");
             }
         }
@@ -49,14 +49,14 @@ namespace Kaisa.Digivice {
         }
 
         public void LoadSelectedGame() {
-            SavedGame.CurrentlyLoadedSlot = SelectedSlot;
-            Debug.Log($"Loaded {SavedGame.CurrentlyLoadedSlot}");
+            SavedGame.CurrentlyLoadedFilePath = SelectedFilePath;
+            Debug.Log($"Loaded {SavedGame.CurrentlyLoadedFilePath}");
             SceneManager.LoadScene("DigiviceFrontier");
         }
 
         public void PromptDeleteSelectedGame() {
             prDeleteGameText.text =
-                $"Are you sure you want to permanently delete the game [{SelectedSavedGame.slot}]" +
+                $"Are you sure you want to permanently delete the game" +
                 $" {SelectedSavedGame.name} ({SelectedSavedGame.character}, Lv. {SelectedSavedGame.level})?" +
                 $"\nThis action can't be undone.";
             blockPanel.SetActive(true);
@@ -64,7 +64,8 @@ namespace Kaisa.Digivice {
         }
 
         public void DeleteSelectedGame() {
-            SavedGame.DeleteSlot(SelectedSlot);
+            Debug.Log("Attempting to delete " + SelectedFilePath);
+            SavedGame.DeleteSavedGame(SelectedFilePath);
             BuildSavedGameList();
             CloseDeleteSelectedGame();
         }
@@ -86,12 +87,9 @@ namespace Kaisa.Digivice {
 
         public void CreateNewGame() {
             if (prCreateGameInput.text == "") return;
-            int newSlot = SavedGame.GetFirstEmptySlot();
-            SavedGame.CurrentlyLoadedSlot = newSlot;
-            SavedGame sg = SavedGame.CreateSavedGame(newSlot);
-            sg.Name = prCreateGameInput.text;
+            string path = SavedGame.CreateSavedGame(prCreateGameInput.text);
 
-            Debug.Log($"Created game at slot {newSlot}");
+            Debug.Log($"Created game at slot {path}");
             SceneManager.LoadScene("DigiviceFrontier");
         }
     }

@@ -4,26 +4,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Kaisa.Digivice {
-    public class DatabaseManager {
-        public Digimon[] Digimons { get; private set; }
-        public Dictionary<string, string> DigiCodes { get; private set; }
-        public int[] AreasPerMap; //Stores the number of areas that there are in each map.
-        public string[][][] Bosses { get; private set; }
-        public DatabaseManager() {
-            LoadDatabase();
+    public static class Database {
+        public static Digimon[] Digimons { get; private set; }
+        public static Dictionary<string, string> DigiCodes { get; private set; }
+        public static int[] AreasPerMap; //Stores the number of areas that there are in each map.
+        //public static string[][][] Bosses { get; private set; }
+
+        static Database() {
+            LoadDatabases();
         }
 
-        public void LoadDatabase() {
-            LoadDigimonDB();
-            LoadDigiCodeDB();
-            LoadBossesDB();
-            LoadAreaCount();
+        public static void LoadDatabases() {
+            Digimons = LoadDigimonFromFile();
+            DigiCodes = LoadDigicodesFromFile();
+            AreasPerMap = LoadAreasFromFile();
         }
 
         /// <summary>
         /// Loads all the Digimon that are not marked as "disabled" from the json database.
         /// </summary>
-        private void LoadDigimonDB() {
+        private static Digimon[] LoadDigimonFromFile() {
             string digimonDBJson = ((TextAsset)Resources.Load("digimonDB")).text;
             JArray dbArray = JArray.Parse(digimonDBJson);
 
@@ -37,29 +37,29 @@ namespace Kaisa.Digivice {
                 }
             }
 
-            Digimons = tempList.ToArray();
+            return tempList.ToArray();
         }
 
-        private void LoadDigiCodeDB() {
+        private static Dictionary<string, string> LoadDigicodesFromFile() {
             string digiCodes = ((TextAsset)Resources.Load("codeDB")).text;
-            DigiCodes = JsonConvert.DeserializeObject<Dictionary<string, string>>(digiCodes);
+            return JsonConvert.DeserializeObject<Dictionary<string, string>>(digiCodes);
         }
-
-        private void LoadBossesDB() {
-            string boses = ((TextAsset)Resources.Load("bosses")).text;
-            Bosses = JsonConvert.DeserializeObject<string[][][]>(boses);
-        }
-        private void LoadAreaCount() {
+        private static int[] LoadAreasFromFile() {
             string areas = ((TextAsset)Resources.Load("areas")).text;
-            AreasPerMap = JsonConvert.DeserializeObject<int[]>(areas);
+            return JsonConvert.DeserializeObject<int[]>(areas);
+        }
+        //These files are not loaded into the database as they won't be normally used. Instead, other classes call these methods when needed.
+        public static string[][][] LoadBossesFromFile() {
+            string boses = ((TextAsset)Resources.Load("bosses")).text;
+            return JsonConvert.DeserializeObject<string[][][]>(boses);
         }
 
-        public string[] GetInitialDigimons() {
+        public static string[] LoadInitialDigimonsFromFile() {
             string initials = ((TextAsset)Resources.Load("initials")).text;
             return JsonConvert.DeserializeObject<string[]>(initials);
         }
 
-        public Digimon GetDigimon(string name) {
+        public static Digimon GetDigimon(string name) {
             foreach (Digimon d in Digimons) {
                 if (d.name == name?.ToLower()) {
                     return d;
@@ -72,7 +72,7 @@ namespace Kaisa.Digivice {
         /// The level of the Digimon will be similar to the level of the player.
         /// </summary>
         /// <param name="playerLevel">The level of the player.</param>
-        public Digimon GetRandomDigimonForBattle(int playerLevel) {
+        public static Digimon GetRandomDigimonForBattle(int playerLevel) {
             List<Digimon> candidates = new List<Digimon>();
             List<float> weightList = new List<float>();
             float totalWeight = 0f;
@@ -133,7 +133,7 @@ namespace Kaisa.Digivice {
         /// Gets a random Digimon of the given rarity, with level no higher than the level specified.
         /// </summary>
         /// <returns></returns>
-        public Digimon GetRandomDigimonOfRarity(Rarity rarity, int maximumLevel) {
+        public static Digimon GetRandomDigimonOfRarity(Rarity rarity, int maximumLevel) {
             List<Digimon> candidates = new List<Digimon>();
             foreach(Digimon d in Digimons) {
                 if(d.rarity == rarity && d.baseLevel <= maximumLevel) {
@@ -143,14 +143,14 @@ namespace Kaisa.Digivice {
             return candidates[Random.Range(0, candidates.Count)];
         }
 
-        public bool TryGetDigimonFromCode(string code, out string digimon) {
+        public static bool TryGetDigimonFromCode(string code, out string digimon) {
             if (DigiCodes.TryGetValue(code.ToLower(), out digimon)) {
                 return true;
             }
             return false;
         }
 
-        public bool TryGetCodeOfDigimon(string digimon, out string code) {
+        public static bool TryGetCodeOfDigimon(string digimon, out string code) {
             foreach(KeyValuePair<string, string> kv in DigiCodes) {
                 if (kv.Value == digimon) {
                     code = kv.Key;
