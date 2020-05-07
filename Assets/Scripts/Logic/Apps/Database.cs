@@ -167,12 +167,22 @@ namespace Kaisa.Digivice.App {
         }
         public override void InputLeftDown() {
             if(currentScreen == ScreenDatabase.Gallery) {
-                StartNavigation(Direction.Left);
+                if(galleryList.Count <= 1) {
+                    audioMgr.PlayButtonB();
+                }
+                else {
+                    StartNavigation(Direction.Left);
+                }
             }
         }
         public override void InputRightDown() {
             if (currentScreen == ScreenDatabase.Gallery) {
-                StartNavigation(Direction.Right);
+                if (galleryList.Count <= 1) {
+                    audioMgr.PlayButtonB();
+                }
+                else {
+                    StartNavigation(Direction.Right);
+                }
             }
         }
         public override void InputLeftUp() {
@@ -334,6 +344,7 @@ namespace Kaisa.Digivice.App {
 
         private void OpenGallery() {
             if (menuIndex == 6) {
+                galleryList.Clear();
                 //If an element is chosen.
                 if(elementIndex < 10) {
                     foreach (Digimon d in gm.DatabaseMgr.Digimons) {

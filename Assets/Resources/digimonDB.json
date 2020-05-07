@@ -4183,8 +4183,26 @@
 		}
 	},
 	{
-		"number": "71",
+		"number": "503",
 		"order": "55",
+		"name": "Citramon",
+		"stage": "Perfect",
+		"spiritType": "None",
+		"abilityName": "bomb",
+		"element": "Metal",
+		"evolution": "Goldramon",
+		"rarity": "Legendary",
+		"baseLevel": "25",
+		"stats": {
+			"HP": "80",
+			"EN": "70",
+			"CR": "10",
+			"AB": "50"
+		}
+	},
+	{
+		"number": "71",
+		"order": "56",
 		"name": "Mammothmon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4202,7 +4220,7 @@
 	},
 	{
 		"number": "329",
-		"order": "56",
+		"order": "57",
 		"name": "Infermon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4220,7 +4238,7 @@
 	},
 	{
 		"number": "116",
-		"order": "57",
+		"order": "58",
 		"name": "LadyDevimon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4238,7 +4256,7 @@
 	},
 	{
 		"number": "152",
-		"order": "58",
+		"order": "59",
 		"name": "Dragomon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4256,7 +4274,7 @@
 	},
 	{
 		"number": "500",
-		"order": "59",
+		"order": "60",
 		"name": "Kyukimon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4274,7 +4292,7 @@
 	},
 	{
 		"number": "413",
-		"order": "60",
+		"order": "61",
 		"name": "Cerberusmon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4292,7 +4310,7 @@
 	},
 	{
 		"number": "148",
-		"order": "61",
+		"order": "62",
 		"name": "Asuramon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4310,7 +4328,7 @@
 	},
 	{
 		"number": "389",
-		"order": "62",
+		"order": "63",
 		"name": "Karatenmon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4328,7 +4346,7 @@
 	},
 	{
 		"number": "415",
-		"order": "63",
+		"order": "64",
 		"name": "Volcamon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4346,7 +4364,7 @@
 	},
 	{
 		"number": "174",
-		"order": "64",
+		"order": "65",
 		"name": "Knightmon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4364,7 +4382,7 @@
 	},
 	{
 		"number": "576",
-		"order": "65",
+		"order": "66",
 		"name": "Chirinmon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4383,7 +4401,7 @@
 	},
 	{
 		"number": "158",
-		"order": "66",
+		"order": "67",
 		"name": "MetalMamemon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4401,7 +4419,7 @@
 	},
 	{
 		"number": "159",
-		"order": "67",
+		"order": "68",
 		"name": "Giromon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4419,7 +4437,7 @@
 	},
 	{
 		"number": "221",
-		"order": "68",
+		"order": "69",
 		"name": "Tekkamon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4437,7 +4455,7 @@
 	},
 	{
 		"number": "108",
-		"order": "69",
+		"order": "70",
 		"name": "Garbagemon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4454,7 +4472,7 @@
 	},
 	{
 		"number": "507",
-		"order": "70",
+		"order": "71",
 		"name": "Hippogriffomon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4472,7 +4490,7 @@
 	},
 	{
 		"number": "76",
-		"order": "71",
+		"order": "72",
 		"name": "Pumpkinmon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4490,7 +4508,7 @@
 	},
 	{
 		"number": "74",
-		"order": "72",
+		"order": "73",
 		"name": "SkullMeramon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4508,7 +4526,7 @@
 	},
 	{
 		"number": "142",
-		"order": "73",
+		"order": "74",
 		"name": "BlueMeramon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4526,7 +4544,7 @@
 	},
 	{
 		"number": "383",
-		"order": "74",
+		"order": "75",
 		"name": "Orochimon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4544,7 +4562,7 @@
 	},
 	{
 		"number": "387",
-		"order": "75",
+		"order": "76",
 		"name": "Mephistomon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4562,7 +4580,7 @@
 	},
 	{
 		"number": "409",
-		"order": "76",
+		"order": "77",
 		"name": "BlackWarGrowlmon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4580,7 +4598,7 @@
 	},
 	{
 		"number": "418",
-		"order": "77",
+		"order": "78",
 		"name": "Doumon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4598,7 +4616,7 @@
 	},
 	{
 		"number": "422",
-		"order": "78",
+		"order": "79",
 		"name": "BlackRapidmon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4616,7 +4634,7 @@
 	},
 	{
 		"number": "371",
-		"order": "79",
+		"order": "80",
 		"name": "Mihiramon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4633,7 +4651,7 @@
 	},
 	{
 		"number": "381",
-		"order": "80",
+		"order": "81",
 		"name": "Majiramon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4650,7 +4668,7 @@
 	},
 	{
 		"number": "372",
-		"order": "81",
+		"order": "82",
 		"name": "Sandiramon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4667,7 +4685,7 @@
 	},
 	{
 		"number": "376",
-		"order": "82",
+		"order": "83",
 		"name": "Indramon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4684,7 +4702,7 @@
 	},
 	{
 		"number": "374",
-		"order": "83",
+		"order": "84",
 		"name": "Pajiramon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4701,7 +4719,7 @@
 	},
 	{
 		"number": "379",
-		"order": "84",
+		"order": "85",
 		"name": "Makuramon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4718,7 +4736,7 @@
 	},
 	{
 		"number": "373",
-		"order": "85",
+		"order": "86",
 		"name": "Sinduramon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4735,7 +4753,7 @@
 	},
 	{
 		"number": "380",
-		"order": "86",
+		"order": "87",
 		"name": "Caturamon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4752,7 +4770,7 @@
 	},
 	{
 		"number": "378",
-		"order": "87",
+		"order": "88",
 		"name": "Vikaralamon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4769,7 +4787,7 @@
 	},
 	{
 		"number": "377",
-		"order": "88",
+		"order": "89",
 		"name": "Kumbhiramon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4786,7 +4804,7 @@
 	},
 	{
 		"number": "375",
-		"order": "89",
+		"order": "90",
 		"name": "Vajramon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4803,7 +4821,7 @@
 	},
 	{
 		"number": "27",
-		"order": "90",
+		"order": "91",
 		"name": "Monzaemon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4821,7 +4839,7 @@
 	},
 	{
 		"number": "419",
-		"order": "91",
+		"order": "92",
 		"name": "Pandamon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4838,7 +4856,7 @@
 	},
 	{
 		"number": "79",
-		"order": "92",
+		"order": "93",
 		"name": "Phantomon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4856,7 +4874,7 @@
 	},
 	{
 		"number": "136",
-		"order": "93",
+		"order": "94",
 		"name": "IceDevimon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4874,7 +4892,7 @@
 	},
 	{
 		"number": "577",
-		"order": "94",
+		"order": "95",
 		"name": "Tankdramon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4892,7 +4910,7 @@
 	},
 	{
 		"number": "53",
-		"order": "95",
+		"order": "96",
 		"name": "Datamon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4910,7 +4928,7 @@
 	},
 	{
 		"number": "285",
-		"order": "96",
+		"order": "97",
 		"name": "Pegasusmon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4928,7 +4946,7 @@
 	},
 	{
 		"number": "125",
-		"order": "97",
+		"order": "98",
 		"name": "Triceramon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4946,7 +4964,7 @@
 	},
 	{
 		"number": "578",
-		"order": "98",
+		"order": "99",
 		"name": "MachGaogamon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4964,7 +4982,7 @@
 	},
 	{
 		"number": "140",
-		"order": "99",
+		"order": "100",
 		"name": "Megadramon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -4982,7 +5000,7 @@
 	},
 	{
 		"number": "220",
-		"order": "100",
+		"order": "101",
 		"name": "Gigadramon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -5000,7 +5018,7 @@
 	},
 	{
 		"number": "506",
-		"order": "101",
+		"order": "102",
 		"name": "Darcmon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -5019,7 +5037,7 @@
 	},
 	{
 		"number": "477",
-		"order": "102",
+		"order": "103",
 		"name": "Beastmon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -5037,7 +5055,7 @@
 	},
 	{
 		"number": "579",
-		"order": "103",
+		"order": "104",
 		"name": "Yatagaramon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -5055,7 +5073,7 @@
 	},
 	{
 		"number": "106",
-		"order": "104",
+		"order": "105",
 		"name": "Deramon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -5073,7 +5091,7 @@
 	},
 	{
 		"number": "149",
-		"order": "105",
+		"order": "106",
 		"name": "Jagamon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -5091,7 +5109,7 @@
 	},
 	{
 		"number": "429",
-		"order": "106",
+		"order": "107",
 		"name": "Locomon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -5109,7 +5127,7 @@
 	},
 	{
 		"number": "215",
-		"order": "107",
+		"order": "108",
 		"name": "MasterTyrannomon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -5127,7 +5145,7 @@
 	},
 	{
 		"number": "494",
-		"order": "108",
+		"order": "109",
 		"name": "Bulbmon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -5145,7 +5163,7 @@
 	},
 	{
 		"number": "219",
-		"order": "109",
+		"order": "110",
 		"name": "Brachiomon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -5163,7 +5181,7 @@
 	},
 	{
 		"number": "502",
-		"order": "110",
+		"order": "111",
 		"name": "Assaultmon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -5181,7 +5199,7 @@
 	},
 	{
 		"number": "524",
-		"order": "111",
+		"order": "112",
 		"name": "Betsumon",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -5199,7 +5217,7 @@
 	},
 	{
 		"number": "511",
-		"order": "112",
+		"order": "113",
 		"name": "Arkadimon (Perfect)",
 		"stage": "Perfect",
 		"spiritType": "None",
@@ -5217,7 +5235,7 @@
 	},
 	{
 		"number": "580",
-		"order": "113",
+		"order": "114",
 		"name": "Mistymon",
 		"stage": "Perfect",
 		"spiritType": "None",

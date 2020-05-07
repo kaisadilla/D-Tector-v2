@@ -31,6 +31,10 @@ public class SpriteDatabase : MonoBehaviour {
     public Sprite error;
     public Sprite[] rewardBackground = new Sprite[4];
     public Sprite[] rewards = new Sprite[5]; //0: Level
+    [Header("Game start")]
+    public Sprite gameStart_clouds;
+    public Sprite gameStart_trailmon;
+    public Sprite gameStart_spiritPlatform;
     [Header("Menus")]
     public Sprite[] mainMenu = new Sprite[7];
     [Header("Map")]
@@ -81,6 +85,7 @@ public class SpriteDatabase : MonoBehaviour {
     public Sprite battle_disobey;
     public Sprite battle_attackCollision; //The particles of the attack collision
     public Sprite battle_attackCollisionBig;
+    public Sprite battle_attackCollisionSmall;
     public Sprite[] battle_explosion = new Sprite[2];
     public Sprite battle_callPoints_screen;
     public Sprite battle_callPoints_chooser;

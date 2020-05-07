@@ -12,6 +12,7 @@ namespace Kaisa.Digivice {
     }
 
     public enum Screen {
+        CharSelection,
         Character,
         MainMenu,
         App,

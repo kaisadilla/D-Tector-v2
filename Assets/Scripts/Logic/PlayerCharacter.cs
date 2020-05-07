@@ -67,17 +67,17 @@ namespace Kaisa.Digivice {
         public void SetEventMode(bool eventMode) {
             if(eventMode) {
                 currentState = CharState.Event;
+                eventLayer = ScreenElement.BuildSprite("Event", gm.screenMgr.screenDisplay.transform).SetTransparent(true);
                 eventAnimation = StartCoroutine(PAEventEffects());
             }
             else {
                 currentState = CharState.Idle;
-                eventLayer.Dispose();
                 if (eventAnimation != null) StopCoroutine(eventAnimation);
+                eventLayer.Dispose();
             }
         }
 
         private IEnumerator PAEventEffects() {
-            eventLayer = ScreenElement.BuildSprite("Event", gm.screenMgr.screenDisplay.transform).SetTransparent(true);
             eventLayer.transform.SetAsFirstSibling();
             while (true) {
                 eventLayer.SetSprite(gm.spriteDB.triggerEvent);
@@ -91,6 +91,7 @@ namespace Kaisa.Digivice {
     /// A list of the characters available in-game.
     /// </summary>
     public enum GameChar {
+        none = -1,
         Takuya,
         Koji,
         Zoe,

@@ -16,10 +16,10 @@ namespace Kaisa.Digivice {
             audioMgr = gm.audioMgr;
         }
 
-
         public Screen currentScreen = Screen.Character;
         public MainMenu currentMainMenu = MainMenu.Map;
         //Submenues for the Game app.
+        public int charSelectionIndex = 0;
         public int gamesMenuIndex = 0;
         public int gamesRewardMenuIndex = 0;
         public int gamesTravelMenuIndex = 0;
@@ -101,6 +101,10 @@ namespace Kaisa.Digivice {
                     OpenApp(gm.pAppMaze);
                 }
             }
+            else if (currentScreen == Screen.CharSelection) {
+                audioMgr.PlayButtonA();
+                SelectCharacterAndCreateGame();
+            }
         }
         public void InputB() {
             if (currentScreen == Screen.Character) {
@@ -109,7 +113,12 @@ namespace Kaisa.Digivice {
                     triggerEvent();
                     return;
                 }
-                audioMgr.PlayButtonB();
+                else if (gm.DistanceMgr.CurrentDistance == 1) { //Alternative to shaking the phone to trigger a boss battle.
+                    gm.TakeAStep();
+                }
+                else {
+                    audioMgr.PlayButtonB();
+                }
             }
             else if (currentScreen == Screen.MainMenu) {
                 audioMgr.PlayButtonB();
@@ -129,6 +138,9 @@ namespace Kaisa.Digivice {
             else if (currentScreen == Screen.GamesTravelMenu) {
                 audioMgr.PlayButtonB();
                 currentScreen = Screen.GamesMenu;
+            }
+            else if (currentScreen == Screen.CharSelection) {
+                audioMgr.PlayButtonB();
             }
         }
         public void InputLeft() {
@@ -160,6 +172,10 @@ namespace Kaisa.Digivice {
                 audioMgr.PlayButtonA();
                 gamesTravelMenuIndex = gamesTravelMenuIndex.CircularAdd(-1, 3);
             }
+            else if (currentScreen == Screen.CharSelection) {
+                audioMgr.PlayButtonA();
+                charSelectionIndex = charSelectionIndex.CircularAdd(-1, 5);
+            }
         }
         public void InputRight() {
             if (isEventPending) {
@@ -189,6 +205,10 @@ namespace Kaisa.Digivice {
             else if (currentScreen == Screen.GamesTravelMenu) {
                 audioMgr.PlayButtonA();
                 gamesTravelMenuIndex = gamesTravelMenuIndex.CircularAdd(1, 3);
+            }
+            else if (currentScreen == Screen.CharSelection) {
+                audioMgr.PlayButtonA();
+                charSelectionIndex = charSelectionIndex.CircularAdd(1, 5);
             }
         }
         //Down
@@ -257,6 +277,10 @@ namespace Kaisa.Digivice {
             loadedApp = App.DigiviceApp.LoadApp(gm.pAppBattle, gm, this, boss, "true");
         }
 
+        public void SelectCharacterAndCreateGame() {
+            gm.CreateNewGame((GameChar)charSelectionIndex);
+        }
+
         private void OpenGameMenu() {
             currentMainMenu = 0;
             currentScreen = Screen.MainMenu;
@@ -281,7 +305,7 @@ namespace Kaisa.Digivice {
             string result;
             if (loadedApp is App.CodeInput ci) {
                 result = ci.ReturnedDigimon;
-                if(result != null) {
+                if (result != null) {
                     gm.logicMgr.SetDigimonUnlocked(result, true);
                     gm.logicMgr.SetDigimonCodeUnlocked(result, true);
 
@@ -314,14 +338,14 @@ namespace Kaisa.Digivice {
         public bool AddPlayerExperience(int val) {
             int playerLevelBefore = GetPlayerLevel();
             //If the player has insurance and they would lose experience, don't do anything.
-            if(!(val < 0 && loadedGame.IsPlayerInsured)) {
+            if (!(val < 0 && loadedGame.IsPlayerInsured)) {
                 loadedGame.PlayerExperience += val;
                 if (loadedGame.PlayerExperience < 0) loadedGame.PlayerExperience = 0;
             }
             if (loadedGame.PlayerExperience > 1_000_000) loadedGame.PlayerExperience = 1_000_000;
             int playerLevelNow = GetPlayerLevel();
             //If the player has lost a level, activate their insurance.
-            if(playerLevelNow < playerLevelBefore) {
+            if (playerLevelNow < playerLevelBefore) {
                 loadedGame.IsPlayerInsured = true;
             }
             //Else, toggle it off, regardless of whether they won or lost experience this time.
@@ -360,7 +384,12 @@ namespace Kaisa.Digivice {
         }
         public int TotalBattles => loadedGame.TotalBattles;
         public int TotalWins => loadedGame.TotalWins;
-        public float WinPercentage => TotalWins / (float)TotalBattles;
+        public float WinPercentage {
+            get {
+                if (TotalBattles == 0) return 0f;
+                else return TotalWins / (float)TotalBattles;
+            }
+        }
         /// <summary>
         /// Increases the total battle count by 1 and returns the new value.
         /// </summary>
@@ -379,6 +408,7 @@ namespace Kaisa.Digivice {
             if (val == true) {
                 if (loadedGame.GetDigimonLevel(digimon) == 0) {
                     loadedGame.SetDigimonLevel(digimon, 1);
+                    VisualDebug.WriteLine("Unlocked digimon: " + digimon);
 
                     string[] ddocks = gm.GetAllDDockDigimons();
 

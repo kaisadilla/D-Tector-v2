@@ -6,9 +6,11 @@ namespace Kaisa.Digivice {
     public class AudioManager : MonoBehaviour {
         [SerializeField]
         private AudioSource source;
+
         public AudioClip buttonA;
         public AudioClip buttonB;
         [Header("Generic sounds")]
+        public AudioClip gameStart;
         public AudioClip charHappy;
         public AudioClip charHappyLong;
         public AudioClip charSad;

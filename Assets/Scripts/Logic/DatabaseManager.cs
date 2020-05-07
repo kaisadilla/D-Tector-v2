@@ -5,13 +5,11 @@ using UnityEngine;
 
 namespace Kaisa.Digivice {
     public class DatabaseManager {
-        private GameManager gm;
         public Digimon[] Digimons { get; private set; }
         public Dictionary<string, string> DigiCodes { get; private set; }
         public int[] AreasPerMap; //Stores the number of areas that there are in each map.
         public string[][][] Bosses { get; private set; }
-        public DatabaseManager(GameManager gm) {
-            this.gm = gm;
+        public DatabaseManager() {
             LoadDatabase();
         }
 
@@ -54,6 +52,11 @@ namespace Kaisa.Digivice {
         private void LoadAreaCount() {
             string areas = ((TextAsset)Resources.Load("areas")).text;
             AreasPerMap = JsonConvert.DeserializeObject<int[]>(areas);
+        }
+
+        public string[] GetInitialDigimons() {
+            string initials = ((TextAsset)Resources.Load("initials")).text;
+            return JsonConvert.DeserializeObject<string[]>(initials);
         }
 
         public Digimon GetDigimon(string name) {

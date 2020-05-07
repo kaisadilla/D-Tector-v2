@@ -131,7 +131,7 @@ namespace Kaisa.Digivice {
 
             if (loadedGame.CurrentDistance - distance <= nextStop) {
                 loadedGame.CurrentDistance = nextStop;
-                loadedGame.SavedEvent = 2;
+                //loadedGame.SavedEvent = 2; Do not trigger boss events unless the player shakes the device or presses B.
                 return loadedGame.CurrentDistance - 1 - nextStop;
             }
             else {

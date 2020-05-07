@@ -1,8 +1,10 @@
-﻿using Kaisa.Digivice.Extensions;
+﻿using Kaisa.Digivice.App;
+using Kaisa.Digivice.Extensions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Kaisa.Digivice {
     /// <summary>
@@ -49,6 +51,9 @@ namespace Kaisa.Digivice {
         public GameObject pTextBox;
 
         public void Awake() {
+            if(SavedGame.CurrentlyLoadedSlot == -1) {
+                SceneManager.LoadScene("MainMenu");
+            }
             VisualDebug.SetDebugManager(debug);
             //Set up the essential configuration and ready managers.
             /*if (Application.isMobilePlatform) {
@@ -72,15 +77,56 @@ namespace Kaisa.Digivice {
 
             SetupManagers();
             SetupStaticClasses();
-            DatabaseMgr = new DatabaseManager(this);
+            DatabaseMgr = new DatabaseManager();
 
-            CheckLeaverBuster();
-            CheckPendingEvents();
-            //loadedGame.SetAreaCompleted(0, 1, true);
-            //loadedGame.SetAreaCompleted(0, 2, true);
-            //loadedGame.SetAreaCompleted(0, 4, true);
-            //loadedGame.SetAreaCompleted(0, 5, true);
-            //loadedGame.SetAreaCompleted(0, 11, true);
+            if(loadedGame.PlayerChar == GameChar.none) {
+                VisualDebug.WriteLine("Saved character assigned to 'none'. A new game will be created.");
+                logicMgr.currentScreen = Screen.CharSelection;
+                EnqueueAnimation(screenMgr.ALoadCharacterSelection());
+            }
+            else {
+                logicMgr.currentScreen = Screen.Character;
+                CheckLeaverBuster();
+                CheckPendingEvents();
+            }
+            //EnqueueAnimation(screenMgr.AStartGameAnimation(GameChar.Zoe, "kazemon", 3, "agumon", 2));
+        }
+
+        public void CloseGame() {
+            SavedGame.CurrentlyLoadedSlot = -1;
+            SceneManager.LoadScene("MainMenu");
+        }
+
+        /// <summary>
+        /// Creates the necessary keys in the SavedGame to run the game for the first time.
+        /// </summary>
+        public void CreateNewGame(GameChar chosenGameChar) {
+            VisualDebug.WriteLine("Created new game.");
+
+            string randomInitial = DatabaseMgr.GetInitialDigimons().GetRandomElement();
+            string playerSpirit = GetPlayerSpirit(chosenGameChar);
+
+            loadedGame.PlayerChar = chosenGameChar;
+            loadedGame.SetRandomSeed(0, Random.Range(0, 2147483647));
+            loadedGame.SetRandomSeed(1, Random.Range(0, 2147483647));
+            loadedGame.SetRandomSeed(2, Random.Range(0, 2147483647));
+            loadedGame.CheatsUsed = false;
+            loadedGame.StepsToNextEvent = 300;
+            DistanceMgr.MoveToArea(0, 0);
+            logicMgr.SetDigimonUnlocked(playerSpirit, true);
+            logicMgr.SetDigimonUnlocked(randomInitial, true);
+            logicMgr.SetDDockDigimon(0, "");
+            logicMgr.SetDDockDigimon(1, "");
+            logicMgr.SetDDockDigimon(2, "");
+            logicMgr.SetDDockDigimon(3, "");
+            logicMgr.SpiritPower = 99;
+            AssignRandomBosses();
+            int spiritEnergy = DatabaseMgr.GetDigimon(playerSpirit).GetBossStats(1).GetEnergyRank();
+            int enemyEnergy = DatabaseMgr.GetDigimon(randomInitial).GetRegularStats().GetEnergyRank();
+
+            EnqueueAnimation(screenMgr.AStartGameAnimation(chosenGameChar, playerSpirit, spiritEnergy, randomInitial, enemyEnergy));
+
+            logicMgr.currentScreen = Screen.Character;
         }
 
         /// <summary>
@@ -116,7 +162,8 @@ namespace Kaisa.Digivice {
         }
 
         private void LoadGame() {
-            loadedGame = SavedGame.LoadSavedGame(0);
+            int currentLoadedGame = SavedGame.CurrentlyLoadedSlot;
+            loadedGame = SavedGame.LoadSavedGame(currentLoadedGame);
             GameChar gameChar = loadedGame.PlayerChar;
             playerChar.Initialize(this, gameChar);
         }
@@ -149,39 +196,16 @@ namespace Kaisa.Digivice {
         }
 
         public GameChar CurrentPlayerChar => playerChar.currentChar;
-        //This should be done with a Task in PlayerCharacter, but I avoided installing the necessary plugins to make async Tasks work in this project.
-        /// <summary>
-        /// Creates the necessary keys in the SavedGame to run the game for the first time.
-        /// </summary>
-        private void CreateNewGame() {
-            //TODO: This function is not being worked on yet.
-            //loadedGame.PlayerChar = GameChar.Koji;
-            //LoadedGame.CurrentMap = 0;
-            //LoadedGame.CurrentArea = 0;
-            //LoadedGame.CurrentDistance = <--distance-->;
-            //LoadedGame.SetRandomSeed(0, <--random-->);
-            //LoadedGame.SetRandomSeed(1, <--random-->);
-            //LoadedGame.SetRandomSeed(2, <--random-->);
-            //LoadedGame.SetDDockDigimon(0, "<empty>");
-            //LoadedGame.SetDDockDigimon(1, "<empty>");
-            //LoadedGame.SetDDockDigimon(2, "<empty>");
-            //LoadedGame.SetDDockDigimon(3, "<empty>");
-            //LoadedGame.SetAreaCompleted(0, 1, true);
-            //LoadedGame.SetAreaCompleted(0, 2, true);
-            //LoadedGame.SetAreaCompleted(0, 4, true);
-            //LoadedGame.SetAreaCompleted(0, 5, true);
-            //LoadedGame.SetAreaCompleted(0, 11, true);
-            //loadedGame.CheatsUsed = false;
-            //AssignRandomBosses();
-        }
 
         public void DebugInitialize() {
-            loadedGame.SetRandomSeed(0, Random.Range(0, 2147483647));
-            loadedGame.SetRandomSeed(1, Random.Range(0, 2147483647));
-            loadedGame.SetRandomSeed(2, Random.Range(0, 2147483647));
+            //loadedGame.SetRandomSeed(0, Random.Range(0, 2147483647));
+            //loadedGame.SetRandomSeed(1, Random.Range(0, 2147483647));
+            //loadedGame.SetRandomSeed(2, Random.Range(0, 2147483647));
             //loadedGame.CheatsUsed = false;
-            AssignRandomBosses();
-            loadedGame.StepsToNextEvent = 300;
+            //AssignRandomBosses();
+            //loadedGame.StepsToNextEvent = 300;
+            loadedGame.SlotExists = true;
+            loadedGame.Overwrittable = false;
         }
 
         /// <summary>
@@ -191,12 +215,13 @@ namespace Kaisa.Digivice {
             //TODO: Trigger both methods' events if needed.
             DistanceMgr.TakeSteps(1);
             DistanceMgr.ReduceDistance(1);
+            if (DistanceMgr.CurrentDistance == 1) loadedGame.SavedEvent = 2;
             CheckPendingEvents();
         }
         /// <summary>
         /// Returns the Transform of the main screen, usually to submit it as a parent to other gameobjects.
         /// </summary>
-        public Transform RootParent => screenMgr.screenDisplay.transform;
+        public Transform RootParent => screenMgr.RootParent;
         /// <summary>
         /// Returns the array of sprites corresponding with the current character.
         /// </summary>

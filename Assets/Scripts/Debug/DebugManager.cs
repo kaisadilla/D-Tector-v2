@@ -153,11 +153,11 @@ namespace Kaisa.Digivice {
                 return "Invalid parameters. Expected (int)map, (int)area";
             }
             //===============================================================//
-            //====== COMMANDS THAT MUST BE ALLOWED WITH /unlockconsole ======//
+            //====== COMMANDS THAT WON'T WORK BEFORE /letmecheatplease ======//
             //===============================================================//
-            if (command.StartsWith("/unlockconsole")) {
+            if (command.StartsWith("/letmecheatplease")) {
                 consoleActivated = true;
-                return "Console activated.";
+                return "Cheat commands are now enabled.";
             }
             //These commands modify the data of the game and will trigger "CheatsUsed".
             if (!consoleActivated) return "Invalid command.";

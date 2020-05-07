@@ -14,16 +14,16 @@ namespace Kaisa.Digivice.App {
         private TextBoxBuilder[] tbOptions = new TextBoxBuilder[2];
         private int currentOption = 0;
 
-        //Maze generation
-        private const int MAZE_WIDTH = 10;
-        private const int MAZE_HEIGHT = 8;
-        private const int PATH_WIDTH = 2;
+        //Maze generation (1: 15, 12 / 2: 10, 8).
+        private const int MAZE_WIDTH = 15;
+        private const int MAZE_HEIGHT = 12;
+        private const int PATH_WIDTH = 1;
 
-        private const int CELL_PATH_UP    = 0b00001; //0x01
-        private const int CELL_PATH_LEFT  = 0b00010; //0x02;
-        private const int CELL_PATH_DOWN  = 0b00100; //0x04;
-        private const int CELL_PATH_RIGHT = 0b01000; //0x08;
-        private const int CELL_VISITED    = 0b10000; //0x10, 0x20, 0x40, 0x80, 0x100, 0x200...;
+        private const int CELL_PATH_UP    = 0b_00001; //0x01
+        private const int CELL_PATH_LEFT  = 0b_00010; //0x02;
+        private const int CELL_PATH_DOWN  = 0b_00100; //0x04;
+        private const int CELL_PATH_RIGHT = 0b_01000; //0x08;
+        private const int CELL_VISITED    = 0b_10000; //0x10, 0x20, 0x40, 0x80, 0x100, 0x200...;
 
         private int[] cellPaths = new int[MAZE_WIDTH * MAZE_HEIGHT]; //Stores the paths for each cell, and whether it's visited.
         private int visitedCells = 0;
@@ -32,7 +32,8 @@ namespace Kaisa.Digivice.App {
         //Player control
         private (int x, int y) playerPos = (-1, 0);
         private RectangleBuilder playerMarker;
-        private int timeRemaining = 30; //After defeat, the time remaining must reach -1 for the player to close the app.
+        private int maxTime = 45;
+        private int timeRemaining; //After defeat, the time remaining must reach -1 for the player to close the app.
         private TextBoxBuilder tbTime;
 
         #region Input
@@ -43,32 +44,32 @@ namespace Kaisa.Digivice.App {
                 }
                 else if (currentOption == 1) {
                     audioMgr.PlayButtonA();
-                    CloseApp();
+                    CloseApp(Screen.GamesTravelMenu);
                 }
             }
             else if (currentScreen == 2 && timeRemaining == -1) {
                 audioMgr.PlayButtonA();
-                CloseApp();
+                CloseApp(Screen.GamesTravelMenu);
             }
             else if (currentScreen == 3) {
                 audioMgr.PlayButtonA();
                 gm.SubmitGameScore(CalculateScore());
-                CloseApp();
+                CloseApp(Screen.GamesTravelMenu);
             }
         }
         public override void InputB() {
             if(currentScreen == 0) {
                 audioMgr.PlayButtonB();
-                CloseApp();
+                CloseApp(Screen.GamesTravelMenu);
             }
             else if (currentScreen == 2 && timeRemaining == -1) {
                 audioMgr.PlayButtonA();
-                CloseApp();
+                CloseApp(Screen.GamesTravelMenu);
             }
             else if (currentScreen == 3) {
                 audioMgr.PlayButtonA();
                 gm.SubmitGameScore(CalculateScore());
-                CloseApp();
+                CloseApp(Screen.GamesTravelMenu);
             }
         }
         public override void InputLeft() {
@@ -124,9 +125,10 @@ namespace Kaisa.Digivice.App {
 
         protected override void StartApp() {
             DrawStartMenu();
+            timeRemaining = maxTime;
         }
 
-        private int CalculateScore() => 12 * timeRemaining;
+        private int CalculateScore() => Mathf.RoundToInt((420 / (float)maxTime) * timeRemaining);
 
         private void DrawStartMenu() {
             tbOptions[0] = ScreenElement.BuildTextBox("Start", screenDisplay.transform, DFont.Small)
@@ -166,13 +168,13 @@ namespace Kaisa.Digivice.App {
             tbTime = ScreenElement.BuildTextBox("TimeCount", screenDisplay.transform, DFont.Small).SetText(timeRemaining.ToString()).SetSize(10, 5).SetPosition(22, 1);
             InvokeRepeating("CountDown", 1f, 1f);
 
-            playerMarker = ScreenElement.BuildRectangle("Player", screenDisplay.transform).SetSize(2, 2).SetPosition(1, 29).SetFlickPeriod(0.2f);
+            playerMarker = ScreenElement.BuildRectangle("Player", screenDisplay.transform).SetSize(PATH_WIDTH, PATH_WIDTH).SetPosition(1, 29).SetFlickPeriod(0.2f);
             UpdateMarkerPos();
         }
         //Returns true if a movement is made.
         private bool MovePlayer(Direction dir) {
             //If player enters the winning cell.
-            if(playerPos == (9, 7) && dir == Direction.Right) {
+            if(playerPos == (MAZE_WIDTH - 1, MAZE_HEIGHT - 1) && dir == Direction.Right) {
                 playerPos.x += 1;
                 UpdateMarkerPos();
                 TriggerWin();
@@ -188,7 +190,7 @@ namespace Kaisa.Digivice.App {
                 else return false;
             }
             //If the player is in the end cell.
-            else if (playerPos == (10, 7)) {
+            else if (playerPos == (MAZE_WIDTH, MAZE_HEIGHT - 1)) {
                 if (dir == Direction.Left) {
                     playerPos.x -= 1;
                     UpdateMarkerPos();
@@ -231,14 +233,14 @@ namespace Kaisa.Digivice.App {
                 return false;
             }
         }
-        private void UpdateMarkerPos() {
-            if (playerPos == (-1, 0)) playerMarker.SetPosition(0, 29); //Player has not left the start cell yet
-            else if (playerPos == (10, 7)) playerMarker.SetPosition(30, 8); //Player has reached the end cell
-            else {
-                int posX = 1 + (3 * playerPos.x);
-                int posY = 29 - (3 * playerPos.y);
-                if (playerMarker != null) playerMarker.SetPosition(posX, posY);
-            }
+        private void UpdateMarkerPos() { //TODO: Fix this for PATH_WIDTH > 1.
+            int posX = PATH_WIDTH + ((PATH_WIDTH + 1) * playerPos.x);
+            int posY = 7 + ((PATH_WIDTH + 1) * MAZE_HEIGHT) - 1 - ((PATH_WIDTH + 1) * playerPos.y);
+            //Place the marker correctly for special position (start and finish cells).
+            if (posX < 0) posX = 0;
+            if (posX > Constants.SCREEN_WIDTH - PATH_WIDTH) posX = Constants.SCREEN_WIDTH - PATH_WIDTH;
+
+            if (playerMarker != null) playerMarker.SetPosition(posX, posY);
         }
 
         private void GenerateMaze() {
@@ -370,12 +372,17 @@ namespace Kaisa.Digivice.App {
             }
 
             //Draw the start and exit.
-            mazeTexture.SetPixel(0, 1, Color.clear);
-            mazeTexture.SetPixel(0, 2, Color.clear);
-            mazeTexture.SetPixel(30, 22, Color.clear);
-            mazeTexture.SetPixel(31, 22, Color.clear);
-            mazeTexture.SetPixel(30, 23, Color.clear);
-            mazeTexture.SetPixel(31, 23, Color.clear);
+            for(int i = 0; i < PATH_WIDTH; i++) {
+                mazeTexture.SetPixel(0, i + 1, Color.clear);
+                mazeTexture.SetPixel(30, 23 - i, Color.clear);
+                mazeTexture.SetPixel(31, 23 - i, Color.clear);
+            }
+            //mazeTexture.SetPixel(0, 1, Color.clear);
+            //mazeTexture.SetPixel(0, 2, Color.clear);
+            //mazeTexture.SetPixel(30, 22, Color.clear);
+            //mazeTexture.SetPixel(31, 22, Color.clear);
+            //mazeTexture.SetPixel(30, 23, Color.clear);
+            //mazeTexture.SetPixel(31, 23, Color.clear);
 
             mazeTexture.Apply();
 
