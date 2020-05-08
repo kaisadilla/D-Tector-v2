@@ -124,10 +124,10 @@ namespace Kaisa.Digivice.App {
             gm.EnqueueAnimation(gm.screenMgr.AAttackCollision(0, friendlySprites, 3, null, 0));
 
             if(rewardCategory < 2) {
-                gm.EnqueueAnimation(gm.screenMgr.ABoxResists(gm.spriteDB.jackpot_box, friendlySprites[2]));
+                gm.EnqueueAnimation(gm.screenMgr.ABoxResists(friendlyDigimon));
             }
             else {
-                gm.EnqueueAnimation(gm.screenMgr.ADestroyBox(gm.spriteDB.jackpot_box));
+                gm.EnqueueAnimation(gm.screenMgr.ADestroyBox());
             }
             yield return null;
             if(reward == Reward.PunishDigimon) {

@@ -9,6 +9,7 @@ namespace Kaisa.Digivice {
 
         public AudioClip buttonA;
         public AudioClip buttonB;
+        public AudioClip unpleasantBeep;
         [Header("Generic sounds")]
         public AudioClip gameStart;
         public AudioClip charHappy;
@@ -37,6 +38,7 @@ namespace Kaisa.Digivice {
         public AudioClip attackTravelVeryLong;
         public AudioClip explosion;
         public AudioClip deport;
+        public AudioClip deportSpirit;
         public AudioClip evolutionRegular;
         public AudioClip evolutionSpirit;
         public AudioClip evolutionAncient;

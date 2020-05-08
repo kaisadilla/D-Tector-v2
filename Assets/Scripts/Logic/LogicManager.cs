@@ -247,7 +247,14 @@ namespace Kaisa.Digivice {
             audioMgr.PlaySound(audioMgr.triggerEvent);
             gm.SetEventActive(true);
             isEventPending = true;
-            triggerEvent = CallRandomBattle;
+
+            if(UnityEngine.Random.Range(0f, 1f) < 0.85f) {
+                triggerEvent = CallRandomBattle;
+            }
+            else {
+                triggerEvent = TriggerDataStorm;
+            }
+
             triggerEvent += () => {
                 SavedGame.SavedEvent = 0;
                 isEventPending = false;
@@ -337,36 +344,46 @@ namespace Kaisa.Digivice {
 
         #region Player and game stats
         /// <summary>
-        /// Adds (or substracts) an amount of experience to the player, and returns true if their level changed.
-        /// This method will trigger player insurance if able.
+        /// Adds an amount of experience to the player, and returns true if their level changed.
+        /// This method will disable player insurance if able.
         /// </summary>
-        /// <param name="val"></param>
+        /// <param name="val">The unsigned amount to add.</param>
         /// <returns></returns>
-        public bool AddPlayerExperience(int val) {
+        public bool AddPlayerExperience(uint val) {
             int playerLevelBefore = GetPlayerLevel();
-            //If the player will lose experience, do so only if he is not insured.
-            if (val < 0) {
-                if(!SavedGame.IsPlayerInsured) {
-                    SavedGame.PlayerExperience += val;
-                    if (SavedGame.PlayerExperience < 0) SavedGame.PlayerExperience = 0;
-                }
-            }
-            else if (val > 0) {
-                SavedGame.PlayerExperience += val;
-            }
 
+            SavedGame.PlayerExperience += (int)val;
             if (SavedGame.PlayerExperience > 1_000_000) SavedGame.PlayerExperience = 1_000_000;
 
             int playerLevelNow = GetPlayerLevel();
+
+            SavedGame.IsPlayerInsured = false;
+            return (playerLevelBefore != playerLevelNow);
+        }
+        /// <summary>
+        /// Substracts an amount of experience to the player, and returns true if their level changed.
+        /// This method will trigger player insurance if able.
+        /// </summary>
+        /// <param name="val">The unsigned amount to substract.</param>
+        /// <returns></returns>
+        public bool RemovePlayerExperience(uint val) {
+            int playerLevelBefore = GetPlayerLevel();
+
+            if (SavedGame.IsPlayerInsured) {
+                SavedGame.IsPlayerInsured = false;
+            }
+            else {
+                SavedGame.PlayerExperience -= (int)val;
+            }
+
+            if (SavedGame.PlayerExperience < 0) SavedGame.PlayerExperience = 0;
+
+            int playerLevelNow = GetPlayerLevel();
+
             //If the player has lost a level, activate their insurance.
             if (playerLevelNow < playerLevelBefore) {
                 SavedGame.IsPlayerInsured = true;
             }
-            //Else, toggle it off, regardless of whether they won or lost experience this time.
-            else {
-                SavedGame.IsPlayerInsured = false;
-            }
-
             return (playerLevelBefore != playerLevelNow);
         }
         public int PlayerExperience => SavedGame.PlayerExperience;
@@ -552,6 +569,29 @@ namespace Kaisa.Digivice {
                 return false;
             }
         }
+        /// <summary>
+        /// Locks a Spirit and adds it to the list of spirits lost by the player.
+        /// </summary>
+        public void LoseSpirit(string spirit) {
+            SetDigimonUnlocked(spirit, false);
+            SavedGame.LostSpirits.Add(spirit);
+        }
+        /// <summary>
+        /// Unlocks a random Spirit from the list of spirits lost and returns the name of that Spirit.
+        /// </summary>
+        public string RecoverSpirit() {
+            int index = SavedGame.LostSpirits.GetRandomIndex();
+            string recoveredSpirit = SavedGame.LostSpirits[index];
+            SavedGame.LostSpirits.RemoveAt(index);
+
+            SetDigimonUnlocked(recoveredSpirit, true);
+
+            return recoveredSpirit;
+        }
+        /// <summary>
+        /// Returns true if the player has any spirit lost that they can recover.
+        /// </summary>
+        public bool IsAnySpiritLost => SavedGame.LostSpirits.Count > 0;
 
         public string GetDDockDigimon(int ddock) => SavedGame.DDockDigimon[ddock];
         public void SetDDockDigimon(int ddock, string digimon) {
@@ -623,7 +663,7 @@ namespace Kaisa.Digivice {
                     SetDigicodeUnlocked(objective, true);
                     break;
                 case Reward.DataStorm:
-                    bool moved = TriggerDataStorm(out int newArea);
+                    bool moved = ApplyDataStorm(out int newArea);
                     resultBefore = moved;
                     resultAfter = newArea;
                     break;
@@ -684,15 +724,22 @@ namespace Kaisa.Digivice {
                     break;
             }
         }
+        private void TriggerDataStorm() {
+            bool move = ApplyDataStorm(out _);
+            gm.EnqueueAnimation(gm.screenMgr.ADigiStorm(gm.spriteDB.GetCharacterSprites(gm.CurrentPlayerChar), move));
+        }
         /// <summary>
         /// Triggers a Datastorm, and returns true if the player has been moved. It outputs the new area.
         /// </summary>
         /// <param name=""></param>
         /// <returns></returns>
-        public bool TriggerDataStorm(out int newArea) {
+        public bool ApplyDataStorm(out int newArea) {
             newArea = gm.DistanceMgr.CurrentArea;
 
-            bool moveArea = UnityEngine.Random.Range(0f, 1f) < 0.25f;
+            float rng = UnityEngine.Random.Range(0f, 1f);
+            bool moveArea = rng < 0.33f;
+            VisualDebug.WriteLine($"Data storm rng: {rng}, move area: {moveArea}");
+
             List<int> uncompletedAreas = gm.DistanceMgr.GetUncompletedAreas(gm.DistanceMgr.CurrentMap);
 
             if (uncompletedAreas.Count < 2) {
@@ -714,7 +761,7 @@ namespace Kaisa.Digivice {
         /// <param name="friendlyLevel">The level of the victor.</param>
         /// <param name="enemyLevel">The level of the loser.</param>
         /// <returns></returns>
-        public int GetExperienceGained(int friendlyLevel, int enemyLevel) {
+        public uint GetExperienceGained(int friendlyLevel, int enemyLevel) {
             float a = 30 * enemyLevel;
             float b = Mathf.Pow((2 * enemyLevel) + 10, 2.5f);
             float c = Mathf.Pow(enemyLevel + friendlyLevel + 10, 2.5f);
@@ -722,7 +769,7 @@ namespace Kaisa.Digivice {
             if (d > 0.5f) d = 0.5f;
             float expGained = ((a * (b / c)) + 1) * d;
 
-            return Mathf.CeilToInt(expGained);
+            return (uint)Mathf.CeilToInt(expGained);
         }
         #endregion
     }

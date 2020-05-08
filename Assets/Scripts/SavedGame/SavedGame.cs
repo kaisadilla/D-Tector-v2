@@ -174,10 +174,10 @@ namespace Kaisa.Digivice {
                 SaveGame();
             }
         }
-        public static int LeaverBusterExpLoss {
-            get => lg.leaverBusterExpLoss;
+        public static uint LeaverBusterExpLoss {
+            get => (uint)lg.leaverBusterExpLoss;
             set {
-                lg.leaverBusterExpLoss = value;
+                lg.leaverBusterExpLoss = (int)value;
                 SaveGame();
             }
         }
@@ -268,6 +268,11 @@ namespace Kaisa.Digivice {
             }
         }
 
+        public static List<string> LostSpirits {
+            get => lg.lostSpirits;
+            set => lg.lostSpirits = value;
+        }
+
         //Progress data.
         public static int GetDigimonLevel(string digimon) {
             if(lg.digimonLevel.TryGetValue(digimon, out int level)) {
@@ -354,6 +359,7 @@ namespace Kaisa.Digivice {
         public int totalBattles;
         public int totalWins;
         public string[] ddockDigimon = new string[4];
+        public List<string> lostSpirits = new List<string>(); //List of spirits lost by the player.
 
         //Progress data:
         public Dictionary<string, int> digimonLevel = new Dictionary<string, int>();

@@ -78,6 +78,7 @@ public class SpriteDatabase : MonoBehaviour {
     public Sprite animDistance;
     public Sprite[] ancientSpiral = new Sprite[2];
     public Sprite[] ancientCircle = new Sprite[3];
+    public Sprite stealSpiritAttractor;
     [Header("Battle")]
     public Sprite[] battle_mainMenu = new Sprite[4];
     public Sprite[] battle_combatMenu = new Sprite[5];

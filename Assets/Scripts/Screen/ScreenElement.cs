@@ -102,7 +102,7 @@ namespace Kaisa.Digivice {
         /// </summary>
         protected void BaseCenter() {
             int x = Mathf.RoundToInt((Constants.SCREEN_WIDTH - Width) / 2f);
-            int y = Mathf.RoundToInt((Constants.SCREEN_HEIGHT - Width) / 2f);
+            int y = Mathf.RoundToInt((Constants.SCREEN_HEIGHT - Height) / 2f);
             BaseSetPosition(x, y);
         }
         /// <summary>

@@ -278,8 +278,8 @@ namespace Kaisa.Digivice {
                             file.WriteLine($"Digimon not found.");
                         }
                         else {
-                            int victoryExp = gm.logicMgr.GetExperienceGained(level, d.baseLevel);
-                            int defeatExp = gm.logicMgr.GetExperienceGained(d.baseLevel, level);
+                            uint victoryExp = gm.logicMgr.GetExperienceGained(level, d.baseLevel);
+                            uint defeatExp = gm.logicMgr.GetExperienceGained(d.baseLevel, level);
                             file.WriteLine($"{d.name}\t{d.baseLevel}\t{victoryExp}\t{victoryExp / (float)expNeeded}\t{defeatExp}\t{defeatExp / (float)expNeeded}");
                         }
                     }

@@ -1682,7 +1682,6 @@ MonoBehaviour:
   - {fileID: -7016929981681943245, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
   - {fileID: -8251062679559881929, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
   - {fileID: 5360645927709239548, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
-  - {fileID: 0}
   bubble: {fileID: -297328165709641742, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
   digistorm:
   - {fileID: -8866480246244444352, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
@@ -1823,6 +1822,8 @@ MonoBehaviour:
   - {fileID: 1466681076489938645, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
   - {fileID: 5906102824131567388, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
   - {fileID: 2474594638734722967, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
+  stealSpiritAttractor: {fileID: 2473628064743839649, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
+    type: 3}
   battle_mainMenu:
   - {fileID: -7057440406585536591, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
   - {fileID: 5748297659399780796, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
@@ -8754,6 +8755,7 @@ MonoBehaviour:
   source: {fileID: 2122903410}
   buttonA: {fileID: 8300000, guid: 1eba5b3364767e1478fe9052beeb0c0a, type: 3}
   buttonB: {fileID: 8300000, guid: fc4911b7a2ab5fb4a9672a09918eee37, type: 3}
+  unpleasantBeep: {fileID: 8300000, guid: 23de95f7e7287d240a6b0d94f433413e, type: 3}
   gameStart: {fileID: 8300000, guid: ae0bbe3867e6c0f4f952abeb84c24d1f, type: 3}
   charHappy: {fileID: 8300000, guid: 5cffea2d8d240484289be06abecaa287, type: 3}
   charHappyLong: {fileID: 8300000, guid: a89f42dd6d16a394994214fbda68a6ab, type: 3}
@@ -8781,6 +8783,7 @@ MonoBehaviour:
     type: 3}
   explosion: {fileID: 8300000, guid: 5d861d11c30bb954c87bcd58f8223008, type: 3}
   deport: {fileID: 8300000, guid: 0e90d707fd9927f4e97a7300ca0082f0, type: 3}
+  deportSpirit: {fileID: 8300000, guid: c14d2371cd9d81d45bb6f03a778417bc, type: 3}
   evolutionRegular: {fileID: 8300000, guid: 3d73c5f3c05f72443817584f82fd3946, type: 3}
   evolutionSpirit: {fileID: 8300000, guid: ab34ecea203fb324f857d51a8dd721fe, type: 3}
   evolutionAncient: {fileID: 8300000, guid: 730f4f0f9e4f6344e849b69148be504d, type: 3}

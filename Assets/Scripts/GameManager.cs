@@ -91,10 +91,7 @@ namespace Kaisa.Digivice {
                 CheckLeaverBuster();
                 CheckPendingEvents();
             }
-            //AssignRandomBosses();
-            //EnqueueAnimation(screenMgr.ADigiStorm(spriteDB.GetCharacterSprites(CurrentPlayerChar), true));
-            //bool moved = logicMgr.TriggerDataStorm(out int newArea);
-            //EnqueueAnimation(screenMgr.ADisplayNewArea0(DistanceMgr.CurrentArea, DistanceMgr.CurrentDistance));
+            EnqueueAnimation(screenMgr.ALoseSpirit("mercurymon", "mercurymon"));
         }
 
         public void CloseGame() {
@@ -172,11 +169,18 @@ namespace Kaisa.Digivice {
 
         private void CheckLeaverBuster() {
             if (SavedGame.IsLeaverBusterActive) {
-                int expLoss = SavedGame.LeaverBusterExpLoss;
+                uint expLoss = SavedGame.LeaverBusterExpLoss;
                 string digimonLoss = SavedGame.LeaverBusterDigimonLoss;
                 VisualDebug.WriteLine($"Leaver Buster triggered. Experience lost: {expLoss}. Digimon lost: {digimonLoss}");
-                logicMgr.AddPlayerExperience(-expLoss);
-                logicMgr.PunishDigimon(digimonLoss, out _, out _);
+                logicMgr.RemovePlayerExperience(expLoss);
+
+                if (Database.GetDigimon(digimonLoss).stage != Stage.Spirit) {
+                    logicMgr.PunishDigimon(digimonLoss, out _, out _);
+                }
+                else {
+                    logicMgr.LoseSpirit(digimonLoss);
+                }
+
                 DistanceMgr.IncreaseDistance(2000);
                 logicMgr.IncreaseTotalBattles();
                 DisableLeaverBuster();
@@ -375,7 +379,7 @@ namespace Kaisa.Digivice {
         /// </summary>
         /// <param name="expLoss">The experience the player would lose if they were busted.</param>
         /// <param name="digimonLoss">The digimon the player would lose if they were busted.</param>
-        public void UpdateLeaverBuster(int expLoss, string digimonLoss) {
+        public void UpdateLeaverBuster(uint expLoss, string digimonLoss) {
             SavedGame.IsLeaverBusterActive = true;
             SavedGame.LeaverBusterExpLoss = expLoss;
             SavedGame.LeaverBusterDigimonLoss = digimonLoss;
