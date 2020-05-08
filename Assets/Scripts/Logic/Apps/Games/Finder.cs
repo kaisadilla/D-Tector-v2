@@ -11,11 +11,12 @@ namespace Kaisa.Digivice.App {
             }
         }
         public override void InputADown() {
+            //Remove error screen.
             if (result == 2) {
                 audioMgr.PlayButtonA();
                 result = 0;
             }
-            else {
+            else if (result != 3) {
                 audioMgr.PlayButtonA();
                 tries = 0;
                 StartLoadingBar();
@@ -66,7 +67,6 @@ namespace Kaisa.Digivice.App {
             sbHourglass = ScreenElement.BuildSprite("Hourglass", Parent).SetSprite(gm.spriteDB.hourglass);
             yield return new WaitForSeconds(0.5f);
             sbHourglass.Dispose();
-
 
             while (result == 1) {
                 if (tries == 5) {

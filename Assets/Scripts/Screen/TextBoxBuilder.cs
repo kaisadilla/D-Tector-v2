@@ -13,6 +13,11 @@ namespace Kaisa.Digivice {
         [SerializeField] private Font fBig;
         [SerializeField] private Font fSmall;
 
+        private void Awake() {
+            background.color = Preferences.BackgroundColor;
+            textField.color = Preferences.ActiveColor;
+        }
+
         public new int Width {
             get => (int)(textField.rectTransform.sizeDelta.x / Constants.PIXEL_SIZE);
         }
@@ -21,12 +26,12 @@ namespace Kaisa.Digivice {
         //TODO: This won't work currently as sprites are always black instead of white.
         protected override void BaseInvertColors(bool val) {
             if (val) {
-                textField.color = Constants.BACKGROUND_COLOR;
-                background.color = Constants.ACTIVE_COLOR;
+                textField.color = Preferences.BackgroundColor;
+                background.color = Preferences.ActiveColor;
             }
             else {
-                textField.color = Constants.ACTIVE_COLOR;
-                background.color = Constants.BACKGROUND_COLOR;
+                textField.color = Preferences.ActiveColor;
+                background.color = Preferences.BackgroundColor;
             }
         }
         protected override void BaseSetSize(int width, int height) {

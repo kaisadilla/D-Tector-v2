@@ -17,11 +17,15 @@ namespace Kaisa.Digivice {
         public AudioClip charSadLong;
         public AudioClip summonDigimon;
         public AudioClip unlockDigimon;
+        public AudioClip unlockCode;
         public AudioClip loseDigimon;
         public AudioClip levelUp;
         public AudioClip levelDown;
+        public AudioClip reward;
+        public AudioClip punishment;
         public AudioClip triggerEvent;
         public AudioClip travelMap;
+        public AudioClip digistorm;
         [Header("Database")]
         public AudioClip changeDock;
         [Header("Game - Battle")]
@@ -39,6 +43,9 @@ namespace Kaisa.Digivice {
         public AudioClip evolutionArmor;
         public AudioClip digiPowerFailed;
         public AudioClip digiPowerSucceed;
+        public AudioClip levelDownDigimon;
+        [Header("Game - Jackpot Box")]
+        public AudioClip beepLow;
         [Header("Game - SpeedRunner")]
         public AudioClip speedRunner_Start;
         public AudioClip speedRunner_Asteroid;

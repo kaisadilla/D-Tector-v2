@@ -1,16 +1,15 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using static System.Environment;
 
 namespace Kaisa.Digivice {
     public class DebugManager : MonoBehaviour {
-        [SerializeField]
-        private GameObject debugConsole;
-        [SerializeField]
-        private Text consoleOutput;
-        [SerializeField]
-        private InputField input;
+        [SerializeField] private GameObject debugConsole;
+        [SerializeField] private Text consoleOutput;
+        [SerializeField] private InputField input;
+        [SerializeField] private Scrollbar verticalScrollbar;
 
         private GameManager gm;
 
@@ -20,17 +19,13 @@ namespace Kaisa.Digivice {
         }
         public void Write(string output) {
             consoleOutput.text += output;
+            Canvas.ForceUpdateCanvases();
+            verticalScrollbar.value = 0f;
         }
         public void Write(object output) => Write(output.ToString());
 
         public void WriteLine(string output) {
-            if (consoleOutput.cachedTextGenerator.lines.Count > 9) {
-                consoleOutput.text = "";
-                /*foreach(var s in consoleOutput.cachedTextGenerator.lines) {
-                    consoleOutput.text = s.ToString();
-                }*/
-            }
-            consoleOutput.text += output + "\n";
+            Write(output + "\n");
         }
         public void WriteLine(object output) => WriteLine(output.ToString());
 
@@ -137,6 +132,10 @@ namespace Kaisa.Digivice {
                     }
                 }
                 return "Invalid parameters. Expected (int)map, (int)area";
+            }
+            if (command.StartsWith("/checkabilitysprites")) {
+                CheckDigimonAbilities();
+                return "";
             }
             //===============================================================//
             //====== COMMANDS THAT WON'T WORK BEFORE /letmecheatplease ======//
@@ -367,6 +366,15 @@ namespace Kaisa.Digivice {
                 }
             }
             return filePath;
+        }
+
+        private void CheckDigimonAbilities() {
+            foreach (Digimon d in Database.Digimons) {
+                Sprite ability = gm.spriteDB.GetAbilitySprite(d.abilityName);
+                if (ability == null) {
+                    Console.WriteLine("No ability found for " + d.name);
+                }
+            }
         }
     }
 }

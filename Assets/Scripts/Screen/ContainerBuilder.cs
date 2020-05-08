@@ -6,6 +6,9 @@ namespace Kaisa.Digivice {
     public class ContainerBuilder : ScreenElement {
         [SerializeField]
         private RectMask2D mask;
+        private void Awake() {
+            background.color = Preferences.BackgroundColor;
+        }
         protected override void BaseInvertColors(bool val) => throw new System.NotImplementedException();
 
         //Chained base methods:
@@ -78,8 +81,8 @@ namespace Kaisa.Digivice {
         }
 
         public ContainerBuilder SetBackgroundBlack(bool val) {
-            if (val) background.color = Constants.ACTIVE_COLOR;
-            else background.color = Constants.BACKGROUND_COLOR;
+            if (val) background.color = Preferences.ActiveColor;
+            else background.color = Preferences.BackgroundColor;
             return this;
         }
     }

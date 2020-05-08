@@ -7,8 +7,61 @@ using UnityEngine;
 namespace Kaisa.Digivice {
     public static class SavedGame {
         public static string CurrentlyLoadedFilePath {
-            get => EncryptedPlayerPrefs.GetString("CurrentFilePath");
-            set => EncryptedPlayerPrefs.SetString("CurrentFilePath", value);
+            get => PlayerPrefs.GetString("current_file_path");
+            set => PlayerPrefs.SetString("current_file_path", value);
+        }
+
+        //Configuration
+        public static bool IsConfigurationInitialized {
+            get => PlayerPrefs.GetInt("config_initialized") == 1;
+            set => PlayerPrefs.GetInt("config_initialized", value ? 1 : 0);
+        }
+
+        public static float ConfigVolume {
+            get => PlayerPrefs.GetInt("config_volume") / 100f;
+            set => PlayerPrefs.SetInt("config_volume", Mathf.RoundToInt(value * 100));
+        }
+        public static int ConfigLocalization {
+            get => PlayerPrefs.GetInt("config_localization");
+            set => PlayerPrefs.SetInt("config_localization", value);
+        }
+        public static Color ConfigActiveColor {
+            get {
+                float r = PlayerPrefs.GetInt("config_active_color_r") / 10000f;
+                float g = PlayerPrefs.GetInt("config_active_color_g") / 10000f;
+                float b = PlayerPrefs.GetInt("config_active_color_b") / 10000f;
+                float a = PlayerPrefs.GetInt("config_active_color_a") / 10000f;
+                return new Color(r, g, b, a);
+            }
+            set {
+                int r = Mathf.RoundToInt(value.r * 10000);
+                int g = Mathf.RoundToInt(value.g * 10000);
+                int b = Mathf.RoundToInt(value.b * 10000);
+                int a = Mathf.RoundToInt(value.a * 10000);
+                PlayerPrefs.SetInt("config_active_color_r", r);
+                PlayerPrefs.SetInt("config_active_color_g", g);
+                PlayerPrefs.SetInt("config_active_color_b", b);
+                PlayerPrefs.SetInt("config_active_color_a", a);
+            }
+        }
+        public static Color ConfigBackgroundColor {
+            get {
+                float r = PlayerPrefs.GetInt("config_background_color_r") / 10000f;
+                float g = PlayerPrefs.GetInt("config_background_color_g") / 10000f;
+                float b = PlayerPrefs.GetInt("config_background_color_b") / 10000f;
+                float a = PlayerPrefs.GetInt("config_background_color_a") / 10000f;
+                return new Color(r, g, b, a);
+            }
+            set {
+                int r = Mathf.RoundToInt(value.r * 10000);
+                int g = Mathf.RoundToInt(value.g * 10000);
+                int b = Mathf.RoundToInt(value.b * 10000);
+                int a = Mathf.RoundToInt(value.a * 10000);
+                PlayerPrefs.SetInt("config_background_color_r", r);
+                PlayerPrefs.SetInt("config_background_color_g", g);
+                PlayerPrefs.SetInt("config_background_color_b", b);
+                PlayerPrefs.SetInt("config_background_color_a", a);
+            }
         }
 
         private static SavedGameFile lg;

@@ -194,7 +194,7 @@ namespace Kaisa.Digivice.App {
             NavigateGallery(dir);
             yield return new WaitForSeconds(0.35f);
             while (true) {
-                yield return new WaitForSeconds(0.15f);
+                yield return new WaitForSeconds(0.12f);
                 audioMgr.PlayButtonA();
                 NavigateGallery(dir);
             }

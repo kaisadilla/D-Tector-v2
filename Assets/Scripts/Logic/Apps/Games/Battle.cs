@@ -762,9 +762,8 @@ namespace Kaisa.Digivice.App {
             gm.EnqueueAnimation(gm.screenMgr.ACharHappy());
 
             if (rewardEnemy) {
-                if (gm.logicMgr.RewardDigimon(enemyDigimon.name, out int levelBefore, out int levelAfter)) {
-                    //gm.EnqueueAnimation(gm.screenMgr.ALevelUpDigimon(enemyDigimon.name, levelBefore, levelAfter));
-                    gm.EnqueueAnimation(gm.screenMgr.AUnlockDigimon(enemyDigimon.name));
+                if (gm.logicMgr.RewardDigimon(enemyDigimon.name, out _, out _)) {
+                    gm.EnqueueAnimation(gm.screenMgr.ALevelUpDigimon(enemyDigimon.name));
                 }
                 else {
                     gm.EnqueueAnimation(gm.screenMgr.AUnlockDigimon(enemyDigimon.name));
@@ -806,7 +805,7 @@ namespace Kaisa.Digivice.App {
 
             if (punishFriendly) {
                 if (gm.logicMgr.PunishDigimon(originalDigimon.name, out int levelBefore, out int levelAfter)) {
-                    //gm.EnqueueAnimation(gm.screenMgr.ALevelDownDigimon(originalDigimon.name, levelBefore, levelAfter));
+                    gm.EnqueueAnimation(gm.screenMgr.ALevelDownDigimon(originalDigimon.name));
                 }
                 else {
                     gm.EnqueueAnimation(gm.screenMgr.AEraseDigimon(originalDigimon.name));

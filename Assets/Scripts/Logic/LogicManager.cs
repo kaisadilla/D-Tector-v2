@@ -2,6 +2,7 @@
 
 using Kaisa.Digivice.Extensions;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Kaisa.Digivice {
@@ -87,6 +88,10 @@ namespace Kaisa.Digivice {
                 }
             }
             else if (currentScreen == Screen.GamesRewardMenu) {
+                if (gamesRewardMenuIndex == 0) {
+                    audioMgr.PlayButtonA();
+                    OpenApp(gm.pAppJackpotBox);
+                }
 
             }
             else if (currentScreen == Screen.GamesTravelMenu) {
@@ -274,6 +279,10 @@ namespace Kaisa.Digivice {
             string boss = gm.GetBossOfCurrentArea();
             loadedApp = App.DigiviceApp.LoadApp(gm.pAppBattle, gm, this, boss, "true");
         }
+        public void CallFixedBattle(string digimon, bool isBossBattle) {
+            currentScreen = Screen.App;
+            loadedApp = App.DigiviceApp.LoadApp(gm.pAppBattle, gm, this, digimon, isBossBattle? "true" : "false");
+        }
 
         public void SelectCharacterAndCreateGame() {
             gm.CreateNewGame((GameChar)charSelectionIndex);
@@ -335,12 +344,19 @@ namespace Kaisa.Digivice {
         /// <returns></returns>
         public bool AddPlayerExperience(int val) {
             int playerLevelBefore = GetPlayerLevel();
-            //If the player has insurance and they would lose experience, don't do anything.
-            if (!(val < 0 && SavedGame.IsPlayerInsured)) {
-                SavedGame.PlayerExperience += val;
-                if (SavedGame.PlayerExperience < 0) SavedGame.PlayerExperience = 0;
+            //If the player will lose experience, do so only if he is not insured.
+            if (val < 0) {
+                if(!SavedGame.IsPlayerInsured) {
+                    SavedGame.PlayerExperience += val;
+                    if (SavedGame.PlayerExperience < 0) SavedGame.PlayerExperience = 0;
+                }
             }
+            else if (val > 0) {
+                SavedGame.PlayerExperience += val;
+            }
+
             if (SavedGame.PlayerExperience > 1_000_000) SavedGame.PlayerExperience = 1_000_000;
+
             int playerLevelNow = GetPlayerLevel();
             //If the player has lost a level, activate their insurance.
             if (playerLevelNow < playerLevelBefore) {
@@ -353,6 +369,7 @@ namespace Kaisa.Digivice {
 
             return (playerLevelBefore != playerLevelNow);
         }
+        public int PlayerExperience => SavedGame.PlayerExperience;
         /// <summary>
         /// Returns the level of a player based on its experience.
         /// </summary>
@@ -364,12 +381,34 @@ namespace Kaisa.Digivice {
             return Mathf.FloorToInt(level);
         }
         /// <summary>
+        /// Returns the percentage of the experience the player has compared to the experience needed to the next level
+        /// (where 0% is the base experience for their level, not 0 experience).
+        /// </summary>
+        /// <returns></returns>
+        public float GetPlayerLevelProgression() {
+            int floorExperience = Mathf.FloorToInt(Mathf.Pow(GetPlayerLevel(), 3));
+            int topExperience = Mathf.FloorToInt(Mathf.Pow(GetPlayerLevel() + 1, 3));
+
+            int maxExperienceForLevel = topExperience - floorExperience;
+            int playerExperienceForLevel = PlayerExperience - floorExperience;
+
+            return playerExperienceForLevel / (float)maxExperienceForLevel;
+        }
+        /// <summary>
         /// Forcibly levels up the player, settings its experience to the necessary amount so the player is leveled up.
         /// </summary>
         public void LevelUpPlayer() {
             int playerLevel = GetPlayerLevel();
             float nextLevelExp = Mathf.Pow(playerLevel + 1, 3f);
             SavedGame.PlayerExperience = Mathf.CeilToInt(nextLevelExp);
+        }
+        /// <summary>
+        /// Forcibly levels down the player, settings its experience to the necessary amount so the player is leveled down.
+        /// </summary>
+        public void LevelDownPlayer() {
+            int playerLevel = GetPlayerLevel();
+            float previousLevelExp = Mathf.Pow(playerLevel - 1, 3f);
+            SavedGame.PlayerExperience = Mathf.CeilToInt(previousLevelExp);
         }
         public int SpiritPower {
             get => SavedGame.SpiritPower;
@@ -448,6 +487,16 @@ namespace Kaisa.Digivice {
             SavedGame.SetDigimonLevel(digimon, val + 1);
         }
         /// <summary>
+        /// Returns an array of the names of every unlocked Digimon.
+        /// </summary>
+        public string[] GetAllUnlockedDigimon() {
+            List<string> allUnlockedDigimon = new List<string>();
+            foreach(Digimon d in Database.Digimons) {
+                if (GetDigimonUnlocked(d.name)) allUnlockedDigimon.Add(d.name);
+            }
+            return allUnlockedDigimon.ToArray();
+        }
+        /// <summary>
         /// Returns the extra level of a Digimon. Returns -1 if the Digimon is not unlocked.
         /// </summary>
         /// <param name="digimon"></param>
@@ -511,6 +560,143 @@ namespace Kaisa.Digivice {
         }
         public bool IsDDockEmpty(int ddock) => (SavedGame.DDockDigimon[ddock] == "");
         #endregion
+
+        /// <summary>
+        /// Applies a reward, to an objective if necessary. Outputs the result before and after the reward is applied.
+        /// </summary>
+        /// <param name="objective">The Digimon that will be awarded, punished, battled against, etc...</param>
+        /// <param name="resultBefore">A variable holding the result before the reward was applied.</param>
+        /// <param name="resultAfter">A variable holding the result after tthe reward is applied.</param>
+        public void ApplyReward(Reward reward, string objective, out object resultBefore, out object resultAfter) {
+            resultBefore = null;
+            resultAfter = null;
+            switch(reward) {
+                case Reward.IncreaseDistance300:
+                    resultBefore = gm.DistanceMgr.CurrentDistance;
+                    gm.DistanceMgr.IncreaseDistance(300);
+                    resultAfter = gm.DistanceMgr.CurrentDistance;
+                    break;
+                case Reward.IncreaseDistance500:
+                    resultBefore = gm.DistanceMgr.CurrentDistance;
+                    gm.DistanceMgr.IncreaseDistance(500);
+                    resultAfter = gm.DistanceMgr.CurrentDistance;
+                    break;
+                case Reward.IncreaseDistance2000:
+                    resultBefore = gm.DistanceMgr.CurrentDistance;
+                    gm.DistanceMgr.IncreaseDistance(2000);
+                    resultAfter = gm.DistanceMgr.CurrentDistance;
+                    break;
+                case Reward.ReduceDistance500:
+                    resultBefore = gm.DistanceMgr.CurrentDistance;
+                    gm.DistanceMgr.ReduceDistance(500);
+                    resultAfter = gm.DistanceMgr.CurrentDistance;
+                    break;
+                case Reward.ReduceDistance1000:
+                    resultBefore = gm.DistanceMgr.CurrentDistance;
+                    gm.DistanceMgr.ReduceDistance(1000);
+                    resultAfter = gm.DistanceMgr.CurrentDistance;
+                    break;
+                case Reward.PunishDigimon:
+                    PunishDigimon(objective, out int pdBef, out int pdAft);
+                    resultBefore = pdBef;
+                    resultAfter = pdAft;
+                    break;
+                case Reward.RewardDigimon:
+                    RewardDigimon(objective, out int rdBef, out int rdAft);
+                    resultBefore = rdBef;
+                    resultAfter = rdAft;
+                    break;
+                case Reward.UnlockDigicodeOwned:
+                    SetDigicodeUnlocked(objective, true);
+                    break;
+                case Reward.UnlockDigicodeNotOwned:
+                    SetDigimonUnlocked(objective, true);
+                    SetDigicodeUnlocked(objective, true);
+                    break;
+                case Reward.DataStorm:
+                    bool moved = TriggerDataStorm(out int newArea);
+                    resultBefore = moved;
+                    resultAfter = newArea;
+                    break;
+                case Reward.LoseSpiritPower10:
+                    resultBefore = SpiritPower;
+                    SpiritPower -= 10;
+                    resultAfter = SpiritPower;
+                    break;
+                case Reward.LoseSpiritPower50:
+                    resultBefore = SpiritPower;
+                    SpiritPower -= 50;
+                    resultAfter = SpiritPower;
+                    break;
+                case Reward.GainSpiritPower10:
+                    resultBefore = SpiritPower;
+                    SpiritPower += 10;
+                    resultAfter = SpiritPower;
+                    break;
+                case Reward.GainSpiritPowerMax:
+                    resultBefore = SpiritPower;
+                    SpiritPower = Constants.MAX_SPIRIT_POWER;
+                    resultAfter = SpiritPower;
+                    break;
+                case Reward.LevelDown:
+                    if(GetPlayerLevelProgression() < 0.5f) {
+                        resultBefore = GetPlayerLevel();
+                        LevelDownPlayer();
+                        resultAfter = GetPlayerLevel();
+                    }
+                    break;
+                case Reward.LevelUp:
+                    if (GetPlayerLevelProgression() > 0.5f) {
+                        resultBefore = GetPlayerLevel();
+                        LevelUpPlayer();
+                        resultAfter = GetPlayerLevel();
+                    }
+                    break;
+                case Reward.ForceLevelDown:
+                    if (GetPlayerLevelProgression() > 0f) {
+                        resultBefore = GetPlayerLevel();
+                        LevelDownPlayer();
+                        resultAfter = GetPlayerLevel();
+                    }
+                    break;
+                case Reward.ForceLevelUp:
+                    if (GetPlayerLevelProgression() > 0f) {
+                        resultBefore = GetPlayerLevel();
+                        LevelUpPlayer();
+                        resultAfter = GetPlayerLevel();
+                    }
+                    break;
+                case Reward.TriggerBattle:
+                    CallRandomBattle();
+                    break;
+                default:
+                    resultBefore = null;
+                    resultAfter = null;
+                    break;
+            }
+        }
+        /// <summary>
+        /// Triggers a Datastorm, and returns true if the player has been moved. It outputs the new area.
+        /// </summary>
+        /// <param name=""></param>
+        /// <returns></returns>
+        public bool TriggerDataStorm(out int newArea) {
+            newArea = gm.DistanceMgr.CurrentArea;
+
+            bool moveArea = UnityEngine.Random.Range(0f, 1f) < 0.25f;
+            List<int> uncompletedAreas = gm.DistanceMgr.GetUncompletedAreas(gm.DistanceMgr.CurrentMap);
+
+            if (uncompletedAreas.Count < 2) {
+                moveArea = false;
+            }
+
+            if (moveArea) {
+                newArea = uncompletedAreas.GetRandomElement();
+                gm.DistanceMgr.MoveToArea(gm.DistanceMgr.CurrentMap, newArea, gm.DistanceMgr.CurrentDistance + 1000);
+                //TODO: Chance to be moved to world 9.
+            }
+            return moveArea;
+        }
 
         #region Calculations
         /// <summary>

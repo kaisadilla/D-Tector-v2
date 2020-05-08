@@ -37,13 +37,13 @@ namespace Kaisa.Digivice {
         [Header("Games")]
         public GameObject pAppFinder;
         public GameObject pAppBattle;
+        public GameObject pAppJackpotBox;
         public GameObject pAppSpeedRunner;
         public GameObject pAppMaze;
 
         [Header("Screen elements")]
         public GameObject pContainer;
         public GameObject pSolidSprite;
-        public GameObject pScreenSprite;
         public GameObject pRectangle;
         public GameObject pTextBox;
 
@@ -65,6 +65,8 @@ namespace Kaisa.Digivice {
 
             //Load information about the player's game.
             LoadGame();
+            //EnqueueAnimation(screenMgr.ABoxResists(spriteDB.jackpot_box, spriteDB.GetDigimonSprite("wormmon", SpriteAction.Crush)));
+            //EnqueueAnimation(screenMgr.ADisplayNewArea0(11, 5000));
         }
 
         public void Start() {
@@ -90,7 +92,9 @@ namespace Kaisa.Digivice {
                 CheckPendingEvents();
             }
             //AssignRandomBosses();
-            //EnqueueAnimation(screenMgr.AStartGameAnimation(GameChar.Zoe, "kazemon", 3, "agumon", 2));
+            //EnqueueAnimation(screenMgr.ADigiStorm(spriteDB.GetCharacterSprites(CurrentPlayerChar), true));
+            //bool moved = logicMgr.TriggerDataStorm(out int newArea);
+            //EnqueueAnimation(screenMgr.ADisplayNewArea0(DistanceMgr.CurrentArea, DistanceMgr.CurrentDistance));
         }
 
         public void CloseGame() {
@@ -149,7 +153,7 @@ namespace Kaisa.Digivice {
         private void SetupManagers() {
             inputMgr.AssignManagers(this);
             logicMgr.Initialize(this);
-            screenMgr.AssignManagers(this);
+            screenMgr.Initialize(this);
 
             debug.Initialize(this);
 
@@ -174,6 +178,7 @@ namespace Kaisa.Digivice {
                 logicMgr.AddPlayerExperience(-expLoss);
                 logicMgr.PunishDigimon(digimonLoss, out _, out _);
                 DistanceMgr.IncreaseDistance(2000);
+                logicMgr.IncreaseTotalBattles();
                 DisableLeaverBuster();
             }
         }
@@ -440,6 +445,82 @@ namespace Kaisa.Digivice {
 
         #region Animations
         public void EnqueueAnimation(IEnumerator animation) => screenMgr.EnqueueAnimation(animation);
+
+        public void EnqueueRewardAnimation(Reward reward, string objective, object resultBefore, object resultAfter) {
+            switch(reward) {
+                case Reward.IncreaseDistance300:
+                case Reward.IncreaseDistance500:
+                case Reward.IncreaseDistance2000:
+                    EnqueueAnimation(screenMgr.ARewardDistance(true, (int)resultBefore, (int)resultAfter));
+                    EnqueueAnimation(screenMgr.ACharSad());
+                    break;
+                case Reward.ReduceDistance500:
+                case Reward.ReduceDistance1000:
+                    EnqueueAnimation(screenMgr.ARewardDistance(false, (int)resultBefore, (int)resultAfter));
+                    EnqueueAnimation(screenMgr.ACharHappy());
+                    break;
+                case Reward.PunishDigimon:
+                    if((int)resultAfter == -1) {
+                        EnqueueAnimation(screenMgr.AEraseDigimon(objective));
+                    }
+                    else {
+                        EnqueueAnimation(screenMgr.ALevelDownDigimon(objective));
+                    }
+                    EnqueueAnimation(screenMgr.ACharSad());
+                    break;
+                case Reward.RewardDigimon:
+                    if ((int)resultBefore == -1) {
+                        EnqueueAnimation(screenMgr.ASummonDigimon(objective));
+                        EnqueueAnimation(screenMgr.AUnlockDigimon(objective));
+                    }
+                    else {
+                        EnqueueAnimation(screenMgr.ASummonDigimon(objective));
+                        EnqueueAnimation(screenMgr.ALevelUpDigimon(objective));
+                    }
+                    EnqueueAnimation(screenMgr.ACharHappy());
+                    break;
+                case Reward.UnlockDigicodeOwned:
+                    Database.TryGetCodeOfDigimon(objective, out string code);
+                    EnqueueAnimation(screenMgr.ARewardCode(objective, code));
+                    EnqueueAnimation(screenMgr.ACharHappy());
+                    break;
+                case Reward.UnlockDigicodeNotOwned:
+                    Database.TryGetCodeOfDigimon(objective, out string code2);
+                    EnqueueAnimation(screenMgr.ARewardCode(objective, code2));
+                    EnqueueAnimation(screenMgr.AUnlockDigimon(objective));
+                    EnqueueAnimation(screenMgr.ACharHappy());
+                    break;
+                case Reward.DataStorm:
+                    EnqueueAnimation(screenMgr.ADigiStorm(spriteDB.GetCharacterSprites(CurrentPlayerChar), (bool)resultBefore));
+                    if((bool)resultBefore) {
+                        EnqueueAnimation(screenMgr.ACharHappy());
+                    }
+                    else {
+                        EnqueueAnimation(screenMgr.ADisplayNewArea0(DistanceMgr.CurrentArea, DistanceMgr.CurrentDistance));
+                    }
+                    break;
+                case Reward.LoseSpiritPower10:
+                case Reward.LoseSpiritPower50:
+                    EnqueueAnimation(screenMgr.ARewardSpiritPower(true, (int)resultBefore, (int)resultAfter));
+                    EnqueueAnimation(screenMgr.ACharSad());
+                    break;
+                case Reward.GainSpiritPower10:
+                case Reward.GainSpiritPowerMax:
+                    EnqueueAnimation(screenMgr.ARewardSpiritPower(false, (int)resultBefore, (int)resultAfter));
+                    EnqueueAnimation(screenMgr.ACharHappy());
+                    break;
+                case Reward.LevelDown:
+                case Reward.ForceLevelDown:
+                    EnqueueAnimation(screenMgr.ALevelDown((int)resultBefore, (int)resultAfter));
+                    EnqueueAnimation(screenMgr.ACharSad());
+                    break;
+                case Reward.LevelUp:
+                case Reward.ForceLevelUp:
+                    EnqueueAnimation(screenMgr.ALevelUp((int)resultBefore, (int)resultAfter));
+                    EnqueueAnimation(screenMgr.ACharHappy());
+                    break;
+            }
+        }
         #endregion
     }
 }

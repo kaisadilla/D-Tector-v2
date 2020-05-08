@@ -28,6 +28,15 @@ namespace Kaisa.Digivice {
         private BriefSavedGame SelectedSavedGame => SavedGame.GetBriefSavedGame(SelectedFilePath);
 
         private void Awake() {
+            if (!SavedGame.IsConfigurationInitialized) {
+                SavedGame.ConfigVolume = 1f;
+                SavedGame.ConfigLocalization = 0;
+                SavedGame.ConfigActiveColor = Color.black;
+                SavedGame.ConfigBackgroundColor = new Color32(129, 147, 118, 255);
+                SavedGame.IsConfigurationInitialized = true;
+            }
+            Preferences.ApplyPreferences();
+
             if (SavedGame.CurrentlyLoadedFilePath != "") {
                 SceneManager.LoadScene("DigiviceFrontier");
             }

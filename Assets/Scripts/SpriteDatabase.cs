@@ -30,7 +30,9 @@ public class SpriteDatabase : MonoBehaviour {
     public Sprite hourglass;
     public Sprite error;
     public Sprite[] rewardBackground = new Sprite[4];
-    public Sprite[] rewards = new Sprite[5]; //0: Level
+    public Sprite[] rewards = new Sprite[5]; //0: Level, 1: Distance down, 2: Distance up, 3: Spirits
+    public Sprite bubble;
+    public Sprite[] digistorm = new Sprite[2];
     [Header("Game start")]
     public Sprite gameStart_clouds;
     public Sprite gameStart_trailmon;
@@ -96,6 +98,14 @@ public class SpriteDatabase : MonoBehaviour {
     public Sprite speedRunner_rocketAsteroid;
     public Sprite speedRunner_rocketSpeedMark;
     public Sprite speedRunner_rocketFinish;
+    [Header("Game - Jackpot Box")]
+    public Sprite jackpot_box;
+    public Sprite jackpot_pad;
+    public Sprite[] jackpot_keys = new Sprite[4];
+
+    private void Awake() {
+        Constants.SetEmptySprite(emptySprite);
+    }
 
     public Sprite[] GetCharacterSprites(GameChar character) {
         switch(character) {
@@ -147,6 +157,19 @@ public class SpriteDatabase : MonoBehaviour {
         return sprites;
     }
     /// <summary>
+    /// Returns all the sprites used in combat, in order: 0: default, 1: attack, 2: crush, 3: energy, 4: ability.
+    /// </summary>
+    /// <returns></returns>
+    public Sprite[] GetAllDigimonBattleSprites(string name, int energyRank) {
+        return new Sprite[] {
+                GetDigimonSprite(name),
+                GetDigimonSprite(name, SpriteAction.Attack),
+                GetDigimonSprite(name, SpriteAction.Crush),
+                battle_energy[energyRank],
+                GetAbilitySprite(Database.GetDigimon(name).abilityName)
+            };
+    }
+    /// <summary>
     /// Returns the sprite associated with the ability given.
     /// </summary>
     /// <param name="abilityName">The name of the ability – this is not the name of the digimon who has said ability.</param>
@@ -170,11 +193,11 @@ public class SpriteDatabase : MonoBehaviour {
 
         for(int x = 0; x < texture.width; x++) {
             for(int y = 0; y < texture.height; y++) {
-                if(texture.GetPixel(x, y) == Color.black) {
+                if(texture.GetPixel(x, y) == Color.white) {
                     newTexture.SetPixel(x, y, Color.clear);
                 }
                 else {
-                    newTexture.SetPixel(x, y, Color.black);
+                    newTexture.SetPixel(x, y, Color.white);
                 }
             }
         }

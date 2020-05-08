@@ -344,7 +344,7 @@ namespace Kaisa.Digivice.App {
 
             //Set the transparent and black portions of the texture.
             mazeTexture.SetPixels32(0, 25, 32, 7, new Color32[32 * 7].Fill(Color.clear));
-            mazeTexture.SetPixels32(0, 0, 32, 25, new Color32[32 * 25].Fill(Color.black));
+            mazeTexture.SetPixels32(0, 0, 32, 25, new Color32[32 * 25].Fill(Color.white));
 
             //Draw the maze.
             for (int x = 0; x < MAZE_WIDTH; x++) {

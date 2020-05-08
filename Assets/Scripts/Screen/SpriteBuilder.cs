@@ -1,11 +1,15 @@
 ﻿using Kaisa.Digivice.Extensions;
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Kaisa.Digivice {
     public class SpriteBuilder : ScreenElement {
         public Image spriteImage;
+
+        private void Awake() {
+            background.color = Preferences.BackgroundColor;
+            spriteImage.color = Preferences.ActiveColor;
+        }
 
         //Properties:
         public int ComponentWidth {
@@ -36,12 +40,12 @@ namespace Kaisa.Digivice {
         //TODO: This won't work currently as sprites are always black instead of white.
         protected override void BaseInvertColors(bool val) {
             if (val) {
-                spriteImage.color = Constants.BACKGROUND_COLOR;
-                background.color = Constants.ACTIVE_COLOR;
+                spriteImage.color = Preferences.BackgroundColor;
+                background.color = Preferences.ActiveColor;
             }
             else {
-                spriteImage.color = Constants.ACTIVE_COLOR;
-                background.color = Constants.BACKGROUND_COLOR;
+                spriteImage.color = Preferences.ActiveColor;
+                background.color = Preferences.BackgroundColor;
             }
         }
         protected override void BaseSetSize(int width, int height) {

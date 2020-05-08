@@ -13,6 +13,10 @@ namespace Kaisa.Digivice.App {
 
         protected GameManager gm;
         protected AudioManager audioMgr;
+        private void Awake() {
+            screenDisplay.color = Preferences.ActiveColor;
+            screenDisplay.sprite = Constants.EMPTY_SPRITE;
+        }
 
         //AppLoader
         public static DigiviceApp LoadApp(GameObject appPrefab, GameManager gm, IAppController controller, params string[] appArgs) {

@@ -6,6 +6,11 @@ using UnityEngine.UI;
 public class RectangleBuilder : ScreenElement {
     [SerializeField] private Image rectangle;
 
+    private void Awake() {
+        background.color = Preferences.BackgroundColor;
+        rectangle.color = Preferences.ActiveColor;
+    }
+
     //Flick variables:
     private float timePassed = 0f;
     private bool isEnabled = true;
@@ -16,12 +21,12 @@ public class RectangleBuilder : ScreenElement {
     //Overrides:
     protected override void BaseInvertColors(bool val) {
         if (val) {
-            rectangle.color = Constants.BACKGROUND_COLOR;
-            background.color = Constants.ACTIVE_COLOR;
+            rectangle.color = Preferences.BackgroundColor;
+            background.color = Preferences.ActiveColor;
         }
         else {
-            rectangle.color = Constants.ACTIVE_COLOR;
-            background.color = Constants.BACKGROUND_COLOR;
+            rectangle.color = Preferences.ActiveColor;
+            background.color = Preferences.BackgroundColor;
         }
     }
 
@@ -77,10 +82,10 @@ public class RectangleBuilder : ScreenElement {
     /// </summary>
     public RectangleBuilder SetColor(bool activeColor) {
         if(activeColor) {
-            rectangle.color = Constants.ACTIVE_COLOR;
+            rectangle.color = Preferences.ActiveColor;
         }
         else {
-            rectangle.color = Constants.BACKGROUND_COLOR;
+            rectangle.color = Preferences.BackgroundColor;
         }
         return this;
     }

@@ -45,4 +45,26 @@ namespace Kaisa.Digivice {
         DigiHunter,
         Maze
     }
+    public enum Reward {
+        none,
+        IncreaseDistance300,
+        IncreaseDistance500,
+        IncreaseDistance2000,
+        ReduceDistance500,
+        ReduceDistance1000,
+        PunishDigimon,
+        RewardDigimon,
+        UnlockDigicodeOwned,
+        UnlockDigicodeNotOwned,
+        DataStorm,
+        LoseSpiritPower10,
+        LoseSpiritPower50,
+        GainSpiritPower10,
+        GainSpiritPowerMax,
+        LevelDown,
+        LevelUp,
+        ForceLevelDown,
+        ForceLevelUp,
+        TriggerBattle
+    }
 }

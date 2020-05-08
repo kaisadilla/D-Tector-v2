@@ -13,9 +13,6 @@ namespace Kaisa.Digivice {
         public const string DEFAULT_DIGIMON = "numemon";
         public const string DEFAULT_SPIRIT_DIGIMON = "flamemon";
 
-        public static readonly Color BACKGROUND_COLOR = new Color32(129, 147, 118, 255);
-        public static readonly Color ACTIVE_COLOR = Color.black;
-
         public static readonly Vector2Int[][] AREA_POSITIONS = new Vector2Int[][] {
             new Vector2Int[] {
                 new Vector2Int(18, 21),
@@ -32,5 +29,8 @@ namespace Kaisa.Digivice {
                 new Vector2Int(13, 18)
             }
         };
+        //THIS IS ONLY TEMPORARY.
+        public static Sprite EMPTY_SPRITE { get; private set; }
+        public static void SetEmptySprite(Sprite sprite) => EMPTY_SPRITE = sprite;
     }
 }
