@@ -559,6 +559,15 @@ namespace Kaisa.Digivice {
             SavedGame.DDockDigimon[ddock] = digimon;
         }
         public bool IsDDockEmpty(int ddock) => (SavedGame.DDockDigimon[ddock] == "");
+
+        public string[] GetAllDDockDigimon() {
+            List<string> notEmptyDDocks = new List<string>();
+            string[] allDDocks = SavedGame.DDockDigimon;
+            foreach(string s in allDDocks) {
+                if (s != null && s != "") notEmptyDDocks.Add(s);
+            }
+            return notEmptyDDocks.ToArray();
+        }
         #endregion
 
         /// <summary>

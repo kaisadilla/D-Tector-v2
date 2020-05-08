@@ -231,6 +231,7 @@ namespace Kaisa.Digivice {
         #region Input interaction
         public void LockInput() => inputMgr.inhibitInput = true;
         public void UnlockInput() => inputMgr.inhibitInput = false;
+        public bool IsInputLocked => inputMgr.inhibitInput;
         #endregion
         #region PlayerChar interaction
         public CharState GetPlayerCharState() => playerChar.currentState;

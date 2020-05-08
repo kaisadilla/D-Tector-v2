@@ -12,7 +12,7 @@ namespace Kaisa.Digivice.App {
 
         private int currentScreen = 0; //0: attack/exit, 1: receiving input, 2: end
 
-        Digimon friendlyDigimon;
+        private string friendlyDigimon;
         private int[] pattern; //This ranges from 4 to 12 - 0: left, 1: right, 2: up, 3: down
         private float delay;
         private int timeRemaining = 20;
@@ -63,9 +63,9 @@ namespace Kaisa.Digivice.App {
         }
 
         protected override void StartApp() {
-            friendlyDigimon = Database.GetDigimon(gm.logicMgr.GetDDockDigimon(Random.Range(0, 4)));
+            friendlyDigimon = gm.logicMgr.GetAllDDockDigimon().GetRandomElement();
             gm.EnqueueAnimation(gm.screenMgr.AEncounterEnemy("jackpot", 0.5f));
-            gm.EnqueueAnimation(gm.screenMgr.ASummonDigimon(friendlyDigimon.name));
+            gm.EnqueueAnimation(gm.screenMgr.ASummonDigimon(friendlyDigimon));
 
             pattern = GeneratePattern(Random.Range(MINIMUM_LENGTH, MAXIMUM_LENGTH + 1));
             playerSelection = new int[pattern.Length];
@@ -117,7 +117,7 @@ namespace Kaisa.Digivice.App {
             int rewardCategory = GetRewardCategory();
             Reward reward = GetRandomReward(rewardCategory);
 
-            Sprite[] friendlySprites = gm.spriteDB.GetAllDigimonBattleSprites(friendlyDigimon.name, energyRank);
+            Sprite[] friendlySprites = gm.spriteDB.GetAllDigimonBattleSprites(friendlyDigimon, energyRank);
 
             gm.EnqueueAnimation(gm.screenMgr.ALaunchAttack(friendlySprites, 0, false, false));
             gm.EnqueueAnimation(gm.screenMgr.AAttackCollision(0, friendlySprites, 3, null, 0));
@@ -130,8 +130,8 @@ namespace Kaisa.Digivice.App {
             }
 
             if(reward == Reward.PunishDigimon) {
-                gm.logicMgr.ApplyReward(reward, friendlyDigimon.name, out object resultBefore, out object resultAfter);
-                gm.EnqueueRewardAnimation(reward, friendlyDigimon.name, resultBefore, resultAfter);
+                gm.logicMgr.ApplyReward(reward, friendlyDigimon, out object resultBefore, out object resultAfter);
+                gm.EnqueueRewardAnimation(reward, friendlyDigimon, resultBefore, resultAfter);
             }
             else if (reward == Reward.RewardDigimon) {
                 Rarity rarity;

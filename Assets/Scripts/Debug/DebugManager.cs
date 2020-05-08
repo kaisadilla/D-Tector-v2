@@ -68,6 +68,9 @@ namespace Kaisa.Digivice {
             if (command.StartsWith("/totalwins")) {
                 return "Total wins: " + SavedGame.TotalWins;
             }
+            if (command.StartsWith("/isInputLocked")) {
+                return "Input Locked: " + gm.IsInputLocked;
+            }
             if (command.StartsWith("/getdigimonlevel")) {
                 string[] args = command.Split(' ');
                 if (args.Length == 2) {
