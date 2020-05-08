@@ -105,13 +105,13 @@ namespace Kaisa.Digivice.App {
             StartCoroutine(PADisplayChosenKey(key));
             currentKey++;
             if(currentKey == playerSelection.Length) {
-                DecideBattle();
+                StartCoroutine(DecideBattle());
             }
         }
 
-        private void DecideBattle() {
+        private IEnumerator DecideBattle() {
             VisualDebug.WriteLine($"Original input: {string.Join(",", pattern)}");
-            VisualDebug.WriteLine($"Player input: {string.Join(",", playerSelection)}");
+            VisualDebug.WriteLine($"Player input:   {string.Join(",", playerSelection)}");
             currentScreen = 2;
 
             int energyRank = GetEnergyRank();
@@ -129,7 +129,7 @@ namespace Kaisa.Digivice.App {
             else {
                 gm.EnqueueAnimation(gm.screenMgr.ADestroyBox(gm.spriteDB.jackpot_box));
             }
-
+            yield return null;
             if(reward == Reward.PunishDigimon) {
                 gm.logicMgr.ApplyReward(reward, friendlyDigimon, out object resultBefore, out object resultAfter);
                 gm.EnqueueRewardAnimation(reward, friendlyDigimon, resultBefore, resultAfter);
@@ -162,9 +162,11 @@ namespace Kaisa.Digivice.App {
                 gm.EnqueueRewardAnimation(reward, rewardedDigimon, resultBefore, resultAfter);
             }
             else if (reward == Reward.TriggerBattle) {
-                string enemyDigimon = Database.GetRandomDigimonForBattle(gm.logicMgr.GetPlayerLevel()).name;
-                gm.logicMgr.ApplyReward(reward, enemyDigimon, out object resultBefore, out object resultAfter);
-                gm.EnqueueRewardAnimation(reward, enemyDigimon, resultBefore, resultAfter);
+                //string enemyDigimon = Database.GetRandomDigimonForBattle(gm.logicMgr.GetPlayerLevel()).name;
+                //gm.logicMgr.ApplyReward(reward, enemyDigimon, out object resultBefore, out object resultAfter);
+                //gm.EnqueueRewardAnimation(reward, enemyDigimon, resultBefore, resultAfter);
+                gm.EnqueueAnimation(TriggerBattle());
+                yield break;
             }
             else {
                 gm.logicMgr.ApplyReward(reward, null, out object resultBefore, out object resultAfter);
@@ -172,6 +174,11 @@ namespace Kaisa.Digivice.App {
             }
 
             CloseApp(Screen.GamesRewardMenu);
+        }
+        private IEnumerator TriggerBattle() {
+            CloseApp();
+            gm.logicMgr.CallRandomBattle();
+            yield return null;
         }
 
         private IEnumerator PADisplayPattern() {
