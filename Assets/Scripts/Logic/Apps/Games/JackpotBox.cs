@@ -6,16 +6,17 @@ using UnityEngine;
 namespace Kaisa.Digivice.App {
     public class JackpotBox : DigiviceApp {
         private const int MINIMUM_LENGTH = 4;
-        private const int MAXIMUM_LENGTH = 12;
+        private const int MAXIMUM_LENGTH = 10;
         private const float MINIMUM_TIME = 0.25f;
         private const float MAXIMUM_TIME = 0.75f;
+        private const int THRESHOLD_FOR_MEGA_REWARD = 8;
 
         private int currentScreen = 0; //0: attack/exit, 1: receiving input, 2: end
 
         private string friendlyDigimon;
         private int[] pattern; //This ranges from 4 to 12 - 0: left, 1: right, 2: up, 3: down
         private float delay;
-        private int timeRemaining = 20;
+        private int timeRemaining = 12;
         private int[] playerSelection;
         private int currentKey = 0;
 
@@ -150,9 +151,15 @@ namespace Kaisa.Digivice.App {
                 gm.EnqueueRewardAnimation(reward, ownedDigimon.GetRandomElement(), resultBefore, resultAfter);
             }
             else if (reward == Reward.UnlockDigicodeNotOwned) {
-                string[] ownedDigimon = gm.logicMgr.GetAllUnlockedDigimon();
-                gm.logicMgr.ApplyReward(reward, ownedDigimon.GetRandomElement(), out object resultBefore, out object resultAfter);
-                gm.EnqueueRewardAnimation(reward, ownedDigimon.GetRandomElement(), resultBefore, resultAfter);
+                Rarity rarity;
+                float rng = Random.Range(0f, 1f);
+                if (rng < 0.50f) rarity = Rarity.Common;
+                else if (rng < 0.80f) rarity = Rarity.Rare;
+                else if (rng < 0.95f) rarity = Rarity.Epic;
+                else rarity = Rarity.Legendary;
+                string rewardedDigimon = Database.GetRandomDigimonOfRarity(rarity, 100).name;
+                gm.logicMgr.ApplyReward(reward, rewardedDigimon, out object resultBefore, out object resultAfter);
+                gm.EnqueueRewardAnimation(reward, rewardedDigimon, resultBefore, resultAfter);
             }
             else if (reward == Reward.TriggerBattle) {
                 string enemyDigimon = Database.GetRandomDigimonForBattle(gm.logicMgr.GetPlayerLevel()).name;
@@ -256,7 +263,7 @@ namespace Kaisa.Digivice.App {
             else if (percCorrect < 0.76) reward = 2;
             else reward = 3;
 
-            if (percCorrect == 1f && pattern.Length >= 8) reward = 4;
+            if (percCorrect == 1f && pattern.Length >= THRESHOLD_FOR_MEGA_REWARD) reward = 4;
 
             return reward;
         }
@@ -269,7 +276,7 @@ namespace Kaisa.Digivice.App {
             else if (rank == 11) rank = 16;
             else if (rank == 12) rank = 17;
 
-            if (rank == 17 && pattern.Length >= 8 && misses == 0) rank = 19; //On perfect input when pattern length is 8 or more.
+            if (rank == 17 && pattern.Length >= THRESHOLD_FOR_MEGA_REWARD && misses == 0) rank = 19; //On perfect input when pattern length is 8 or more.
 
             return rank;
         }
