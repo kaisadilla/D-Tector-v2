@@ -914,11 +914,15 @@ namespace Kaisa.Digivice.App {
             return winner;
         }
         private int ChooseEnemyAttack() {
-            int total = enemyStats.EN + enemyStats.CR + enemyStats.AB;
+            int chanceEN = 30 + enemyStats.EN;
+            int chanceCR = 30 + enemyStats.CR;
+            int chanceAB = 30 + enemyStats.AB;
+
+            int total = chanceEN + chanceCR + chanceAB;
             int rngNumber = enemyAttackRNG.Next(total);
 
-            if (rngNumber < enemyStats.EN) return 0;
-            else if (rngNumber < enemyStats.EN + enemyStats.CR) return 1;
+            if (rngNumber < chanceEN) return 0;
+            else if (rngNumber < (chanceEN + chanceCR)) return 1;
             else return 2;
         }
         private int ChooseWinner(int friendlyAttack, int enemyAttack, out int damageDealt) {

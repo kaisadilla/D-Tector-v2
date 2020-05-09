@@ -47,6 +47,7 @@ namespace Kaisa.Digivice {
     }
     public enum Reward {
         none,
+        Empty,
         IncreaseDistance300,
         IncreaseDistance500,
         IncreaseDistance2000,

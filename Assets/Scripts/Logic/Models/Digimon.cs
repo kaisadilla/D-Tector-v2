@@ -5,6 +5,7 @@ namespace Kaisa.Digivice {
         public readonly int number; //The number of the Digimon.
         public readonly int order; //An index used to order Digimons in the database.
         public readonly string name;
+        public readonly string[] localizedNames;
 
         public readonly Stage stage;
         public readonly SpiritType spiritType; //Used for Digimons of stage Spirit.
@@ -12,6 +13,7 @@ namespace Kaisa.Digivice {
         public readonly string abilityName; //The name of the sprite this Digimon uses as its ability.
         public readonly Element element;
         public readonly string evolution;
+        public readonly string[] extraEvolutions;
 
         public readonly Rarity rarity; //Rarity is used to calculate the chance of unlocking a Digimon.
         public readonly bool disabled; //If this is true, the Digimon does not appear anywhere in the game.
@@ -25,19 +27,21 @@ namespace Kaisa.Digivice {
         public readonly bool isPseudo; //If true, the Digimon can't be obtained and is not counted as a Digimon.
 
         public Digimon(
-                int number, int order, string name, Stage stage, SpiritType spiritType,
-                string abilityName, Element element, string evolution, Rarity rarity, bool disabled,
+                int number, int order, string name, string[] localizedNames, Stage stage, SpiritType spiritType,
+                string abilityName, Element element, string evolution, string[] extraEvolutions, Rarity rarity, bool disabled,
                 int baseLevel, CombatStats stats, CombatStats bossStats,
                 bool exclusive, bool isPseudo)
         {
             this.number = number;
             this.order = order;
             this.name = name.ToLower();
+            this.localizedNames = localizedNames;
             this.stage = stage;
             this.spiritType = spiritType;
             this.abilityName = abilityName;
             this.element = element;
             this.evolution = evolution;
+            this.extraEvolutions = extraEvolutions;
             this.rarity = rarity;
             this.disabled = disabled;
             this.baseLevel = baseLevel;

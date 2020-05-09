@@ -420,12 +420,15 @@ namespace Kaisa.Digivice {
             SavedGame.PlayerExperience = Mathf.CeilToInt(nextLevelExp);
         }
         /// <summary>
-        /// Forcibly levels down the player, settings its experience to the necessary amount so the player is leveled down.
+        /// Forcibly levels down the player, reducing its experience by an amount equal to the next level's experience minus this level's experience.
         /// </summary>
         public void LevelDownPlayer() {
             int playerLevel = GetPlayerLevel();
-            float previousLevelExp = Mathf.Pow(playerLevel - 1, 3f);
-            SavedGame.PlayerExperience = Mathf.CeilToInt(previousLevelExp);
+            float lastLevelExperience = Mathf.Pow(playerLevel - 1, 3f);
+            float thisLevelExperience = Mathf.Pow(playerLevel, 3f);
+            float nextLevelExperience = Mathf.Pow(playerLevel + 1, 3f);
+            SavedGame.PlayerExperience -= (int)(nextLevelExperience - thisLevelExperience);
+            if (SavedGame.PlayerExperience < lastLevelExperience) SavedGame.PlayerExperience = (int)lastLevelExperience;
         }
         public int SpiritPower {
             get => SavedGame.SpiritPower;
@@ -466,7 +469,7 @@ namespace Kaisa.Digivice {
 
                     Stage digimonStage = Database.GetDigimon(digimon).stage;
 
-                    if(!(digimonStage == Stage.Spirit || digimonStage == Stage.Armor)) {
+                    if(digimonStage != Stage.Spirit && digimonStage != Stage.Armor) {
                         string[] ddocks = gm.GetAllDDockDigimons();
 
                         for (int i = 0; i < ddocks.Length; i++) {

@@ -118,6 +118,19 @@ namespace Kaisa.Digivice.App {
             int rewardCategory = GetRewardCategory();
             Reward reward = GetRandomReward(rewardCategory);
 
+            if (reward == Reward.LevelDown && gm.logicMgr.GetPlayerLevelProgression() > 0.5f) {
+                reward = Reward.Empty;
+            }
+            else if (reward == Reward.ForceLevelDown && gm.logicMgr.GetPlayerLevelProgression() == 0f) {
+                reward = Reward.Empty;
+            }
+            if (reward == Reward.LevelUp && gm.logicMgr.GetPlayerLevelProgression() < 0.5f) {
+                reward = Reward.Empty;
+            }
+            else if (reward == Reward.ForceLevelUp && gm.logicMgr.GetPlayerLevelProgression() == 0f) {
+                reward = Reward.Empty;
+            }
+
             Sprite[] friendlySprites = gm.spriteDB.GetAllDigimonBattleSprites(friendlyDigimon, energyRank);
 
             gm.EnqueueAnimation(gm.screenMgr.ALaunchAttack(friendlySprites, 0, false, false));
@@ -130,7 +143,10 @@ namespace Kaisa.Digivice.App {
                 gm.EnqueueAnimation(gm.screenMgr.ADestroyBox());
             }
             yield return null;
-            if(reward == Reward.PunishDigimon) {
+            if (reward == Reward.Empty) {
+                gm.EnqueueRewardAnimation(reward, null, null, null);
+            }
+            if (reward == Reward.PunishDigimon) {
                 gm.logicMgr.ApplyReward(reward, friendlyDigimon, out object resultBefore, out object resultAfter);
                 gm.EnqueueRewardAnimation(reward, friendlyDigimon, resultBefore, resultAfter);
             }
@@ -310,23 +326,24 @@ namespace Kaisa.Digivice.App {
                     if (rng < 0.35f) return Reward.ReduceDistance500;
                     else if (rng < 0.55f) return Reward.TriggerBattle;
                     else if (rng < 0.70f) return Reward.IncreaseDistance300;
-                    else if (rng < 0.80f) return Reward.GainSpiritPower10;
-                    else if (rng < 0.90f) return Reward.RewardDigimon;
-                    else return Reward.UnlockDigicodeOwned;
+                    else if (rng < 0.80f) return Reward.Empty;
+                    else if (rng < 0.90f) return Reward.GainSpiritPower10;
+                    else return Reward.RewardDigimon;
                 case 3:
                     if (rng < 0.30f) return Reward.ReduceDistance500;
                     else if (rng < 0.50f) return Reward.GainSpiritPower10;
                     else if (rng < 0.70f) return Reward.RewardDigimon;
-                    else if (rng < 0.80f) return Reward.LevelUp;
-                    else if (rng < 0.90f) return Reward.UnlockDigicodeOwned;
+                    else if (rng < 0.82f) return Reward.Empty;
+                    else if (rng < 0.92f) return Reward.LevelUp;
+                    else if (rng < 0.98f) return Reward.UnlockDigicodeOwned;
                     else return Reward.UnlockDigicodeNotOwned;
                 case 4:
-                    if (rng < 0.25f) return Reward.RewardDigimon;
-                    else if (rng < 0.40f) return Reward.ReduceDistance1000;
-                    else if (rng < 0.55f) return Reward.GainSpiritPowerMax;
-                    else if (rng < 0.70f) return Reward.UnlockDigicodeOwned;
-                    else if (rng < 0.85f) return Reward.UnlockDigicodeNotOwned;
-                    else return Reward.ForceLevelUp;
+                    if (rng < 0.50f) return Reward.RewardDigimon;
+                    else if (rng < 0.60f) return Reward.ReduceDistance1000;
+                    else if (rng < 0.70f) return Reward.ForceLevelUp;
+                    else if (rng < 0.80f) return Reward.GainSpiritPowerMax;
+                    else if (rng < 0.90f) return Reward.UnlockDigicodeOwned;
+                    else return Reward.UnlockDigicodeNotOwned;
                 default: return Reward.none;
             }
         }

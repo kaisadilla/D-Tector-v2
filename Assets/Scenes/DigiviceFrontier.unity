@@ -8768,7 +8768,7 @@ MonoBehaviour:
   levelUp: {fileID: 8300000, guid: fff0c2b52089d884d91e128053d36e37, type: 3}
   levelDown: {fileID: 8300000, guid: 9b788820f762264418cfff230619bdc6, type: 3}
   reward: {fileID: 8300000, guid: 7070d73e39d78394c9810b6f77905db9, type: 3}
-  punishment: {fileID: 8300000, guid: 006285e9e426983478ee037f6f9e676f, type: 3}
+  punishment: {fileID: 8300000, guid: 942131b6bbd51714c9441522e2048360, type: 3}
   triggerEvent: {fileID: 8300000, guid: 8a20afa92c4b16746a8e2920f1bb86f9, type: 3}
   travelMap: {fileID: 8300000, guid: 0f106441d8f87314ea38555d81ece692, type: 3}
   digistorm: {fileID: 8300000, guid: 3a26e31a7d895e84f9adb48f48a4cab7, type: 3}

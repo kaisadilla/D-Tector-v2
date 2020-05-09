@@ -2296,9 +2296,9 @@ namespace Kaisa.Digivice {
                 sbBox.SetSprite(explosionSmall);
                 yield return new WaitForSeconds(0.5f);
             }
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.15f);
             sbBox.FlipHorizontal(true).SetSprite(sBoxSpriteBroken);
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.85f);
         }
         public IEnumerator ABoxResists(string friendlyDigimon) {
             Sprite sBoxSprite = spriteDB.GetDigimonSprite("jackpot");
@@ -2328,6 +2328,12 @@ namespace Kaisa.Digivice {
         }
 
         //Rewards:
+        public IEnumerator ARewardEmpty() {
+            Sprite sEmpty = spriteDB.status_ddockEmpty;
+
+            SpriteBuilder sbEmpty = ScreenElement.BuildSprite("Empty, sorry :(", animParent).SetSize(24, 24).Center().SetSprite(sEmpty);
+            yield return new WaitForSeconds(2f);
+        }
         public IEnumerator ARewardDistance(bool isPunishment, int distanceBefore, int distanceAfter) {
             Sprite[] sRewardBg = spriteDB.rewardBackground;
             Sprite sDistanceUpIcon = isPunishment ? spriteDB.rewards[2] : spriteDB.rewards[1];

@@ -161,4 +161,13 @@ namespace Kaisa.Digivice {
             return false;
         }
     }
+    public struct Coordinate {
+        public int x, y;
+
+        [JsonConstructor]
+        public Coordinate(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
 }

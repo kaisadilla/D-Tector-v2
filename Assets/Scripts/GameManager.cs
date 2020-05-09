@@ -1,4 +1,5 @@
 ﻿using Kaisa.Digivice.Extensions;
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,8 +66,6 @@ namespace Kaisa.Digivice {
 
             //Load information about the player's game.
             LoadGame();
-            //EnqueueAnimation(screenMgr.ABoxResists(spriteDB.jackpot_box, spriteDB.GetDigimonSprite("wormmon", SpriteAction.Crush)));
-            //EnqueueAnimation(screenMgr.ADisplayNewArea0(11, 5000));
         }
 
         public void Start() {
@@ -91,7 +90,10 @@ namespace Kaisa.Digivice {
                 CheckLeaverBuster();
                 CheckPendingEvents();
             }
-            EnqueueAnimation(screenMgr.ALoseSpirit("mercurymon", "mercurymon"));
+
+            Coordinate[] coord = new Coordinate[] { new Coordinate(5, 3), new Coordinate(6, 6) };
+            string s = JsonConvert.SerializeObject(coord);
+            Debug.Log(s);
         }
 
         public void CloseGame() {
@@ -209,7 +211,7 @@ namespace Kaisa.Digivice {
             //loadedGame.SetRandomSeed(1, Random.Range(0, 2147483647));
             //loadedGame.SetRandomSeed(2, Random.Range(0, 2147483647));
             //loadedGame.CheatsUsed = false;
-            //AssignRandomBosses();
+            AssignRandomBosses();
             //loadedGame.StepsToNextEvent = 300;
         }
 
@@ -407,9 +409,7 @@ namespace Kaisa.Digivice {
                         VisualDebug.WriteLine("No suitable Digimon was found to be removed from the first list of bosses. This should never happen.");
                     }
                 }
-                else if (map == 6) {
-                    SavedGame.SemibossGroupForEachMap[6] = Random.Range(1, bosses[map].Length);
-                }
+                SavedGame.SemibossGroupForEachMap[map] = Random.Range(1, bosses[map].Length);
 
                 worldBosses.Shuffle();
 
@@ -420,6 +420,11 @@ namespace Kaisa.Digivice {
                         int semibossIndexInMainList = worldBosses.FindIndex(val => val.Equals($"<sp-{i}>"));
                         if(semibossIndexInMainList > -1) {
                             worldBosses[semibossIndexInMainList] = semibosses[i];
+                        }
+                        else {
+                            VisualDebug.WriteLine($"No suitable space found for {semibosses[i]}." +
+                                $" Note that may happen by design and isn't necessarily an error," +
+                                $" if the semiboss groups for map {map} weren't intended to fill the main list.");
                         }
                     }
                 }
@@ -453,6 +458,9 @@ namespace Kaisa.Digivice {
 
         public void EnqueueRewardAnimation(Reward reward, string objective, object resultBefore, object resultAfter) {
             switch(reward) {
+                case Reward.Empty:
+                    EnqueueAnimation(screenMgr.ARewardEmpty());
+                    break;
                 case Reward.IncreaseDistance300:
                 case Reward.IncreaseDistance500:
                 case Reward.IncreaseDistance2000:
