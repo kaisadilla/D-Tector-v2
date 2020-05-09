@@ -167,7 +167,7 @@ namespace Kaisa.Digivice.App {
 
             areasInCurrentMap = thisWorldData.GetAreasInMap(displayMap);
 
-            gm.EnqueueAnimation(gm.screenMgr.ATravelMap(originalWorld, mapBefore, displayMap, 1.5f));
+            gm.EnqueueAnimation(Animations.TravelMap(originalWorld, mapBefore, displayMap, 1.5f));
             FocusCurrentMap();
         }
 

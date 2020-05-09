@@ -6,6 +6,10 @@ using UnityEngine;
 
 namespace Kaisa.Digivice {
     public static class SavedGame {
+        public static string LastUpdateVersion {
+            get => PlayerPrefs.GetString("last_update_version");
+            set => PlayerPrefs.SetString("last_update_version", value);
+        }
         public static string CurrentlyLoadedFilePath {
             get => PlayerPrefs.GetString("current_file_path");
             set => PlayerPrefs.SetString("current_file_path", value);
@@ -305,17 +309,16 @@ namespace Kaisa.Digivice {
         }
 
         //Adventure data:
-        public static Dictionary<int, int[]> BossOrder => lg.bossOrder;
+        public static string[][] Bosses {
+            get => lg.bosses;
+            set => lg.bosses = value;
+        }
         public static int[] SemibossGroupForEachMap {
             get => lg.semibossGroup;
             set {
                 lg.semibossGroup = value;
                 SaveGame();
             }
-        }
-        //Debug methods:
-        public static void RegenerateBossOrder() {
-            lg.bossOrder = new Dictionary<int, int[]>();
         }
     }
 
@@ -369,7 +372,7 @@ namespace Kaisa.Digivice {
         public bool[][] areasCompleted; //areaCompleted[mapIndex][areaIndex]
 
         //Adventure data:
-        public Dictionary<int, int[]> bossOrder = new Dictionary<int, int[]>(); //key: the world, value: an array with the random order.
+        public string[][] bosses; //The bosses of each area, assigned from the Database when the game was first created.
         public int[] semibossGroup; //semibossGroup[maxIndex]
 
         private SavedGameFile(string filePath, string name) {

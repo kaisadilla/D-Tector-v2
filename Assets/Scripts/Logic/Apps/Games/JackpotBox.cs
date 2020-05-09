@@ -65,8 +65,8 @@ namespace Kaisa.Digivice.App {
 
         protected override void StartApp() {
             friendlyDigimon = gm.logicMgr.GetAllDDockDigimon().GetRandomElement();
-            gm.EnqueueAnimation(gm.screenMgr.AEncounterEnemy("jackpot", 0.5f));
-            gm.EnqueueAnimation(gm.screenMgr.ASummonDigimon(friendlyDigimon));
+            gm.EnqueueAnimation(Animations.EncounterEnemy("jackpot", 0.5f));
+            gm.EnqueueAnimation(Animations.SummonDigimon(friendlyDigimon));
 
             pattern = GeneratePattern(Random.Range(MINIMUM_LENGTH, MAXIMUM_LENGTH + 1));
             playerSelection = new int[pattern.Length];
@@ -105,11 +105,11 @@ namespace Kaisa.Digivice.App {
             StartCoroutine(PADisplayChosenKey(key));
             currentKey++;
             if(currentKey == playerSelection.Length) {
-                StartCoroutine(DecideBattle());
+                DecideBattle();
             }
         }
 
-        private IEnumerator DecideBattle() {
+        private void DecideBattle() {
             VisualDebug.WriteLine($"Original input: {string.Join(",", pattern)}");
             VisualDebug.WriteLine($"Player input:   {string.Join(",", playerSelection)}");
             currentScreen = 2;
@@ -133,16 +133,15 @@ namespace Kaisa.Digivice.App {
 
             Sprite[] friendlySprites = gm.spriteDB.GetAllDigimonBattleSprites(friendlyDigimon, energyRank);
 
-            gm.EnqueueAnimation(gm.screenMgr.ALaunchAttack(friendlySprites, 0, false, false));
-            gm.EnqueueAnimation(gm.screenMgr.AAttackCollision(0, friendlySprites, 3, null, 0));
+            gm.EnqueueAnimation(Animations.LaunchAttack(friendlySprites, 0, false, false));
+            gm.EnqueueAnimation(Animations.AttackCollision(0, friendlySprites, 3, null, 0));
 
             if(rewardCategory < 2) {
-                gm.EnqueueAnimation(gm.screenMgr.ABoxResists(friendlyDigimon));
+                gm.EnqueueAnimation(Animations.BoxResists(friendlyDigimon));
             }
             else {
-                gm.EnqueueAnimation(gm.screenMgr.ADestroyBox());
+                gm.EnqueueAnimation(Animations.DestroyBox());
             }
-            yield return null;
             if (reward == Reward.Empty) {
                 gm.EnqueueRewardAnimation(reward, null, null, null);
             }
@@ -182,7 +181,7 @@ namespace Kaisa.Digivice.App {
                 //gm.logicMgr.ApplyReward(reward, enemyDigimon, out object resultBefore, out object resultAfter);
                 //gm.EnqueueRewardAnimation(reward, enemyDigimon, resultBefore, resultAfter);
                 gm.EnqueueAnimation(TriggerBattle());
-                yield break;
+                return;
             }
             else {
                 gm.logicMgr.ApplyReward(reward, null, out object resultBefore, out object resultAfter);
@@ -246,13 +245,13 @@ namespace Kaisa.Digivice.App {
         }
 
         private IEnumerator PADisplayChosenKey(int key) {
-            gm.LockInput();
+            //gm.LockInput();
 
             keys[key].SetActive(true);
             yield return new WaitForSeconds(0.25f);
             keys[key].SetActive(false);
 
-            gm.UnlockInput();
+            //gm.UnlockInput();
         }
 
         private IEnumerator TimeCount() {

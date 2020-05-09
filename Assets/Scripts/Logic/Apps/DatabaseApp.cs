@@ -435,7 +435,7 @@ namespace Kaisa.Digivice.App {
             DrawScreen();
         }
         private void ChooseDDock() {
-            gm.EnqueueAnimation(gm.screenMgr.ASwapDDock(ddockIndex, pageDigimon.name));
+            gm.EnqueueAnimation(Animations.SwapDDock(ddockIndex, pageDigimon.name));
             gm.logicMgr.SetDDockDigimon(ddockIndex, pageDigimon.name);
             CloseDDockDisplay();
             CloseDDockList();

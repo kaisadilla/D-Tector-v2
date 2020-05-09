@@ -323,9 +323,9 @@ namespace Kaisa.Digivice {
                     gm.logicMgr.SetDigimonUnlocked(result, true);
                     gm.logicMgr.SetDigicodeUnlocked(result, true);
 
-                    gm.EnqueueAnimation(gm.screenMgr.ASummonDigimon(result));
-                    gm.EnqueueAnimation(gm.screenMgr.AUnlockDigimon(result));
-                    gm.EnqueueAnimation(gm.screenMgr.ACharHappy());
+                    gm.EnqueueAnimation(Animations.SummonDigimon(result));
+                    gm.EnqueueAnimation(Animations.UnlockDigimon(result));
+                    gm.EnqueueAnimation(Animations.CharHappy());
                 }
             }
 
@@ -729,7 +729,7 @@ namespace Kaisa.Digivice {
         }
         private void TriggerDataStorm() {
             bool move = ApplyDataStorm(out _);
-            gm.EnqueueAnimation(gm.screenMgr.ADigiStorm(gm.spriteDB.GetCharacterSprites(gm.CurrentPlayerChar), move));
+            gm.EnqueueAnimation(Animations.DigiStorm(gm.spriteDB.GetCharacterSprites(gm.CurrentPlayerChar), move));
         }
         /// <summary>
         /// Triggers a Datastorm, and returns true if the player has been moved. It outputs the new area.

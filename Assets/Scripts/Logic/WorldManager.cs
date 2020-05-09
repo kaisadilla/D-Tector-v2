@@ -30,6 +30,8 @@ namespace Kaisa.Digivice {
             SavedGame.CompletedAreas = completedAreas;
 
             //Then fill in some data:
+
+            string[][] assignedBosses = new string[Database.Worlds.Length][];
             foreach(World w in Database.Worlds) {
                 List<string> bosses = w.bosses.ToList();
 
@@ -55,15 +57,21 @@ namespace Kaisa.Digivice {
                 }
 
                 if(w.shuffle) {
-                    List<int> bossOrder = new List<int>();
-                    for(int i = 0; i < bosses.Count; i++) {
-                        bossOrder.Add(i);
-                    }
-                    bossOrder.Shuffle();
-                    SavedGame.BossOrder[w.number] = bossOrder.ToArray();
+                    bosses.Shuffle();
                 }
+
+                assignedBosses[w.number] = bosses.ToArray();
+
                 VisualDebug.WriteLine($"Finished parsing world {w.number}");
             }
+            SavedGame.Bosses = assignedBosses;
+        }
+
+        /// <summary>
+        /// Returns the bosses for a world, randomized as they are in the saved game.
+        /// </summary>
+        public string[] GetBossesForWorld(int world) {
+            return SavedGame.Bosses[world];
         }
 
         /// <summary>
@@ -107,8 +115,7 @@ namespace Kaisa.Digivice {
         public void SetAreaCompleted(int world, int area, bool completed) => SavedGame.CompletedAreas[world][area] = completed;
 
         public string GetBossOfCurrentArea() {
-            int bossIndex = SavedGame.BossOrder[CurrentWorld][CurrentArea];
-            return Database.Worlds[CurrentWorld].bosses[bossIndex];
+            return SavedGame.Bosses[CurrentWorld][CurrentArea];
         }
 
         /// <summary>

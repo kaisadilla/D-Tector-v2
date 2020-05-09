@@ -13,6 +13,7 @@ namespace Kaisa.Digivice {
         public static Dictionary<GameChar, string> PlayerSpirit = new Dictionary<GameChar, string>();
 
         static Database() {
+            Debug.Log("Loading Database...");
             LoadDatabases();
         }
 

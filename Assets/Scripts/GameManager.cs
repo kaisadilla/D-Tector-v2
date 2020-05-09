@@ -84,7 +84,7 @@ namespace Kaisa.Digivice {
             if (SavedGame.PlayerChar == GameChar.none) {
                 VisualDebug.WriteLine("Saved character assigned to 'none'. A new game will be created.");
                 logicMgr.currentScreen = Screen.CharSelection;
-                EnqueueAnimation(screenMgr.ALoadCharacterSelection());
+                EnqueueAnimation(Animations.LoadCharacterSelection());
             }
             else {
                 logicMgr.currentScreen = Screen.Character;
@@ -93,6 +93,9 @@ namespace Kaisa.Digivice {
             }
 
             Database.LoadDatabases(); //So it isn't loaded mid-game.
+            Animations.Initialize(this, audioMgr, spriteDB);
+
+            AttemptUpdateGame();
         }
 
         public void CloseGame() {
@@ -128,7 +131,7 @@ namespace Kaisa.Digivice {
             int spiritEnergy = Database.GetDigimon(playerSpirit).GetBossStats(1).GetEnergyRank();
             int enemyEnergy = Database.GetDigimon(randomInitial).GetRegularStats().GetEnergyRank();
 
-            EnqueueAnimation(screenMgr.AStartGameAnimation(chosenGameChar, playerSpirit, spiritEnergy, randomInitial, enemyEnergy));
+            EnqueueAnimation(Animations.StartGameAnimation(chosenGameChar, playerSpirit, spiritEnergy, randomInitial, enemyEnergy));
 
             logicMgr.currentScreen = Screen.Character;
         }
@@ -207,14 +210,15 @@ namespace Kaisa.Digivice {
 
         public GameChar CurrentPlayerChar => playerChar.currentChar;
 
-        public void DebugInitialize() {
-            //loadedGame.SetRandomSeed(0, Random.Range(0, 2147483647));
-            //loadedGame.SetRandomSeed(1, Random.Range(0, 2147483647));
-            //loadedGame.SetRandomSeed(2, Random.Range(0, 2147483647));
-            //loadedGame.CheatsUsed = false;
-            SavedGame.RegenerateBossOrder();
-            WorldMgr.SetupWorlds();
-            //loadedGame.StepsToNextEvent = 300;
+        /// <summary>
+        /// Attempts to update the game if the version of the last update does not match the current version of the game.
+        /// This method should be changed whenever an update in the save file(s) is wanted.
+        /// </summary>
+        public void AttemptUpdateGame() {
+            if(SavedGame.LastUpdateVersion != Constants.GAME_VERSION) {
+                WorldMgr.SetupWorlds();
+                VisualDebug.WriteLine($"Updated game to version {Constants.GAME_VERSION}");
+            }
         }
 
         /// <summary>
@@ -256,7 +260,7 @@ namespace Kaisa.Digivice {
             WorldMgr.ReduceDistance(score);
             int newDistance = WorldMgr.CurrentDistance;
             WorldMgr.TakeSteps(Mathf.RoundToInt(score / 5f));
-            screenMgr.EnqueueAnimation(screenMgr.AAwardDistance(score, oldDistance, newDistance));
+            screenMgr.EnqueueAnimation(Animations.AwardDistance(score, oldDistance, newDistance));
         }
         public SpriteBuilder GetDDockScreenElement(int ddock, Transform parent) {
             SpriteBuilder sbDDockName = ScreenElement.BuildSprite("$DDock{ddock}", parent).SetSprite(spriteDB.status_ddock[ddock]);
@@ -419,78 +423,79 @@ namespace Kaisa.Digivice {
         public void EnqueueRewardAnimation(Reward reward, string objective, object resultBefore, object resultAfter) {
             switch(reward) {
                 case Reward.Empty:
-                    EnqueueAnimation(screenMgr.ARewardEmpty());
+                    EnqueueAnimation(Animations.RewardEmpty());
+                    EnqueueAnimation(Animations.CharSad());
                     break;
                 case Reward.IncreaseDistance300:
                 case Reward.IncreaseDistance500:
                 case Reward.IncreaseDistance2000:
-                    EnqueueAnimation(screenMgr.ARewardDistance(true, (int)resultBefore, (int)resultAfter));
-                    EnqueueAnimation(screenMgr.ACharSad());
+                    EnqueueAnimation(Animations.RewardDistance(true, (int)resultBefore, (int)resultAfter));
+                    EnqueueAnimation(Animations.CharSad());
                     break;
                 case Reward.ReduceDistance500:
                 case Reward.ReduceDistance1000:
-                    EnqueueAnimation(screenMgr.ARewardDistance(false, (int)resultBefore, (int)resultAfter));
-                    EnqueueAnimation(screenMgr.ACharHappy());
+                    EnqueueAnimation(Animations.RewardDistance(false, (int)resultBefore, (int)resultAfter));
+                    EnqueueAnimation(Animations.CharHappy());
                     break;
                 case Reward.PunishDigimon:
                     if((int)resultAfter == -1) {
-                        EnqueueAnimation(screenMgr.AEraseDigimon(objective));
+                        EnqueueAnimation(Animations.EraseDigimon(objective));
                     }
                     else {
-                        EnqueueAnimation(screenMgr.ALevelDownDigimon(objective));
+                        EnqueueAnimation(Animations.LevelDownDigimon(objective));
                     }
-                    EnqueueAnimation(screenMgr.ACharSad());
+                    EnqueueAnimation(Animations.CharSad());
                     break;
                 case Reward.RewardDigimon:
                     if ((int)resultBefore == -1) {
-                        EnqueueAnimation(screenMgr.ASummonDigimon(objective));
-                        EnqueueAnimation(screenMgr.AUnlockDigimon(objective));
+                        EnqueueAnimation(Animations.SummonDigimon(objective));
+                        EnqueueAnimation(Animations.UnlockDigimon(objective));
                     }
                     else {
-                        EnqueueAnimation(screenMgr.ASummonDigimon(objective));
-                        EnqueueAnimation(screenMgr.ALevelUpDigimon(objective));
+                        EnqueueAnimation(Animations.SummonDigimon(objective));
+                        EnqueueAnimation(Animations.LevelUpDigimon(objective));
                     }
-                    EnqueueAnimation(screenMgr.ACharHappy());
+                    EnqueueAnimation(Animations.CharHappy());
                     break;
                 case Reward.UnlockDigicodeOwned:
                     Database.TryGetCodeOfDigimon(objective, out string code);
-                    EnqueueAnimation(screenMgr.ARewardCode(objective, code));
-                    EnqueueAnimation(screenMgr.ACharHappy());
+                    EnqueueAnimation(Animations.RewardCode(objective, code));
+                    EnqueueAnimation(Animations.CharHappy());
                     break;
                 case Reward.UnlockDigicodeNotOwned:
                     Database.TryGetCodeOfDigimon(objective, out string code2);
-                    EnqueueAnimation(screenMgr.ARewardCode(objective, code2));
-                    EnqueueAnimation(screenMgr.AUnlockDigimon(objective));
-                    EnqueueAnimation(screenMgr.ACharHappy());
+                    EnqueueAnimation(Animations.RewardCode(objective, code2));
+                    EnqueueAnimation(Animations.UnlockDigimon(objective));
+                    EnqueueAnimation(Animations.CharHappy());
                     break;
                 case Reward.DataStorm:
-                    EnqueueAnimation(screenMgr.ADigiStorm(spriteDB.GetCharacterSprites(CurrentPlayerChar), (bool)resultBefore));
+                    EnqueueAnimation(Animations.DigiStorm(spriteDB.GetCharacterSprites(CurrentPlayerChar), (bool)resultBefore));
                     if((bool)resultBefore) {
-                        EnqueueAnimation(screenMgr.ACharHappy());
+                        EnqueueAnimation(Animations.CharHappy());
                     }
                     else {
-                        EnqueueAnimation(screenMgr.ADisplayNewArea(WorldMgr.CurrentWorld, WorldMgr.CurrentArea, WorldMgr.CurrentDistance));
+                        EnqueueAnimation(Animations.DisplayNewArea(WorldMgr.CurrentWorld, WorldMgr.CurrentArea, WorldMgr.CurrentDistance));
                     }
                     break;
                 case Reward.LoseSpiritPower10:
                 case Reward.LoseSpiritPower50:
-                    EnqueueAnimation(screenMgr.ARewardSpiritPower(true, (int)resultBefore, (int)resultAfter));
-                    EnqueueAnimation(screenMgr.ACharSad());
+                    EnqueueAnimation(Animations.RewardSpiritPower(true, (int)resultBefore, (int)resultAfter));
+                    EnqueueAnimation(Animations.CharSad());
                     break;
                 case Reward.GainSpiritPower10:
                 case Reward.GainSpiritPowerMax:
-                    EnqueueAnimation(screenMgr.ARewardSpiritPower(false, (int)resultBefore, (int)resultAfter));
-                    EnqueueAnimation(screenMgr.ACharHappy());
+                    EnqueueAnimation(Animations.RewardSpiritPower(false, (int)resultBefore, (int)resultAfter));
+                    EnqueueAnimation(Animations.CharHappy());
                     break;
                 case Reward.LevelDown:
                 case Reward.ForceLevelDown:
-                    EnqueueAnimation(screenMgr.ALevelDown((int)resultBefore, (int)resultAfter));
-                    EnqueueAnimation(screenMgr.ACharSad());
+                    EnqueueAnimation(Animations.LevelDown((int)resultBefore, (int)resultAfter));
+                    EnqueueAnimation(Animations.CharSad());
                     break;
                 case Reward.LevelUp:
                 case Reward.ForceLevelUp:
-                    EnqueueAnimation(screenMgr.ALevelUp((int)resultBefore, (int)resultAfter));
-                    EnqueueAnimation(screenMgr.ACharHappy());
+                    EnqueueAnimation(Animations.LevelUp((int)resultBefore, (int)resultAfter));
+                    EnqueueAnimation(Animations.CharHappy());
                     break;
             }
         }

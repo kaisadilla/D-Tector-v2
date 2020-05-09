@@ -352,7 +352,7 @@ namespace Kaisa.Digivice {
         }
 
         public void Initialize() {
-            gm.DebugInitialize();
+            gm.AttemptUpdateGame();
         }
 
         public void ShowDebug() {
@@ -362,17 +362,13 @@ namespace Kaisa.Digivice {
             string filePath = GetFolderPath(SpecialFolder.MyDocuments) + @"\dtector_all_bosses.txt";
             using (StreamWriter file = new StreamWriter(filePath)) {
                 for(int world = 0; world < Database.Worlds.Length; world++) {
-                    string[] bosses = new string[Database.Worlds[world].AreaCount];
-
-                    for (int i = 0; i < bosses.Length; i++) {
-                        int thisBoss = SavedGame.BossOrder[world][i];
-                        bosses[i] = Database.Worlds[world].bosses[thisBoss];
-                    }
-
+                    string[] bosses = gm.WorldMgr.GetBossesForWorld(world);
                     file.WriteLine($"\n==== World {world} ====");
-                    for (int area = 0; area < bosses[world].Length; area++) {
-                        file.WriteLine($"World {world}, area {area}: {bosses[world][area]}");
+
+                    for(int area = 0; area < bosses.Length; area++) {
+                        file.WriteLine($"World {world}, area {area}: {bosses[area]}");
                     }
+
                     file.WriteLine($"World {world} semiboss set: {SavedGame.SemibossGroupForEachMap[world]}");
                 }
             }

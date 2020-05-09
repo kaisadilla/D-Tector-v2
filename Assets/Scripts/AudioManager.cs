@@ -77,10 +77,14 @@ namespace Kaisa.Digivice {
             source.Play();
             //AudioSource.PlayClipAtPoint(sound, Camera.main.transform.position);
         }
+
         /// <summary>
         /// Plays a sound after a delay (in seconds).
         /// </summary>
-        public IEnumerator PlaySoundAfterDelay(AudioClip sound, float delay) {
+        public void PlaySoundAfterDelay(AudioClip sound, float delay) {
+            StartCoroutine(PlaySoundWithDelay(sound, delay));
+        }
+        private IEnumerator PlaySoundWithDelay(AudioClip sound, float delay) {
             yield return new WaitForSeconds(delay);
             PlaySound(sound);
         }
