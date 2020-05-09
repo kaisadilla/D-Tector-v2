@@ -785,9 +785,9 @@ namespace Kaisa.Digivice.App {
                 TriggerVictoryAgainstBoss();
             }
             else {
-                int distanceBefore = gm.DistanceMgr.CurrentDistance;
-                gm.DistanceMgr.ReduceDistance(300);
-                int distanceAfter = gm.DistanceMgr.CurrentDistance;
+                int distanceBefore = gm.WorldMgr.CurrentDistance;
+                gm.WorldMgr.ReduceDistance(300);
+                int distanceAfter = gm.WorldMgr.CurrentDistance;
                 gm.EnqueueAnimation(gm.screenMgr.AChangeDistance(distanceBefore, distanceAfter));
             }
 
@@ -805,10 +805,10 @@ namespace Kaisa.Digivice.App {
                 gm.EnqueueAnimation(gm.screenMgr.ALevelDown(playerLevel, gm.logicMgr.GetPlayerLevel()));
             }
 
-            int distanceBefore = gm.DistanceMgr.CurrentDistance;
+            int distanceBefore = gm.WorldMgr.CurrentDistance;
             int amountToIncrease = isBossBattle ? 500 : 300;
-            gm.DistanceMgr.IncreaseDistance(amountToIncrease);
-            int distanceAfter = gm.DistanceMgr.CurrentDistance;
+            gm.WorldMgr.IncreaseDistance(amountToIncrease);
+            int distanceAfter = gm.WorldMgr.CurrentDistance;
 
             bool punishFriendly = (Random.Range(0f, 1f) < originalDigimon.GetEraseChance());
 
@@ -847,9 +847,9 @@ namespace Kaisa.Digivice.App {
                 gm.EnqueueAnimation(gm.screenMgr.ALevelDown(playerLevel, gm.logicMgr.GetPlayerLevel()));
             }
 
-            int distanceBefore = gm.DistanceMgr.CurrentDistance;
-            gm.DistanceMgr.IncreaseDistance(2000);
-            int distanceAfter = gm.DistanceMgr.CurrentDistance;
+            int distanceBefore = gm.WorldMgr.CurrentDistance;
+            gm.WorldMgr.IncreaseDistance(2000);
+            int distanceAfter = gm.WorldMgr.CurrentDistance;
 
             gm.EnqueueAnimation(gm.screenMgr.ACharSad());
             gm.EnqueueAnimation(gm.screenMgr.AChangeDistance(distanceBefore, distanceAfter));
@@ -859,10 +859,11 @@ namespace Kaisa.Digivice.App {
             CloseApp();
         }
         private void TriggerVictoryAgainstBoss() {
-            int currentMap = gm.DistanceMgr.CurrentMap;
-            int currentArea = gm.DistanceMgr.CurrentArea;
-            gm.DistanceMgr.SetAreaCompleted(currentMap, currentArea, true);
-            List<int> availableAreas = gm.DistanceMgr.GetUncompletedAreas(currentMap);
+            int currentWorld = gm.WorldMgr.CurrentWorld;
+            int currentMap = gm.WorldMgr.CurrentWorld;
+            int currentArea = gm.WorldMgr.CurrentArea;
+            gm.WorldMgr.SetAreaCompleted(currentMap, currentArea, true);
+            List<int> availableAreas = gm.WorldMgr.GetUncompletedAreas(currentMap);
 
             bool alreadyHad = gm.logicMgr.RewardDigimon(enemyDigimon.name, out _, out _);
             gm.EnqueueAnimation(gm.screenMgr.AReceiveSpirit("petaldramon"));
@@ -873,9 +874,9 @@ namespace Kaisa.Digivice.App {
 
             if (availableAreas.Count > 0) {
                 int newArea = availableAreas.GetRandomElement();
-                gm.DistanceMgr.MoveToArea(currentMap, newArea);
-                int newDistance = gm.DistanceMgr.CurrentDistance;
-                gm.EnqueueAnimation(gm.screenMgr.AForcedTravelMap0(currentArea, newArea, newDistance));
+                gm.WorldMgr.MoveToArea(currentMap, newArea);
+                int newDistance = gm.WorldMgr.CurrentDistance;
+                gm.EnqueueAnimation(gm.screenMgr.AForcedTravelMap(currentWorld, currentArea, newArea, newDistance));
             }
             else {
                 //TODO: Move to new WORLD (next map).

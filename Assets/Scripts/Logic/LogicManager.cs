@@ -116,7 +116,7 @@ namespace Kaisa.Digivice {
                     triggerEvent();
                     return;
                 }
-                else if (gm.DistanceMgr.CurrentDistance == 1) { //Alternative to shaking the phone to trigger a boss battle.
+                else if (gm.WorldMgr.CurrentDistance == 1) { //Alternative to shaking the phone to trigger a boss battle.
                     gm.TakeAStep();
                 }
                 else {
@@ -283,7 +283,7 @@ namespace Kaisa.Digivice {
 
         public void CallBossBattle() {
             currentScreen = Screen.App;
-            string boss = gm.GetBossOfCurrentArea();
+            string boss = gm.WorldMgr.GetBossOfCurrentArea();
             loadedApp = App.DigiviceApp.LoadApp(gm.pAppBattle, gm, this, boss, "true");
         }
         public void CallFixedBattle(string digimon, bool isBossBattle) {
@@ -624,29 +624,29 @@ namespace Kaisa.Digivice {
             resultAfter = null;
             switch(reward) {
                 case Reward.IncreaseDistance300:
-                    resultBefore = gm.DistanceMgr.CurrentDistance;
-                    gm.DistanceMgr.IncreaseDistance(300);
-                    resultAfter = gm.DistanceMgr.CurrentDistance;
+                    resultBefore = gm.WorldMgr.CurrentDistance;
+                    gm.WorldMgr.IncreaseDistance(300);
+                    resultAfter = gm.WorldMgr.CurrentDistance;
                     break;
                 case Reward.IncreaseDistance500:
-                    resultBefore = gm.DistanceMgr.CurrentDistance;
-                    gm.DistanceMgr.IncreaseDistance(500);
-                    resultAfter = gm.DistanceMgr.CurrentDistance;
+                    resultBefore = gm.WorldMgr.CurrentDistance;
+                    gm.WorldMgr.IncreaseDistance(500);
+                    resultAfter = gm.WorldMgr.CurrentDistance;
                     break;
                 case Reward.IncreaseDistance2000:
-                    resultBefore = gm.DistanceMgr.CurrentDistance;
-                    gm.DistanceMgr.IncreaseDistance(2000);
-                    resultAfter = gm.DistanceMgr.CurrentDistance;
+                    resultBefore = gm.WorldMgr.CurrentDistance;
+                    gm.WorldMgr.IncreaseDistance(2000);
+                    resultAfter = gm.WorldMgr.CurrentDistance;
                     break;
                 case Reward.ReduceDistance500:
-                    resultBefore = gm.DistanceMgr.CurrentDistance;
-                    gm.DistanceMgr.ReduceDistance(500);
-                    resultAfter = gm.DistanceMgr.CurrentDistance;
+                    resultBefore = gm.WorldMgr.CurrentDistance;
+                    gm.WorldMgr.ReduceDistance(500);
+                    resultAfter = gm.WorldMgr.CurrentDistance;
                     break;
                 case Reward.ReduceDistance1000:
-                    resultBefore = gm.DistanceMgr.CurrentDistance;
-                    gm.DistanceMgr.ReduceDistance(1000);
-                    resultAfter = gm.DistanceMgr.CurrentDistance;
+                    resultBefore = gm.WorldMgr.CurrentDistance;
+                    gm.WorldMgr.ReduceDistance(1000);
+                    resultAfter = gm.WorldMgr.CurrentDistance;
                     break;
                 case Reward.PunishDigimon:
                     PunishDigimon(objective, out int pdBef, out int pdAft);
@@ -737,13 +737,13 @@ namespace Kaisa.Digivice {
         /// <param name=""></param>
         /// <returns></returns>
         public bool ApplyDataStorm(out int newArea) {
-            newArea = gm.DistanceMgr.CurrentArea;
+            newArea = gm.WorldMgr.CurrentArea;
 
             float rng = UnityEngine.Random.Range(0f, 1f);
             bool moveArea = rng < 0.33f;
             VisualDebug.WriteLine($"Data storm rng: {rng}, move area: {moveArea}");
 
-            List<int> uncompletedAreas = gm.DistanceMgr.GetUncompletedAreas(gm.DistanceMgr.CurrentMap);
+            List<int> uncompletedAreas = gm.WorldMgr.GetUncompletedAreas(gm.WorldMgr.CurrentWorld);
 
             if (uncompletedAreas.Count < 2) {
                 moveArea = false;
@@ -751,7 +751,7 @@ namespace Kaisa.Digivice {
 
             if (moveArea) {
                 newArea = uncompletedAreas.GetRandomElement();
-                gm.DistanceMgr.MoveToArea(gm.DistanceMgr.CurrentMap, newArea, gm.DistanceMgr.CurrentDistance + 1000);
+                gm.WorldMgr.MoveToArea(gm.WorldMgr.CurrentWorld, newArea, gm.WorldMgr.CurrentDistance + 1000);
                 //TODO: Chance to be moved to world 9.
             }
             return moveArea;

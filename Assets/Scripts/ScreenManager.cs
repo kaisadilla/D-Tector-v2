@@ -805,154 +805,106 @@ namespace Kaisa.Digivice {
             //gm.UnlockInput();
             //yield return new WaitUntil(() => gm.inputMgr.ConsumeLastKey(Direction.Up, Direction.Down));
         }
-        public IEnumerator ATravelMap(Direction dir, int map, int oldSector, int newSector) {
-            Sprite mapCurrentSprite = spriteDB.GetMapSectorSprites(map)[oldSector];
-            Sprite mapNewSprite = spriteDB.GetMapSectorSprites(map)[newSector];
+        public IEnumerator ATravelMap(int world, int mapBefore, int mapAfter, float animDuration) {
+            ContainerBuilder cbMap = gm.BuildMapScreen(world, animParent);
 
-            SpriteBuilder sMapCurrent = ScreenElement.BuildSprite("AnimCurrentSector", animParent).SetSprite(mapCurrentSprite);
-            SpriteBuilder sMapNew = ScreenElement.BuildSprite("AnimNewSector", animParent).SetSprite(mapNewSprite).PlaceOutside(dir.Opposite());
+            if (mapBefore == 0) cbMap.SetPosition(0, 0);
+            else if (mapBefore == 1) cbMap.SetPosition(0, -32);
+            else if (mapBefore == 2) cbMap.SetPosition(-32, -32);
+            else if (mapBefore == 3) cbMap.SetPosition(-32, 0);
 
-            float animDuration = 1.5f;
-            for (int i = 0; i < 32; i++) {
-                sMapCurrent.Move(dir);
-                sMapNew.Move(dir);
-                yield return new WaitForSeconds(animDuration / 32f);
-            }
-
-            sMapCurrent.Dispose();
-            sMapNew.Dispose();
-        }
-        public IEnumerator AForcedTravelMap0(int areaBefore, int areaAfter, int newDistance) {
-            int sectorBefore = Mathf.FloorToInt(areaBefore / 3f);
-            int sectorAfter = Mathf.FloorToInt(areaAfter / 3f);
-            //Create the map and place the current area in the screen.
-            SpriteBuilder[] sbMap = new SpriteBuilder[4];
-            for(int i = 0; i < sbMap.Length; i++) {
-                Sprite sMap = spriteDB.GetMapSectorSprites(0)[i];
-                sbMap[i] = ScreenElement.BuildSprite($"map{i}", animParent).SetSprite(sMap);
-            }
-            sbMap[1].SetPosition(0, 32);
-            sbMap[2].SetPosition(32, 32);
-            sbMap[3].SetPosition(32, 0);
-
-            if (sectorBefore == 1) sbMap.Move(Direction.Up, 32);
-            if (sectorBefore == 2) sbMap.Move(Direction.Up, 32).Move(Direction.Left, 32);
-            if (sectorBefore == 3) sbMap.Move(Direction.Left, 32);
-
-            audioMgr.PlaySound(audioMgr.travelMap);
-
-            //Move the areas
-            float totalDuration = 3.5f;
             //If both areas are the same:
-            if (sectorBefore == sectorAfter) {
-                yield return new WaitForSeconds(totalDuration);
+            if (mapBefore == mapAfter) {
+                yield return new WaitForSeconds(animDuration);
             }
             //If the areas are consecutive of one another:
-            else if (Mathf.Abs(sectorBefore - sectorAfter) == 1
-                    || sectorBefore == 0 && sectorAfter == 3
-                    || sectorBefore == 3 && sectorAfter == 0) {
+            else if (Mathf.Abs(mapBefore - mapAfter) == 1
+                    || mapBefore == 0 && mapAfter == 3
+                    || mapBefore == 3 && mapAfter == 0) {
                 Direction animationDir = Direction.Right;
-                if (sectorBefore == 0 && sectorAfter == 3) animationDir = Direction.Right;
-                else if (sectorBefore == 0 && sectorAfter == 1) animationDir = Direction.Up;
-                else if (sectorBefore == 1 && sectorAfter == 0) animationDir = Direction.Down;
-                else if (sectorBefore == 1 && sectorAfter == 2) animationDir = Direction.Left;
-                else if (sectorBefore == 2 && sectorAfter == 1) animationDir = Direction.Right;
-                else if (sectorBefore == 2 && sectorAfter == 3) animationDir = Direction.Down;
-                else if (sectorBefore == 3 && sectorAfter == 2) animationDir = Direction.Up;
-                else if (sectorBefore == 3 && sectorAfter == 0) animationDir = Direction.Right;
+                if (mapBefore == 0 && mapAfter == 3) animationDir = Direction.Left;
+                else if (mapBefore == 0 && mapAfter == 1) animationDir = Direction.Up;
+                else if (mapBefore == 1 && mapAfter == 0) animationDir = Direction.Down;
+                else if (mapBefore == 1 && mapAfter == 2) animationDir = Direction.Left;
+                else if (mapBefore == 2 && mapAfter == 1) animationDir = Direction.Right;
+                else if (mapBefore == 2 && mapAfter == 3) animationDir = Direction.Down;
+                else if (mapBefore == 3 && mapAfter == 2) animationDir = Direction.Up;
+                else if (mapBefore == 3 && mapAfter == 0) animationDir = Direction.Right;
 
                 for (int i = 0; i < 32; i++) {
-                    sbMap.Move(animationDir);
-                    yield return new WaitForSeconds(totalDuration / 32);
+                    cbMap.Move(animationDir);
+                    yield return new WaitForSeconds(animDuration / 32);
                 }
             }
             else {
-                if (sectorBefore == 0 && sectorAfter == 2) {
+                if (mapBefore == 0 && mapAfter == 2) {
                     for (int i = 0; i < 32; i++) {
-                        sbMap.Move(Direction.Up);
-                        yield return new WaitForSeconds(totalDuration / 64);
+                        cbMap.Move(Direction.Up);
+                        yield return new WaitForSeconds(animDuration / 64);
                     }
                     for (int i = 0; i < 32; i++) {
-                        sbMap.Move(Direction.Left);
-                        yield return new WaitForSeconds(totalDuration / 64);
-                    }
-                }
-                else if (sectorBefore == 2 && sectorAfter == 0) {
-                    for (int i = 0; i < 32; i++) {
-                        sbMap.Move(Direction.Down);
-                        yield return new WaitForSeconds(totalDuration / 64);
-                    }
-                    for (int i = 0; i < 32; i++) {
-                        sbMap.Move(Direction.Right);
-                        yield return new WaitForSeconds(totalDuration / 64);
+                        cbMap.Move(Direction.Left);
+                        yield return new WaitForSeconds(animDuration / 64);
                     }
                 }
-                else if (sectorBefore == 1 && sectorAfter == 3) {
+                else if (mapBefore == 2 && mapAfter == 0) {
                     for (int i = 0; i < 32; i++) {
-                        sbMap.Move(Direction.Left);
-                        yield return new WaitForSeconds(totalDuration / 64);
+                        cbMap.Move(Direction.Down);
+                        yield return new WaitForSeconds(animDuration / 64);
                     }
                     for (int i = 0; i < 32; i++) {
-                        sbMap.Move(Direction.Down);
-                        yield return new WaitForSeconds(totalDuration / 64);
-                    }
-                }
-                else if (sectorBefore == 3 && sectorAfter == 1) {
-                    for (int i = 0; i < 32; i++) {
-                        sbMap.Move(Direction.Right);
-                        yield return new WaitForSeconds(totalDuration / 64);
-                    }
-                    for (int i = 0; i < 32; i++) {
-                        sbMap.Move(Direction.Up);
-                        yield return new WaitForSeconds(totalDuration / 64);
+                        cbMap.Move(Direction.Right);
+                        yield return new WaitForSeconds(animDuration / 64);
                     }
                 }
-            }
-
-            //Spawn the area name and marker.
-            int areaPosY = (sectorAfter == 0 || sectorAfter == 3) ? 1 : 26;
-            TextBoxBuilder tbNewAreaName = ScreenElement.BuildTextBox("AreaName", animParent, DFont.Small)
-                .SetText(string.Format("area{0:00}", areaAfter + 1))
-                .SetPosition(2, areaPosY);
-            RectangleBuilder tbNewAreaMarker = ScreenElement.BuildRectangle("OptionMarker", animParent)
-                .SetSize(2, 2).SetFlickPeriod(0.25f).SetPosition(Constants.AREA_POSITIONS[0][areaAfter]);
-            //Draw the completed area markers.
-            int firstArea = sectorAfter * 3;
-            for (int i = firstArea; i <= firstArea + 2; i++) {
-                if (gm.DistanceMgr.GetAreaCompleted(0, i)) {
-                    Vector2Int markerPos = Constants.AREA_POSITIONS[0][i];
-                    RectangleBuilder marker = ScreenElement.BuildRectangle("Area" + i + "Marker", animParent)
-                            .SetSize(2, 2).SetPosition(markerPos.x, markerPos.y);
+                else if (mapBefore == 1 && mapAfter == 3) {
+                    for (int i = 0; i < 32; i++) {
+                        cbMap.Move(Direction.Left);
+                        yield return new WaitForSeconds(animDuration / 64);
+                    }
+                    for (int i = 0; i < 32; i++) {
+                        cbMap.Move(Direction.Down);
+                        yield return new WaitForSeconds(animDuration / 64);
+                    }
+                }
+                else if (mapBefore == 3 && mapAfter == 1) {
+                    for (int i = 0; i < 32; i++) {
+                        cbMap.Move(Direction.Right);
+                        yield return new WaitForSeconds(animDuration / 64);
+                    }
+                    for (int i = 0; i < 32; i++) {
+                        cbMap.Move(Direction.Up);
+                        yield return new WaitForSeconds(animDuration / 64);
+                    }
                 }
             }
-            yield return new WaitForSeconds(2.25f);
-
-            //Display distance.
-            SpriteBuilder sbDistance = ScreenElement.BuildSprite("DistanceBackground", animParent).SetSprite(spriteDB.map_distanceScreen);
-            ScreenElement.BuildTextBox("Distance", animParent, DFont.Regular)
-                .SetText(newDistance.ToString()).SetSize(25, 5).SetPosition(6, 25).SetAlignment(TextAnchor.UpperRight);
-            yield return new WaitForSeconds(2.5f);
+            cbMap.Dispose();
         }
-        public IEnumerator ADisplayNewArea0(int area, int distance) {
-            int sector = Mathf.FloorToInt(area / 3f);
-            Sprite sMap = spriteDB.GetMapSectorSprites(0)[sector];
+        public IEnumerator ADisplayNewArea(int world, int area, int distance) {
+            ContainerBuilder cbMap = gm.BuildMapScreen(world, animParent);
 
-            SpriteBuilder sbMap = ScreenElement.BuildSprite($"map", animParent).SetSprite(sMap);
+            int map = Database.Worlds[world].areas[area].map;
 
+            if (map == 0) cbMap.SetPosition(0, 0);
+            else if (map == 1) cbMap.SetPosition(0, -32);
+            else if (map == 2) cbMap.SetPosition(-32, -32);
+            else if (map == 3) cbMap.SetPosition(-32, 0);
+            
             //Spawn the area name and marker.
-            int areaPosY = (sector == 0 || sector == 3) ? 1 : 26;
-            TextBoxBuilder tbNewAreaName = ScreenElement.BuildTextBox("AreaName", animParent, DFont.Small)
-                .SetText(string.Format("area{0:00}", area + 1))
+            int areaPosY = (map == 0 || map == 3) ? 1 : 26;
+            ScreenElement.BuildTextBox("AreaName", animParent, DFont.Small).SetText(string.Format("area{0:00}", area + 1))
                 .SetPosition(2, areaPosY);
-            RectangleBuilder tbNewAreaMarker = ScreenElement.BuildRectangle("OptionMarker", animParent)
-                .SetSize(2, 2).SetFlickPeriod(0.25f).SetPosition(Constants.AREA_POSITIONS[0][area]);
+            ScreenElement.BuildRectangle("OptionMarker", animParent).SetSize(2, 2).SetFlickPeriod(0.25f)
+                .SetPosition(Database.Worlds[world].areas[area].coords);
+
             //Draw the completed area markers.
-            int firstArea = sector * 3;
-            for (int i = firstArea; i <= firstArea + 2; i++) {
-                if (gm.DistanceMgr.GetAreaCompleted(0, i)) {
-                    Vector2Int markerPos = Constants.AREA_POSITIONS[0][i];
-                    RectangleBuilder marker = ScreenElement.BuildRectangle("Area" + i + "Marker", animParent)
-                            .SetSize(2, 2).SetPosition(markerPos.x, markerPos.y);
+
+            int[] areasInCurrentMap = Database.Worlds[world].GetAreasInMap(map);
+
+            foreach (int i in areasInCurrentMap) {
+                if (gm.WorldMgr.GetAreaCompleted(0, i)) {
+                    Vector2Int markerPos = Database.Worlds[world].areas[i].coords;
+                    ScreenElement.BuildRectangle("Area" + i + "Marker", animParent).SetSize(2, 2).SetPosition(markerPos.x, markerPos.y);
                 }
             }
             yield return new WaitForSeconds(2.25f);
@@ -963,7 +915,14 @@ namespace Kaisa.Digivice {
                 .SetText(distance.ToString()).SetSize(25, 5).SetPosition(6, 25).SetAlignment(TextAnchor.UpperRight);
             yield return new WaitForSeconds(2.5f);
         }
+        public IEnumerator AForcedTravelMap(int world, int areaBefore, int areaAfter, int newDistance) {
+            int mapBefore = Database.Worlds[world].areas[areaBefore].map;
+            int mapAfter = Database.Worlds[world].areas[areaAfter].map;
 
+            audioMgr.PlaySound(audioMgr.travelMap);
+            yield return ATravelMap(world, mapBefore, mapAfter, 3.5f);
+            yield return ADisplayNewArea(world, areaAfter, newDistance);
+        }
         public IEnumerator ASwapDDock(int ddock, string newDigimon) {
             float animDuration = 1.5f;
             Sprite newDigimonSprite = spriteDB.GetDigimonSprite(newDigimon);

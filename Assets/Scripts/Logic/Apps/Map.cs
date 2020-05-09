@@ -6,242 +6,253 @@ using UnityEngine.UI;
 
 namespace Kaisa.Digivice.App {
     public class Map : DigiviceApp {
-        private enum ScreenMap { //TODO: Replace with an int.
-            Map,
-            ChoosingArea,
-            ViewingDistance
-        }
-        private ScreenMap currentScreen = ScreenMap.Map;
+        private int currentScreen = 0; //0: map, 1: choosing area, 2: viewing distance.
 
         //Map and area information.
-        private int loadedGameSector; //The sector the player is already in, in the loaded game.
-        //The map, sector and area the player is visualizing.
-        private int currentMap; //The current map the player is in (i.e. standard map, area 13 map, royal knights' map...)
-        private int currentSector; //The sector of the map, which is called 'map' in game.
-        private int currentArea;
+        private World thisWorldData;
+        private int originalWorld; //The world the player actually is in the game. Only for reference, since the player can't travel between worlds by himself.
+        private int originalArea; //The area the player actually is in the game.
+        private int originalMap; //The map of the area the player actually is in the game.
+
+        private int displayMap;
+        private int displayArea;
+        private int[] areasInCurrentMap;
 
         //Map screen:
+        private ContainerBuilder cbMap;
         private RectangleBuilder currentAreaMarker;
 
         //ChoosingArea screen:
-        private int hoveredArea;
+        private int currentArea; //The position of the array areasInCurrentMap the player is currently selecting.
+        private int SelectedArea => areasInCurrentMap[currentArea];
         private RectangleBuilder hoveredMarker;
         private TextBoxBuilder hoveredAreaName;
+
+        private int OriginalAreaIndexInCurrentMap {
+            get {
+                for(int i = 0; i < areasInCurrentMap.Length; i++) {
+                    if (areasInCurrentMap[i] == originalArea) return i;
+                }
+                return 0;
+            }
+        }
 
         //ChoosingDistance screen:
         private SpriteBuilder distanceScreen;
 
-        private List<RectangleBuilder> markerPoints = new List<RectangleBuilder>();
+        private List<RectangleBuilder> completedMarkers = new List<RectangleBuilder>();
 
         #region Input
         public override void InputA() {
-            if (currentScreen == ScreenMap.Map) {
+            if (currentScreen == 0) {
                 audioMgr.PlayButtonA();
                 OpenAreaSelection();
             }
-            else if (currentScreen == ScreenMap.ChoosingArea) {
+            else if (currentScreen == 1) {
                 audioMgr.PlayButtonA();
                 OpenViewDistance();
             }
-            else if (currentScreen == ScreenMap.ViewingDistance) {
+            else if (currentScreen == 2) {
                 audioMgr.PlayButtonA();
                 ChooseArea();
             }
         }
         public override void InputB() {
-            if (currentScreen == ScreenMap.Map) {
+            if (currentScreen == 0) {
                 audioMgr.PlayButtonB();
                 CloseApp();
             }
-            else if (currentScreen == ScreenMap.ChoosingArea) {
+            else if (currentScreen == 1) {
                 audioMgr.PlayButtonB();
                 CloseAreaSelection();
             }
-            else if (currentScreen == ScreenMap.ViewingDistance) {
+            else if (currentScreen == 2) {
                 audioMgr.PlayButtonB();
                 CloseViewDistance();
             }
         }
         public override void InputLeft() {
-            if (currentScreen == ScreenMap.Map) {
-                audioMgr.PlayButtonA();
-                NavigateMap(Direction.Left);
+            if (currentScreen == 0) {
+                if(thisWorldData.lockTravel || !thisWorldData.multiMap) {
+                    audioMgr.PlayButtonB();
+                }
+                else {
+                    audioMgr.PlayButtonA();
+                    NavigateMap(Direction.Left);
+                }
             }
-            else if (currentScreen == ScreenMap.ChoosingArea) {
-                audioMgr.PlayButtonA();
-                NavigateAreaSelection(Direction.Left);
+            else if (currentScreen == 1) {
+                if(thisWorldData.lockTravel) {
+                    audioMgr.PlayButtonB();
+                }
+                else {
+                    audioMgr.PlayButtonA();
+                    NavigateAreaSelection(Direction.Left);
+                }
             }
-            else if (currentScreen == ScreenMap.ViewingDistance) {
+            else if (currentScreen == 2) {
                 audioMgr.PlayButtonB();
             }
         }
         public override void InputRight() {
-            if (currentScreen == ScreenMap.Map) {
-                audioMgr.PlayButtonA();
-                NavigateMap(Direction.Right);
+            if (currentScreen == 0) {
+                if (thisWorldData.lockTravel || !thisWorldData.multiMap) {
+                    audioMgr.PlayButtonB();
+                }
+                else {
+                    audioMgr.PlayButtonA();
+                    NavigateMap(Direction.Right);
+                }
             }
-            else if (currentScreen == ScreenMap.ChoosingArea) {
-                audioMgr.PlayButtonA();
-                NavigateAreaSelection(Direction.Right);
+            else if (currentScreen == 1) {
+                if (thisWorldData.lockTravel) {
+                    audioMgr.PlayButtonB();
+                }
+                else {
+                    audioMgr.PlayButtonA();
+                    NavigateAreaSelection(Direction.Right);
+                }
             }
-            else if (currentScreen == ScreenMap.ViewingDistance) {
+            else if (currentScreen == 2) {
                 audioMgr.PlayButtonB();
             }
         }
         #endregion
 
         protected override void StartApp() {
-            SetMapData();
-            DrawScreen();
-        }
-        private void DrawScreen() {
-            if (currentMap == 0) {
-                screenDisplay.sprite = gm.spriteDB.GetMapSectorSprites(currentMap)[currentSector];
-            }
-            DrawAreaMarkers();
+            LoadInitialMapData();
+            DrawMap();
         }
 
-        /// <summary>
-        /// Retrieves and sets various parameters about the map.
-        /// </summary>
-        private void SetMapData() {
-            currentMap = gm.DistanceMgr.CurrentMap;
-            currentArea = gm.DistanceMgr.CurrentArea;
+        private void LoadInitialMapData() {
+            thisWorldData = gm.WorldMgr.CurrentWorldData;
+            originalWorld = thisWorldData.number;
+            originalMap = gm.WorldMgr.CurrentMap;
+            originalArea = gm.WorldMgr.CurrentArea;
+            displayArea = originalArea;
+            displayMap = originalMap;
+            areasInCurrentMap = thisWorldData.GetAreasInMap(displayMap);
+        }
 
-            //TODO: Create all maps.
-            if (currentMap == 0) { //Starting map.
-                currentSector = Mathf.FloorToInt(currentArea / 3f);
-                loadedGameSector = currentSector;
+        private void DrawMap() {
+            cbMap = gm.BuildMapScreen(thisWorldData.number, Parent);
+            FocusCurrentMap();
+            DrawAreaMarkers(true);
+        }
+
+        private void FocusCurrentMap() {
+            switch (displayMap) {
+                case 0:
+                    cbMap.SetPosition(0, 0);
+                    break;
+                case 1:
+                    cbMap.SetPosition(0, -32);
+                    break;
+                case 2:
+                    cbMap.SetPosition(-32, -32);
+                    break;
+                case 3:
+                    cbMap.SetPosition(-32, 0);
+                    break;
             }
+            ClearMarkers();
+            DrawAreaMarkers(true);
         }
 
         private void NavigateMap(Direction dir) {
-            ClearMarkers();
-            if(currentMap == 0) {
-                int newSector;
-                if (dir == Direction.Left) newSector = currentSector.CircularAdd(-1, 3);
-                else if (dir == Direction.Right) newSector = currentSector.CircularAdd(1, 3);
-                else return;
+            int mapBefore = displayMap;
 
-                Direction animDirection = Direction.Left;
+            if (dir == Direction.Left) displayMap = displayMap.CircularAdd(-1, 3);
+            else if (dir == Direction.Right) displayMap = displayMap.CircularAdd(1, 3);
 
-                if (dir == Direction.Left) {
-                    if (currentSector == 0) {
-                        animDirection = Direction.Left;
-                    }
-                    else if (currentSector == 1) {
-                        animDirection = Direction.Down;
-                    }
-                    else if (currentSector == 2) {
-                        animDirection = Direction.Right;
-                    }
-                    else if (currentSector == 3) {
-                        animDirection = Direction.Up;
-                    }
-                }
-                else if (dir == Direction.Right) {
-                    if (currentSector == 0) {
-                        animDirection = Direction.Up;
-                    }
-                    else if (currentSector == 1) {
-                        animDirection = Direction.Left;
-                    }
-                    else if (currentSector == 2) {
-                        animDirection = Direction.Down;
-                    }
-                    else if (currentSector == 3) {
-                        animDirection = Direction.Right;
-                    }
-                }
-                gm.EnqueueAnimation(gm.screenMgr.ATravelMap(animDirection, currentMap, currentSector, newSector));
-                currentSector = newSector;
-            }
-            DrawScreen();
+            areasInCurrentMap = thisWorldData.GetAreasInMap(displayMap);
+
+            gm.EnqueueAnimation(gm.screenMgr.ATravelMap(originalWorld, mapBefore, displayMap, 1.5f));
+            FocusCurrentMap();
         }
 
-        private void DrawAreaMarkers() {
+        private void DrawAreaMarkers(bool displayOriginalArea) {
             ClearMarkers(); //Destroy all current markers.
-            if(currentMap == 0) {
-                int firstArea = currentSector * 3;
-                for (int i = firstArea; i <= firstArea + 2; i++) {
-                    if (gm.DistanceMgr.GetAreaCompleted(currentMap, i)) {
-                        Vector2Int markerPos = Constants.AREA_POSITIONS[currentMap][i];
-                        RectangleBuilder marker = ScreenElement.BuildRectangle("Area" + i + "Marker", screenDisplay.transform)
-                            .SetSize(2, 2).SetPosition(markerPos.x, markerPos.y);
-                        markerPoints.Add(marker);
-                    }
-                    //If this area is the current area, use a flickering point to mark it. This point is drawn on top of the marker that indicates the area has been completed.
-                    if (currentArea == i) {
-                        Vector2Int markerPos = Constants.AREA_POSITIONS[currentMap][i];
-                        currentAreaMarker = ScreenElement.BuildRectangle("CurrentAreaMarker", screenDisplay.transform)
-                            .SetSize(2, 2).SetPosition(markerPos.x, markerPos.y).SetFlickPeriod(0.25f);
-                        markerPoints.Add(currentAreaMarker);
+
+            int[] shownAreas = thisWorldData.GetAreasInMap(displayMap);
+
+            foreach (int i in shownAreas) { 
+                if(gm.WorldMgr.GetAreaCompleted(originalWorld, i)) {
+                    RectangleBuilder marker = ScreenElement.BuildRectangle($"Area {i} Marker", Parent)
+                        .SetSize(2, 2).SetPosition(thisWorldData.areas[i].coords);
+                    completedMarkers.Add(marker);
+                }
+                if(displayOriginalArea) {
+                    if(originalArea == i) {
+                        currentAreaMarker = ScreenElement.BuildRectangle($"Current Area Marker", Parent)
+                            .SetSize(2, 2).SetPosition(thisWorldData.areas[i].coords).SetFlickPeriod(0.25f);
+                        completedMarkers.Add(currentAreaMarker);
                     }
                 }
             }
         }
         private void ClearMarkers() {
-            foreach (RectangleBuilder r in markerPoints) r.Dispose();
-            markerPoints.Clear();
+            foreach (RectangleBuilder r in completedMarkers) {
+                r.Dispose();
+            }
+            completedMarkers.Clear();
         }
 
         private void OpenAreaSelection() {
-            currentScreen = ScreenMap.ChoosingArea;
+            currentScreen = 1;
+            //If the player is entering the map he already is in, start hovering in his current area, rather than the 'area 0' of that map.
+            currentArea = (displayMap == originalMap) ? OriginalAreaIndexInCurrentMap : 0;
+
             if (currentAreaMarker != null) currentAreaMarker.SetActive(false);
 
             //The marker that indicates the area that is being chosen.
-            hoveredMarker = ScreenElement.BuildRectangle("OptionMarker", screenDisplay.transform).SetSize(2, 2).SetFlickPeriod(0.25f);
+            hoveredMarker = ScreenElement.BuildRectangle("OptionMarker", screenDisplay.transform).SetSize(2, 2).SetFlickPeriod(0.25f)
+                .SetPosition(thisWorldData.areas[SelectedArea].coords);
             hoveredAreaName = ScreenElement.BuildTextBox("AreaName", screenDisplay.transform, DFont.Small).SetText("area").SetPosition(28, 5);
 
-            if(currentMap == 0) {
-                hoveredArea = (currentSector == loadedGameSector) ? currentArea : currentSector * 3;
-                hoveredMarker.SetPosition(Constants.AREA_POSITIONS[currentMap][hoveredArea]);
-
-                if (currentSector == 0 || currentSector == 3) {
-                    hoveredAreaName.SetPosition(2, 1);
-                }
-                else {
-                    hoveredAreaName.SetPosition(2, 26);
-                }
-
-                hoveredAreaName.Text = string.Format("area{0:00}", hoveredArea + 1);
+            if (displayMap == 0 || displayMap == 3) {
+                hoveredAreaName.SetPosition(2, 1);
             }
+            else {
+                hoveredAreaName.SetPosition(2, 26);
+            }
+
+            hoveredAreaName.Text = string.Format("area{0:00}", SelectedArea + 1); //+1 because, in game, areas start at #1, not 0.
         }
         private void NavigateAreaSelection(Direction dir) {
-            if(currentMap == 0) {
-                if(dir == Direction.Left) {
-                    hoveredArea = hoveredArea.CircularAdd(-1, (currentSector * 3) + 2, currentSector * 3);
-                }
-                else {
-                    hoveredArea = hoveredArea.CircularAdd(1, (currentSector * 3) + 2, currentSector * 3);
-                }
-                hoveredMarker.SetPosition(Constants.AREA_POSITIONS[currentMap][hoveredArea]);
-                hoveredAreaName.Text = string.Format("area{0:00}", hoveredArea + 1);
+            if(dir == Direction.Left) {
+                currentArea = currentArea.CircularAdd(-1, areasInCurrentMap.Length - 1);
             }
+            else {
+                currentArea = currentArea.CircularAdd(1, areasInCurrentMap.Length - 1);
+            }
+            hoveredMarker.SetPosition(thisWorldData.areas[SelectedArea].coords);
+            hoveredAreaName.Text = string.Format("area{0:00}", SelectedArea + 1);
         }
         private void CloseAreaSelection() {
-            currentScreen = ScreenMap.Map;
+            currentScreen = 0;
             hoveredMarker.Dispose();
             hoveredAreaName.Dispose();
             if (currentAreaMarker != null) currentAreaMarker.SetActive(true);
         }
 
         private void OpenViewDistance() {
-            currentScreen = ScreenMap.ViewingDistance;
+            currentScreen = 2;
             //If the area chosen is the area the player is already in, the distance will not change. Otherwise, get the distance for the new area.
-            int areaDist = (hoveredArea == currentArea) ? gm.DistanceMgr.CurrentDistance : gm.DistanceMgr.Distances[currentMap][hoveredArea];
+
+            int areaDist = (SelectedArea == originalArea) ? gm.WorldMgr.CurrentDistance : thisWorldData.areas[SelectedArea].distance;
 
             distanceScreen = ScreenElement.BuildSprite("DistanceScreen", screenDisplay.transform).SetSprite(gm.spriteDB.map_distanceScreen);
             ScreenElement.BuildTextBox("Distance", distanceScreen.transform, DFont.Regular)
                 .SetText(areaDist.ToString()).SetSize(25, 5).SetPosition(6, 25).SetAlignment(TextAnchor.UpperRight);
         }
         private void CloseViewDistance() {
-            currentScreen = ScreenMap.ChoosingArea;
+            currentScreen = 1;
             distanceScreen.Dispose();
         }
 
         private void ChooseArea() {
-            if (hoveredArea != currentArea) gm.DistanceMgr.MoveToArea(currentMap, hoveredArea);
+            if (SelectedArea != currentArea) gm.WorldMgr.MoveToArea(originalWorld, SelectedArea);
             CloseApp(Screen.Character);
         }
     }

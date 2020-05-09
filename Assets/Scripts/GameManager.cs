@@ -20,7 +20,7 @@ namespace Kaisa.Digivice {
         public LogicManager logicMgr;
         public ScreenManager screenMgr;
         public SpriteDatabase spriteDB;
-        public DistanceManager DistanceMgr { get; private set; }
+        public WorldManager WorldMgr { get; private set; }
         //Other objects
         [SerializeField] private ShakeDetector shakeDetector;
         [SerializeField] private PlayerCharacter playerChar;
@@ -56,6 +56,7 @@ namespace Kaisa.Digivice {
                 SavedGame.LoadSavedGame(SavedGame.CurrentlyLoadedFilePath);
             }
             VisualDebug.SetDebugManager(debug);
+
             //Set up the essential configuration and ready managers.
             /*if (Application.isMobilePlatform) {
                 AudioConfiguration config = AudioSettings.GetConfiguration();
@@ -80,7 +81,7 @@ namespace Kaisa.Digivice {
 
             SetupManagers();
             SetupStaticClasses();
-            if(SavedGame.PlayerChar == GameChar.none) {
+            if (SavedGame.PlayerChar == GameChar.none) {
                 VisualDebug.WriteLine("Saved character assigned to 'none'. A new game will be created.");
                 logicMgr.currentScreen = Screen.CharSelection;
                 EnqueueAnimation(screenMgr.ALoadCharacterSelection());
@@ -91,9 +92,7 @@ namespace Kaisa.Digivice {
                 CheckPendingEvents();
             }
 
-            Coordinate[] coord = new Coordinate[] { new Coordinate(5, 3), new Coordinate(6, 6) };
-            string s = JsonConvert.SerializeObject(coord);
-            Debug.Log(s);
+            Database.LoadDatabases(); //So it isn't loaded mid-game.
         }
 
         public void CloseGame() {
@@ -109,7 +108,7 @@ namespace Kaisa.Digivice {
             VisualDebug.WriteLine("Created new game.");
 
             string randomInitial = Database.LoadInitialDigimonsFromFile().GetRandomElement();
-            string playerSpirit = GetPlayerSpirit(chosenGameChar);
+            string playerSpirit = Database.PlayerSpirit[chosenGameChar];
 
             SavedGame.PlayerChar = chosenGameChar;
 
@@ -119,11 +118,13 @@ namespace Kaisa.Digivice {
 
             SavedGame.CheatsUsed = false;
             SavedGame.StepsToNextEvent = 300;
-            DistanceMgr.MoveToArea(0, 0);
+            WorldMgr.MoveToArea(0, 0);
             logicMgr.SetDigimonUnlocked(playerSpirit, true);
             logicMgr.SetDigimonUnlocked(randomInitial, true);
             logicMgr.SpiritPower = 99;
-            AssignRandomBosses();
+
+            WorldMgr.SetupWorlds();
+
             int spiritEnergy = Database.GetDigimon(playerSpirit).GetBossStats(1).GetEnergyRank();
             int enemyEnergy = Database.GetDigimon(randomInitial).GetRegularStats().GetEnergyRank();
 
@@ -157,7 +158,7 @@ namespace Kaisa.Digivice {
             debug.Initialize(this);
 
             shakeDetector.AssignManagers(this);
-            DistanceMgr = new DistanceManager(this);
+            WorldMgr = new WorldManager(this);
         }
 
         private void SetupStaticClasses() {
@@ -183,7 +184,7 @@ namespace Kaisa.Digivice {
                     logicMgr.LoseSpirit(digimonLoss);
                 }
 
-                DistanceMgr.IncreaseDistance(2000);
+                WorldMgr.IncreaseDistance(2000);
                 logicMgr.IncreaseTotalBattles();
                 DisableLeaverBuster();
             }
@@ -211,7 +212,8 @@ namespace Kaisa.Digivice {
             //loadedGame.SetRandomSeed(1, Random.Range(0, 2147483647));
             //loadedGame.SetRandomSeed(2, Random.Range(0, 2147483647));
             //loadedGame.CheatsUsed = false;
-            AssignRandomBosses();
+            SavedGame.RegenerateBossOrder();
+            WorldMgr.SetupWorlds();
             //loadedGame.StepsToNextEvent = 300;
         }
 
@@ -220,9 +222,9 @@ namespace Kaisa.Digivice {
         /// </summary>
         public void TakeAStep() {
             //TODO: Trigger both methods' events if needed.
-            DistanceMgr.TakeSteps(1);
-            DistanceMgr.ReduceDistance(1);
-            if (DistanceMgr.CurrentDistance == 1) SavedGame.SavedEvent = 2;
+            WorldMgr.TakeSteps(1);
+            WorldMgr.ReduceDistance(1);
+            if (WorldMgr.CurrentDistance == 1) SavedGame.SavedEvent = 2;
             CheckPendingEvents();
         }
         /// <summary>
@@ -250,10 +252,10 @@ namespace Kaisa.Digivice {
         /// Applies the score to the current distance and triggers the animation for beating a game.
         /// </summary>
         public void SubmitGameScore(int score) {
-            int oldDistance = DistanceMgr.CurrentDistance;
-            DistanceMgr.ReduceDistance(score);
-            int newDistance = DistanceMgr.CurrentDistance;
-            DistanceMgr.TakeSteps(Mathf.RoundToInt(score / 5f));
+            int oldDistance = WorldMgr.CurrentDistance;
+            WorldMgr.ReduceDistance(score);
+            int newDistance = WorldMgr.CurrentDistance;
+            WorldMgr.TakeSteps(Mathf.RoundToInt(score / 5f));
             screenMgr.EnqueueAnimation(screenMgr.AAwardDistance(score, oldDistance, newDistance));
         }
         public SpriteBuilder GetDDockScreenElement(int ddock, Transform parent) {
@@ -261,6 +263,22 @@ namespace Kaisa.Digivice {
             Sprite dockDigimon = spriteDB.GetDigimonSprite(logicMgr.GetDDockDigimon(ddock));
             if (dockDigimon == null) dockDigimon = spriteDB.status_ddockEmpty;
             return ScreenElement.BuildSprite($"DigimonDDock{ddock}", sbDDockName.transform).SetSize(24, 24).SetPosition(4, 8).SetSprite(dockDigimon);
+        }
+        public ContainerBuilder BuildMapScreen(int world, Transform parent) {
+            ContainerBuilder cbMap = ScreenElement.BuildContainer("Map Container", parent);
+            string worldSprite = Database.Worlds[world].worldSprite;
+            if (Database.Worlds[world].multiMap) {
+                cbMap.SetSize(64, 64);
+                ScreenElement.BuildSprite("Map 0", cbMap.transform).SetSprite(spriteDB.GetWorldSprite(worldSprite, 0));
+                ScreenElement.BuildSprite("Map 1", cbMap.transform).SetSprite(spriteDB.GetWorldSprite(worldSprite, 1)).SetPosition(0, 32);
+                ScreenElement.BuildSprite("Map 2", cbMap.transform).SetSprite(spriteDB.GetWorldSprite(worldSprite, 2)).SetPosition(32, 32);
+                ScreenElement.BuildSprite("Map 3", cbMap.transform).SetSprite(spriteDB.GetWorldSprite(worldSprite, 3)).SetPosition(32, 0);
+            }
+            else {
+                cbMap.SetSize(32, 32);
+                ScreenElement.BuildSprite("Map 0", cbMap.transform).SetSprite(spriteDB.GetWorldSprite(worldSprite, 0));
+            }
+            return cbMap;
         }
 
         /// <summary>
@@ -395,64 +413,6 @@ namespace Kaisa.Digivice {
             SavedGame.LeaverBusterDigimonLoss = "";
         }
 
-        public void AssignRandomBosses() {
-            string[][][] bosses = Database.LoadBossesFromFile();
-            for (int map = 0; map < bosses.Length; map++) {
-                List<string> worldBosses = bosses[map][0].ToList();
-                //Take the initial Human spirit of the player from the list.
-                if (map == 0) {
-                    string playerSpirit = GetPlayerSpirit(SavedGame.PlayerChar);
-                    if (worldBosses.Remove(playerSpirit)) {
-                        VisualDebug.WriteLine($"Removed {playerSpirit} from the list of bosses.");
-                    }
-                    else {
-                        VisualDebug.WriteLine("No suitable Digimon was found to be removed from the first list of bosses. This should never happen.");
-                    }
-                }
-                SavedGame.SemibossGroupForEachMap[map] = Random.Range(1, bosses[map].Length);
-
-                worldBosses.Shuffle();
-
-                //If the world has semibosses, choose one set at random.
-                if(bosses[map].Length > 1) {
-                    string[] semibosses = bosses[map][Random.Range(1, bosses[map].Length)];
-                    for (int i = 0; i < semibosses.Length; i++) {
-                        int semibossIndexInMainList = worldBosses.FindIndex(val => val.Equals($"<sp-{i}>"));
-                        if(semibossIndexInMainList > -1) {
-                            worldBosses[semibossIndexInMainList] = semibosses[i];
-                        }
-                        else {
-                            VisualDebug.WriteLine($"No suitable space found for {semibosses[i]}." +
-                                $" Note that may happen by design and isn't necessarily an error," +
-                                $" if the semiboss groups for map {map} weren't intended to fill the main list.");
-                        }
-                    }
-                }
-
-                SavedGame.Bosses[map] = worldBosses.ToArray();
-            }
-        }
-
-        public string GetPlayerSpirit(GameChar playerChar) {
-            switch(playerChar) {
-                case GameChar.Takuya: return "agunimon";
-                case GameChar.Koji: return "lobomon";
-                case GameChar.Zoe: return "kazemon";
-                case GameChar.JP: return "beetlemon";
-                case GameChar.Tommy: return "kumamon";
-                case GameChar.Koichi: return "loweemon";
-                default: return "";
-            }
-        }
-
-        public string GetBossOfCurrentArea() {
-            int currentMap = DistanceMgr.CurrentMap;
-            int areasInMap = DistanceMgr.GetNumberOfAreasInMap(currentMap);
-            int currentArea = DistanceMgr.CurrentArea;
-
-            return SavedGame.Bosses[currentMap][currentArea];
-        }
-
         #region Animations
         public void EnqueueAnimation(IEnumerator animation) => screenMgr.EnqueueAnimation(animation);
 
@@ -509,7 +469,7 @@ namespace Kaisa.Digivice {
                         EnqueueAnimation(screenMgr.ACharHappy());
                     }
                     else {
-                        EnqueueAnimation(screenMgr.ADisplayNewArea0(DistanceMgr.CurrentArea, DistanceMgr.CurrentDistance));
+                        EnqueueAnimation(screenMgr.ADisplayNewArea(WorldMgr.CurrentWorld, WorldMgr.CurrentArea, WorldMgr.CurrentDistance));
                     }
                     break;
                 case Reward.LoseSpiritPower10:

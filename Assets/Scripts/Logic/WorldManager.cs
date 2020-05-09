@@ -1,35 +1,68 @@
-﻿using Newtonsoft.Json;
+﻿using Kaisa.Digivice.Extensions;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Kaisa.Digivice {
     /// <summary>
-    /// A class that manages the area and distance parameters of the game.
+    /// A class that manages the world, area, distance and other stuff related to the progress within the adventure.
     /// Any interaction with those parameters should be done through this class, rather than directly altering the SavedGame class.
     /// </summary>
-    public class DistanceManager {
-        public int[][] Distances { get; private set; }
+    public class WorldManager {
         private GameManager gm;
 
-        public DistanceManager(GameManager gm) {
-            string distancesJson = ((TextAsset)Resources.Load("distances")).text;
-            Distances = JsonConvert.DeserializeObject<int[][]>(distancesJson);
+        public WorldManager(GameManager gm) {
             this.gm = gm;
         }
 
-        public int GetNumberOfAreasInMap(int map) {
-            switch(map) {
-                case 0: return 12;
-                case 1: return 1;
-                case 2: return 12;
-                case 3: return 1;
-                case 4: return 10;
-                case 5: return 4;
-                case 6: return 1;
-                case 7: return 8;
-                case 8: return 1;
-                case 9: return 1;
-                default: return -1;
+        /// <summary>
+        /// Sets up various parameters for the worlds for this game in the save file, such as randomization of some bosses.
+        /// </summary>
+        public void SetupWorlds() {
+            //First assign the world-related arrays of the saved game an array of the proper size.
+            SavedGame.SemibossGroupForEachMap = new int[Database.Worlds.Length];
+
+            bool[][] completedAreas = new bool[Database.Worlds.Length][];
+            for (int i = 0; i < completedAreas.Length; i++) {
+                int areaCount = Database.Worlds[i].AreaCount;
+                completedAreas[i] = new bool[areaCount];
+            }
+            SavedGame.CompletedAreas = completedAreas;
+
+            //Then fill in some data:
+            foreach(World w in Database.Worlds) {
+                List<string> bosses = w.bosses.ToList();
+
+                int chosenSemibossGroup = Random.Range(0, w.SemibossGroupsCount ?? 0);
+
+                if (w.semibossMode == SemibossMode.Fill) {
+                    foreach(string semiboss in w.semibosses[chosenSemibossGroup]) {
+                        bosses.Add(semiboss);
+                    }
+                }
+                else {
+                    SavedGame.SemibossGroupForEachMap[w.number] = chosenSemibossGroup;
+                }
+
+                if (w.removePlayer) {
+                    string playerSpirit = Database.PlayerSpirit[SavedGame.PlayerChar];
+                    if (bosses.Remove(playerSpirit)) {
+                        VisualDebug.WriteLine($"Removed {playerSpirit} from the list of bosses.");
+                    }
+                    else {
+                        VisualDebug.WriteLine("No suitable Digimon was found to be removed from the first list of bosses. This should never happen.");
+                    }
+                }
+
+                if(w.shuffle) {
+                    List<int> bossOrder = new List<int>();
+                    for(int i = 0; i < bosses.Count; i++) {
+                        bossOrder.Add(i);
+                    }
+                    bossOrder.Shuffle();
+                    SavedGame.BossOrder[w.number] = bossOrder.ToArray();
+                }
+                VisualDebug.WriteLine($"Finished parsing world {w.number}");
             }
         }
 
@@ -41,12 +74,16 @@ namespace Kaisa.Digivice {
             set => SavedGame.CurrentDistance = value;
         }
         /// <summary>
-        /// Returns the current map the player is in.
+        /// Returns the current world the player is in.
         /// </summary>
-        public int CurrentMap {
-            get => SavedGame.CurrentMap;
-            set => SavedGame.CurrentMap = value;
+        public int CurrentWorld {
+            get => SavedGame.CurrentWorld;
+            set => SavedGame.CurrentWorld = value;
         }
+        /// <summary>
+        /// Returns the map within the World the player is in.
+        /// </summary>
+        public int CurrentMap => Database.Worlds[CurrentWorld].areas[CurrentArea].map;
         /// <summary>
         /// Returns the current area the player is in.
         /// </summary>
@@ -54,6 +91,8 @@ namespace Kaisa.Digivice {
             get => SavedGame.CurrentArea;
             set => SavedGame.CurrentArea = value;
         }
+        public World CurrentWorldData => Database.Worlds[CurrentWorld];
+
         /// <summary>
         /// Returns the total amount of steps taken by the player.
         /// </summary>
@@ -61,32 +100,38 @@ namespace Kaisa.Digivice {
         /// <summary>
         /// Returns true if the area is already completed.
         /// </summary>
-        public bool GetAreaCompleted(int map, int area) => SavedGame.CompletedAreas[map][area];
+        public bool GetAreaCompleted(int world, int area) => SavedGame.CompletedAreas[world][area];
         /// <summary>
         /// Sets whether the area is completed or not.
         /// </summary>
-        public void SetAreaCompleted(int map, int area, bool completed) => SavedGame.CompletedAreas[map][area] = completed;
+        public void SetAreaCompleted(int world, int area, bool completed) => SavedGame.CompletedAreas[world][area] = completed;
+
+        public string GetBossOfCurrentArea() {
+            int bossIndex = SavedGame.BossOrder[CurrentWorld][CurrentArea];
+            return Database.Worlds[CurrentWorld].bosses[bossIndex];
+        }
+
         /// <summary>
-        /// Returns a list of all the areas in a map that haven't been completed yet.
+        /// Returns a list of all the areas in a world that haven't been completed yet.
         /// </summary>
-        public List<int> GetUncompletedAreas(int map) {
+        public List<int> GetUncompletedAreas(int world) {
             List<int> uncompletedAreas = new List<int>();
-            for(int i = 0; i < Database.AreasPerMap[map]; i++) {
-                if (!GetAreaCompleted(map, i)) uncompletedAreas.Add(i);
+            for(int i = 0; i < Database.Worlds[world].AreaCount; i++) {
+                if (!GetAreaCompleted(world, i)) uncompletedAreas.Add(i);
             }
             return uncompletedAreas;
         }
         /// <summary>
         /// Moves the player to a new map and area, and sets the current distance to the default distance for that map and area.
         /// </summary>
-        public void MoveToArea(int map, int area) {
-            MoveToArea(map, area, Distances[map][area]);
+        public void MoveToArea(int world, int area) {
+            MoveToArea(world, area, Database.Worlds[world].areas[area].distance);
         }
         /// <summary>
         /// Moves the player to a new map and area, and sets the current distance for that new area.
         /// </summary>
         public void MoveToArea(int map, int area, int distance) {
-            SavedGame.CurrentMap = map;
+            SavedGame.CurrentWorld = map;
             SavedGame.CurrentArea = area;
             SavedGame.CurrentDistance = distance;
         }
@@ -113,8 +158,10 @@ namespace Kaisa.Digivice {
         /// <returns></returns>
         public int ReduceDistance(int distance) {
             int nextStop = 1; //Indicates the distance at which an event will trigger (and no extra distance will be removed).
+
+            //TODO: REMOVE THIS.
             //Check semibosses for maps 4 and 8:
-            if(SavedGame.CurrentMap == 4) {
+            /*if(SavedGame.CurrentWorld == 4) {
                 int firstDeva = (int)((Distances[4][SavedGame.CurrentArea] / 4f) * 3);
                 int secondDeva = (int)((Distances[4][SavedGame.CurrentArea] / 4f) * 2);
                 int thirdDeva = (int)(Distances[4][SavedGame.CurrentArea] / 4f);
@@ -122,10 +169,10 @@ namespace Kaisa.Digivice {
                 else if (SavedGame.CurrentDistance > secondDeva) nextStop = secondDeva + 1;
                 else if (SavedGame.CurrentDistance > thirdDeva) nextStop = thirdDeva + 1;
             }
-            else if(SavedGame.CurrentMap == 8) {
+            else if(SavedGame.CurrentWorld == 8) {
                 int murmukusmon = (int)(Distances[8][SavedGame.CurrentArea] / 2f);
                 if (SavedGame.CurrentDistance > murmukusmon) nextStop = murmukusmon + 1;
-            }
+            }*/
 
             if (SavedGame.CurrentDistance - distance <= nextStop) {
                 SavedGame.CurrentDistance = nextStop;

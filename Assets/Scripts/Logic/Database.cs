@@ -5,19 +5,25 @@ using UnityEngine;
 
 namespace Kaisa.Digivice {
     public static class Database {
+        private static bool databasesLoaded = false;
         public static Digimon[] Digimons { get; private set; }
         public static Dictionary<string, string> DigiCodes { get; private set; }
-        public static int[] AreasPerMap; //Stores the number of areas that there are in each map.
-        //public static string[][][] Bosses { get; private set; }
+        //public static int[] AreasPerMap; //Stores the number of areas that there are in each map.
+        public static World[] Worlds { get; private set; }
+        public static Dictionary<GameChar, string> PlayerSpirit = new Dictionary<GameChar, string>();
 
         static Database() {
             LoadDatabases();
         }
 
         public static void LoadDatabases() {
+            if (databasesLoaded) return;
             Digimons = LoadDigimonFromFile();
             DigiCodes = LoadDigicodesFromFile();
-            AreasPerMap = LoadAreasFromFile();
+            Worlds = LoadWorldsFromFile();
+
+            SetupPlayerSpirit();
+            databasesLoaded = true;
         }
 
         /// <summary>
@@ -44,19 +50,34 @@ namespace Kaisa.Digivice {
             string digiCodes = ((TextAsset)Resources.Load("codeDB")).text;
             return JsonConvert.DeserializeObject<Dictionary<string, string>>(digiCodes);
         }
-        private static int[] LoadAreasFromFile() {
+
+        private static World[] LoadWorldsFromFile() {
+            string worlds = ((TextAsset)Resources.Load("worlds")).text;
+            return JsonConvert.DeserializeObject<World[]>(worlds);
+        }
+
+        /*private static int[] LoadAreasFromFile() {
             string areas = ((TextAsset)Resources.Load("areas")).text;
             return JsonConvert.DeserializeObject<int[]>(areas);
         }
-        //These files are not loaded into the database as they won't be normally used. Instead, other classes call these methods when needed.
         public static string[][][] LoadBossesFromFile() {
             string boses = ((TextAsset)Resources.Load("bosses")).text;
             return JsonConvert.DeserializeObject<string[][][]>(boses);
-        }
+        }*/
+
+        //These files are not loaded into the database as they won't be normally used. Instead, other classes call these methods when needed.
 
         public static string[] LoadInitialDigimonsFromFile() {
             string initials = ((TextAsset)Resources.Load("initials")).text;
             return JsonConvert.DeserializeObject<string[]>(initials);
+        }
+        private static void SetupPlayerSpirit() {
+            PlayerSpirit[GameChar.Takuya] = "agunimon";
+            PlayerSpirit[GameChar.Koji] = "lobomon";
+            PlayerSpirit[GameChar.Zoe] = "kazemon";
+            PlayerSpirit[GameChar.JP] = "beetlemon";
+            PlayerSpirit[GameChar.Tommy] = "kumamon";
+            PlayerSpirit[GameChar.Koichi] = "loweemon";
         }
 
         public static Digimon GetDigimon(string name) {
@@ -159,15 +180,6 @@ namespace Kaisa.Digivice {
             }
             code = "";
             return false;
-        }
-    }
-    public struct Coordinate {
-        public int x, y;
-
-        [JsonConstructor]
-        public Coordinate(int x, int y) {
-            this.x = x;
-            this.y = y;
         }
     }
 }

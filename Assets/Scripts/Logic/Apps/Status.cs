@@ -41,8 +41,8 @@ namespace Kaisa.Digivice.App {
             switch(currentScreen) {
                 case 0:
                     screenDisplay.sprite = gm.spriteDB.status_distance;
-                    string distance = gm.DistanceMgr.CurrentDistance.ToString();
-                    string steps = gm.DistanceMgr.TotalSteps.ToString();
+                    string distance = gm.WorldMgr.CurrentDistance.ToString();
+                    string steps = gm.WorldMgr.TotalSteps.ToString();
                     ScreenElement.BuildTextBox("TextDistance", screenDisplay.transform, DFont.Regular)
                         .SetText(distance).SetSize(31, 5).SetPosition(0, 10).SetAlignment(TextAnchor.UpperRight);
                     ScreenElement.BuildTextBox("TextSteps", screenDisplay.transform, DFont.Regular)

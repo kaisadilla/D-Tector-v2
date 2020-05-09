@@ -197,7 +197,7 @@ namespace Kaisa.Digivice {
                 SaveGame();
             }
         }
-        public static int CurrentMap {
+        public static int CurrentWorld {
             get => lg.currentMap;
             set {
                 lg.currentMap = value;
@@ -294,6 +294,8 @@ namespace Kaisa.Digivice {
             lg.digicodeUnlocked[digimon] = value;
             SaveGame();
         }
+
+        //Progress:
         public static bool[][] CompletedAreas {
             get => lg.areasCompleted;
             set {
@@ -301,19 +303,19 @@ namespace Kaisa.Digivice {
                 SaveGame();
             }
         }
-        public static string[][] Bosses {
-            get => lg.bosses;
-            set {
-                lg.bosses = value;
-                SaveGame();
-            }
-        }
+
+        //Adventure data:
+        public static Dictionary<int, int[]> BossOrder => lg.bossOrder;
         public static int[] SemibossGroupForEachMap {
             get => lg.semibossGroup;
             set {
                 lg.semibossGroup = value;
                 SaveGame();
             }
+        }
+        //Debug methods:
+        public static void RegenerateBossOrder() {
+            lg.bossOrder = new Dictionary<int, int[]>();
         }
     }
 
@@ -365,23 +367,14 @@ namespace Kaisa.Digivice {
         public Dictionary<string, int> digimonLevel = new Dictionary<string, int>();
         public Dictionary<string, bool> digicodeUnlocked = new Dictionary<string, bool>();
         public bool[][] areasCompleted; //areaCompleted[mapIndex][areaIndex]
-        public string[][] bosses; //bosses[mapIndex][areaIndex]
+
+        //Adventure data:
+        public Dictionary<int, int[]> bossOrder = new Dictionary<int, int[]>(); //key: the world, value: an array with the random order.
         public int[] semibossGroup; //semibossGroup[maxIndex]
 
         private SavedGameFile(string filePath, string name) {
             this.filePath = filePath;
             this.name = name;
-
-            int[] areasPerMap = Database.AreasPerMap;
-
-            areasCompleted = new bool[areasPerMap.Length][];
-            bosses = new string[areasPerMap.Length][];
-            semibossGroup = new int[areasPerMap.Length];
-            //For each map, create an array with Length equal to the number of areas in that map.
-            for (int i = 0; i < areasCompleted.Length; i++) {
-                areasCompleted[i] = new bool[areasPerMap[i]];
-                bosses[i] = new string[areasPerMap[i]];
-            }
         }
         ~SavedGameFile() {
             WriteToFile();

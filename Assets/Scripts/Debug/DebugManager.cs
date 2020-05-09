@@ -18,6 +18,8 @@ namespace Kaisa.Digivice {
             this.gm = gm;
         }
         public void Write(string output) {
+            if (consoleOutput == null) return;
+
             consoleOutput.text += output;
             Canvas.ForceUpdateCanvases();
             verticalScrollbar.value = 0f;
@@ -45,7 +47,7 @@ namespace Kaisa.Digivice {
                 return "Character: " + SavedGame.Name;
             }
             if (command.StartsWith("/currentmap")) {
-                return "Current map: " + SavedGame.CurrentMap;
+                return "Current map: " + SavedGame.CurrentWorld;
             }
             if (command.StartsWith("/currentarea")) {
                 return "Current area: " + SavedGame.CurrentArea;
@@ -128,7 +130,7 @@ namespace Kaisa.Digivice {
                 string[] args = command.Split(' ');
                 if (args.Length == 3) {
                     try {
-                        string result = gm.DistanceMgr.Distances[int.Parse(args[1])][int.Parse(args[2])].ToString();
+                        string result = Database.Worlds[int.Parse(args[1])].areas[int.Parse(args[2])].distance.ToString();
                         return result;
                     }
                     catch {
@@ -359,13 +361,19 @@ namespace Kaisa.Digivice {
         private string PrintAllBossesToFile() {
             string filePath = GetFolderPath(SpecialFolder.MyDocuments) + @"\dtector_all_bosses.txt";
             using (StreamWriter file = new StreamWriter(filePath)) {
-                string[][] bosses = SavedGame.Bosses;
-                for(int map = 0; map < bosses.Length; map++) {
-                    file.WriteLine($"\n==== Map {map} ====");
-                    for (int area = 0; area < bosses[map].Length; area++) {
-                        file.WriteLine($"Map {map}, area {area}: {bosses[map][area]}");
+                for(int world = 0; world < Database.Worlds.Length; world++) {
+                    string[] bosses = new string[Database.Worlds[world].AreaCount];
+
+                    for (int i = 0; i < bosses.Length; i++) {
+                        int thisBoss = SavedGame.BossOrder[world][i];
+                        bosses[i] = Database.Worlds[world].bosses[thisBoss];
                     }
-                    file.WriteLine($"\tMap {map} semiboss set: {SavedGame.SemibossGroupForEachMap[map]}");
+
+                    file.WriteLine($"\n==== World {world} ====");
+                    for (int area = 0; area < bosses[world].Length; area++) {
+                        file.WriteLine($"World {world}, area {area}: {bosses[world][area]}");
+                    }
+                    file.WriteLine($"World {world} semiboss set: {SavedGame.SemibossGroupForEachMap[world]}");
                 }
             }
             return filePath;
