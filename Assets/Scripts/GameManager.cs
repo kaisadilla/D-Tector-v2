@@ -70,14 +70,14 @@ namespace Kaisa.Digivice {
         }
 
         public void Start() {
-#if UNITY_EDITOR
+            #if UNITY_EDITOR
             Application.targetFrameRate = 60;
             DisableLeaverBuster();
             audioMgr.SetVolume(0.48f);
             VisualDebug.WriteLine("Leaver Buster disabled by the Unity editor.");
             debug.ShowDebug();
             debug.EnableCheats();
-#endif
+            #endif
 
             SetupManagers();
             SetupStaticClasses();
