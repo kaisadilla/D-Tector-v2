@@ -4699,6 +4699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5f01533d5f98584790f12c04e79ce9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animParent: {fileID: 0}
   screenBackground: {fileID: 847722815}
   screenDisplay: {fileID: 1688264599}
 --- !u!1 &1114433800

@@ -97,10 +97,10 @@ namespace Kaisa.Digivice {
 
             AttemptUpdateGame();
 
-            MutableCombatStats suka = Database.GetDigimon("devimon").GetBossStats(10);
+            /*MutableCombatStats suka = Database.GetDigimon("devimon").GetBossStats(10);
             Debug.Log($"hp {suka.HP}, maxHP {suka.maxHP}, en {suka.EN}, cr {suka.CR}, ab {suka.AB}");
             MutableCombatStats suka2 = Database.GetDigimon("lanamon").GetBossStats(10);
-            Debug.Log($"hp {suka2.HP}, maxHP {suka2.maxHP}, en {suka2.EN}, cr {suka2.CR}, ab {suka2.AB}");
+            Debug.Log($"hp {suka2.HP}, maxHP {suka2.maxHP}, en {suka2.EN}, cr {suka2.CR}, ab {suka2.AB}");*/
         }
 
         public void CloseGame() {

@@ -470,6 +470,7 @@ namespace Kaisa.Digivice {
         Crush,
         Spirit,
         SpiritSmall,
-        Black
+        Black,
+        White
     }
 }

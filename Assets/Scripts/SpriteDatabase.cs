@@ -127,22 +127,39 @@ namespace Kaisa.Digivice {
         /// <param name="name">The name of the digimon.</param>
         /// <param name="state">The state of the digimon.</param>
         public Sprite GetDigimonSprite(string name, SpriteAction state = SpriteAction.Default) {
-            switch (state) {
+            Sprite sprite = null;
+
+            switch(state) {
                 case SpriteAction.Default:
-                    return Resources.Load<Sprite>("Sprites/Digimon/" + name);
+                    sprite = Resources.Load<Sprite>("Sprites/Digimon/" + name);
+                    break;
                 case SpriteAction.Attack:
-                    return Resources.Load<Sprite>("Sprites/Digimon/" + name + "_at");
+                    sprite = Resources.Load<Sprite>("Sprites/Digimon/" + name + "_at");
+                    if (sprite != null) break;
+                    else goto case SpriteAction.Default;
                 case SpriteAction.Crush:
-                    return Resources.Load<Sprite>("Sprites/Digimon/" + name + "_cr");
+                    sprite = Resources.Load<Sprite>("Sprites/Digimon/" + name + "_cr");
+                    if (sprite != null) break;
+                    else goto case SpriteAction.Attack;
                 case SpriteAction.Spirit:
-                    return Resources.Load<Sprite>("Sprites/Digimon/" + name + "_sp");
+                    sprite = Resources.Load<Sprite>("Sprites/Digimon/" + name + "_sp");
+                    if (sprite != null) break;
+                    else goto case SpriteAction.Default;
                 case SpriteAction.SpiritSmall:
-                    return Resources.Load<Sprite>("Sprites/Digimon/" + name + "_sm");
+                    sprite = Resources.Load<Sprite>("Sprites/Digimon/" + name + "_sm");
+                    if (sprite != null) break;
+                    else goto case SpriteAction.Spirit;
                 case SpriteAction.Black:
-                    return Resources.Load<Sprite>("Sprites/Digimon/" + name + "_bl");
-                default:
-                    return null;
+                    sprite = Resources.Load<Sprite>("Sprites/Digimon/" + name + "_bl");
+                    if (sprite != null) break;
+                    else goto case SpriteAction.Default;
+                case SpriteAction.White:
+                    sprite = Resources.Load<Sprite>("Sprites/Digimon/" + name + "_wh");
+                    if (sprite != null) break;
+                    else goto case SpriteAction.Default;
             }
+
+            return sprite;
         }
         public Sprite GetDigimonSprite(Digimon digimon, SpriteAction state = SpriteAction.Default) => GetDigimonSprite(digimon.name, state);
         /// <summary>
