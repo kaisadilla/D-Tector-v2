@@ -70,14 +70,14 @@ namespace Kaisa.Digivice {
         }
 
         public void Start() {
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             Application.targetFrameRate = 60;
             DisableLeaverBuster();
             audioMgr.SetVolume(0.48f);
             VisualDebug.WriteLine("Leaver Buster disabled by the Unity editor.");
             debug.ShowDebug();
             debug.EnableCheats();
-            #endif
+#endif
 
             SetupManagers();
             SetupStaticClasses();
@@ -96,6 +96,11 @@ namespace Kaisa.Digivice {
             Animations.Initialize(this, audioMgr, spriteDB);
 
             AttemptUpdateGame();
+
+            MutableCombatStats suka = Database.GetDigimon("devimon").GetBossStats(10);
+            Debug.Log($"hp {suka.HP}, maxHP {suka.maxHP}, en {suka.EN}, cr {suka.CR}, ab {suka.AB}");
+            MutableCombatStats suka2 = Database.GetDigimon("lanamon").GetBossStats(10);
+            Debug.Log($"hp {suka2.HP}, maxHP {suka2.maxHP}, en {suka2.EN}, cr {suka2.CR}, ab {suka2.AB}");
         }
 
         public void CloseGame() {

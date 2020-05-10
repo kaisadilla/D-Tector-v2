@@ -193,17 +193,17 @@ namespace Kaisa.Digivice {
             int HP, EN, CR, AB;
             //If the Digimon is Hybrid, assign its stats using the formula(s) for Hybrid bosses.
             if (stage == Stage.Spirit) {
-                HP = GetStatAsSpiritBoss(stats.HP, bossLevel);
-                EN = GetStatAsSpiritBoss(stats.EN, bossLevel);
-                CR = GetStatAsSpiritBoss(stats.CR, bossLevel);
-                AB = GetStatAsSpiritBoss(stats.AB, bossLevel);
+                HP = GetStatAsSpiritBoss(bossStats.HP, bossLevel);
+                EN = GetStatAsSpiritBoss(bossStats.EN, bossLevel);
+                CR = GetStatAsSpiritBoss(bossStats.CR, bossLevel);
+                AB = GetStatAsSpiritBoss(bossStats.AB, bossLevel);
             }
             //Else, assign its stats using the formula for regular bosses.
             else {
-                HP = GetStatAsRegularBoss(stats.HP, bossLevel);
-                EN = GetStatAsRegularBoss(stats.EN, bossLevel);
-                CR = GetStatAsRegularBoss(stats.CR, bossLevel);
-                AB = GetStatAsRegularBoss(stats.AB, bossLevel);
+                HP = GetStatAsRegularBoss(bossStats.HP, bossLevel);
+                EN = GetStatAsRegularBoss(bossStats.EN, bossLevel);
+                CR = GetStatAsRegularBoss(bossStats.CR, bossLevel);
+                AB = GetStatAsRegularBoss(bossStats.AB, bossLevel);
             }
 
             return new MutableCombatStats(HP, EN, CR, AB);
@@ -317,7 +317,7 @@ namespace Kaisa.Digivice {
             return Mathf.RoundToInt(riggedStat);
         }
         private int GetStatAsRegularBoss(int stat, int bossLevel) {
-            float riggedStat = (0.14f + (0.0086f * bossLevel)) * stat;
+            float riggedStat = (0.20f + (0.008f * bossLevel)) * stat;
             return Mathf.RoundToInt(riggedStat);
         }
         private int GetStatAsFriendly(int stat, int currentExtraLevel) {
