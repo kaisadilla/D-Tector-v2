@@ -13,6 +13,9 @@
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta
 
+# Temporary folders and files should go in 'ignore' folders.
+/Assets/**/ignore/
+
 # Uncomment this line if you wish to ignore the asset store tools plugin
 # /[Aa]ssets/AssetStoreTools*
 
