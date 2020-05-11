@@ -93,7 +93,7 @@ namespace Kaisa.Digivice {
             switch (logicMgr.currentScreen) {
                 case Screen.CharSelection:
                     SpriteBuilder sb = ScreenElement.BuildSprite("Arrows", screenDisplay.transform).SetSprite(spriteDB.arrows).SetTransparent(true);
-                    sb.gameObject.tag = "disposable";
+                    sb.gameObject.tag = "Disposable";
                     sb.transform.SetAsFirstSibling();
                     SetScreenSprite(spriteDB.GetCharacterSprites((GameChar)logicMgr.charSelectionIndex)[0]);
                     break;

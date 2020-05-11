@@ -378,6 +378,7 @@ namespace Kaisa.Digivice.App {
             InvokeRepeating("DrawScreen", 0f, 0.05f);
         }
         protected override void CloseApp(Screen goToMenu = Screen.Character) {
+            VisualDebug.WriteLine("Attempting to close battle.");
             base.CloseApp(goToMenu);
         }
 
@@ -645,9 +646,12 @@ namespace Kaisa.Digivice.App {
             Digimon targetEvolution = Database.GetDigimon(friendlyDigimon.evolution);
             
             CurrentCallPoints -= callPointsForEvolution;
-            // (int) < null always evaluated to false.
+            // (int) < null always evaluates to false.
             if (Random.Range(0f, 1f) < targetEvolution?.GetEvolveChance(playerLevel, callPointsForEvolution)) {
                 AssignFriendlyDigimon(targetEvolution.name, CallType.Digivolution);
+                if (!gm.logicMgr.GetDigimonUnlocked(targetEvolution.name)) {
+                    gm.logicMgr.SetDigimonUnlocked(targetEvolution.name, true);
+                }
             }
 
             gm.EnqueueAnimation(Animations.SpendCallPoints(callPointsBefore, CurrentCallPoints));
@@ -687,9 +691,6 @@ namespace Kaisa.Digivice.App {
         }
 
         private void DeportCurrentDigimon() {
-            string deportedDigimon = friendlyDigimon.name;
-
-            Stage deportedStage = friendlyDigimon.stage;
 
             friendlyDigimon = null;
             originalDigimon = null;
@@ -700,12 +701,15 @@ namespace Kaisa.Digivice.App {
             currentScreen = BattleScreen.MainMenu;
 
             gm.UpdateLeaverBuster(defeatExp, "");
+            PlayAnimationDeportDigimon();
+        }
 
-            if(deportedStage == Stage.Spirit) {
-                gm.EnqueueAnimation(Animations.DeportSpirit(deportedDigimon, gm.CurrentPlayerChar));
+        private void PlayAnimationDeportDigimon() {
+            if (friendlyDigimon.stage == Stage.Spirit) {
+                gm.EnqueueAnimation(Animations.DeportSpirit(friendlyDigimon.name, gm.CurrentPlayerChar));
             }
             else {
-                gm.EnqueueAnimation(Animations.DeportDigimon(deportedDigimon));
+                gm.EnqueueAnimation(Animations.DeportDigimon(friendlyDigimon.name));
             }
         }
         private void SubmitTurn(int friendlyAttack) {
@@ -756,7 +760,7 @@ namespace Kaisa.Digivice.App {
         private void WinBattle() {
             gm.DisableLeaverBuster();
 
-            gm.EnqueueAnimation(Animations.DeportDigimon(friendlyDigimon.name));
+            PlayAnimationDeportDigimon();
 
             if (gm.logicMgr.AddPlayerExperience(victoryExp)) {
                 gm.EnqueueAnimation(Animations.LevelUp(playerLevel, gm.logicMgr.GetPlayerLevel()));
@@ -799,7 +803,7 @@ namespace Kaisa.Digivice.App {
         private void LoseBattle() {
             gm.DisableLeaverBuster();
 
-            gm.EnqueueAnimation(Animations.DeportDigimon(friendlyDigimon.name));
+            PlayAnimationDeportDigimon();
 
             if (gm.logicMgr.RemovePlayerExperience(defeatExp)) {
                 gm.EnqueueAnimation(Animations.LevelDown(playerLevel, gm.logicMgr.GetPlayerLevel()));
@@ -999,6 +1003,10 @@ namespace Kaisa.Digivice.App {
             else if (digimon == 1) {
                 enemyStats.HP -= (enemyStats.HP - damage > 0) ? damage : enemyStats.HP;
             }
+        }
+
+        public void CheatEnergy() {
+            if (friendlyStats != null) friendlyStats.EN = 300;
         }
     }
 }

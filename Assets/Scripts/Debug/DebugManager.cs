@@ -247,6 +247,15 @@ namespace Kaisa.Digivice {
                 }
                 return "Invalid parameters. Expected (int)distance";
             }
+            if (command.StartsWith("/empowerenergy")) {
+                if (gm.logicMgr.loadedApp is App.Battle b) {
+                    b.CheatEnergy();
+                    return "Energy empowered.";
+                }
+                else {
+                    return "Player is not in a battle!";
+                }
+            }
 
             return "Invalid command.";
         }

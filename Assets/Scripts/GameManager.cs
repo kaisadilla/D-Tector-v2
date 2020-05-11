@@ -79,6 +79,9 @@ namespace Kaisa.Digivice {
             debug.EnableCheats();
             #endif
 
+            Database.LoadDatabases(); //So it isn't loaded mid-game.
+            Animations.Initialize(this, audioMgr, spriteDB);
+
             SetupManagers();
             SetupStaticClasses();
             if (SavedGame.PlayerChar == GameChar.none) {
@@ -91,9 +94,6 @@ namespace Kaisa.Digivice {
                 CheckLeaverBuster();
                 CheckPendingEvents();
             }
-
-            Database.LoadDatabases(); //So it isn't loaded mid-game.
-            Animations.Initialize(this, audioMgr, spriteDB);
 
             AttemptUpdateGame();
 
@@ -220,7 +220,7 @@ namespace Kaisa.Digivice {
         /// This method should be changed whenever an update in the save file(s) is wanted.
         /// </summary>
         public void AttemptUpdateGame() {
-            if(SavedGame.LastUpdateVersion != Constants.GAME_VERSION) {
+            if(SavedGame.PlayerChar != GameChar.none && SavedGame.LastUpdateVersion != Constants.GAME_VERSION) {
                 WorldMgr.SetupWorlds();
                 VisualDebug.WriteLine($"Updated game to version {Constants.GAME_VERSION}");
             }
