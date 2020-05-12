@@ -306,7 +306,7 @@ namespace Kaisa.Digivice {
             }
             else if (spiritType == SpiritType.Ancient) {
                 //0% of the stat, increasing up to 100% when the Digimon reaches level 100.
-                riggedStat = (0.00f + (0.010f * bossLevel)) * stat;
+                riggedStat = (0.20f + (0.008f * bossLevel)) * stat;
                 //riggedStat = (0.2f + (0.008f * bossLevel)) * stat;
             }
             else {

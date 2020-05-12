@@ -433,7 +433,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.08, y: 0.8044197}
   m_AnchorMax: {x: 0.92, y: 0.93555576}
-  m_AnchoredPosition: {x: -0.064819336, y: 0.47052002}
+  m_AnchoredPosition: {x: -0.064697266, y: 0.47052002}
   m_SizeDelta: {x: 0.1295166, y: 0.94091034}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &213591821
@@ -716,7 +716,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.35, y: 1}
-  m_AnchoredPosition: {x: 0.00012207031, y: 0.000030517578}
+  m_AnchoredPosition: {x: 0, y: 0.000030517578}
   m_SizeDelta: {x: -0.00045776367, y: 0.0001296997}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &284941924
@@ -7449,7 +7449,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.35, y: 1}
-  m_AnchoredPosition: {x: 0.00012207031, y: 0.000030517578}
+  m_AnchoredPosition: {x: 0, y: 0.000030517578}
   m_SizeDelta: {x: -0.00045776367, y: 0.0001296997}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1799159381
@@ -8778,9 +8778,10 @@ MonoBehaviour:
   encounterDigimonBoss: {fileID: 8300000, guid: fda6478b8139e8441a285d0a68e0f924,
     type: 3}
   launchAttack: {fileID: 8300000, guid: bc4a21d87f1def1498fbbcd40e17fc46, type: 3}
+  launchAttackLong: {fileID: 8300000, guid: 4c335adb705afe748b7fdb8dfa16e26b, type: 3}
   attackTravel: {fileID: 8300000, guid: d3380a26500e1424c90d90e0ed9ec0a1, type: 3}
   attackTravelLong: {fileID: 8300000, guid: a0e5e9b489482c148b464f052347e8cd, type: 3}
-  attackTravelVeryLong: {fileID: 8300000, guid: 0d140ba962fbc064888f30c08eb9eeba,
+  attackTravelVeryLong: {fileID: 8300000, guid: 3e4c21c5dc8ed6b4080e0897f4775702,
     type: 3}
   explosion: {fileID: 8300000, guid: 5d861d11c30bb954c87bcd58f8223008, type: 3}
   deport: {fileID: 8300000, guid: 0e90d707fd9927f4e97a7300ca0082f0, type: 3}

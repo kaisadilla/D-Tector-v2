@@ -33,6 +33,7 @@ namespace Kaisa.Digivice {
         public AudioClip encounterDigimon;
         public AudioClip encounterDigimonBoss;
         public AudioClip launchAttack;
+        public AudioClip launchAttackLong;
         public AudioClip attackTravel; //Not used
         public AudioClip attackTravelLong; //Not used
         public AudioClip attackTravelVeryLong;

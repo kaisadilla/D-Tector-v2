@@ -1924,6 +1924,8 @@ namespace Kaisa.Digivice {
             sbDigimon.FlipHorizontal(isEnemy);
             sbAttack.FlipHorizontal(isEnemy);
 
+            int extraPixels = 0;
+
             if (attack != 3) {
                 //Show exclamation mark.
                 if (disobeyed) {
@@ -1938,10 +1940,24 @@ namespace Kaisa.Digivice {
             }
             if (attack == 0 || attack == 2) {
                 sbDigimon.SetSprite(digimonSprites[1]);
+
                 sbAttack.SetSprite((attack == 0) ? digimonSprites[3] : digimonSprites[4]);
 
-                audioMgr.PlaySound(audioMgr.launchAttack);
+                if(attack == 2 && digimonSprites[4].texture.width > 32) {
+                    sbAttack.SetSize(digimonSprites[4].texture.width, 24).Move(launchDir.Opposite(), sbAttack.Width - 24).CenterComponent();
+                    sbDigimon.Move(launchDir.Opposite());
+                    extraPixels = sbAttack.Width - 24;
+                    audioMgr.PlaySound(audioMgr.launchAttackLong);
+                }
+                else {
+                    audioMgr.PlaySound(audioMgr.launchAttack);
+                }
+
                 for (int i = 0; i < 38; i++) {
+                    yield return new WaitForSeconds(1.7f / 32f);
+                    sbAttack.Move(launchDir);
+                }
+                for (int i = 0; i < extraPixels; i++) {
                     yield return new WaitForSeconds(1.7f / 32f);
                     sbAttack.Move(launchDir);
                 }
@@ -1976,16 +1992,30 @@ namespace Kaisa.Digivice {
             sbEnemyAttack.Center().PlaceOutside(Direction.Left);
             sbEnemyAttack.FlipHorizontal(true);
 
+            int[] extraPixels = new int[2];
+
             if (winner == 0) sbFriendlyAttack.transform.SetAsLastSibling(); //Place the friendly attack above if he won.
 
             //Set attack sprite.
             if (friendlyAttack == 0) sbFriendlyAttack.SetSprite(friendlySprites[3]);
             else if (friendlyAttack == 1) sbFriendlyAttack.SetSprite(friendlySprites[2]);
-            else if (friendlyAttack == 2) sbFriendlyAttack.SetSprite(friendlySprites[4]);
+            else if (friendlyAttack == 2) {
+                sbFriendlyAttack.SetSprite(friendlySprites[4]);
+                if(friendlySprites[4].texture.width > 32) {
+                    extraPixels[0] = friendlySprites[4].texture.width - 24;
+                    sbFriendlyAttack.SetSize(friendlySprites[4].texture.width, 24).Move(Direction.Right, extraPixels[0]).CenterComponent().PlaceOutside(Direction.Right);
+                }
+            }
             else if (friendlyAttack == 3) sbFriendlyAttack.SetActive(false);
             if (enemyAttack == 0) sbEnemyAttack.SetSprite(enemySprites[3]);
             else if (enemyAttack == 1) sbEnemyAttack.SetSprite(enemySprites[2]);
-            else if (enemyAttack == 2) sbEnemyAttack.SetSprite(enemySprites[4]);
+            else if (enemyAttack == 2) {
+                sbEnemyAttack.SetSprite(enemySprites[4]);
+                if (enemySprites[4].texture.width > 32) {
+                    extraPixels[1] = enemySprites[4].texture.width - 24;
+                    sbEnemyAttack.SetSize(enemySprites[4].texture.width, 24).Move(Direction.Left, extraPixels[1]).CenterComponent().PlaceOutside(Direction.Left);
+                }
+            }
             else if (enemyAttack == 3) sbEnemyAttack.SetActive(false);
 
             audioMgr.PlaySound(audioMgr.attackTravelVeryLong);
@@ -2041,11 +2071,19 @@ namespace Kaisa.Digivice {
                         sbFriendlyAttack.Move(Direction.Left);
                         yield return new WaitForSeconds(0.6f / 16f);
                     }
+                    for (int i = 0; i < extraPixels[0]; i++) {
+                        sbFriendlyAttack.Move(Direction.Left);
+                        yield return new WaitForSeconds(0.6f / 16f);
+                    }
                 }
                 else if (winner == 1) {
                     _TransformAttackIntoCollision(sbFriendlyAttack);
                     for (int i = 0; i < 40; i++) {
                         if (i == 3) sbFriendlyAttack.Dispose();
+                        sbEnemyAttack.Move(Direction.Right);
+                        yield return new WaitForSeconds(0.6f / 16f);
+                    }
+                    for (int i = 0; i < extraPixels[1]; i++) {
                         sbEnemyAttack.Move(Direction.Right);
                         yield return new WaitForSeconds(0.6f / 16f);
                     }
@@ -2079,13 +2117,19 @@ namespace Kaisa.Digivice {
                 Sprite brokenAbilitySprite = loserSprite.Sprite;
                 Direction winnerDirection = (winner == 0) ? Direction.Left : Direction.Right;
 
-                ContainerBuilder cbBrokenAbilityUp = ScreenElement.BuildContainer("AbilityUp", AnimParent).SetSize(24, 12).SetMaskActive(true);
+                ContainerBuilder cbBrokenAbilityUp = ScreenElement.BuildContainer("AbilityUp", AnimParent)
+                    .SetSize(24 + extraPixels[winner == 0? 1 : 0], 12).SetMaskActive(true);
                 cbBrokenAbilityUp.SetPosition(brokenAbilityX, 4);
-                ScreenElement.BuildSprite("AbilityUpSprite", cbBrokenAbilityUp.transform).SetSize(24, 24).SetPosition(0, 0).SetSprite(brokenAbilitySprite).FlipHorizontal(winner == 0);
+                ScreenElement.BuildSprite("AbilityUpSprite", cbBrokenAbilityUp.transform)
+                    .SetSize(24 + extraPixels[winner == 0 ? 1 : 0], 24).CenterComponent()
+                    .SetPosition(0, 0).SetSprite(brokenAbilitySprite).FlipHorizontal(winner == 0);
 
-                ContainerBuilder cbBrokenAbilityDown = ScreenElement.BuildContainer("AbilityDown", AnimParent).SetSize(24, 12).SetMaskActive(true);
+                ContainerBuilder cbBrokenAbilityDown = ScreenElement.BuildContainer("AbilityDown", AnimParent)
+                    .SetSize(24 + extraPixels[winner == 0? 1 : 0], 12).SetMaskActive(true);
                 cbBrokenAbilityDown.SetPosition(brokenAbilityX, 16);
-                ScreenElement.BuildSprite("AbilityDownSprite", cbBrokenAbilityDown.transform).SetSize(24, 24).SetPosition(0, -12).SetSprite(brokenAbilitySprite).FlipHorizontal(winner == 0);
+                ScreenElement.BuildSprite("AbilityDownSprite", cbBrokenAbilityDown.transform)
+                    .SetSize(24 + extraPixels[winner == 0 ? 1 : 0], 24).CenterComponent()
+                    .SetPosition(0, -12).SetSprite(brokenAbilitySprite).FlipHorizontal(winner == 0);
 
                 loserSprite.Dispose();
                 winnerSprite.transform.SetAsLastSibling(); //Place the winning attack above everything else.
@@ -2093,6 +2137,10 @@ namespace Kaisa.Digivice {
                 for (int i = 0; i < 32; i++) { //Enemy crush - player loses
                     cbBrokenAbilityUp.Move(winnerDirection.Opposite()).Move(Direction.Up);
                     cbBrokenAbilityDown.Move(winnerDirection.Opposite()).Move(Direction.Down);
+                    winnerSprite.Move(winnerDirection);
+                    yield return new WaitForSeconds(0.6f / 16f);
+                }
+                for (int i = 0; i < extraPixels[winner]; i++) {
                     winnerSprite.Move(winnerDirection);
                     yield return new WaitForSeconds(0.6f / 16f);
                 }
@@ -2121,6 +2169,10 @@ namespace Kaisa.Digivice {
                 Direction winnerDirection = (winner == 0) ? Direction.Left : Direction.Right;
                 for (int i = 0; i < 40; i++) {
                     if (i == 16) loserSprite.Dispose(); //Remove the crush at the exact frame the ability is completely covering it.
+                    winnerSprite.Move(winnerDirection);
+                    yield return new WaitForSeconds(0.6f / 16f);
+                }
+                for (int i = 0; i < extraPixels[winner]; i++) {
                     winnerSprite.Move(winnerDirection);
                     yield return new WaitForSeconds(0.6f / 16f);
                 }
@@ -2446,11 +2498,22 @@ namespace Kaisa.Digivice {
                 yield return _ExplodeLoser();
             }
             else if (winningAttack == 2 && winningAbility != null) {
+                int extraPixels = 0;
+
                 sbLoser.SetSprite(sLoser);
                 SpriteBuilder sbAbility = ScreenElement.BuildSprite("Loser", AnimParent).SetSize(24, 24).SetSprite(winningAbility).Center();
+                if (winningAbility.texture.width > 32) {
+                    sbAbility.SetSize(winningAbility.texture.width, 24).CenterComponent();
+                    extraPixels = sbAbility.Width - 24;
+                }
                 sbAbility.PlaceOutside(winningDirection.Opposite());
                 sbAbility.FlipHorizontal(!isEnemy); //Flip the ability if the loser is the ally.
                 for (int i = 0; i < 64; i++) {
+                    if (i == 28) sbLoser.SetActive(false);
+                    sbAbility.Move(winningDirection);
+                    yield return new WaitForSeconds(Constants.ATTACK_TRAVEL_SPEED);
+                }
+                for (int i = 0; i < extraPixels; i++) {
                     if (i == 28) sbLoser.SetActive(false);
                     sbAbility.Move(winningDirection);
                     yield return new WaitForSeconds(Constants.ATTACK_TRAVEL_SPEED);

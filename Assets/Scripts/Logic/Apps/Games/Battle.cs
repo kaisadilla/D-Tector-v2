@@ -814,7 +814,7 @@ namespace Kaisa.Digivice.App {
             gm.WorldMgr.IncreaseDistance(amountToIncrease);
             int distanceAfter = gm.WorldMgr.CurrentDistance;
 
-            bool punishFriendly = (Random.Range(0f, 1f) < originalDigimon.GetEraseChance());
+            bool punishFriendly = (Random.Range(0f, 1f) > originalDigimon.GetEraseChance());
 
             if(originalDigimon.stage != Stage.Spirit) {
                 //If the player has extra levels with that digimon, they will always lose one.

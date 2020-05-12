@@ -97,6 +97,8 @@ namespace Kaisa.Digivice {
 
             AttemptUpdateGame();
 
+            //EnqueueAnimation(Animations.DisplayTurn("cyberdramon", 0, 3, "kerpymon (blast)", 2, 5, 0, false, 210, 0));
+
             /*MutableCombatStats suka = Database.GetDigimon("devimon").GetBossStats(10);
             Debug.Log($"hp {suka.HP}, maxHP {suka.maxHP}, en {suka.EN}, cr {suka.CR}, ab {suka.AB}");
             MutableCombatStats suka2 = Database.GetDigimon("lanamon").GetBossStats(10);
@@ -306,13 +308,13 @@ namespace Kaisa.Digivice {
         /// Returns true if the player has unlocked, at least, one digimon in that stage.
         /// </summary>
         public List<string> GetAllUnlockedDigimonInStage(Stage stage) {
-            List<string> allDigimon = new List<string>();
+            List<Digimon> allDigimon = new List<Digimon>();
             foreach (Digimon d in Database.Digimons) {
                 if (d.stage == stage && logicMgr.GetDigimonUnlocked(d.name)) {
-                    allDigimon.Add(d.name);
+                    allDigimon.Add(d);
                 }
             }
-            return allDigimon;
+            return allDigimon.OrderBy(d => d.order).Select(d => d.name).ToList();
         }
         public List<string> GetAllUnlockedSpiritsOfElement(Element element) {
             List<string> allDigimon = new List<string>();
