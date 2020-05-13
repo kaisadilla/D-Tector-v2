@@ -154,16 +154,17 @@
 	{
 	"number": 1,
 	"multiMap": false,
-	"worldSprite": "frontier_small",
-	"shuffle": true,
+	"worldSprite": "frontier_duskmon",
+	"lockTravel": true,
+	"showEyes": true,
 	"areas": [
 		{
 		"number": 0,
 		"map": 0,
-		"distance": 10000,
+		"distance": 15000,
 		"coords": {
-			"x": 0,
-			"y": 0
+			"x": 12,
+			"y": 18
 			}
 		}
 	],
@@ -320,16 +321,18 @@
 	{
 	"number": 3,
 	"multiMap": false,
-	"worldSprite": "frontier_small",
+	"worldSprite": "frontier_duskmon",
 	"bossMode": "Evolve",
+	"lockTravel": true,
+	"showEyes": true,
 	"areas": [
 		{
 		"number": 0,
 		"map": 0,
-		"distance": 20000,
+		"distance": 30000,
 		"coords": {
-			"x": 0,
-			"y": 0
+			"x": 12,
+			"y": 18
 			}
 		}
 	],
@@ -451,22 +454,42 @@
 	{
 	"number": 5,
 	"multiMap": false,
-	"worldSprite": "frontier_small",
-	"bossMode": "Evolve",
+	"worldSprite": "frontier_holy_angels",
+	"bossMode": "UseBurst",
+	"lockTravel": true,
 	"areas": [
 		{
 		"number": 0,
 		"map": 0,
+		"distance": 20000,
+		"coords": {
+			"x": 20,
+			"y": 26
+			}
+		},
+		{
+		"number": 1,
+		"map": 0,
+		"distance": 25000,
+		"coords": {
+			"x": 4,
+			"y": 22
+			}
+		},
+		{
+		"number": 2,
+		"map": 0,
 		"distance": 35000,
 		"coords": {
-			"x": 0,
-			"y": 0
+			"x": 15,
+			"y": 14
 			}
 		}
 	],
 	"bosses": [
-		"kerpymon (evil)",
-		"kerpymon (blast)"
+		"seraphimon",
+		"ophanimon",
+		"kerpymon (evil)"
 	],
 	"semibossMode": "Gank",
 	"semibosses": [
@@ -591,6 +614,8 @@
 	"multiMap": false,
 	"worldSprite": "frontier_moon",
 	"bossMode": "Evolve",
+	"lockTravel": true,
+	"showEyes": true,
 	"areas": [
 		{
 		"number": 0,

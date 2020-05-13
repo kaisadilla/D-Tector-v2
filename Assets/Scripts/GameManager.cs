@@ -48,6 +48,11 @@ namespace Kaisa.Digivice {
         public GameObject pRectangle;
         public GameObject pTextBox;
 
+        public bool IsEventActive => logicMgr.IsEventPending;
+        public bool isCharacterDefeated = false; //The 'F' thing.
+        public bool isCharacterWalking = false;
+        public bool showEyes => Database.Worlds[WorldMgr.CurrentWorld].showEyes;
+
         public void Awake() {
             if(SavedGame.CurrentlyLoadedFilePath == "") {
                 SceneManager.LoadScene("MainMenu");
@@ -97,12 +102,15 @@ namespace Kaisa.Digivice {
 
             AttemptUpdateGame();
 
-            //EnqueueAnimation(Animations.DisplayTurn("cyberdramon", 0, 3, "kerpymon (blast)", 2, 5, 0, false, 210, 0));
-
+            //EnqueueAnimation(Animations.EnemyEscapes("Duskmon", "Baihumon"));
             /*MutableCombatStats suka = Database.GetDigimon("devimon").GetBossStats(10);
             Debug.Log($"hp {suka.HP}, maxHP {suka.maxHP}, en {suka.EN}, cr {suka.CR}, ab {suka.AB}");
             MutableCombatStats suka2 = Database.GetDigimon("lanamon").GetBossStats(10);
             Debug.Log($"hp {suka2.HP}, maxHP {suka2.maxHP}, en {suka2.EN}, cr {suka2.CR}, ab {suka2.AB}");*/
+
+            //CompleteWorld(0);
+
+            //EnqueueAnimation(Animations.TransitionToMap1(PlayerChar));
         }
 
         public void CloseGame() {
@@ -215,7 +223,7 @@ namespace Kaisa.Digivice {
             }
         }
 
-        public GameChar CurrentPlayerChar => playerChar.currentChar;
+        public GameChar PlayerChar => playerChar.currentChar;
 
         /// <summary>
         /// Attempts to update the game if the version of the last update does not match the current version of the game.
@@ -223,7 +231,8 @@ namespace Kaisa.Digivice {
         /// </summary>
         public void AttemptUpdateGame() {
             if(SavedGame.PlayerChar != GameChar.none && SavedGame.LastUpdateVersion != Constants.GAME_VERSION) {
-                WorldMgr.SetupWorlds();
+                SavedGame.LastUpdateVersion = Constants.GAME_VERSION;
+                SavedGame.LostSpirits = new List<string>();
                 VisualDebug.WriteLine($"Updated game to version {Constants.GAME_VERSION}");
             }
         }
@@ -253,10 +262,7 @@ namespace Kaisa.Digivice {
         public bool IsInputLocked => inputMgr.inhibitInput;
         #endregion
         #region PlayerChar interaction
-        public CharState GetPlayerCharState() => playerChar.currentState;
-        public void SetPlayerCharState(CharState state) => playerChar.currentState = state;
         public int CurrentPlayerCharSprite => playerChar.CurrentSprite;
-        public void SetEventActive(bool triggerEvent) => playerChar.SetEventMode(triggerEvent);
         #endregion
 
         /// <summary>
@@ -465,23 +471,23 @@ namespace Kaisa.Digivice {
                     EnqueueAnimation(Animations.CharHappy());
                     break;
                 case Reward.UnlockDigicodeOwned:
-                    Database.TryGetCodeOfDigimon(objective, out string code);
+                    string code = Database.GetDigimon(objective).code;
                     EnqueueAnimation(Animations.RewardCode(objective, code));
                     EnqueueAnimation(Animations.CharHappy());
                     break;
                 case Reward.UnlockDigicodeNotOwned:
-                    Database.TryGetCodeOfDigimon(objective, out string code2);
+                    string code2 = Database.GetDigimon(objective).code;
                     EnqueueAnimation(Animations.RewardCode(objective, code2));
                     EnqueueAnimation(Animations.UnlockDigimon(objective));
                     EnqueueAnimation(Animations.CharHappy());
                     break;
                 case Reward.DataStorm:
-                    EnqueueAnimation(Animations.DigiStorm(spriteDB.GetCharacterSprites(CurrentPlayerChar), (bool)resultBefore));
+                    EnqueueAnimation(Animations.DataStorm(spriteDB.GetCharacterSprites(PlayerChar), (bool)resultBefore));
                     if((bool)resultBefore) {
-                        EnqueueAnimation(Animations.CharHappy());
+                        EnqueueAnimation(Animations.DisplayNewArea(WorldMgr.CurrentWorld, WorldMgr.CurrentArea, WorldMgr.CurrentDistance));
                     }
                     else {
-                        EnqueueAnimation(Animations.DisplayNewArea(WorldMgr.CurrentWorld, WorldMgr.CurrentArea, WorldMgr.CurrentDistance));
+                        EnqueueAnimation(Animations.CharHappy());
                     }
                     break;
                 case Reward.LoseSpiritPower10:
@@ -506,6 +512,16 @@ namespace Kaisa.Digivice {
                     break;
             }
         }
+
+        public void CompleteWorld(int world) {
+            if (world == 0) CompleteWorld0();
+        }
+        private void CompleteWorld0() {
+            WorldMgr.MoveToArea(1, 0);
+            isCharacterDefeated = true;
+            EnqueueAnimation(Animations.TransitionToMap1(PlayerChar));
+        }
+
         #endregion
     }
 }

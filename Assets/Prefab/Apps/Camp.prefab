@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4770717216813437013}
   - component: {fileID: 4770717216813437011}
   - component: {fileID: 4770717216813437010}
-  - component: {fileID: 2735846334371097597}
+  - component: {fileID: 4582998900487588494}
   m_Layer: 5
-  m_Name: Status
+  m_Name: Camp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2735846334371097597
+--- !u!114 &4582998900487588494
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -84,7 +84,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4770717216813437012}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d914916c7efc45e4cb084ad7bdf91563, type: 3}
+  m_Script: {fileID: 11500000, guid: e48ce8eefa57d264e85c2b41def3d77f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   screenDisplay: {fileID: 5165721769792542540}

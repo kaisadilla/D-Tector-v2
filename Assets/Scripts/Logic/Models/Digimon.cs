@@ -2,10 +2,11 @@
 
 namespace Kaisa.Digivice {
     public class Digimon {
+        public readonly bool disabled; //If this is true, the Digimon does not appear anywhere in the game.
+
         public readonly int number; //The number of the Digimon.
         public readonly int order; //An index used to order Digimons in the database.
         public readonly string name;
-        public readonly string[] localizedNames;
 
         public readonly Stage stage;
         public readonly SpiritType spiritType; //Used for Digimons of stage Spirit.
@@ -15,41 +16,36 @@ namespace Kaisa.Digivice {
         public readonly string evolution;
         public readonly string[] extraEvolutions;
 
-        public readonly Rarity rarity; //Rarity is used to calculate the chance of unlocking a Digimon.
-        public readonly bool disabled; //If this is true, the Digimon does not appear anywhere in the game.
-
         public readonly int baseLevel;
         public readonly CombatStats stats; //The regular stats used normally by the Digimon.
         //Stats used only to calculate the stats of a Digimon as a boss. At level 100, a boss Digimon's stats will be exactly those in bossStats.
         public readonly CombatStats bossStats;
 
-        public readonly bool exclusive; //If true, the Digimon can't appear in random battles.
         public readonly bool isPseudo; //If true, the Digimon can't be obtained and is not counted as a Digimon.
+        public readonly string code;
 
         public Digimon(
-                int number, int order, string name, string[] localizedNames, Stage stage, SpiritType spiritType,
-                string abilityName, Element element, string evolution, string[] extraEvolutions, Rarity rarity, bool disabled,
+                int number, int order, string name, Stage stage, SpiritType spiritType,
+                string abilityName, Element element, string evolution, string[] extraEvolutions, bool disabled,
                 int baseLevel, CombatStats stats, CombatStats bossStats,
-                bool exclusive, bool isPseudo)
+                bool isPseudo, string code)
         {
             this.number = number;
             this.order = order;
             this.name = name.ToLower();
-            this.localizedNames = localizedNames;
             this.stage = stage;
             this.spiritType = spiritType;
             this.abilityName = abilityName;
             this.element = element;
             this.evolution = evolution;
             this.extraEvolutions = extraEvolutions;
-            this.rarity = rarity;
             this.disabled = disabled;
             this.baseLevel = baseLevel;
             this.stats = stats;
             this.bossStats = bossStats;
             this.bossStats = this.bossStats?? stats; //If the database does not have boss stats for this Digimon, use regular stats instead.
-            this.exclusive = exclusive;
             this.isPseudo = isPseudo;
+            this.code = code;
         }
 
         /// <summary>
@@ -255,48 +251,6 @@ namespace Kaisa.Digivice {
 
             return evolChance;
         }
-        /// <summary>
-        /// Returns the chance that this Digimon will be rewarded.
-        /// </summary>
-        public float GetRewardChance() {
-            switch (rarity) {
-                case Rarity.Common: return 0.50f;
-                case Rarity.Rare: return 0.25f;
-                case Rarity.Epic: return 0.10f;
-                case Rarity.Legendary: return 0f;
-                case Rarity.Boss: return 0f;
-                case Rarity.none: return 0f;
-                default: return 0f;
-            }
-        }
-        /// <summary>
-        /// Returns the chance that this Digimon will be erased.
-        /// </summary>
-        public float GetEraseChance() {
-            if (name == Constants.DEFAULT_DIGIMON.ToLower()) return 0f; //You can't lose Numemon.
-            switch (rarity) {
-                case Rarity.Common: return 0.75f;
-                case Rarity.Rare: return 0.50f;
-                case Rarity.Epic: return 0.25f;
-                case Rarity.Legendary: return 0.10f;
-                case Rarity.Boss:
-                    if (stage == Stage.Spirit) {
-                        if(spiritType == SpiritType.Human || spiritType == SpiritType.Animal) return 0.50f;
-                        else return 0f;
-                    }
-                    else return 0.10f;
-                case Rarity.none: return 0f;
-                default: return 0f;
-            }
-        }
-        /// <summary>
-        /// Returns the rarity of this Digimon for this game. Usually, this is their base rarity, but for bosses already defeated, their rarity change to legendary.
-        /// Some other Digimon that sometimes are treated as bosses are also affected by this.
-        /// </summary>
-        public Rarity GetCurrentRarity() {
-            return rarity;
-        }
-
         private int GetStatAsSpiritBoss(int stat, int bossLevel) {
             float riggedStat;
 

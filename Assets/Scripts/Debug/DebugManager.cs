@@ -247,6 +247,18 @@ namespace Kaisa.Digivice {
                 }
                 return "Invalid parameters. Expected (int)distance";
             }
+            if (command.StartsWith("/setstepstonextevent")) {
+                string[] args = command.Split(' ');
+                if (args.Length == 2) {
+                    try {
+                        SavedGame.StepsToNextEvent = int.Parse(args[1]);
+                        return $"Steps to next event: {int.Parse(args[1])}";
+                    }
+                    catch {
+                    }
+                }
+                return "Invalid parameters. Expected (int)steps";
+            }
             if (command.StartsWith("/empowerenergy")) {
                 if (gm.logicMgr.loadedApp is App.Battle b) {
                     b.CheatEnergy();

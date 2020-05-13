@@ -9,7 +9,6 @@ namespace Kaisa.Digivice {
         private GameManager gm;
 
         public GameChar currentChar;
-        public CharState currentState = CharState.Idle;
 
         /// <summary>
         /// 0-3: idle, 4-5: walking, 6: happy, 7: sad, 8: event, 9: evolving
@@ -18,8 +17,6 @@ namespace Kaisa.Digivice {
 
         private bool usedAltSprite = false;
         private int lastValue = 0;
-        private Coroutine eventAnimation;
-        private SpriteBuilder eventLayer;
 
         public void Initialize(GameManager gm, GameChar currentChar) {
             this.gm = gm;
@@ -29,61 +26,39 @@ namespace Kaisa.Digivice {
         }
 
         public void UpdateSprite() {
-            switch(currentState) {
-                case CharState.Idle:
-                    if(usedAltSprite) {
-                        usedAltSprite = false;
-                        break;
-                    }
-                    usedAltSprite = true;
-                    if (Random.Range(0, 4) == 0) break;
-
-                    lastValue = Random.Range(0, 4);
-                    CurrentSprite = lastValue;
-                    break;
-                case CharState.Walking:
-                    if(usedAltSprite) {
-                        usedAltSprite = false;
-                        CurrentSprite = 4;
-                    }
-                    else {
-                        usedAltSprite = true;
-                        CurrentSprite = 5;
-                    }
-                    break;
-                case CharState.Event:
-                    if(usedAltSprite) {
-                        usedAltSprite = false;
-                        CurrentSprite = 0;
-                    }
-                    else {
-                        usedAltSprite = true;
-                        CurrentSprite = 8;
-                    }
-                    break;
+            if(gm.isCharacterDefeated) {
+                CurrentSprite = 7;
             }
-        }
-
-        public void SetEventMode(bool eventMode) {
-            if(eventMode) {
-                currentState = CharState.Event;
-                eventLayer = ScreenElement.BuildSprite("Event", gm.screenMgr.screenDisplay.transform).SetTransparent(true);
-                eventAnimation = StartCoroutine(PAEventEffects());
+            else if(gm.IsEventActive) {
+                if (usedAltSprite) {
+                    usedAltSprite = false;
+                    CurrentSprite = 0;
+                }
+                else {
+                    usedAltSprite = true;
+                    CurrentSprite = 8;
+                }
+            }
+            else if (gm.isCharacterWalking) {
+                if (usedAltSprite) {
+                    usedAltSprite = false;
+                    CurrentSprite = 4;
+                }
+                else {
+                    usedAltSprite = true;
+                    CurrentSprite = 5;
+                }
             }
             else {
-                currentState = CharState.Idle;
-                if (eventAnimation != null) StopCoroutine(eventAnimation);
-                eventLayer.Dispose();
-            }
-        }
+                if (usedAltSprite) {
+                    usedAltSprite = false;
+                    return;
+                }
+                usedAltSprite = true;
+                if (Random.Range(0, 4) == 0) return;
 
-        private IEnumerator PAEventEffects() {
-            eventLayer.transform.SetAsFirstSibling();
-            while (true) {
-                eventLayer.SetSprite(gm.spriteDB.triggerEvent);
-                yield return new WaitForSeconds(0.2f);
-                eventLayer.SetSprite(gm.spriteDB.emptySprite);
-                yield return new WaitForSeconds(0.2f);
+                lastValue = Random.Range(0, 4);
+                CurrentSprite = lastValue;
             }
         }
     }
@@ -98,11 +73,5 @@ namespace Kaisa.Digivice {
         JP,
         Tommy,
         Koichi
-    }
-
-    public enum CharState {
-        Idle,
-        Walking,
-        Event
     }
 }

@@ -27,18 +27,19 @@ namespace Kaisa.Digivice {
         public bool IsAppLoaded => loadedApp != null;
         public bool ShakeDisabled() {
             if (loadedApp != null && !(loadedApp is App.Status)) return true;
+            else if (gm.isCharacterDefeated) return true;
             return false;
         }
 
         //Trigger event.
-        private bool isEventPending = false;
+        public bool IsEventPending { get; private set; } = false;
         public delegate void TriggerEvent();
         public TriggerEvent triggerEvent;
 
         #region Input Management
         public void InputA() {
             if (currentScreen == Screen.Character) {
-                if (isEventPending) {
+                if (IsEventPending) {
                     audioMgr.PlayButtonA();
                     triggerEvent();
                     return;
@@ -47,7 +48,14 @@ namespace Kaisa.Digivice {
                 OpenGameMenu();
             }
             else if (currentScreen == Screen.MainMenu) {
-                if (currentMainMenu == MainMenu.Map) {
+                if (currentMainMenu == MainMenu.Camp) {
+                    audioMgr.PlayButtonA();
+                    OpenApp(gm.pAppCamp);
+                }
+                else if (gm.isCharacterDefeated) {
+                    audioMgr.PlayButtonB();
+                }
+                else if (currentMainMenu == MainMenu.Map) {
                     audioMgr.PlayButtonA();
                     OpenApp(gm.pAppMap);
                 }
@@ -111,7 +119,7 @@ namespace Kaisa.Digivice {
         }
         public void InputB() {
             if (currentScreen == Screen.Character) {
-                if (isEventPending) {
+                if (IsEventPending) {
                     audioMgr.PlayButtonB();
                     triggerEvent();
                     return;
@@ -148,7 +156,7 @@ namespace Kaisa.Digivice {
         }
         public void InputLeft() {
             if (currentScreen == Screen.App) {
-                if (isEventPending) {
+                if (IsEventPending) {
                     audioMgr.PlayButtonA();
                     triggerEvent();
                     return;
@@ -181,7 +189,7 @@ namespace Kaisa.Digivice {
             }
         }
         public void InputRight() {
-            if (isEventPending) {
+            if (IsEventPending) {
                 audioMgr.PlayButtonA();
                 triggerEvent();
                 return;
@@ -245,8 +253,7 @@ namespace Kaisa.Digivice {
             if (loadedApp == null) currentScreen = Screen.Character;
 
             audioMgr.PlaySound(audioMgr.triggerEvent);
-            gm.SetEventActive(true);
-            isEventPending = true;
+            IsEventPending = true;
 
             if(UnityEngine.Random.Range(0f, 1f) < 0.85f) {
                 triggerEvent = CallRandomBattle;
@@ -257,21 +264,18 @@ namespace Kaisa.Digivice {
 
             triggerEvent += () => {
                 SavedGame.SavedEvent = 0;
-                isEventPending = false;
-                gm.SetEventActive(false);
+                IsEventPending = false;
             };
         }
         public void EnqueueBossEvent() {
             if (loadedApp == null) currentScreen = Screen.Character;
 
             audioMgr.PlaySound(audioMgr.triggerEvent);
-            gm.SetEventActive(true);
-            isEventPending = true;
+            IsEventPending = true;
             triggerEvent = CallBossBattle;
             triggerEvent += () => {
                 SavedGame.SavedEvent = 0;
-                isEventPending = false;
-                gm.SetEventActive(false);
+                IsEventPending = false;
             };
         }
 
@@ -329,7 +333,7 @@ namespace Kaisa.Digivice {
                 }
             }
 
-            if (isEventPending) currentScreen = Screen.Character;
+            if (IsEventPending) currentScreen = Screen.Character;
             else currentScreen = newScreen;
 
             loadedApp.Dispose();
@@ -667,7 +671,7 @@ namespace Kaisa.Digivice {
                     break;
                 case Reward.DataStorm:
                     bool moved = ApplyDataStorm(out int newArea);
-                    resultBefore = moved;
+                    resultBefore = moved; //resultBefore is a boolean true if the player was moved.
                     resultAfter = newArea;
                     break;
                 case Reward.LoseSpiritPower10:
@@ -729,7 +733,7 @@ namespace Kaisa.Digivice {
         }
         private void TriggerDataStorm() {
             bool move = ApplyDataStorm(out _);
-            gm.EnqueueAnimation(Animations.DigiStorm(gm.spriteDB.GetCharacterSprites(gm.CurrentPlayerChar), move));
+            gm.EnqueueAnimation(Animations.DataStorm(gm.spriteDB.GetCharacterSprites(gm.PlayerChar), move));
         }
         /// <summary>
         /// Triggers a Datastorm, and returns true if the player has been moved. It outputs the new area.

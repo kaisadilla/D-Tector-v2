@@ -15,6 +15,10 @@ namespace Kaisa.Digivice {
         public Transform animParent;
 
         private Queue<IEnumerator> animationQueue = new Queue<IEnumerator>();
+
+        private SpriteBuilder defeatedLayer;
+        private SpriteBuilder eventLayer;
+        private SpriteBuilder eyesLayer;
         public bool PlayingAnimations { get; private set; }
 
         public void Initialize(GameManager gm) {
@@ -45,8 +49,45 @@ namespace Kaisa.Digivice {
 
         private void Start() {
             //InvokeRepeating("UpdateDisplay", 0f, 0.05f);
+            defeatedLayer = ScreenElement.BuildSprite("Defeated", RootParent.transform).SetSize(6, 7)
+                .SetPosition(1, 1).SetTransparent(true).SetActive(false);
+            eventLayer = ScreenElement.BuildSprite("Event", RootParent.transform).SetTransparent(true).SetActive(false);
+            eyesLayer = ScreenElement.BuildSprite("Eyes", RootParent.transform).SetTransparent(true).SetActive(false);
+
+            StartCoroutine(PAFlashDefeatedEffect());
+            StartCoroutine(PAFlashEventEffect());
+            StartCoroutine(PAFlashEyesEffect());
+
             StartCoroutine(ConsumeQueue());
         }
+        private IEnumerator PAFlashDefeatedEffect() {
+            defeatedLayer.transform.SetAsFirstSibling();
+            while (true) {
+                defeatedLayer.SetSprite(spriteDB.defeatedSymbol);
+                yield return new WaitForSeconds(0.5f);
+                defeatedLayer.SetSprite(spriteDB.emptySprite);
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
+        private IEnumerator PAFlashEventEffect() {
+            eventLayer.transform.SetAsFirstSibling();
+            while (true) {
+                eventLayer.SetSprite(spriteDB.triggerEvent);
+                yield return new WaitForSeconds(0.2f);
+                eventLayer.SetSprite(spriteDB.emptySprite);
+                yield return new WaitForSeconds(0.2f);
+            }
+        }
+        private IEnumerator PAFlashEyesEffect() {
+            eyesLayer.transform.SetAsFirstSibling();
+            while (true) {
+                eyesLayer.SetSprite(spriteDB.eyes[0]);
+                yield return new WaitForSeconds(Random.Range(0.25f, 1f));
+                eyesLayer.SetSprite(spriteDB.eyes[1]);
+                yield return new WaitForSeconds(Random.Range(0.25f, 1f));
+            }
+        }
+
         private IEnumerator ConsumeQueue() {
             PlayingAnimations = true;
             while (animationQueue.Count > 0) {
@@ -59,21 +100,6 @@ namespace Kaisa.Digivice {
             PlayingAnimations = false;
             gm.CheckPendingEvents();
         }
-        /*private IEnumerator ConsumeQueue() {
-            while (true) {
-                if(animationQueue.Count > 0) {
-                    gm.LockInput();
-                    for(int i = 0; i < animationQueue.Count; i++) {
-                        animParent = gm.BuildContainer("Anim Parent", ScreenParent, 32, 32, transparent: false).transform;
-                        yield return animationQueue.Dequeue();
-                        Destroy(animParent.gameObject);
-                    }
-                    gm.UnlockInput();
-                }
-                yield return new WaitForEndOfFrame();
-            }
-        }*/
-
         private void ClearAnimParent() {
             foreach (Transform child in animParent) Destroy(child.gameObject);
         }
@@ -88,6 +114,24 @@ namespace Kaisa.Digivice {
                     Destroy(child.gameObject);
                 }
             }
+
+            if (logicMgr.currentScreen == Screen.Character) {
+                int showLayer = 0; //0: none, 1: defeated, 2: event, 3: eyes.
+                if (gm.isCharacterDefeated) showLayer = 1;
+                else if (gm.IsEventActive) showLayer = 2;
+                else if (gm.showEyes) showLayer = 3;
+                if(showLayer != 0) {
+                    defeatedLayer.SetActive(showLayer == 1);
+                    eventLayer.SetActive(showLayer == 2);
+                    eyesLayer.SetActive(showLayer == 3);
+                }
+            }
+            else {
+                defeatedLayer.SetActive(false);
+                eventLayer.SetActive(false);
+                eyesLayer.SetActive(false);
+            }
+
             int index;
             Sprite sprite;
             switch (logicMgr.currentScreen) {

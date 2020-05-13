@@ -291,9 +291,8 @@ namespace Kaisa.Digivice.App {
                 }
                 else if (pageIndex == 2) {
                     screenDisplay.sprite = gm.spriteDB.database_pages[2];
-                    Database.TryGetCodeOfDigimon(pageDigimon.name, out string code);
                     ScreenElement.BuildTextBox("Code", screenDisplay.transform, DFont.Big)
-                        .SetText(code).SetSize(30, 8).SetPosition(2, 23).SetAlignment(TextAnchor.UpperRight);
+                        .SetText(pageDigimon.code).SetSize(30, 8).SetPosition(2, 23).SetAlignment(TextAnchor.UpperRight);
                 }
             }
             else if (currentScreen == ScreenDatabase.DDockList) {

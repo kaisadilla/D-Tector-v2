@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Kaisa.Digivice.Extensions;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,8 +8,7 @@ namespace Kaisa.Digivice {
     public static class Database {
         private static bool databasesLoaded = false;
         public static Digimon[] Digimons { get; private set; }
-        public static Dictionary<string, string> DigiCodes { get; private set; }
-        //public static int[] AreasPerMap; //Stores the number of areas that there are in each map.
+        public static DigimonRarity[] Rarities { get; private set; }
         public static World[] Worlds { get; private set; }
         public static Dictionary<GameChar, string> PlayerSpirit = new Dictionary<GameChar, string>();
 
@@ -20,7 +20,7 @@ namespace Kaisa.Digivice {
         public static void LoadDatabases() {
             if (databasesLoaded) return;
             Digimons = LoadDigimonFromFile();
-            DigiCodes = LoadDigicodesFromFile();
+            Rarities = LoadRaritiesFromFile();
             Worlds = LoadWorldsFromFile();
 
             SetupPlayerSpirit();
@@ -47,9 +47,9 @@ namespace Kaisa.Digivice {
             return tempList.ToArray();
         }
 
-        private static Dictionary<string, string> LoadDigicodesFromFile() {
-            string digiCodes = ((TextAsset)Resources.Load("codeDB")).text;
-            return JsonConvert.DeserializeObject<Dictionary<string, string>>(digiCodes);
+        private static DigimonRarity[] LoadRaritiesFromFile() {
+            string rarities = ((TextAsset)Resources.Load("frontier_rarities")).text;
+            return JsonConvert.DeserializeObject<DigimonRarity[]>(rarities);
         }
 
         private static World[] LoadWorldsFromFile() {
@@ -95,7 +95,7 @@ namespace Kaisa.Digivice {
         /// </summary>
         /// <param name="playerLevel">The level of the player.</param>
         public static Digimon GetRandomDigimonForBattle(int playerLevel) {
-            List<Digimon> candidates = new List<Digimon>();
+            List<string> candidates = new List<string>();
             List<float> weightList = new List<float>();
             float totalWeight = 0f;
 
@@ -108,44 +108,48 @@ namespace Kaisa.Digivice {
             else threshold = 40;
 
             //Populate the 'candidates' list with all eligible digimon, and store their individual weights and the total weight.
-            foreach (Digimon d in Digimons) {
-                if (!d.disabled && d.GetCurrentRarity() != Rarity.Boss
-                        && d.baseLevel >= (playerLevel - threshold)
-                        && d.baseLevel <= (playerLevel + threshold))
-                {
-                    if (d.rarity == Rarity.Boss || d.rarity == Rarity.none || d.exclusive) continue; //Ignore bosses and 'none' rarity.
+            foreach (DigimonRarity r in Rarities) {
+                if(r.EligibleForBattle) {
+                    Digimon thisDigimon = GetDigimon(r.digimon);
+                    if(thisDigimon != null || thisDigimon.disabled) {
+                        if (thisDigimon.baseLevel > (playerLevel - threshold) //The digimon's level is higher than the minimum.
+                            && thisDigimon.baseLevel < (playerLevel + threshold)) //And lower than the maximum.
+                        {
+                            candidates.Add(r.digimon);
 
-                    candidates.Add(d);
+                            float baseWeight = 0f;
+                            switch (r.Rarity) {
+                                case Rarity.Common:
+                                    baseWeight = 10f;
+                                    break;
+                                case Rarity.Rare:
+                                    baseWeight = 6f;
+                                    break;
+                                case Rarity.Epic:
+                                    baseWeight = 3f;
+                                    break;
+                                case Rarity.Legendary:
+                                    baseWeight = 1f;
+                                    break;
+                            }
 
-                    float baseWeight = 0f;
-                    switch(d.rarity) {
-                        case Rarity.Common:
-                            baseWeight = 10f;
-                            break;
-                        case Rarity.Rare:
-                            baseWeight = 6f;
-                            break;
-                        case Rarity.Epic:
-                            baseWeight = 3f;
-                            break;
-                        case Rarity.Legendary:
-                            baseWeight = 1f;
-                            break;
+                            float thisWeight = (1.1f - (Mathf.Abs(playerLevel - thisDigimon.baseLevel) / (float)threshold)) * baseWeight;
+                            weightList.Add(thisWeight);
+                            totalWeight += thisWeight;
+                        }
                     }
-
-
-                    float thisWeight = (1.1f - (Mathf.Abs(playerLevel - d.baseLevel) / (float)threshold)) * baseWeight;
-                    weightList.Add(thisWeight);
-                    totalWeight += thisWeight;
                 }
             }
 
             float fChosen = Random.Range(0, totalWeight);
             float weightSum = 0f;
+
+            VisualDebug.WriteLine($"Weighted Digimon: candidates found: {candidates.Count} fChosen: {fChosen}, totalWeight: {totalWeight}");
+
             for (int i = 0; i < weightList.Count; i++) {
                 weightSum += weightList[i];
                 if (weightSum > fChosen) {
-                    return candidates[i];
+                    return GetDigimon(candidates[i]);
                 }
             }
 
@@ -157,21 +161,65 @@ namespace Kaisa.Digivice {
         /// <returns></returns>
         public static Digimon GetRandomDigimonOfRarity(Rarity rarity, int maximumLevel) {
             List<Digimon> candidates = new List<Digimon>();
-            foreach(Digimon d in Digimons) {
-                if(d.rarity == rarity && d.baseLevel <= maximumLevel) {
-                    candidates.Add(d);
+
+            foreach (DigimonRarity r in Rarities) {
+                if(r.Rarity == rarity) {
+                    Digimon digimon = GetDigimon(r.digimon);
+                    if (digimon.baseLevel <= maximumLevel) {
+                        candidates.Add(digimon);
+                    }
                 }
             }
-            return candidates[Random.Range(0, candidates.Count)];
+
+            return candidates.GetRandomElement();
         }
 
-        public static bool TryGetDigimonFromCode(string code, out string digimon) {
-            if (DigiCodes.TryGetValue(code.ToLower(), out digimon)) {
-                return true;
+        /// <summary>
+        /// Returns the chance that this Digimon will be erased, based on its rarity.
+        /// </summary>
+        public static float GetEraseChance(string digimon) {
+            //You can't lose Default digimons.
+            if (digimon == Constants.DEFAULT_DIGIMON.ToLower()
+                || digimon == Constants.DEFAULT_SPIRIT_DIGIMON.ToLower()) 
+            {
+                return 0f; 
             }
-            return false;
+
+            Rarity rarity = GetDigimonRarity(digimon);
+            switch (rarity) {
+                case Rarity.Common: return 0.75f;
+                case Rarity.Rare: return 0.50f;
+                case Rarity.Epic: return 0.25f;
+                case Rarity.Legendary: return 0.10f;
+                case Rarity.Boss:
+                    Digimon d = GetDigimon(digimon);
+                    if (d.stage == Stage.Spirit) {
+                        if (d.spiritType == SpiritType.Human || d.spiritType == SpiritType.Animal) return 0.50f;
+                        else return 0f;
+                    }
+                    else return 0.10f;
+                case Rarity.none: return 0f;
+                default: return 0f;
+            }
         }
 
+        public static Rarity GetDigimonRarity(string digimon) {
+            foreach(DigimonRarity r in Rarities) {
+                if (r.digimon == digimon) return r.Rarity;
+            }
+            return Rarity.none;
+        }
+        
+        public static Digimon GetDigimonFromCode(string code) {
+            code = code.ToLower();
+            foreach(Digimon d in Digimons) {
+                if(d.code == code) {
+                    return d;
+                }
+            }
+            return null;
+        }
+        /*
         public static bool TryGetCodeOfDigimon(string digimon, out string code) {
             foreach(KeyValuePair<string, string> kv in DigiCodes) {
                 if (kv.Value == digimon) {
@@ -181,6 +229,6 @@ namespace Kaisa.Digivice {
             }
             code = "";
             return false;
-        }
+        }*/
     }
 }

@@ -1662,6 +1662,9 @@ MonoBehaviour:
     type: 3}
   triggerEvent: {fileID: 5443238823122320650, guid: 1a7d672ab33564f4ea3128a67ae22fc2,
     type: 3}
+  eyes:
+  - {fileID: -3756057528127506106, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
+  - {fileID: 539338274146175859, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
   loading: {fileID: -1056871815479138359, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
     type: 3}
   loadingComplete: {fileID: 3614090101385040326, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
@@ -1686,6 +1689,8 @@ MonoBehaviour:
   digistorm:
   - {fileID: -8866480246244444352, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
   - {fileID: 618133582103273362, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
+  defeatedSymbol: {fileID: -2790771683064942117, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
+    type: 3}
   gameStart_clouds: {fileID: 4673324434325851023, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
     type: 3}
   gameStart_trailmon: {fileID: 6692065743086966953, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
@@ -1800,6 +1805,9 @@ MonoBehaviour:
     type: 3}
   digits_error: {fileID: 3538272089866743331, guid: 9808cb78e43dade47a5fdc1075f4429c,
     type: 3}
+  camp:
+  - {fileID: -9105503331849268035, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
+  - {fileID: -2145390362341637044, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
   givePower: {fileID: -8146644178066756174, guid: 1a7d672ab33564f4ea3128a67ae22fc2,
     type: 3}
   givePowerInverted: {fileID: 2004657967401344756, guid: 1a7d672ab33564f4ea3128a67ae22fc2,
@@ -4256,7 +4264,8 @@ MonoBehaviour:
     type: 3}
   pAppDigits: {fileID: 4770717216813437012, guid: 14fbdbaef7da98c48bc6d9aff7c5d7e5,
     type: 3}
-  pAppCamp: {fileID: 0}
+  pAppCamp: {fileID: 4770717216813437012, guid: 77bbd6787e74ede449594244547456ff,
+    type: 3}
   pAppConnect: {fileID: 0}
   pAppFinder: {fileID: 4770717216813437012, guid: 81b033e8835d4aa4b87df3184c8ee688,
     type: 3}
@@ -4273,6 +4282,8 @@ MonoBehaviour:
     type: 3}
   pRectangle: {fileID: 1832133657182340, guid: a3a40f7fa3c2aee4fbbaf6089bb535b6, type: 3}
   pTextBox: {fileID: 1832133657182340, guid: 4250d6ebd616fb9419b683c8804f4a42, type: 3}
+  isCharacterDefeated: 0
+  isCharacterWalking: 0
 --- !u!4 &944781340
 Transform:
   m_ObjectHideFlags: 0
@@ -6225,7 +6236,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentChar: 0
-  currentState: 0
 --- !u!4 &1523415255
 Transform:
   m_ObjectHideFlags: 0

@@ -14,6 +14,7 @@ namespace Kaisa.Digivice {
         public readonly Area[] areas;
         public readonly string[] bosses;
         public readonly BossMode bossMode;
+        public readonly bool showEyes;
         public readonly SemibossMode semibossMode;
         public readonly string[][] semibosses; //An array of groups of semibosses (arrays of semibosses).
 
@@ -21,7 +22,7 @@ namespace Kaisa.Digivice {
         public int? SemibossGroupsCount => semibosses?.Length;
 
         public World(int number, bool multiMap, string worldSprite, bool shuffle, bool removePlayer, bool lockTravel,
-                Area[] areas, string[] bosses, BossMode bossMode, SemibossMode semibossMode,
+                Area[] areas, string[] bosses, BossMode bossMode, bool showEyes, SemibossMode semibossMode,
                 string[][] semibosses)
         {
             this.number = number;
@@ -33,6 +34,7 @@ namespace Kaisa.Digivice {
             this.areas = areas;
             this.bosses = bosses;
             this.bossMode = bossMode;
+            this.showEyes = showEyes;
             this.semibossMode = semibossMode;
             this.semibosses = semibosses;
         }
@@ -71,7 +73,8 @@ namespace Kaisa.Digivice {
     }*/
 
     public enum BossMode {
-        Evolve
+        Evolve,
+        UseBurst
     }
 
     public enum SemibossMode {

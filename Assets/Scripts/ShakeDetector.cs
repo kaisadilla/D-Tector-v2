@@ -31,7 +31,7 @@ namespace Kaisa.Digivice {
         }
 
         void Update() {
-            if (gm.GetPlayerCharState() == CharState.Event) return;
+            if (gm.IsEventActive) return;
             if (gm.logicMgr.ShakeDisabled()) return;
             Vector3 acceleration = Input.acceleration;
             lowPassValue = Vector3.Lerp(lowPassValue, acceleration, lowPassFilterFactor);
@@ -49,7 +49,7 @@ namespace Kaisa.Digivice {
                 nextStep = 0;
                 steps++;
                 gm.TakeAStep();
-                gm.SetPlayerCharState(CharState.Walking);
+                gm.isCharacterWalking = true;
 
                 //sm.PlaySound_ButtonA();
             }
@@ -59,7 +59,7 @@ namespace Kaisa.Digivice {
                     return;
                 }
                 timeIdle = 0;
-                gm.SetPlayerCharState(CharState.Idle);
+                gm.isCharacterWalking = false;
             }
         }
     }

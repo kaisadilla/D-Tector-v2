@@ -1,0 +1,2697 @@
+[
+  {
+    "digimon": "agumon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "agumon (primal)",
+    "rarity": 3,
+    "exclusive": true
+  },
+  {
+    "digimon": "gabumon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "biyomon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "tentomon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "palmon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "gomamon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "patamon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "kuwagamon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "greymon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "shellmon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "garurumon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "seadramon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "monochromon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "birdramon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "meramon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "kabuterimon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "andromon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "togemon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "numemon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "monzaemon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "ikkakumon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "unimon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "leomon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "ogremon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "devimon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "frigimon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "mojyamon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "sukamon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "bakemon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "elecmon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "angemon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "whamon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "drimogemon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "etemon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "gazimon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "pagumon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "skullgreymon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "kokatorimon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "tyrannomon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "piximon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "datamon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "metalgreymon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "demidevimon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "weregarurumon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "digitamamon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "vegiemon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "myotismon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "vademon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "gekomon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "otamamon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "shogungekomon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "garudamon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "flymon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "gatomon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "nanimon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "devidramon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "dokugumon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "mammothmon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "gesomon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "raremon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "skullmeramon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "wizardmon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "pumpkinmon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "gotsumon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "lillymon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "phantomon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "darktyrannomon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "gizamon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "zudomon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "megaseadramon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "angewomon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "tuskmon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "snimon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "megakabuterimon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "magnaangemon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "venommyotismon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "wargreymon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "metalgarurumon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "salamon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "parrotmon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "chuumon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "metalseadramon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "machinedramon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "piedmon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "puppetmon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "scorpiomon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "divermon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "kiwimon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "mushroomon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "blossomon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "floramon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "deramon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "cherrymon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "garbagemon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "metaletemon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "saberleomon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "redvegiemon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "mekanorimon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "tankmon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "hagurumon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "warumonzaemon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "ladydevimon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "vilemon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "apocalymon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "kunemon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "musyamon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "kimeramon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "rockmon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "tortomon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "starmon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "triceramon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "okuwamon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "herculeskabuterimon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "dolphmon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "coelamon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "octomon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "marinedevimon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "pukumon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "candlemon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "apemon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "kokuwamon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "icedevimon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "deputymon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "plesiomon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "bigmamemon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "megadramon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "iceleomon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "bluemeramon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "magnadramon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "ebidramon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "gorillamon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "minotarumon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "roachmon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "asuramon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "jagamon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "crabmon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "syakomon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "dragomon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "marineangemon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "tapirmon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "skullmammothmon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "boltmon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "mamemon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "metalmamemon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "giromon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "extyrannomon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "deltamon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "cyclonemon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "veedramon",
+    "rarity": 3,
+    "exclusive": true
+  },
+  {
+    "digimon": "veedramon (black)",
+    "rarity": 3,
+    "exclusive": true
+  },
+  {
+    "digimon": "woodmon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "aeroveedramon",
+    "rarity": 3,
+    "exclusive": true
+  },
+  {
+    "digimon": "fugamon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "junglemojyamon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "phoenixmon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "gryphonmon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "toyagumon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "betamon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "clockmon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "guardromon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "knightmon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "penguinmon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "dokunemon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "platinumsukamon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "psychemon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "gururumon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "morishellmon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "tsukaimon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "ninjamon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "modokibetamon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "saberdramon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "snowagumon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "snowagumon (primal)",
+    "rarity": 3,
+    "exclusive": true
+  },
+  {
+    "digimon": "alraumon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "icemon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "airdramon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "metaltyrannomon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "akatorimon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "mudfrigimon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "geremon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "vermilimon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "meteormon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "waruseadramon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "jijimon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "babamon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "clearagumon",
+    "rarity": 3,
+    "exclusive": true
+  },
+  {
+    "digimon": "flarelizardmon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "goburimon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "thundermon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "shellnumemon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "muchomon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "snowgoburimon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "keramon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "yanmamon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "shamanmon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "goldramon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "sandyanmamon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "shimaunimon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "soulmon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "rosemon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "rosemon (burst)",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "mastertyrannomon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "darklizardmon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "hyogamon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "piddomon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "brachiomon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "gigadramon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "tekkamon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "cyberdramon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "skullsatamon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "millenniummon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "kurisarimon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "daemon (cloaked)",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "daemon (ultimate)",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "kingetemon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "veemon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "hawkmon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "armadillomon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "wormmon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "flamedramon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "raidramon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "magnamon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "sethmon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "yasyamon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "honeybeemon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "depthmon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "sagittarimon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "gargoylemon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "kangarumon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "allomon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "rinkmon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "peacockmon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "halsemon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "shurimon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "flybeemon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "orcamon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "moosemon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "harpymon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "toucanmon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "boarmon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "sepikmon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "elephantmon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "pteramon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "frogmon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "digmon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "submarimon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "sheepmon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "seahomon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "chamelemon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "shadramon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "togemogumon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "kongoumon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "aurumon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "nohemon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "searchmon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "archelomon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "bullmon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "quetzalmon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "bucchiemon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "bucchiemon (green)",
+    "rarity": 3,
+    "exclusive": true
+  },
+  {
+    "digimon": "baromon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "stegomon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "rhinomon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "pipismon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "ponchomon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "mothmon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "mantaraymon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "pegasusmon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "manbomon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "prairiemon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "lynxmon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "rabbitmon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "maildramon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "swanmon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "kabukimon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "butterflymon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "tylomon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "oryxmon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "nefertimon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "opossumon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "exveemon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "stingmon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "aquilamon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "ankylomon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "paildramon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "dinobeemon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "silphymon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "shakkoumon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "imperialdramon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "imperialdramon (fighter)",
+    "rarity": 0,
+    "exclusive": true
+  },
+  {
+    "digimon": "imperialdramon (paladin)",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "grankuwagamon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "valkyrimon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "vikemon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "seraphimon",
+    "rarity": 2,
+    "exclusive": true
+  },
+  {
+    "digimon": "blackwargreymon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "ghoulmon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "eaglemon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "lampmon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "ebemon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "zanbamon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "hiandromon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "devitamamon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "pharaohmon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "zhuqiaomon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "ebonwumon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "azulongmon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "baihumon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "arukenimon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "mummymon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "mokumon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "tsumemon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "infermon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "diaboromon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "omnimon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "omnimon (paladin)",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "lopmon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "wendigomon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "antylamon (virus)",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "antylamon (deva)",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "kerpymon (good)",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "kerpymon (evil)",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "kerpymon (blast)",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "terriermon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "gargomon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "rapidmon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "demimeramon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "malomyotismon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "armageddemon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "calumon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "guilmon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "renamon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "growlmon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "kyubimon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "wargrowlmon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "taomon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "gallantmon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "gallantmon (crimson)",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "megagargomon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "sakuyamon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "impmon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "beelzemon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "beelzemon (blast)",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "mihiramon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "sandiramon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "sinduramon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "pajiramon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "vajramon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "indramon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "kumbhiramon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "vikaralamon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "makuramon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "caturamon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "majiramon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "doggymon",
+    "rarity": 1,
+    "exclusive": true
+  },
+  {
+    "digimon": "orochimon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "justimon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "labramon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "seasarmon",
+    "rarity": 3,
+    "exclusive": true
+  },
+  {
+    "digimon": "mephistomon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "gulfmon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "karatenmon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "megidramon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "monodramon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "dobermon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "ophanimon",
+    "rarity": 2,
+    "exclusive": true
+  },
+  {
+    "digimon": "zeedmillenniummon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "turuiemon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "tinmon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "blackgatomon",
+    "rarity": 3,
+    "exclusive": true
+  },
+  {
+    "digimon": "superstarmon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "solarmon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "bombernanimon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "princemamemon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "blackgrowlmon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "blackwargrowlmon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "chaosgallantmon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "cerberusmon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "anubismon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "volcamon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "skullscorpiomon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "youkomon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "doumon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "pandamon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "kuzuhamon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "blackgargomon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "blackrapidmon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "blackmegagargomon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "grapleomon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "strikedramon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "reapermon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "locomon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "granlocomon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "parasimon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "agunimon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "burninggreymon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "lobomon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "kendogarurumon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "beetlemon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "metalkabuterimon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "kazemon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "zephyrmon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "kumamon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "korikakumon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "duskmon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "velgemon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "grumblemon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "gigasmon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "arbormon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "petaldramon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "mercurymon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "sephirothmon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "lanamon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "calmaramon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "neemon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "bokomon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "lucemon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "lucemon (chaos)",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "lucemon (satan)",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "kaisergreymon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "magnagarurumon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "aldamon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "beowolfmon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "susanoomon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "loweemon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "kaiserleomon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "burgermon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "ebiburgermon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "ancientgreymon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "ancientgarurumon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "ancientbeetlemon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "ancientirismon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "ancientmegatheriummon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "ancientvolcamon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "ancienttrojamon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "ancientmermaimon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "ancientwisemon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "ancientsphinxmon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "beastmon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "blimpmon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "boogiemon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "phelesmon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "salamandermon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "mikemon",
+    "rarity": 3,
+    "exclusive": true
+  },
+  {
+    "digimon": "flamewizardmon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "jewelbeemon",
+    "rarity": 3,
+    "exclusive": true
+  },
+  {
+    "digimon": "thunderbirdmon",
+    "rarity": 0,
+    "exclusive": false
+  },
+  {
+    "digimon": "fangmon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "kogamon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "monmon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "kotemon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "bearmon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "hookmon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "dinohyumon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "grizzlymon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "bulbmon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "raidenmon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "raijinmon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "suijinmon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "fujinmon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "flamemon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "kyukimon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "slashangemon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "assaultmon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "cannondramon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "marsmon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "blackkingnumemon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "darcmon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "hippogriffomon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "murmukusmon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "ornismon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "arkadimon (rookie)",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "arkadimon (champion)",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "arkadimon (perfect)",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "arkadimon (mega)",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "strabimon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "pilevolcamon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "ulforceveedramon",
+    "rarity": 3,
+    "exclusive": true
+  },
+  {
+    "digimon": "witchmon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "neodevimon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "lilithmon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "rhinokabuterimon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "jetsilphymon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "daipenmon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "rhihimon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "betsumon",
+    "rarity": 3,
+    "exclusive": true
+  },
+  {
+    "digimon": "dynasmon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "lordknightmon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "alphamon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "metalphantomon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "metalpiranimon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "wisemon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "mistymon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "gladimon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "kenkimon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "mermaidmon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "leviamon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "barbamon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "shadowseraphimon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "huanglongmon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "citramon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "darksuperstarmon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "blackgarurumon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "valdurmon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "geogreymon",
+    "rarity": 3,
+    "exclusive": true
+  },
+  {
+    "digimon": "rizegreymon",
+    "rarity": 3,
+    "exclusive": true
+  },
+  {
+    "digimon": "shinegreymon",
+    "rarity": 3,
+    "exclusive": true
+  },
+  {
+    "digimon": "shinegreymon (burst)",
+    "rarity": 3,
+    "exclusive": true
+  },
+  {
+    "digimon": "gaogamon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "machgaogamon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "miragegaogamon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "miragegaogamon (burst)",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "sunflowmon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "lilamon",
+    "rarity": 3,
+    "exclusive": false
+  },
+  {
+    "digimon": "peckmon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "crowmon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "ravemon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "ravemon (burst)",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "kudamon",
+    "rarity": 3,
+    "exclusive": true
+  },
+  {
+    "digimon": "reppamon",
+    "rarity": 3,
+    "exclusive": true
+  },
+  {
+    "digimon": "chirinmon",
+    "rarity": 3,
+    "exclusive": true
+  },
+  {
+    "digimon": "kentaurosmon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "kentaurosmon (burst)",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "liollmon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "liamon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "loaderleomon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "bancholeomon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "chaosdramon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "tankdramon",
+    "rarity": 2,
+    "exclusive": false
+  },
+  {
+    "digimon": "volcdramon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "merukimon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "moon=millenniummon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "eldoradimon",
+    "rarity": 3,
+    "exclusive": true
+  },
+  {
+    "digimon": "belphemon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "leopardmon",
+    "rarity": 4,
+    "exclusive": false
+  },
+  {
+    "digimon": "spinomon",
+    "rarity": 1,
+    "exclusive": false
+  },
+  {
+    "digimon": "gundramon",
+    "rarity": 5,
+    "exclusive": false
+  },
+  {
+    "digimon": "craniamon",
+    "rarity": 4,
+    "exclusive": false
+  }
+]

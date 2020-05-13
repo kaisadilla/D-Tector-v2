@@ -25,6 +25,7 @@ namespace Kaisa.Digivice {
         public Sprite arrowsSmall;
         public Sprite invertedArrowsSmall;
         public Sprite triggerEvent;
+        public Sprite[] eyes = new Sprite[2];
         public Sprite loading;
         public Sprite loadingComplete;
         public Sprite[] pressAButton = new Sprite[2];
@@ -34,6 +35,7 @@ namespace Kaisa.Digivice {
         public Sprite[] rewards = new Sprite[5]; //0: Level, 1: Distance down, 2: Distance up, 3: Spirits
         public Sprite bubble;
         public Sprite[] digistorm = new Sprite[2];
+        public Sprite defeatedSymbol;
         [Header("Game start")]
         public Sprite gameStart_clouds;
         public Sprite gameStart_trailmon;
@@ -68,6 +70,8 @@ namespace Kaisa.Digivice {
         [Header("Digits")]
         public Sprite digits_ok;
         public Sprite digits_error;
+        [Header("Camp")]
+        public Sprite[] camp = new Sprite[2];
         [Header("Animations")]
         public Sprite givePower;
         public Sprite givePowerInverted;
@@ -168,11 +172,11 @@ namespace Kaisa.Digivice {
         /// <param name="name">The name of the digimon.</param>
         public Sprite[] GetAllDigimonSprites(string name) {
             Sprite[] sprites = new Sprite[5];
-            sprites[0] = Resources.Load<Sprite>("Sprites/Digimon/" + name);
-            sprites[1] = Resources.Load<Sprite>("Sprites/Digimon/" + name + "_at");
-            sprites[2] = Resources.Load<Sprite>("Sprites/Digimon/" + name + "_cr");
-            sprites[3] = Resources.Load<Sprite>("Sprites/Digimon/" + name + "_sp");
-            sprites[4] = Resources.Load<Sprite>("Sprites/Digimon/" + name + "_bl");
+            sprites[0] = GetDigimonSprite(name);
+            sprites[1] = GetDigimonSprite(name, SpriteAction.Attack);
+            sprites[2] = GetDigimonSprite(name, SpriteAction.Crush);
+            sprites[3] = GetDigimonSprite(name, SpriteAction.Spirit);
+            sprites[4] = GetDigimonSprite(name, SpriteAction.Black);
             return sprites;
         }
         /// <summary>

@@ -532,7 +532,7 @@ namespace Kaisa.Digivice {
                 yield return new WaitForSeconds(0.15f);
             }
 
-            yield return new WaitForSeconds(0.75f);
+            yield return new WaitForSeconds(1f);
         }
         public static IEnumerator EraseDigimon(string digimon) {
             Sprite sDigimon = spriteDB.GetDigimonSprite(digimon);
@@ -857,7 +857,6 @@ namespace Kaisa.Digivice {
             bBlackBars.Dispose();
             bDDock.Dispose();
         }
-        #region Battle animations
         public static IEnumerator EncounterEnemy(string digimon, float finalDelay = 1f) {
             Sprite sDigimon = spriteDB.GetDigimonSprite(digimon);
             Sprite sDigimonAt = spriteDB.GetDigimonSprite(digimon, SpriteAction.Attack);
@@ -1170,11 +1169,11 @@ namespace Kaisa.Digivice {
             if (winner == 0) {
                 //If the enemy used crush (and you, ability), skip the ability animation.
                 Sprite abilitySprite = (enemyAttack == 1) ? null : friendlySprites[4];
-                yield return ADestroyLoser(enemySprites, friendlyAttack, abilitySprite, true, loserHPbefore, loserHPnow);
+                yield return DestroyLoser(enemySprites, friendlyAttack, abilitySprite, true, loserHPbefore, loserHPnow);
             }
             else if (winner == 1) {
                 Sprite abilitySprite = (friendlyAttack == 1) ? null : enemySprites[4];
-                yield return ADestroyLoser(friendlySprites, enemyAttack, abilitySprite, false, loserHPbefore, loserHPnow);
+                yield return DestroyLoser(friendlySprites, enemyAttack, abilitySprite, false, loserHPbefore, loserHPnow);
             }
         }
         public static IEnumerator AWardSpiritPower(int SPbefore) {
@@ -2023,7 +2022,7 @@ namespace Kaisa.Digivice {
             for (int i = 0; i < 16; i++) {
                 sbFriendlyAttack.Move(Direction.Left);
                 sbEnemyAttack.Move(Direction.Right);
-                yield return new WaitForSeconds(Constants.ATTACK_TRAVEL_SPEED);
+                yield return new WaitForSeconds(0.6f / 16f);
             }
             //Attacks collide. The pattern of this script is: tie, player win, player lose.
             if (friendlyAttack == 0) {
@@ -2179,6 +2178,88 @@ namespace Kaisa.Digivice {
             }
         }
         //Note, if winningAbility is null, the animation assumes the caller does not want the ability win animation to play.
+        public static IEnumerator DestroyLoser(Sprite[] loserSprites, int winningAttack, Sprite winningAbility, bool isEnemy, int loserHPbefore, int loserHPnow) {
+            Sprite sLoser = loserSprites[0];
+            Sprite sLoserCr = loserSprites[2];
+            Sprite explosionBig = spriteDB.battle_explosion[0];
+            Sprite explosionSmall = spriteDB.battle_explosion[1];
+            SpriteBuilder sbLoser = ScreenElement.BuildSprite("Loser", AnimParent).SetSize(24, 24).Center();
+
+            sbLoser.FlipHorizontal(isEnemy); //Flip the sprite if the loser is the enemy.
+            Direction winningDirection = isEnemy ? Direction.Left : Direction.Right;
+
+            if (winningAttack == 0) {
+                sbLoser.SetSprite(sLoser);
+                yield return new WaitForSeconds(0.5f);
+                yield return _ExplodeLoser();
+            }
+            else if (winningAttack == 1) {
+                sbLoser.SetSprite(sLoserCr);
+                sbLoser.PlaceOutside(winningDirection.Opposite());
+                for (int i = 0; i < 64; i++) {
+                    sbLoser.Move(winningDirection);
+                    yield return new WaitForSeconds(0.6f / 16f);
+                }
+                yield return _ExplodeLoser();
+            }
+            else if (winningAttack == 2 && winningAbility != null) {
+                int extraPixels = 0;
+
+                sbLoser.SetSprite(sLoser);
+                SpriteBuilder sbAbility = ScreenElement.BuildSprite("Loser", AnimParent).SetSize(24, 24).SetSprite(winningAbility).Center();
+                if (winningAbility.texture.width > 32) {
+                    sbAbility.SetSize(winningAbility.texture.width, 24).CenterComponent();
+                    extraPixels = sbAbility.Width - 24;
+                }
+                sbAbility.PlaceOutside(winningDirection.Opposite());
+                sbAbility.FlipHorizontal(!isEnemy); //Flip the ability if the loser is the ally.
+                for (int i = 0; i < 64; i++) {
+                    if (i == 28) sbLoser.SetActive(false);
+                    sbAbility.Move(winningDirection);
+                    yield return new WaitForSeconds(Constants.ATTACK_TRAVEL_SPEED);
+                }
+                for (int i = 0; i < extraPixels; i++) {
+                    if (i == 28) sbLoser.SetActive(false);
+                    sbAbility.Move(winningDirection);
+                    yield return new WaitForSeconds(Constants.ATTACK_TRAVEL_SPEED);
+                }
+                audioMgr.StopSound();
+            }
+            else {
+                audioMgr.StopSound();
+            }
+            //No animation is done when a digimon loses to an ability.
+
+            sbLoser.SetActive(true).SetSprite(sLoser);
+
+            yield return new WaitForSeconds(0.5f);
+            ContainerBuilder cbLifeSign = ScreenElement.BuildStatSign("LIFE", AnimParent);
+
+            yield return new WaitForSeconds(0.5f);
+            audioMgr.PlayButtonA();
+            ((TextBoxBuilder)cbLifeSign.GetChildBuilder(1)).Text = loserHPbefore.ToString();
+            yield return new WaitForSeconds(0.75f);
+            audioMgr.PlayButtonA();
+            ((TextBoxBuilder)cbLifeSign.GetChildBuilder(1)).Text = loserHPnow.ToString();
+            yield return new WaitForSeconds(0.75f);
+
+            ClearAnimParent();
+
+            IEnumerator _ExplodeLoser() {
+                audioMgr.PlaySound(audioMgr.explosion);
+                sbLoser.FlipHorizontal(false);
+                sbLoser.Center();
+                for (int i = 0; i < 2; i++) {
+                    sbLoser.SetSprite(explosionBig);
+                    yield return new WaitForSeconds(0.5f);
+                    sbLoser.SetSprite(explosionSmall);
+                    yield return new WaitForSeconds(0.5f);
+                }
+                yield return new WaitForSeconds(0.25f);
+                sbLoser.FlipHorizontal(isEnemy);
+            }
+        }
+
         public static IEnumerator DestroyBox() {
             Sprite sBoxSprite = spriteDB.GetDigimonSprite("jackpot");
             Sprite sBoxSpriteBroken = spriteDB.GetDigimonSprite("jackpot", SpriteAction.Spirit);
@@ -2398,7 +2479,7 @@ namespace Kaisa.Digivice {
             }
         }
 
-        public static IEnumerator DigiStorm(Sprite[] character, bool moveToNewArea) {
+        public static IEnumerator DataStorm(Sprite[] character, bool moveToNewArea) {
             Sprite[] sDigistorm = spriteDB.digistorm;
             Sprite sExclamation = spriteDB.battle_disobey;
 
@@ -2439,7 +2520,16 @@ namespace Kaisa.Digivice {
                 sbDigistorm[1].SetSprite(sDigistorm[Mathf.FloorToInt(i / 2) % 2]);
                 yield return new WaitForSeconds(4f / 40);
             }
+
+            int timeTryingToEscape = Random.Range(0, 40); //Default was 20.
+
             if (moveToNewArea) {
+                for (int i = 0; i < timeTryingToEscape; i++) {
+                    sbCharacter.SetSprite(character[4 + (i % 2)]);
+                    sbDigistorm[0].SetSprite(sDigistorm[Mathf.FloorToInt(i / 2) % 2]);
+                    sbDigistorm[1].SetSprite(sDigistorm[Mathf.FloorToInt(i / 2) % 2]);
+                    yield return new WaitForSeconds(4f / 40);
+                }
                 for (int i = 0; i < 20; i++) {
                     sbCharacter.SetSprite(character[4 + (i % 2)]);
                     sbDigistorm.Move(Direction.Left);
@@ -2455,7 +2545,7 @@ namespace Kaisa.Digivice {
                 }
             }
             else {
-                for (int i = 0; i < 20; i++) {
+                for (int i = 0; i < timeTryingToEscape; i++) {
                     sbCharacter.SetSprite(character[4 + (i % 2)]);
                     sbDigistorm[0].SetSprite(sDigistorm[Mathf.FloorToInt(i / 2) % 2]);
                     sbDigistorm[1].SetSprite(sDigistorm[Mathf.FloorToInt(i / 2) % 2]);
@@ -2469,91 +2559,151 @@ namespace Kaisa.Digivice {
                     sbDigistorm[1].SetSprite(sDigistorm[Mathf.FloorToInt(i / 2) % 2]);
                     yield return new WaitForSeconds(4f / 40);
                 }
+                yield return new WaitForSeconds(0.75f);
             }
             audioMgr.StopSound();
         }
 
-        private static IEnumerator ADestroyLoser(Sprite[] loserSprites, int winningAttack, Sprite winningAbility, bool isEnemy, int loserHPbefore, int loserHPnow) {
-            Sprite sLoser = loserSprites[0];
-            Sprite sLoserCr = loserSprites[2];
-            Sprite explosionBig = spriteDB.battle_explosion[0];
-            Sprite explosionSmall = spriteDB.battle_explosion[1];
-            SpriteBuilder sbLoser = ScreenElement.BuildSprite("Loser", AnimParent).SetSize(24, 24).Center();
-
-            sbLoser.FlipHorizontal(isEnemy); //Flip the sprite if the loser is the enemy.
-            Direction winningDirection = isEnemy ? Direction.Left : Direction.Right;
-
-            if (winningAttack == 0) {
-                sbLoser.SetSprite(sLoser);
-                yield return new WaitForSeconds(0.5f);
-                yield return _ExplodeLoser();
+        public static IEnumerator OpenCamp(Sprite[] character) {
+            //TOTAL DURATION: 7.2s.
+            SpriteBuilder sbCharacter = ScreenElement.BuildSprite("Character", AnimParent).Center().SetSprite(character[0]);
+            yield return new WaitForSeconds(0.2f);
+            for(int i = 0; i < 32; i++) {
+                sbCharacter.SetSprite(character[4 + (i % 2)]);
+                sbCharacter.Move(Direction.Left);
+                yield return new WaitForSeconds(3f / 32);
             }
-            else if (winningAttack == 1) {
-                sbLoser.SetSprite(sLoserCr);
-                sbLoser.PlaceOutside(winningDirection.Opposite());
-                for (int i = 0; i < 64; i++) {
-                    sbLoser.Move(winningDirection);
-                    yield return new WaitForSeconds(0.6f / 16f);
-                }
-                yield return _ExplodeLoser();
+            sbCharacter.SetSize(24, 24).SetY(4).Move(Direction.Right, 4).SetSprite(spriteDB.camp[0]);
+            for (int i = 0; i < 32; i++) {
+                sbCharacter.Move(Direction.Right);
+                yield return new WaitForSeconds(3f / 32);
             }
-            else if (winningAttack == 2 && winningAbility != null) {
-                int extraPixels = 0;
-
-                sbLoser.SetSprite(sLoser);
-                SpriteBuilder sbAbility = ScreenElement.BuildSprite("Loser", AnimParent).SetSize(24, 24).SetSprite(winningAbility).Center();
-                if (winningAbility.texture.width > 32) {
-                    sbAbility.SetSize(winningAbility.texture.width, 24).CenterComponent();
-                    extraPixels = sbAbility.Width - 24;
-                }
-                sbAbility.PlaceOutside(winningDirection.Opposite());
-                sbAbility.FlipHorizontal(!isEnemy); //Flip the ability if the loser is the ally.
-                for (int i = 0; i < 64; i++) {
-                    if (i == 28) sbLoser.SetActive(false);
-                    sbAbility.Move(winningDirection);
-                    yield return new WaitForSeconds(Constants.ATTACK_TRAVEL_SPEED);
-                }
-                for (int i = 0; i < extraPixels; i++) {
-                    if (i == 28) sbLoser.SetActive(false);
-                    sbAbility.Move(winningDirection);
-                    yield return new WaitForSeconds(Constants.ATTACK_TRAVEL_SPEED);
-                }
-                audioMgr.StopSound();
-            }
-            else {
-                audioMgr.StopSound();
-            }
-            //No animation is done when a digimon loses to an ability.
-
-            sbLoser.SetActive(true).SetSprite(sLoser);
-
-            yield return new WaitForSeconds(0.5f);
-            ContainerBuilder cbLifeSign = ScreenElement.BuildStatSign("LIFE", AnimParent);
-
-            yield return new WaitForSeconds(0.5f);
-            audioMgr.PlayButtonA();
-            ((TextBoxBuilder)cbLifeSign.GetChildBuilder(1)).Text = loserHPbefore.ToString();
-            yield return new WaitForSeconds(0.75f);
-            audioMgr.PlayButtonA();
-            ((TextBoxBuilder)cbLifeSign.GetChildBuilder(1)).Text = loserHPnow.ToString();
-            yield return new WaitForSeconds(0.75f);
-
-            ClearAnimParent();
-
-            IEnumerator _ExplodeLoser() {
-                audioMgr.PlaySound(audioMgr.explosion);
-                sbLoser.FlipHorizontal(false);
-                sbLoser.Center();
-                for (int i = 0; i < 2; i++) {
-                    sbLoser.SetSprite(explosionBig);
-                    yield return new WaitForSeconds(0.5f);
-                    sbLoser.SetSprite(explosionSmall);
-                    yield return new WaitForSeconds(0.5f);
-                }
-                yield return new WaitForSeconds(0.25f);
-                sbLoser.FlipHorizontal(isEnemy);
-            }
+            yield return new WaitForSeconds(1f);
         }
-        #endregion
+
+        public static IEnumerator CloseCamp(Sprite[] character) {
+            //TOTAL DURATION: 7.2s.
+            SpriteBuilder sbCharacter = ScreenElement.BuildSprite("Character", AnimParent).SetSize(24, 24).Center().SetSprite(spriteDB.camp[0]);
+            for (int i = 0; i < 32; i++) {
+                sbCharacter.Move(Direction.Left);
+                yield return new WaitForSeconds(3f / 32);
+            }
+            sbCharacter.SetSize(32, 32).SetY(0).Move(Direction.Left, 4).FlipHorizontal(true).SetSprite(character[0]);
+            for (int i = 0; i < 32; i++) {
+                sbCharacter.SetSprite(character[4 + (i % 2)]);
+                sbCharacter.Move(Direction.Right);
+                yield return new WaitForSeconds(3f / 32);
+            }
+            sbCharacter.SetSprite(character[0]);
+            yield return new WaitForSeconds(0.2f);
+        }
+
+        //Game event animations:
+        public static IEnumerator TransitionToMap1(GameChar character) {
+            Sprite[] sCharacter = spriteDB.GetCharacterSprites(character);
+            SpriteBuilder sbCharacter = ScreenElement.BuildSprite("Character", AnimParent).SetSprite(sCharacter[0]);
+            SpriteBuilder sbBlackScreen = ScreenElement.BuildSprite("Black Screen", AnimParent).SetSprite(spriteDB.blackScreen).SetActive(false);
+            SpriteBuilder sbCurtain = ScreenElement.BuildSprite("Curtain", AnimParent).SetSprite(spriteDB.curtain).PlaceOutside(Direction.Up);
+
+            for(int i = 0; i < 2; i++) {
+                yield return new WaitForSeconds(0.5f);
+                sbBlackScreen.SetActive(true);
+                yield return new WaitForSeconds(0.1f);
+                sbBlackScreen.SetActive(false);
+            }
+            for (int i = 0; i < 2; i++) {
+                yield return new WaitForSeconds(0.3f);
+                sbBlackScreen.SetActive(true);
+                yield return new WaitForSeconds(0.1f);
+                sbBlackScreen.SetActive(false);
+            }
+            yield return new WaitForSeconds(0.2f);
+            sbBlackScreen.SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+
+            audioMgr.PlaySound(audioMgr.unpleasantBeep);
+            sbCharacter.SetActive(false);
+
+            yield return new WaitForSeconds(7f);
+            sbBlackScreen.SetActive(false);
+            yield return new WaitForSeconds(0.1f);
+            sbBlackScreen.SetActive(true);
+            for(int i = 0; i < 2; i++) {
+                yield return new WaitForSeconds(0.2f);
+                sbBlackScreen.SetActive(false);
+                yield return new WaitForSeconds(0.1f);
+                sbBlackScreen.SetActive(true);
+            }
+            yield return new WaitForSeconds(0.1f);
+            sbBlackScreen.SetActive(false);
+            yield return new WaitForSeconds(0.2f);
+            sbBlackScreen.SetActive(true);
+            yield return new WaitForSeconds(0.1f);
+            sbBlackScreen.SetActive(false);
+            yield return new WaitForSeconds(0.3f);
+            sbBlackScreen.SetActive(true);
+            yield return new WaitForSeconds(0.1f);
+            sbBlackScreen.SetActive(false);
+
+            for (int i = 0; i < 64; i++) {
+                if (i == 32) sbCharacter.SetSprite(sCharacter[7]).SetActive(true);
+                sbCurtain.Move(Direction.Down);
+                yield return new WaitForSeconds(4f / 64);
+            }
+            yield return new WaitForSeconds(0.5f);
+            yield return DisplayNewArea(gm.WorldMgr.CurrentWorld, gm.WorldMgr.CurrentArea, gm.WorldMgr.CurrentDistance);
+        }
+
+        public static IEnumerator EnemyEscapes(string enemyDigimon, string friendlyDigimon) {
+            Sprite[] sEnemy = spriteDB.GetAllDigimonSprites(enemyDigimon);
+            Sprite[] sFriendly = spriteDB.GetAllDigimonSprites(friendlyDigimon);
+            Sprite exclamationMark = spriteDB.battle_disobey;
+
+            SpriteBuilder sbEnemy = ScreenElement.BuildSprite("Enemy", AnimParent).SetSize(24, 24).Center().SetSprite(sEnemy[0]).FlipHorizontal(true);
+
+            yield return new WaitForSeconds(0.65f);
+            sbEnemy.FlipHorizontal(false);
+            yield return new WaitForSeconds(0.65f);
+            sbEnemy.FlipHorizontal(true);
+            yield return new WaitForSeconds(0.3f);
+            sbEnemy.FlipHorizontal(false);
+            yield return new WaitForSeconds(0.3f);
+            sbEnemy.FlipHorizontal(true);
+            yield return new WaitForSeconds(0.3f);
+            sbEnemy.FlipHorizontal(false);
+
+            SpriteBuilder sbDisobey = ScreenElement.BuildSprite("Disobey", AnimParent).SetSize(3, 9).SetPosition(1, 1).SetSprite(exclamationMark);
+            yield return new WaitForSeconds(0.3f);
+            sbDisobey.SetActive(false);
+            yield return new WaitForSeconds(0.3f);
+
+            audioMgr.PlaySound(audioMgr.launchAttack);
+
+            sbEnemy.SetSprite(sEnemy[2]);
+            for(int i = 0; i < 32; i++) {
+                sbEnemy.Move(Direction.Left);
+                yield return new WaitForSeconds(0.8f / 32);
+            }
+
+            yield return new WaitForSeconds(0.75f);
+
+            SpriteBuilder sbFriendly = ScreenElement.BuildSprite("Enemy", AnimParent).SetSize(24, 24).Center().SetSprite(sFriendly[0]);
+            yield return new WaitForSeconds(0.5f);
+
+            yield return new WaitForSeconds(0.45f);
+            sbFriendly.FlipHorizontal(true);
+            yield return new WaitForSeconds(0.45f);
+            sbFriendly.FlipHorizontal(false);
+            yield return new WaitForSeconds(0.85f);
+
+            sbFriendly.SetSprite(sFriendly[1]);
+            sbDisobey.SetActive(true);
+            yield return new WaitForSeconds(0.3f);
+            sbFriendly.SetSprite(sFriendly[0]);
+            yield return new WaitForSeconds(0.3f);
+            sbDisobey.Dispose();
+            yield return new WaitForSeconds(0.5f);
+        }
+
     }
 }

@@ -152,16 +152,17 @@ namespace Kaisa.Digivice.App {
         }
 
         private void CheckCode() {
-            if (Database.TryGetDigimonFromCode(CurrentInputString, out string digimon)) {
-                ReturnedDigimon = digimon;
-                CloseApp();
-            }
-            else {
-                if(submitError) {
+            Digimon digimon = Database.GetDigimonFromCode(CurrentInputString);
+            if(digimon == null) {
+                if (submitError) {
                     ReturnedDigimon = Constants.DEFAULT_DIGIMON;
                     CloseApp();
                 }
                 inputStatus = 2;
+            }
+            else {
+                ReturnedDigimon = digimon.name;
+                CloseApp();
             }
         }
     }
