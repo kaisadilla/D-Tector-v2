@@ -89,7 +89,6 @@ namespace Kaisa.Digivice {
         public Sprite[] battle_combatMenu = new Sprite[5];
         public Sprite[] battle_attackMenu = new Sprite[3];
         [Header("Battle Particles")]
-        public Sprite[] battle_energy = new Sprite[20];
         public Sprite battle_disobey;
         public Sprite battle_attackCollision; //The particles of the attack collision
         public Sprite battle_attackCollisionBig;
@@ -188,10 +187,15 @@ namespace Kaisa.Digivice {
                 GetDigimonSprite(name),
                 GetDigimonSprite(name, SpriteAction.Attack),
                 GetDigimonSprite(name, SpriteAction.Crush),
-                battle_energy[energyRank],
+                GetEnergySprite(energyRank),
                 GetAbilitySprite(Database.GetDigimon(name).abilityName)
             };
         }
+
+        public Sprite GetEnergySprite(int rank) {
+            return Resources.Load<Sprite>($"Sprites/Energies/energy_{rank}");
+        }
+
         /// <summary>
         /// Returns the sprite associated with the ability given.
         /// </summary>

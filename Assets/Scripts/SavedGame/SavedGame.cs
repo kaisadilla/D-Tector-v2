@@ -192,6 +192,20 @@ namespace Kaisa.Digivice {
                 SaveGame();
             }
         }
+        public static bool IsPlayerDefeated {
+            get => lg.isPlayerDefeated;
+            set {
+                lg.isPlayerDefeated = value;
+                SaveGame();
+            }
+        }
+        public static int JackpotValue {
+            get => lg.jackpotValue;
+            set {
+                lg.jackpotValue = value;
+                SaveGame();
+            }
+        }
 
         //Current situation:
         public static int CurrentArea {
@@ -351,6 +365,8 @@ namespace Kaisa.Digivice {
         public bool isLeaverBusterActive;
         public int leaverBusterExpLoss;
         public string leaverBusterDigimonLoss;
+        public bool isPlayerDefeated;
+        public int jackpotValue;
 
         //Current situation data:
         public int currentMap;

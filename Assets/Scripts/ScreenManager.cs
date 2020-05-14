@@ -115,22 +115,15 @@ namespace Kaisa.Digivice {
                 }
             }
 
+            int showLayer = 0; //0: none, 1: defeated, 2: event, 3: eyes.
             if (logicMgr.currentScreen == Screen.Character) {
-                int showLayer = 0; //0: none, 1: defeated, 2: event, 3: eyes.
-                if (gm.isCharacterDefeated) showLayer = 1;
+                if (gm.IsCharacterDefeated) showLayer = 1;
                 else if (gm.IsEventActive) showLayer = 2;
                 else if (gm.showEyes) showLayer = 3;
-                if(showLayer != 0) {
-                    defeatedLayer.SetActive(showLayer == 1);
-                    eventLayer.SetActive(showLayer == 2);
-                    eyesLayer.SetActive(showLayer == 3);
-                }
             }
-            else {
-                defeatedLayer.SetActive(false);
-                eventLayer.SetActive(false);
-                eyesLayer.SetActive(false);
-            }
+            defeatedLayer.SetActive(showLayer == 1);
+            eventLayer.SetActive(showLayer == 2);
+            eyesLayer.SetActive(showLayer == 3);
 
             int index;
             Sprite sprite;

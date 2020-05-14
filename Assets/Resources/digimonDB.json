@@ -203,7 +203,12 @@
       "CR": 40,
       "AB": 35
     },
-    "bossStats": null,
+    "bossStats": {
+      "HP": 330,
+      "EN": 80,
+      "CR": 140,
+      "AB": 120
+    },
     "isPseudo": false,
     "HasBossStats": false,
     "code": "ahrz7"
@@ -1276,7 +1281,12 @@
       "CR": 50,
       "AB": 50
     },
-    "bossStats": null,
+    "bossStats": {
+      "HP": 250,
+      "EN": 80,
+      "CR": 150,
+      "AB": 150
+    },
     "isPseudo": false,
     "HasBossStats": false,
     "code": "13x8r"
@@ -1299,7 +1309,12 @@
       "CR": 20,
       "AB": 40
     },
-    "bossStats": null,
+    "bossStats": {
+      "HP": 300,
+      "EN": 150,
+      "CR": 50,
+      "AB": 150
+    },
     "isPseudo": false,
     "HasBossStats": false,
     "code": "zbbwz"
@@ -1323,7 +1338,7 @@
       "AB": 50
     },
     "bossStats": {
-      "HP": 100,
+      "HP": 320,
       "EN": 90,
       "CR": 100,
       "AB": 120
@@ -1867,12 +1882,6 @@
       "EN": 10,
       "CR": 15,
       "AB": 35
-    },
-    "bossStats": {
-      "HP": 250,
-      "EN": 80,
-      "CR": 150,
-      "AB": 150
     },
     "isPseudo": false,
     "HasBossStats": true,
@@ -4492,7 +4501,7 @@
     "spiritType": 6,
     "abilityName": "keramon",
     "element": 6,
-    "evolution": "kurisarimon",
+    "evolution": "chrysalimon",
     "extraEvolutions": null,
     "disabled": false,
     "baseLevel": 5,
@@ -4924,7 +4933,7 @@
   {
     "number": 225,
     "order": 55,
-    "name": "kurisarimon",
+    "name": "chrysalimon",
     "stage": 1,
     "spiritType": 6,
     "abilityName": "kurisarimon",
@@ -6506,7 +6515,7 @@
     "bossStats": null,
     "isPseudo": false,
     "HasBossStats": false,
-    "code": "v0cnc"
+    "code": "bcbde"
   },
   {
     "number": 298,
@@ -9902,12 +9911,6 @@
       "CR": 10,
       "AB": 25
     },
-    "bossStats": {
-      "HP": 300,
-      "EN": 150,
-      "CR": 50,
-      "AB": 150
-    },
     "isPseudo": false,
     "HasBossStats": true,
     "code": "1mylq"
@@ -12144,12 +12147,6 @@
       "EN": 25,
       "CR": 30,
       "AB": 10
-    },
-    "bossStats": {
-      "HP": 330,
-      "EN": 80,
-      "CR": 140,
-      "AB": 120
     },
     "isPseudo": false,
     "HasBossStats": true,

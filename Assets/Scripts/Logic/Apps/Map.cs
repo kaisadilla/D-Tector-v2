@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Kaisa.Digivice.App {
+namespace Kaisa.Digivice.Apps {
     public class Map : DigiviceApp {
         private int currentScreen = 0; //0: map, 1: choosing area, 2: viewing distance.
 
@@ -119,7 +119,7 @@ namespace Kaisa.Digivice.App {
         }
         #endregion
 
-        protected override void StartApp() {
+        public override void StartApp() {
             LoadInitialMapData();
             DrawMap();
         }

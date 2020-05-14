@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Kaisa.Digivice.App {
+namespace Kaisa.Digivice.Apps {
     public class DatabaseApp : DigiviceApp {
         private enum ScreenDatabase { //TODO: Replace with an int
             Menu,
@@ -201,7 +201,7 @@ namespace Kaisa.Digivice.App {
         }
         #endregion
 
-        protected override void StartApp() {
+        public override void StartApp() {
             DrawScreen();
         }
 

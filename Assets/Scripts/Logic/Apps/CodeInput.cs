@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Kaisa.Digivice.App {
+namespace Kaisa.Digivice.Apps {
     public class CodeInput : DigiviceApp {
         private bool submitError = false; //if true, a wrong code will submit the default digimon.
         private int inputStatus = 0; //0: inputting, 1: ok?, 2: error, 3: success
@@ -91,8 +91,13 @@ namespace Kaisa.Digivice.App {
         }
         #endregion
 
-        protected override void StartApp() {
-            if (appArgs.Length >= 1 && appArgs[0] == "true") submitError = true;
+        /// <param name="submitError">If true, the app will close even when the inputted code is not valid.</param>
+        public CodeInput Initialize(bool submitError) {
+            this.submitError = submitError;
+            return this;
+        }
+
+        public override void StartApp() {
             for (int i = 0; i < 5; i++) {
                 underscores[i] = ScreenElement.BuildRectangle($"Underscore{i}", screenDisplay.transform).SetSize(5, 1).SetPosition(2 + (6 * i), 25);
             }

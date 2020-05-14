@@ -26,7 +26,7 @@ namespace Kaisa.Digivice {
         }
 
         public void UpdateSprite() {
-            if(gm.isCharacterDefeated) {
+            if(gm.IsCharacterDefeated) {
                 CurrentSprite = 7;
             }
             else if(gm.IsEventActive) {

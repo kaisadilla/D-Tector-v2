@@ -2,9 +2,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Kaisa.Digivice.App {
+namespace Kaisa.Digivice.Apps {
     public abstract class DigiviceApp : MonoBehaviour {
-        protected string[] appArgs;
         protected IAppController controller;
         [Header("UI Elements")]
         [SerializeField]
@@ -18,20 +17,10 @@ namespace Kaisa.Digivice.App {
             screenDisplay.sprite = Constants.EMPTY_SPRITE;
         }
 
-        //AppLoader
-        public static DigiviceApp LoadApp(GameObject appPrefab, GameManager gm, IAppController controller, params string[] appArgs) {
-            GameObject appGO = Instantiate(appPrefab, gm.RootParent);
-            DigiviceApp app = appGO.GetComponent<DigiviceApp>();
-            app.Initialize(gm, appArgs, controller);
-            return app;
-        }
-
-        public virtual void Initialize(GameManager gm, string[] appArgs, IAppController controller) {
+        public virtual void Setup(GameManager gm, IAppController controller) {
             this.gm = gm;
-            this.appArgs = appArgs;
             this.controller = controller;
             audioMgr = gm.audioMgr;
-            StartApp();
         }
         public virtual void Dispose() => Destroy(gameObject);
 
@@ -58,9 +47,9 @@ namespace Kaisa.Digivice.App {
             if (navigationCoroutine != null) StopCoroutine(navigationCoroutine);
         }
 
-        protected abstract void StartApp();
-        protected virtual void CloseApp(Screen goToMenu = Screen.MainMenu) {
-            controller.FinalizeApp(goToMenu);
+        public abstract void StartApp();
+        protected virtual void CloseApp(Screen gotoMenu = Screen.MainMenu) {
+            controller.CloseLoadedApp(gotoMenu);
         }
 
         protected void SetScreen(Sprite sprite) => screenDisplay.sprite = sprite;

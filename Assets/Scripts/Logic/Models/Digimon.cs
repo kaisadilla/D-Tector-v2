@@ -361,16 +361,12 @@ namespace Kaisa.Digivice {
             if (EN < 120) return 7;
             if (EN < 135) return 8;
             if (EN < 150) return 9;
-            if (EN < 165) return 10;
-            if (EN < 180) return 11;
-            if (EN < 195) return 12;
-            if (EN < 210) return 13;
-            if (EN < 225) return 14;
-            if (EN < 240) return 15;
-            if (EN < 255) return 16;
-            if (EN < 270) return 17;
-            if (EN < 285) return 18;
-            return 19;
+            if (EN < 175) return 10;
+            if (EN < 200) return 11;
+            if (EN < 225) return 12;
+            if (EN < 250) return 13;
+            if (EN < 275) return 14;
+            return 15;
         }
     }
 

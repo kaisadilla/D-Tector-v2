@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Kaisa.Digivice.App {
+namespace Kaisa.Digivice.Apps {
     public class Status : DigiviceApp {
         private int currentScreen = 0;
 
@@ -31,7 +31,7 @@ namespace Kaisa.Digivice.App {
         }
         #endregion
 
-        protected override void StartApp() {
+        public override void StartApp() {
             InvokeRepeating("DrawScreen", 0, 0.05f); //The app screen is redrawn 20 times each second.
         }
 

@@ -7,6 +7,6 @@ namespace Kaisa.Digivice {
     /// An interface for any object that can open and control an app.
     /// </summary>
     public interface IAppController {
-        void FinalizeApp(Screen newScreen = Screen.MainMenu);
+        void CloseLoadedApp(Screen newScreen = Screen.MainMenu);
     }
 }

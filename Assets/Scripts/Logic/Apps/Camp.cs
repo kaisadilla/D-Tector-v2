@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Kaisa.Digivice.App {
+namespace Kaisa.Digivice.Apps {
     public class Camp : DigiviceApp {
 
         private SpriteBuilder sbCamp;
@@ -13,7 +13,7 @@ namespace Kaisa.Digivice.App {
             EndCamp();
         }
 
-        protected override void StartApp() {
+        public override void StartApp() {
             gm.EnqueueAnimation(Animations.OpenCamp(PlayerSprites));
             sbCamp = ScreenElement.BuildSprite("Camp", Parent).SetSize(24, 24).Center().SetSprite(gm.spriteDB.camp[0]);
             animCamp = StartCoroutine(PAnimateCamp());
@@ -22,7 +22,7 @@ namespace Kaisa.Digivice.App {
         private void EndCamp() {
             gm.EnqueueAnimation(Animations.CloseCamp(PlayerSprites));
             gm.EnqueueAnimation(Animations.CharHappy());
-            gm.isCharacterDefeated = false;
+            gm.IsCharacterDefeated = false;
             StopCoroutine(animCamp);
             CloseApp(Screen.Character);
         }

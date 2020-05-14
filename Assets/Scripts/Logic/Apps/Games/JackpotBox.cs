@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Kaisa.Digivice.App {
+namespace Kaisa.Digivice.Apps {
     public class JackpotBox : DigiviceApp {
         private const int MINIMUM_LENGTH = 4;
         private const int MAXIMUM_LENGTH = 10;
@@ -63,7 +63,7 @@ namespace Kaisa.Digivice.App {
             }
         }
 
-        protected override void StartApp() {
+        public override void StartApp() {
             friendlyDigimon = gm.logicMgr.GetAllDDockDigimon().GetRandomElement();
             gm.EnqueueAnimation(Animations.EncounterEnemy("jackpot", 0.5f));
             gm.EnqueueAnimation(Animations.SummonDigimon(friendlyDigimon));
@@ -118,21 +118,22 @@ namespace Kaisa.Digivice.App {
             int rewardCategory = GetRewardCategory();
             Reward reward = GetRandomReward(rewardCategory);
 
-            if (reward == Reward.LevelDown && gm.logicMgr.GetPlayerLevelProgression() > 0.5f) {
-                reward = Reward.Empty;
+            //To prevent abusing jackpot to level up fast, level up/down is restricted to certain conditions.
+            //If those conditions aren't met, they are replaced with increase/reduce distance.
+            if (reward == Reward.LevelDown && gm.logicMgr.GetPlayerLevelProgression() > 0.5f
+                || reward == Reward.ForceLevelDown && gm.logicMgr.GetPlayerLevelProgression() == 0f)
+            {
+                reward = Reward.IncreaseDistance500;
             }
-            else if (reward == Reward.ForceLevelDown && gm.logicMgr.GetPlayerLevelProgression() == 0f) {
-                reward = Reward.Empty;
-            }
-            if (reward == Reward.LevelUp && gm.logicMgr.GetPlayerLevelProgression() < 0.5f) {
-                reward = Reward.Empty;
-            }
-            else if (reward == Reward.ForceLevelUp && gm.logicMgr.GetPlayerLevelProgression() == 0f) {
-                reward = Reward.Empty;
+            else if(reward == Reward.LevelUp && gm.logicMgr.GetPlayerLevelProgression() < 0.5f
+                || reward == Reward.ForceLevelUp && gm.logicMgr.GetPlayerLevelProgression() == 0f)
+            {
+                reward = Reward.ReduceDistance500;
             }
 
             Sprite[] friendlySprites = gm.spriteDB.GetAllDigimonBattleSprites(friendlyDigimon, energyRank);
 
+            //Play animations of the battle against the box.
             gm.EnqueueAnimation(Animations.LaunchAttack(friendlySprites, 0, false, false));
             gm.EnqueueAnimation(Animations.AttackCollision(0, friendlySprites, 3, null, 0));
 
@@ -141,11 +142,18 @@ namespace Kaisa.Digivice.App {
             }
             else {
                 gm.EnqueueAnimation(Animations.DestroyBox());
+                if(Random.Range(0, 20) > gm.JackpotValue) {
+                    reward = Reward.Empty;
+                }
+
+
             }
+
+            //Apply the reward and play its animation.
             if (reward == Reward.Empty) {
                 gm.EnqueueRewardAnimation(reward, null, null, null);
             }
-            if (reward == Reward.PunishDigimon) {
+            else if (reward == Reward.PunishDigimon) {
                 gm.logicMgr.ApplyReward(reward, friendlyDigimon, out object resultBefore, out object resultAfter);
                 gm.EnqueueRewardAnimation(reward, friendlyDigimon, resultBefore, resultAfter);
             }
@@ -323,25 +331,22 @@ namespace Kaisa.Digivice.App {
                     else return Reward.LevelDown;
                 case 2:
                     if (rng < 0.35f) return Reward.ReduceDistance500;
-                    else if (rng < 0.55f) return Reward.TriggerBattle;
-                    else if (rng < 0.70f) return Reward.IncreaseDistance300;
-                    else if (rng < 0.80f) return Reward.Empty;
+                    else if (rng < 0.65f) return Reward.TriggerBattle;
+                    else if (rng < 0.80f) return Reward.IncreaseDistance300;
                     else if (rng < 0.90f) return Reward.GainSpiritPower10;
                     else return Reward.RewardDigimon;
                 case 3:
                     if (rng < 0.30f) return Reward.ReduceDistance500;
-                    else if (rng < 0.50f) return Reward.GainSpiritPower10;
-                    else if (rng < 0.70f) return Reward.RewardDigimon;
-                    else if (rng < 0.82f) return Reward.Empty;
-                    else if (rng < 0.92f) return Reward.LevelUp;
-                    else if (rng < 0.98f) return Reward.UnlockDigicodeOwned;
-                    else return Reward.UnlockDigicodeNotOwned;
+                    else if (rng < 0.55f) return Reward.GainSpiritPower10;
+                    else if (rng < 0.80f) return Reward.RewardDigimon;
+                    else if (rng < 0.95f) return Reward.LevelUp;
+                    else return Reward.UnlockDigicodeOwned;
                 case 4:
-                    if (rng < 0.50f) return Reward.RewardDigimon;
-                    else if (rng < 0.60f) return Reward.ReduceDistance1000;
-                    else if (rng < 0.70f) return Reward.ForceLevelUp;
-                    else if (rng < 0.80f) return Reward.GainSpiritPowerMax;
-                    else if (rng < 0.90f) return Reward.UnlockDigicodeOwned;
+                    if (rng < 0.55f) return Reward.RewardDigimon;
+                    else if (rng < 0.65f) return Reward.ReduceDistance1000;
+                    else if (rng < 0.75f) return Reward.ForceLevelUp;
+                    else if (rng < 0.85f) return Reward.GainSpiritPowerMax;
+                    else if (rng < 0.95f) return Reward.UnlockDigicodeOwned;
                     else return Reward.UnlockDigicodeNotOwned;
                 default: return Reward.none;
             }

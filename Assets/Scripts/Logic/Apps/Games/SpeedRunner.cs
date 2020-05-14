@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Kaisa.Digivice.App {
+namespace Kaisa.Digivice.Apps {
     public class SpeedRunner : DigiviceApp {
         /* This number is equal to 0.75 / 38 / 3 and it's the biggest number that should exactly match all the speeds / 38 */
         //private const float THIS_DELTA_TIME = 0.00657894736842105f;
@@ -73,7 +73,7 @@ namespace Kaisa.Digivice.App {
             if (lastDirectionTapped == Direction.Right) lastDirectionTapped = Direction.none;
         }
         #endregion
-        protected override void StartApp() {
+        public override void StartApp() {
             GenerateLevel();
             Sprite sRocket = gm.spriteDB.speedRunner_rocket;
             Sprite sSpeedMark = gm.spriteDB.speedRunner_rocketSpeedMark;

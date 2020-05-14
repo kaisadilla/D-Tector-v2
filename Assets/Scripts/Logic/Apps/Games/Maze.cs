@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Kaisa.Digivice.App {
+namespace Kaisa.Digivice.Apps {
     /*IMPORTANT: Texture2D's origin (coords 0, 0) is in the lower left corner, but RectTransform's position origin is in the upper left corner.
      * Maze cells call "up" to the cell with a lower Y coordinate than them, but the Maze is rendered using the same origin as Texture2D.
      * This means that moving "up" in the maze is seen as moving "down" in the screen, and vice-versa.
@@ -123,7 +123,7 @@ namespace Kaisa.Digivice.App {
         }
         #endregion
 
-        protected override void StartApp() {
+        public override void StartApp() {
             DrawStartMenu();
             timeRemaining = maxTime;
         }

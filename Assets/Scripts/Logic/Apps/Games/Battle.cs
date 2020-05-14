@@ -1,11 +1,11 @@
 ﻿using Kaisa.Digivice.Extensions;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using sysrand = System.Random;
 
-namespace Kaisa.Digivice.App {
+namespace Kaisa.Digivice.Apps {
     /* Enemies have three different sets of attacks, generated at random for every game. Each battle, they will use one of these three set of attacks.
      * To achieve this, the saved game has 3 seeds stored and, when a battle commences, one of these 3 seeds is used to create a new sysrand object (battleRNG).
      * Only the enemy attack every turn uses this battleRNG object – other random effects use UnityEngine.Random as to not interfere with the numbers
@@ -32,14 +32,28 @@ namespace Kaisa.Digivice.App {
             SpiritEvolution,
             AncientEvolution
         }
+        public enum EndBattleAnimation {
+            none = 0,
+            EnemyEscapes,
+        }
+        public enum BattleEffect {
+            none = 0,
+            EnhancedDamage
+        }
 
         #region Input
         public override void InputA() {
             if (currentScreen == BattleScreen.MainMenu) {
                 if (menuIndex == 0) {
-                    audioMgr.PlayButtonA();
-                    ddockPurpose = 0;
-                    OpenDDocks();
+                    if (AreAllDDocksUsed) {
+                        ddockIndex = 255; //So no ddock is selected and DEFAULT_DIGIMON is summoned.
+                        ChooseCurrentDDock();
+                    }
+                    else {
+                        audioMgr.PlayButtonA();
+                        ddockPurpose = 0;
+                        OpenDDocks();
+                    }
                 }
                 else if (menuIndex == 1) {
                     galleryList = gm.GetAllUnlockedDigimonInStage(Stage.Spirit);
@@ -283,7 +297,7 @@ namespace Kaisa.Digivice.App {
         #endregion
 
         //Tools:
-        private sysrand enemyAttackRNG;
+        private AttackChooser enemyAttackChooser;
 
         //Battle information:
         private uint victoryExp, defeatExp; //The amounts of experience the player will win or lose depending on the outcome of the battle.
@@ -293,14 +307,10 @@ namespace Kaisa.Digivice.App {
             set => gm.logicMgr.SpiritPower = value;
         }
 
-        private bool isBossBattle;
-        private int bossLevel;
-        private bool enemyEscapes;
-
-
         private bool[] isDDockUsed = new bool[4] { false, false, false, false };
-        private int _currentCallPoints = 10; //Do not use this variable.
+        private bool AreAllDDocksUsed => (isDDockUsed[0] && isDDockUsed[1] && isDDockUsed[2] && isDDockUsed[3]);
 
+        private int _currentCallPoints = 10; //Do not use this variable.
         private int CurrentCallPoints {
             get => _currentCallPoints;
             set {
@@ -342,40 +352,49 @@ namespace Kaisa.Digivice.App {
 
         private DigiviceApp loadedApp;
 
-        protected override void StartApp() {
-            enemyDigimon = Database.GetDigimon(appArgs[0]);
+        private bool alterDistance;
+        private bool isBossBattle;
+        private bool? rewardEnemy;
+        private EndBattleAnimation winAnimation;
+        private Queue<string> extraEnemies;
+        private BattleEffect effect;
+        private int bossLevel;
+        private bool enemyEscapes;
+
+        /// <summary>
+        /// Initializes the battle with the given parameters.
+        /// </summary>
+        /// <param name="enemyDigimon">The name of the enemy Digimon.</param>
+        /// <param name="isBossBattle">If true, the battle will be considered a boss battle and apply certain effects.</param>
+        /// <param name="rewardEnemy">If true, this will override the default chance of getting the enemy as a reward.</param>
+        /// <param name="winAnimation">The animation that will play immediately when the enemy reaches 0 HP.</param>
+        /// <param name="extraEnemies">When the enemy is defeated, the next enemy in the queue will appear, until the queue is empty.</param>
+        /// <param name="effect">One of the several effects that will apply to the battle.</param>
+        /// <returns></returns>
+        public Battle Initialize(string enemyDigimon, bool alterDistance, bool isBossBattle = false,
+            bool? rewardEnemy = null, EndBattleAnimation winAnimation = EndBattleAnimation.none,
+            Queue<string> extraEnemies = null, BattleEffect effect = BattleEffect.none)
+        {
+            this.enemyDigimon = Database.GetDigimon(enemyDigimon);
+            this.alterDistance = alterDistance;
+            this.isBossBattle = isBossBattle;
+            this.rewardEnemy = rewardEnemy;
+            this.winAnimation = winAnimation;
+            this.extraEnemies = extraEnemies;
+            this.effect = effect;
+
             //Check for errors:
             if (enemyDigimon == null) {
-                VisualDebug.WriteLine($"The digimon passed to the Battle app ({appArgs[0]}) couldn't be found.");
+                VisualDebug.WriteLine($"The digimon passed to the Battle app ({enemyDigimon}) couldn't be found.");
             }
 
+            return this;
+        }
+
+        public override void StartApp() {
             playerLevel = gm.logicMgr.GetPlayerLevel();
-            InitializeRNG();
 
-            if (appArgs.ElementAtOrDefault(1) == "true") isBossBattle = true;
-            if (appArgs.ElementAtOrDefault(2) == "escape") enemyEscapes = true;
-
-            if(isBossBattle) {
-                gm.EnqueueAnimation(Animations.EncounterBoss(enemyDigimon.name));
-
-                bossLevel = gm.logicMgr.GetPlayerLevel();
-                enemyStats = enemyDigimon.GetBossStats(bossLevel);
-                VisualDebug.WriteLine($"Boss stats for level {bossLevel}: {enemyStats}");
-
-                victoryExp = gm.logicMgr.GetExperienceGained(playerLevel, bossLevel);
-                defeatExp = gm.logicMgr.GetExperienceGained(bossLevel, playerLevel);
-            }
-            else {
-                gm.EnqueueAnimation(Animations.EncounterEnemy(enemyDigimon.name));
-
-                enemyStats = enemyDigimon.GetRegularStats();
-                VisualDebug.WriteLine($"Enemy stats: {enemyStats}");
-
-                victoryExp = gm.logicMgr.GetExperienceGained(playerLevel, enemyDigimon.baseLevel);
-                defeatExp = gm.logicMgr.GetExperienceGained(enemyDigimon.baseLevel, playerLevel);
-            }
-
-            VisualDebug.WriteLine($"Experience for this battle: {victoryExp} for winning, -{defeatExp} for losing.");
+            AssignEnemyDigimon();
 
             gm.UpdateLeaverBuster(defeatExp, "");
             InvokeRepeating("DrawScreen", 0f, 0.05f);
@@ -437,9 +456,34 @@ namespace Kaisa.Digivice.App {
             }
         }
 
-        private void InitializeRNG() {
+        private void AssignEnemyDigimon() {
+            if (isBossBattle) {
+                gm.EnqueueAnimation(Animations.EncounterBoss(enemyDigimon.name));
+
+                bossLevel = gm.logicMgr.GetPlayerLevel();
+                enemyStats = enemyDigimon.GetBossStats(bossLevel);
+
+                victoryExp = gm.logicMgr.GetExperienceGained(playerLevel, bossLevel);
+                defeatExp = gm.logicMgr.GetExperienceGained(bossLevel, playerLevel);
+
+                VisualDebug.WriteLine($"Boss stats for level {bossLevel}: {enemyStats}");
+            }
+            else {
+                gm.EnqueueAnimation(Animations.EncounterEnemy(enemyDigimon.name));
+
+                enemyStats = enemyDigimon.GetRegularStats();
+                enemyStats = enemyDigimon.GetRegularStats();
+
+                victoryExp = gm.logicMgr.GetExperienceGained(playerLevel, enemyDigimon.baseLevel);
+                defeatExp = gm.logicMgr.GetExperienceGained(enemyDigimon.baseLevel, playerLevel);
+
+                VisualDebug.WriteLine($"Enemy stats: {enemyStats}");
+            }
             int battleSeed = gm.GetRandomSavedSeed();
-            enemyAttackRNG = new sysrand(battleSeed);
+            enemyAttackChooser = new AttackChooser(battleSeed, enemyDigimon.name, enemyStats);
+
+            VisualDebug.WriteLine($"Experience for this battle: {victoryExp} for winning, -{defeatExp} for losing.");
+            VisualDebug.WriteLine($"Chosen seed {battleSeed} for the enemy attack chooser.");
         }
 
         private void OpenDDocks() {
@@ -553,7 +597,8 @@ namespace Kaisa.Digivice.App {
 
         private void OpenDigits() {
             currentScreen = BattleScreen.DigitsApp;
-            loadedApp = LoadApp(gm.pAppDigits, gm, this, "true");
+            loadedApp = gm.appLoader.LoadApp<CodeInput>(App.CodeInput, this);
+            //loadedApp = LoadApp(gm.pAppDigits, gm, this, "true");
         }
         
         private void SubmitCode(string digimon) {
@@ -574,7 +619,7 @@ namespace Kaisa.Digivice.App {
             gm.EnqueueAnimation(Animations.SummonDigimon(digimon));
         }
 
-        public void FinalizeApp(Screen newScreen = Screen.MainMenu) {
+        public void CloseLoadedApp(Screen newScreen = Screen.MainMenu) {
             string result;
             if (loadedApp is CodeInput ci) {
                 result = ci.ReturnedDigimon;
@@ -723,7 +768,7 @@ namespace Kaisa.Digivice.App {
                 gm.EnqueueAnimation(Animations.PaySpiritPower(SPbefore, SpiritPower));
             }
 
-            int enemyAttack = ChooseEnemyAttack();
+            int enemyAttack = enemyAttackChooser.Next();
             int winner = ExecuteTurn(ref friendlyAttack, enemyAttack, out bool disobeyed, out int loserHPbefore);
             int loserHPnow = (winner == 0) ? enemyStats.HP : friendlyStats.HP;
 
@@ -737,8 +782,12 @@ namespace Kaisa.Digivice.App {
                     winner, disobeyed, loserHPbefore, loserHPnow)
                 );
 
-            if (enemyEscapes) {
-                gm.EnqueueAnimation(Animations.EnemyEscapes(enemyDigimon.name, friendlyDigimon.name));
+            bool battleEnded = (loserHPnow == 0);
+
+            if (battleEnded && winner == 0 && winAnimation != EndBattleAnimation.none) {
+                if(winAnimation == EndBattleAnimation.EnemyEscapes) {
+                    gm.EnqueueAnimation(Animations.EnemyEscapes(enemyDigimon.name, friendlyDigimon.name));
+                }
             }
 
             if (attacksAwardSP) {
@@ -748,22 +797,19 @@ namespace Kaisa.Digivice.App {
             currentScreen = BattleScreen.Combat_Menu;
 
             //The player has won or lost the game.
-            if (loserHPnow == 0) {
-                VisualDebug.WriteLine($"A Digimon has reached 0 HP, and the winner of this round and thus the game is (0 or 1): {winner}.");
-                if (winner == 0) {
-                    WinBattle();
-                    return;
-                }
-                else {
-                    LoseBattle();
-                    return;
-                }
-            }
+            if (battleEnded) {
+                if (winner == 0) WinBattle();
+                else LoseBattle();
 
-            if (attacksCostSP && SpiritPower < friendlyDigimon.GetSpiritCost(playerLevel)) {
-                DeportCurrentDigimon();
+                VisualDebug.WriteLine($"A digimon has reached 0 HP, and this battle was won by {winner}.");
+            }
+            else {
+                if (attacksCostSP && SpiritPower < friendlyDigimon.GetSpiritCost(playerLevel)) {
+                    DeportCurrentDigimon();
+                }
             }
         }
+
         private void WinBattle() {
             gm.DisableLeaverBuster();
 
@@ -773,17 +819,30 @@ namespace Kaisa.Digivice.App {
                 gm.EnqueueAnimation(Animations.LevelUp(playerLevel, gm.logicMgr.GetPlayerLevel()));
             }
 
-            //50% for regular battles. 0% for boss battles (they get unlocked in TriggerVictoryAgainstBoss).
-            bool rewardEnemy = (isBossBattle) ? false : (Random.Range(0, 2) == 1);
-
             gm.EnqueueAnimation(Animations.CharHappy());
 
-            if (rewardEnemy) {
-                if (gm.logicMgr.RewardDigimon(enemyDigimon.name, out _, out _)) {
-                    gm.EnqueueAnimation(Animations.LevelUpDigimon(enemyDigimon.name));
+            //50% for regular battles. 0% for boss battles (they get unlocked in TriggerVictoryAgainstBoss).
+
+            if (rewardEnemy == null) {
+                rewardEnemy = (isBossBattle) ? true : (Random.Range(0, 2) == 1);
+            }
+            if (rewardEnemy == true) {
+                if(enemyDigimon.stage == Stage.Spirit) {
+                    if (gm.logicMgr.RewardDigimon(enemyDigimon.name, out _, out _)) {
+                        gm.EnqueueAnimation(Animations.ReceiveSpirit(enemyDigimon.name));
+                    }
+                    else {
+                        gm.EnqueueAnimation(Animations.ReceiveSpirit(enemyDigimon.name));
+                        gm.EnqueueAnimation(Animations.UnlockDigimon(enemyDigimon.name, true));
+                    }
                 }
                 else {
-                    gm.EnqueueAnimation(Animations.UnlockDigimon(enemyDigimon.name));
+                    if (gm.logicMgr.RewardDigimon(enemyDigimon.name, out _, out _)) {
+                        gm.EnqueueAnimation(Animations.LevelUpDigimon(enemyDigimon.name));
+                    }
+                    else {
+                        gm.EnqueueAnimation(Animations.UnlockDigimon(enemyDigimon.name));
+                    }
                 }
             }
             else if (gm.logicMgr.IsAnySpiritLost && Random.Range(0, 3) == 0) {
@@ -795,7 +854,7 @@ namespace Kaisa.Digivice.App {
             if (isBossBattle) {
                 TriggerVictoryAgainstBoss();
             }
-            else {
+            else if (alterDistance) {
                 int distanceBefore = gm.WorldMgr.CurrentDistance;
                 gm.WorldMgr.ReduceDistance(300);
                 int distanceAfter = gm.WorldMgr.CurrentDistance;
@@ -816,37 +875,39 @@ namespace Kaisa.Digivice.App {
                 gm.EnqueueAnimation(Animations.LevelDown(playerLevel, gm.logicMgr.GetPlayerLevel()));
             }
 
-            int distanceBefore = gm.WorldMgr.CurrentDistance;
-            int amountToIncrease = isBossBattle ? 500 : 300;
-            gm.WorldMgr.IncreaseDistance(amountToIncrease);
-            int distanceAfter = gm.WorldMgr.CurrentDistance;
+            gm.EnqueueAnimation(Animations.CharSad());
 
             bool punishFriendly = (Random.Range(0f, 1f) > Database.GetEraseChance(originalDigimon.name));
-
+            //If the friendly Digimon is not a Spirit, you might lose it.
             if(originalDigimon.stage != Stage.Spirit) {
                 //If the player has extra levels with that digimon, they will always lose one.
                 if (gm.logicMgr.GetDigimonExtraLevel(originalDigimon.name) > 0) punishFriendly = true;
 
                 if (punishFriendly) {
                     if (gm.logicMgr.PunishDigimon(originalDigimon.name, out int levelBefore, out int levelAfter)) {
-                        if (Random.Range(0, 2) == 0) gm.isCharacterDefeated = true;
+                        if (Random.Range(0, 2) == 0) gm.IsCharacterDefeated = true;
                         gm.EnqueueAnimation(Animations.LevelDownDigimon(originalDigimon.name));
                     }
                     else {
-                        gm.isCharacterDefeated = true;
+                        gm.IsCharacterDefeated = true;
                         gm.EnqueueAnimation(Animations.EraseDigimon(originalDigimon.name));
                     }
                 }
             }
             //Lose your Spirit if you were fighting with one.
             else {
-                gm.isCharacterDefeated = true;
+                gm.IsCharacterDefeated = true;
                 gm.logicMgr.LoseSpirit(originalDigimon.name);
                 gm.EnqueueAnimation(Animations.LoseSpirit(originalDigimon.name, enemyDigimon.name));
             }
 
-            gm.EnqueueAnimation(Animations.CharSad());
-            gm.EnqueueAnimation(Animations.ChangeDistance(distanceBefore, distanceAfter));
+            if (alterDistance) {
+                int distanceBefore = gm.WorldMgr.CurrentDistance;
+                int amountToIncrease = isBossBattle ? 500 : 300;
+                gm.WorldMgr.IncreaseDistance(amountToIncrease);
+                int distanceAfter = gm.WorldMgr.CurrentDistance;
+                gm.EnqueueAnimation(Animations.ChangeDistance(distanceBefore, distanceAfter));
+            }
 
             gm.logicMgr.IncreaseTotalBattles();
 
@@ -878,15 +939,6 @@ namespace Kaisa.Digivice.App {
             int currentArea = gm.WorldMgr.CurrentArea;
             gm.WorldMgr.SetAreaCompleted(currentMap, currentArea, true);
             List<int> availableAreas = gm.WorldMgr.GetUncompletedAreas(currentMap);
-
-            if(!enemyEscapes) {
-                bool alreadyHad = gm.logicMgr.RewardDigimon(enemyDigimon.name, out _, out _);
-                gm.EnqueueAnimation(Animations.ReceiveSpirit(enemyDigimon.name));
-
-                if (!alreadyHad) {
-                    gm.EnqueueAnimation(Animations.UnlockDigimon(enemyDigimon.name, true));
-                }
-            }
 
             if (availableAreas.Count > 0) {
                 int newArea = availableAreas.GetRandomElement();
@@ -929,18 +981,6 @@ namespace Kaisa.Digivice.App {
             if (winner == 1) DamageDigimon(0, damageDealt);
 
             return winner;
-        }
-        private int ChooseEnemyAttack() {
-            int chanceEN = 30 + enemyStats.EN;
-            int chanceCR = 30 + enemyStats.CR;
-            int chanceAB = 30 + enemyStats.AB;
-
-            int total = chanceEN + chanceCR + chanceAB;
-            int rngNumber = enemyAttackRNG.Next(total);
-
-            if (rngNumber < chanceEN) return 0;
-            else if (rngNumber < (chanceEN + chanceCR)) return 1;
-            else return 2;
         }
         private int ChooseWinner(int friendlyAttack, int enemyAttack, out int damageDealt) {
             int friendlyDamage = friendlyStats.GetAttackDamage(friendlyAttack);

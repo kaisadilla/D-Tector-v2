@@ -1,4 +1,5 @@
-﻿using Kaisa.Digivice.Extensions;
+﻿using Kaisa.Digivice.Apps;
+using Kaisa.Digivice.Extensions;
 using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,6 +21,9 @@ namespace Kaisa.Digivice {
         public LogicManager logicMgr;
         public ScreenManager screenMgr;
         public SpriteDatabase spriteDB;
+
+        public AppLoader appLoader;
+
         public WorldManager WorldMgr { get; private set; }
         //Other objects
         [SerializeField] private ShakeDetector shakeDetector;
@@ -27,29 +31,21 @@ namespace Kaisa.Digivice {
 
         [SerializeField] private GameObject mainScreen;
 
-        [Header("Apps")]
-        public GameObject pAppMap;
-        public GameObject pAppStatus;
-        public GameObject pAppDatabase;
-        public GameObject pAppDigits;
-        public GameObject pAppCamp;
-        public GameObject pAppConnect;
-
-        [Header("Games")]
-        public GameObject pAppFinder;
-        public GameObject pAppBattle;
-        public GameObject pAppJackpotBox;
-        public GameObject pAppSpeedRunner;
-        public GameObject pAppMaze;
-
         [Header("Screen elements")]
         public GameObject pContainer;
         public GameObject pSolidSprite;
         public GameObject pRectangle;
         public GameObject pTextBox;
 
+        public int JackpotValue {
+            get => SavedGame.JackpotValue;
+            set => SavedGame.JackpotValue = value;
+        }
+        public bool IsCharacterDefeated {
+            get => SavedGame.IsPlayerDefeated;
+            set => SavedGame.IsPlayerDefeated = value;
+        }
         public bool IsEventActive => logicMgr.IsEventPending;
-        public bool isCharacterDefeated = false; //The 'F' thing.
         public bool isCharacterWalking = false;
         public bool showEyes => Database.Worlds[WorldMgr.CurrentWorld].showEyes;
 
@@ -101,16 +97,47 @@ namespace Kaisa.Digivice {
             }
 
             AttemptUpdateGame();
+            StartCoroutine(IncreaseJackpotValue());
 
             //EnqueueAnimation(Animations.EnemyEscapes("Duskmon", "Baihumon"));
-            /*MutableCombatStats suka = Database.GetDigimon("devimon").GetBossStats(10);
-            Debug.Log($"hp {suka.HP}, maxHP {suka.maxHP}, en {suka.EN}, cr {suka.CR}, ab {suka.AB}");
-            MutableCombatStats suka2 = Database.GetDigimon("lanamon").GetBossStats(10);
-            Debug.Log($"hp {suka2.HP}, maxHP {suka2.maxHP}, en {suka2.EN}, cr {suka2.CR}, ab {suka2.AB}");*/
+            MutableCombatStats suka = Database.GetDigimon("devimon").GetBossStats(10);
+            Debug.Log($"devimon hp {suka}");
+            suka = Database.GetDigimon("lanamon").GetBossStats(10);
+            Debug.Log($"lanamon hp {suka}");
+            suka = Database.GetDigimon("nanimon").GetBossStats(10);
+            Debug.Log($"nanimon hp {suka}");
+            suka = Database.GetDigimon("ogremon").GetBossStats(10);
+            Debug.Log($"ogremon hp {suka}");
+            suka = Database.GetDigimon("sukamon").GetBossStats(10);
+            Debug.Log($"sukamon hp {suka}");
+            suka = Database.GetDigimon("gatomon").GetBossStats(10);
+            Debug.Log($"gatomon hp {suka}");
+            suka = Database.GetDigimon("kuwagamon").GetBossStats(10);
+            Debug.Log($"kuwagamon hp {suka}");
+            suka = Database.GetDigimon("woodmon").GetBossStats(10);
+            Debug.Log($"woodmon hp {suka}");
+            suka = Database.GetDigimon("raremon").GetBossStats(10);
+            Debug.Log($"raremon hp {suka}");
+            suka = Database.GetDigimon("doggymon").GetBossStats(10);
+            Debug.Log($"doggymon hp {suka}");
+            suka = Database.GetDigimon("wendigomon").GetBossStats(10);
+            Debug.Log($"wendigomon hp {suka}");
+            suka = Database.GetDigimon("wizardmon").GetBossStats(10);
+            Debug.Log($"wizardmon hp {suka}");
+            suka = Database.GetDigimon("devidramon").GetBossStats(10);
+            Debug.Log($"devidramon hp {suka}");
 
             //CompleteWorld(0);
 
             //EnqueueAnimation(Animations.TransitionToMap1(PlayerChar));
+        }
+
+        //Called via InvokeRepeating
+        private IEnumerator IncreaseJackpotValue() {
+            while (true) {
+                yield return new WaitForSeconds(300f);
+                if (JackpotValue < 20) JackpotValue++;
+            }
         }
 
         public void CloseGame() {
@@ -149,23 +176,6 @@ namespace Kaisa.Digivice {
             EnqueueAnimation(Animations.StartGameAnimation(chosenGameChar, playerSpirit, spiritEnergy, randomInitial, enemyEnergy));
 
             logicMgr.currentScreen = Screen.Character;
-        }
-
-        /// <summary>
-        /// Returns the corresponding app prefab based on the type of this app.
-        /// </summary>
-        /// <param name="app">The app class calling this.</param>
-        /// <returns></returns>
-        public GameObject GetAppPrefab(string appName) {
-            switch(appName) {
-                case "map":         return pAppMap;
-                case "status":      return pAppStatus;
-                case "database":    return pAppDatabase;
-                case "digits":      return pAppDigits;
-                case "maze":        return pAppSpeedRunner;
-                case "speedrunner": return pAppMaze;
-                default: return null;
-            }
         }
 
         private void SetupManagers() {
@@ -211,15 +221,18 @@ namespace Kaisa.Digivice {
         /// Triggers an event if there's any event pending in the distance manager.
         /// </summary>
         public void CheckPendingEvents() {
-            if (logicMgr.IsAppLoaded) return; //Don't trigger while an app is loaded. When an app is closed, this is called again.
+            //Don't trigger while an app is loaded. When an app is closed, this is called again.
+            if (logicMgr.IsAppLoaded && !(logicMgr.loadedApp is Apps.Status)) return;
 
             int savedEvent = SavedGame.SavedEvent;
             if (savedEvent == 0) return;
             else if (savedEvent == 1) {
                 logicMgr.EnqueueRegularEvent();
+                logicMgr.CloseLoadedApp();
             }
             else if(savedEvent == 2) {
                 logicMgr.EnqueueBossEvent();
+                logicMgr.CloseLoadedApp();
             }
         }
 
@@ -231,6 +244,7 @@ namespace Kaisa.Digivice {
         /// </summary>
         public void AttemptUpdateGame() {
             if(SavedGame.PlayerChar != GameChar.none && SavedGame.LastUpdateVersion != Constants.GAME_VERSION) {
+                JackpotValue = 20;
                 SavedGame.LastUpdateVersion = Constants.GAME_VERSION;
                 SavedGame.LostSpirits = new List<string>();
                 VisualDebug.WriteLine($"Updated game to version {Constants.GAME_VERSION}");
@@ -518,7 +532,7 @@ namespace Kaisa.Digivice {
         }
         private void CompleteWorld0() {
             WorldMgr.MoveToArea(1, 0);
-            isCharacterDefeated = true;
+            IsCharacterDefeated = true;
             EnqueueAnimation(Animations.TransitionToMap1(PlayerChar));
         }
 

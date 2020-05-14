@@ -55,8 +55,8 @@ namespace Kaisa.Digivice {
             Sprite[] sCharacter = spriteDB.GetCharacterSprites(character);
             Sprite[] sSpirit = spriteDB.GetAllDigimonSprites(spirit);
             Sprite[] sEnemyDigimon = spriteDB.GetAllDigimonSprites(enemyDigimon);
-            Sprite sSpiritEnergy = spriteDB.battle_energy[spiritEnergy];
-            Sprite sEnemyEnergy = spriteDB.battle_energy[enemyEnergy];
+            Sprite sSpiritEnergy = spriteDB.GetEnergySprite(spiritEnergy);
+            Sprite sEnemyEnergy = spriteDB.GetEnergySprite(enemyEnergy);
             Sprite sClouds = spriteDB.gameStart_clouds;
             Sprite sTrailmon = spriteDB.gameStart_trailmon;
             Sprite sSpiritPlatform = spriteDB.gameStart_spiritPlatform;

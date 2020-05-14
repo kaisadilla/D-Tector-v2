@@ -2,7 +2,7 @@
 
 namespace Kaisa.Digivice {
     public static class Constants {
-        public const string GAME_VERSION = "0.20.0512a";
+        public const string GAME_VERSION = "0.20.0513a";
 
         public const int PIXEL_SIZE = 24;
         public const int SCREEN_WIDTH = 32;

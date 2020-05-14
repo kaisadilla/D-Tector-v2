@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Kaisa.Digivice.App {
+namespace Kaisa.Digivice.Apps {
     public class Finder : DigiviceApp {
         public override void InputB() {
             if (result == 0) {
@@ -28,7 +28,7 @@ namespace Kaisa.Digivice.App {
                 StopLoadingBar();
             }
         }
-        protected override void StartApp() {
+        public override void StartApp() {
             InvokeRepeating("DisplayPressASprite", 0f, 0.75f);
         }
 

@@ -260,7 +260,7 @@ namespace Kaisa.Digivice {
                 return "Invalid parameters. Expected (int)steps";
             }
             if (command.StartsWith("/empowerenergy")) {
-                if (gm.logicMgr.loadedApp is App.Battle b) {
+                if (gm.logicMgr.loadedApp is Apps.Battle b) {
                     b.CheatEnergy();
                     return "Energy empowered.";
                 }
