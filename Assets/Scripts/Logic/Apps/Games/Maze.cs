@@ -402,8 +402,7 @@ namespace Kaisa.Digivice.Apps {
 
                     TextBoxBuilder tb = ScreenElement.BuildTextBox("Defeat", screenDisplay.transform, DFont.Small)
                         .SetText("DEFEAT").SetSize(32, 11).SetPosition(0, 14)
-                        .SetComponentSize(29, 5).SetComponentPosition(3, 1);
-                    tb.SetComponentSize(29, 8);
+                        .SetComponentSize(29, 8).SetComponentPosition(3, 1);
                     playerMarker.SetFlickPeriod(0f);
                 }
                 else if (timeRemaining == 0) {

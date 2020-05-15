@@ -109,6 +109,10 @@ namespace Kaisa.Digivice {
                     audioMgr.PlayButtonA();
                     OpenSpeedRunner();
                 }
+                else if (gamesTravelMenuIndex == 2) {
+                    audioMgr.PlayButtonA();
+                    OpenDigiHunter();
+                }
                 else if (gamesTravelMenuIndex == 3) {
                     audioMgr.PlayButtonA();
                     OpenMaze();
@@ -363,6 +367,11 @@ namespace Kaisa.Digivice {
         private void OpenSpeedRunner() {
             currentScreen = Screen.App;
             loadedApp = gm.appLoader.LoadApp<SpeedRunner>(App.SpeedRunner, this);
+            loadedApp.StartApp();
+        }
+        private void OpenDigiHunter() {
+            currentScreen = Screen.App;
+            loadedApp = gm.appLoader.LoadApp<DigiHunter>(App.DigiHunter, this);
             loadedApp.StartApp();
         }
         private void OpenMaze() {

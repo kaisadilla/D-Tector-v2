@@ -54,6 +54,8 @@ namespace Kaisa.Digivice {
         public AudioClip speedRunner_Asteroid;
         public AudioClip speedRunner_Finish;
         public AudioClip speedRunner_Crash;
+        [Header("Game - DigiHunter")]
+        public AudioClip digiHunter_Start;
         public void PlayButtonA() {
             source.clip = buttonA;
             source.Play();

@@ -97,16 +97,20 @@ namespace Kaisa.Digivice {
         public Sprite battle_callPoints_screen;
         public Sprite battle_callPoints_chooser;
         public Sprite[] battle_gainingSP = new Sprite[2];
+        [Header("Game - Jackpot Box")]
+        public Sprite jackpot_box;
+        public Sprite jackpot_pad;
+        public Sprite[] jackpot_keys = new Sprite[4];
+        [Header("Game - DigiHunter")]
+        public Sprite[] digiHunter_arrows = new Sprite[2];
+        public Sprite[] digiHunter_faces = new Sprite[2];
+        public Sprite digiHunter_explosion;
         [Header("Game - SpeedRunner")]
         public Sprite speedRunner_rocket;
         public Sprite speedRunner_rocketExplosion;
         public Sprite speedRunner_rocketAsteroid;
         public Sprite speedRunner_rocketSpeedMark;
         public Sprite speedRunner_rocketFinish;
-        [Header("Game - Jackpot Box")]
-        public Sprite jackpot_box;
-        public Sprite jackpot_pad;
-        public Sprite[] jackpot_keys = new Sprite[4];
 
         private void Awake() {
             Constants.SetEmptySprite(emptySprite);

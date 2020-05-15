@@ -1,8 +1,6 @@
 ﻿using Kaisa.Digivice.Extensions;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Kaisa.Digivice.Apps {
     public class Map : DigiviceApp {
@@ -15,7 +13,6 @@ namespace Kaisa.Digivice.Apps {
         private int originalMap; //The map of the area the player actually is in the game.
 
         private int displayMap;
-        private int displayArea;
         private int[] areasInCurrentMap;
 
         //Map screen:
@@ -23,8 +20,8 @@ namespace Kaisa.Digivice.Apps {
         private RectangleBuilder currentAreaMarker;
 
         //ChoosingArea screen:
-        private int currentArea; //The position of the array areasInCurrentMap the player is currently selecting.
-        private int SelectedArea => areasInCurrentMap[currentArea];
+        private int displayArea; //The position of the array areasInCurrentMap the player is currently selecting.
+        private int SelectedArea => areasInCurrentMap[displayArea];
         private RectangleBuilder hoveredMarker;
         private TextBoxBuilder hoveredAreaName;
 
@@ -201,7 +198,7 @@ namespace Kaisa.Digivice.Apps {
         private void OpenAreaSelection() {
             currentScreen = 1;
             //If the player is entering the map he already is in, start hovering in his current area, rather than the 'area 0' of that map.
-            currentArea = (displayMap == originalMap) ? OriginalAreaIndexInCurrentMap : 0;
+            displayArea = (displayMap == originalMap) ? OriginalAreaIndexInCurrentMap : 0;
 
             if (currentAreaMarker != null) currentAreaMarker.SetActive(false);
 
@@ -221,10 +218,10 @@ namespace Kaisa.Digivice.Apps {
         }
         private void NavigateAreaSelection(Direction dir) {
             if(dir == Direction.Left) {
-                currentArea = currentArea.CircularAdd(-1, areasInCurrentMap.Length - 1);
+                displayArea = displayArea.CircularAdd(-1, areasInCurrentMap.Length - 1);
             }
             else {
-                currentArea = currentArea.CircularAdd(1, areasInCurrentMap.Length - 1);
+                displayArea = displayArea.CircularAdd(1, areasInCurrentMap.Length - 1);
             }
             hoveredMarker.SetPosition(thisWorldData.areas[SelectedArea].coords);
             hoveredAreaName.Text = string.Format("area{0:00}", SelectedArea + 1);
@@ -252,7 +249,8 @@ namespace Kaisa.Digivice.Apps {
         }
 
         private void ChooseArea() {
-            if (SelectedArea != currentArea) gm.WorldMgr.MoveToArea(originalWorld, SelectedArea);
+            VisualDebug.WriteLine($"Selected area: {SelectedArea}, original area: {originalArea}");
+            if (SelectedArea != originalArea) gm.WorldMgr.MoveToArea(originalWorld, SelectedArea);
             CloseApp(Screen.Character);
         }
     }

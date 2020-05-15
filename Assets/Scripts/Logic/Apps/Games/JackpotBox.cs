@@ -302,11 +302,8 @@ namespace Kaisa.Digivice.Apps {
             float energyDiscountPerMiss = 12f / pattern.Length;
             int misses = pattern.Length - GetCorrectInputCount();
             int rank = Mathf.FloorToInt(12f - (energyDiscountPerMiss * misses));
-            if (rank == 10) rank = 15;
-            else if (rank == 11) rank = 16;
-            else if (rank == 12) rank = 17;
 
-            if (rank == 17 && pattern.Length >= THRESHOLD_FOR_MEGA_REWARD && misses == 0) rank = 19; //On perfect input when pattern length is 8 or more.
+            if (rank == 12 && pattern.Length >= THRESHOLD_FOR_MEGA_REWARD && misses == 0) rank = 14; //On perfect input when pattern length is 8 or more.
 
             return rank;
         }

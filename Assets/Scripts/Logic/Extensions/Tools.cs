@@ -34,6 +34,7 @@ namespace Kaisa.Digivice.Extensions {
         /// Returns a random element from the IEnumerable.
         /// </summary>
         public static T GetRandomElement<T>(this IEnumerable<T> array) {
+            if (array.Count() == 0) return default;
             return array.ElementAt(array.GetRandomIndex());
         }
 

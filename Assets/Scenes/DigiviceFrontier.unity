@@ -1882,27 +1882,6 @@ MonoBehaviour:
   - {fileID: -6232895521546326841, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
   - {fileID: -8539235919378652893, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
   - {fileID: -1711287652650103440, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
-  battle_energy:
-  - {fileID: 21300000, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
-  - {fileID: 21300002, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
-  - {fileID: 21300004, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
-  - {fileID: 21300006, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
-  - {fileID: 21300008, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
-  - {fileID: 21300010, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
-  - {fileID: 21300012, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
-  - {fileID: 21300014, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
-  - {fileID: 21300016, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
-  - {fileID: 21300018, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
-  - {fileID: 21300020, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
-  - {fileID: 21300022, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
-  - {fileID: 21300024, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
-  - {fileID: 21300026, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
-  - {fileID: 21300028, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
-  - {fileID: 21300030, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
-  - {fileID: 21300032, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
-  - {fileID: 21300034, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
-  - {fileID: 21300036, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
-  - {fileID: 21300038, guid: 26e82a1e53fc1474cbb97195a6d7cae8, type: 3}
   battle_disobey: {fileID: 7637870703528583553, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
     type: 3}
   battle_attackCollision: {fileID: 173538500886388945, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
@@ -1921,6 +1900,23 @@ MonoBehaviour:
   battle_gainingSP:
   - {fileID: -3681480723389110861, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
   - {fileID: 9104441157860946041, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
+  jackpot_box: {fileID: -5515913324239714521, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
+    type: 3}
+  jackpot_pad: {fileID: -7099948995909975852, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
+    type: 3}
+  jackpot_keys:
+  - {fileID: 8400751588845855453, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
+  - {fileID: -1669984397176262814, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
+  - {fileID: -5396480783222666497, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
+  - {fileID: -6460991067249104374, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
+  digiHunter_arrows:
+  - {fileID: 7868656874715051609, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
+  - {fileID: -2476025085766656122, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
+  digiHunter_faces:
+  - {fileID: 3159106351986071793, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
+  - {fileID: -8421389678223573996, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
+  digiHunter_explosion: {fileID: -8627942494478561041, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
+    type: 3}
   speedRunner_rocket: {fileID: -8811113036543827653, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
     type: 3}
   speedRunner_rocketExplosion: {fileID: -6017092528987982444, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
@@ -1931,15 +1927,6 @@ MonoBehaviour:
     type: 3}
   speedRunner_rocketFinish: {fileID: -6122722847368657884, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
     type: 3}
-  jackpot_box: {fileID: -5515913324239714521, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
-    type: 3}
-  jackpot_pad: {fileID: -7099948995909975852, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
-    type: 3}
-  jackpot_keys:
-  - {fileID: 8400751588845855453, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
-  - {fileID: -1669984397176262814, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
-  - {fileID: -5396480783222666497, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
-  - {fileID: -6460991067249104374, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
 --- !u!4 &460819917
 Transform:
   m_ObjectHideFlags: 0
@@ -4298,7 +4285,6 @@ MonoBehaviour:
     type: 3}
   pRectangle: {fileID: 1832133657182340, guid: a3a40f7fa3c2aee4fbbaf6089bb535b6, type: 3}
   pTextBox: {fileID: 1832133657182340, guid: 4250d6ebd616fb9419b683c8804f4a42, type: 3}
-  isCharacterDefeated: 0
   isCharacterWalking: 0
 --- !u!4 &944781340
 Transform:
@@ -7418,7 +7404,12 @@ MonoBehaviour:
     type: 3}
   pAppJackpotBox: {fileID: 4770717216813437012, guid: c730f54cad51869488f9eef4b4111695,
     type: 3}
+  pAppEnergyWars: {fileID: 0}
+  pAppDigiCatch: {fileID: 0}
   pAppSpeedRunner: {fileID: 4770717216813437012, guid: 402920bbc39067948a0a6d0ae0fcba32,
+    type: 3}
+  pAppAsteroids: {fileID: 0}
+  pAppDigiHunter: {fileID: 4770717216813437012, guid: a06af1e32a0816047a12399204fc5d5e,
     type: 3}
   pAppMaze: {fileID: 4770717216813437012, guid: 7b11440a99e28564e956a39d56be5219,
     type: 3}
@@ -8917,6 +8908,7 @@ MonoBehaviour:
     type: 3}
   speedRunner_Finish: {fileID: 8300000, guid: dd258d68f6124144cb5c51f7c8172a82, type: 3}
   speedRunner_Crash: {fileID: 8300000, guid: 9cd9345cb1c93bc4bad7bcacb58c7fe5, type: 3}
+  digiHunter_Start: {fileID: 8300000, guid: 6fe5eba4ca1b14b408666987a42b775b, type: 3}
 --- !u!1 &2130378981
 GameObject:
   m_ObjectHideFlags: 0

@@ -99,33 +99,11 @@ namespace Kaisa.Digivice {
             AttemptUpdateGame();
             StartCoroutine(IncreaseJackpotValue());
 
-            //EnqueueAnimation(Animations.EnemyEscapes("Duskmon", "Baihumon"));
-            MutableCombatStats suka = Database.GetDigimon("devimon").GetBossStats(10);
-            Debug.Log($"devimon hp {suka}");
-            suka = Database.GetDigimon("lanamon").GetBossStats(10);
-            Debug.Log($"lanamon hp {suka}");
-            suka = Database.GetDigimon("nanimon").GetBossStats(10);
-            Debug.Log($"nanimon hp {suka}");
-            suka = Database.GetDigimon("ogremon").GetBossStats(10);
-            Debug.Log($"ogremon hp {suka}");
-            suka = Database.GetDigimon("sukamon").GetBossStats(10);
-            Debug.Log($"sukamon hp {suka}");
-            suka = Database.GetDigimon("gatomon").GetBossStats(10);
-            Debug.Log($"gatomon hp {suka}");
-            suka = Database.GetDigimon("kuwagamon").GetBossStats(10);
-            Debug.Log($"kuwagamon hp {suka}");
-            suka = Database.GetDigimon("woodmon").GetBossStats(10);
-            Debug.Log($"woodmon hp {suka}");
-            suka = Database.GetDigimon("raremon").GetBossStats(10);
-            Debug.Log($"raremon hp {suka}");
-            suka = Database.GetDigimon("doggymon").GetBossStats(10);
-            Debug.Log($"doggymon hp {suka}");
-            suka = Database.GetDigimon("wendigomon").GetBossStats(10);
-            Debug.Log($"wendigomon hp {suka}");
-            suka = Database.GetDigimon("wizardmon").GetBossStats(10);
-            Debug.Log($"wizardmon hp {suka}");
-            suka = Database.GetDigimon("devidramon").GetBossStats(10);
-            Debug.Log($"devidramon hp {suka}");
+            for(int i = 0; i < 12; i++) {
+                WorldMgr.SetAreaCompleted(0, i, false);
+            }
+
+            //EnqueueAnimation(Animations.StartAppDigiHunter(mark => ended = mark));
 
             //CompleteWorld(0);
 

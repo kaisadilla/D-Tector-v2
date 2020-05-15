@@ -14,7 +14,11 @@ namespace Kaisa.Digivice.Apps {
         Finder,
         Battle,
         JackpotBox,
+        EnergyWars,
+        DigiCatch,
         SpeedRunner,
+        Asteroids,
+        DigiHunter,
         Maze
     }
     public class AppLoader : MonoBehaviour {
@@ -31,7 +35,11 @@ namespace Kaisa.Digivice.Apps {
         [SerializeField] private GameObject pAppFinder;
         [SerializeField] private GameObject pAppBattle;
         [SerializeField] private GameObject pAppJackpotBox;
+        [SerializeField] private GameObject pAppEnergyWars;
+        [SerializeField] private GameObject pAppDigiCatch;
         [SerializeField] private GameObject pAppSpeedRunner;
+        [SerializeField] private GameObject pAppAsteroids;
+        [SerializeField] private GameObject pAppDigiHunter;
         [SerializeField] private GameObject pAppMaze;
 
         public T LoadApp<T>(App app, IAppController controller) where T : DigiviceApp {
@@ -65,6 +73,9 @@ namespace Kaisa.Digivice.Apps {
                     break;
                 case App.SpeedRunner:
                     appGO = Instantiate(pAppSpeedRunner, gm.RootParent);
+                    break;
+                case App.DigiHunter:
+                    appGO = Instantiate(pAppDigiHunter, gm.RootParent);
                     break;
                 case App.Maze:
                     appGO = Instantiate(pAppMap, gm.RootParent);

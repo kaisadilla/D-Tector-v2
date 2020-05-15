@@ -2598,6 +2598,69 @@ namespace Kaisa.Digivice {
             yield return new WaitForSeconds(0.2f);
         }
 
+        public static IEnumerator StartAppDigiHunter(System.Action<bool> markEnded) {
+            Sprite[] sArrows = spriteDB.digiHunter_arrows;
+            Sprite[] sFaces = spriteDB.digiHunter_faces;
+
+            audioMgr.PlaySound(audioMgr.digiHunter_Start);
+            yield return new WaitForSeconds(0.5f);
+
+            RectangleBuilder rbLoadingBar = ScreenElement.BuildRectangle("Loading Bar", AnimParent).SetSize(1, 4).SetPosition(30, 0);
+
+            for(int i = 0; i < 29; i++) {
+                rbLoadingBar.Move(Direction.Left).SetSize(i + 2, 4);
+                yield return new WaitForSeconds(1.25f / 29);
+            }
+
+            SpriteBuilder[] sbArrows = new SpriteBuilder[6];
+            for(int i = 0; i < 3; i++) {
+                sbArrows[i] = ScreenElement.BuildSprite("Vertical Arrow", AnimParent).SetSize(3, 6).SetPosition(2, 9 + (i * 8)).SetSprite(sArrows[0]);
+            }
+            for (int i = 0; i < 3; i++) {
+                sbArrows[3 + i] = ScreenElement.BuildSprite("Horizontal Arrow", AnimParent).SetSize(6, 3).SetPosition(6 + (i * 8), 5).SetSprite(sArrows[1]);
+            }
+
+            for(int i = 0; i < 3; i++) {
+                foreach (var s in sbArrows) s.SetActive(true);
+                yield return new WaitForSeconds(0.2f);
+                foreach (var s in sbArrows) s.SetActive(false);
+                yield return new WaitForSeconds(0.2f);
+            }
+
+            SpriteBuilder[] sbWhiteFaces = new SpriteBuilder[4];
+            SpriteBuilder[] sbBlackFaces = new SpriteBuilder[5];
+            sbWhiteFaces[0] = ScreenElement.BuildSprite("White face", AnimParent).SetSize(8, 8).SetPosition(13, 8).SetSprite(sFaces[0]);
+            sbWhiteFaces[1] = ScreenElement.BuildSprite("White face", AnimParent).SetSize(8, 8).SetPosition(5, 16).SetSprite(sFaces[0]);
+            sbWhiteFaces[2] = ScreenElement.BuildSprite("White face", AnimParent).SetSize(8, 8).SetPosition(21, 16).SetSprite(sFaces[0]);
+            sbWhiteFaces[3] = ScreenElement.BuildSprite("White face", AnimParent).SetSize(8, 8).SetPosition(13, 24).SetSprite(sFaces[0]);
+            sbBlackFaces[0] = ScreenElement.BuildSprite("Black face", AnimParent).SetSize(8, 8).SetPosition(5, 8).SetSprite(sFaces[1]);
+            sbBlackFaces[1] = ScreenElement.BuildSprite("Black face", AnimParent).SetSize(8, 8).SetPosition(21, 8).SetSprite(sFaces[1]);
+            sbBlackFaces[2] = ScreenElement.BuildSprite("Black face", AnimParent).SetSize(8, 8).SetPosition(13, 16).SetSprite(sFaces[1]);
+            sbBlackFaces[3] = ScreenElement.BuildSprite("Black face", AnimParent).SetSize(8, 8).SetPosition(5, 24).SetSprite(sFaces[1]);
+            sbBlackFaces[4] = ScreenElement.BuildSprite("Black face", AnimParent).SetSize(8, 8).SetPosition(21, 24).SetSprite(sFaces[1]);
+
+            for(int i = 0; i < 3; i++) {
+                foreach (var s in sbWhiteFaces) s.SetActive(true);
+                foreach (var s in sbBlackFaces) s.SetActive(false);
+                yield return new WaitForSeconds(0.2f);
+                foreach (var s in sbWhiteFaces) s.SetActive(false);
+                foreach (var s in sbBlackFaces) s.SetActive(true);
+                yield return new WaitForSeconds(0.2f);
+            }
+
+            foreach (var s in sbBlackFaces) s.SetActive(false);
+            sbArrows[0].SetActive(true);
+            sbArrows[3].SetActive(true);
+
+            TextBoxBuilder tbStart = ScreenElement.BuildTextBox("Start", AnimParent, DFont.Small).SetText("START").SetPosition(6, 17);
+            yield return new WaitForSeconds(0.5f);
+            tbStart.SetActive(false);
+            yield return new WaitForSeconds(0.5f);
+            tbStart.SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+            markEnded(true);
+        }
+
         //Game event animations:
         public static IEnumerator TransitionToMap1(GameChar character) {
             Sprite[] sCharacter = spriteDB.GetCharacterSprites(character);
