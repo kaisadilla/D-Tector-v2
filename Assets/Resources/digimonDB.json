@@ -9,7 +9,10 @@
     "element": 0,
     "evolution": "greymon",
     "extraEvolutions": [
-      "centarumon"
+      "geogreymon",
+      "centarumon",
+      "flarelizardmon",
+      "meramon"
     ],
     "disabled": false,
     "baseLevel": 4,
@@ -56,7 +59,12 @@
     "abilityName": "flames_1b",
     "element": 4,
     "evolution": "garurumon",
-    "extraEvolutions": null,
+    "extraEvolutions": [
+      "drimogemon",
+      "reppamon",
+      "sangloupmon",
+      "exveemon"
+    ],
     "disabled": false,
     "baseLevel": 4,
     "stats": {
@@ -79,7 +87,12 @@
     "abilityName": "feathers_2",
     "element": 0,
     "evolution": "birdramon",
-    "extraEvolutions": null,
+    "extraEvolutions": [
+      "kokatorimon",
+      "saberdramon",
+      "aquilamon",
+      "diatrymon"
+    ],
     "disabled": false,
     "baseLevel": 4,
     "stats": {
@@ -102,7 +115,12 @@
     "abilityName": "bright",
     "element": 3,
     "evolution": "kabuterimon",
-    "extraEvolutions": null,
+    "extraEvolutions": [
+      "ankylomon",
+      "kuwagamon",
+      "snimon",
+      "waspmon"
+    ],
     "disabled": false,
     "baseLevel": 3,
     "stats": {
@@ -125,7 +143,12 @@
     "abilityName": "leaves",
     "element": 3,
     "evolution": "togemon",
-    "extraEvolutions": null,
+    "extraEvolutions": [
+      "junglemojyamon",
+      "redvegiemon",
+      "sunflowmon",
+      "woodmon"
+    ],
     "disabled": false,
     "baseLevel": 4,
     "stats": {
@@ -148,7 +171,12 @@
     "abilityName": "fish",
     "element": 4,
     "evolution": "ikkakumon",
-    "extraEvolutions": null,
+    "extraEvolutions": [
+      "gaogamon",
+      "mojyamon",
+      "octomon",
+      "frigimon"
+    ],
     "disabled": false,
     "baseLevel": 3,
     "stats": {
@@ -171,7 +199,12 @@
     "abilityName": "bubbles",
     "element": 1,
     "evolution": "angemon",
-    "extraEvolutions": null,
+    "extraEvolutions": [
+      "airdramon",
+      "centarumon",
+      "kyubimon",
+      "bucchiemon (green)"
+    ],
     "disabled": false,
     "baseLevel": 5,
     "stats": {
@@ -194,7 +227,12 @@
     "abilityName": "kuwagamon",
     "element": 3,
     "evolution": "okuwamon",
-    "extraEvolutions": null,
+    "extraEvolutions": [
+      "megakabuterimon",
+      "kimeramon",
+      "megadramon",
+      "scorpiomon"
+    ],
     "disabled": false,
     "baseLevel": 15,
     "stats": {
@@ -210,7 +248,7 @@
       "AB": 120
     },
     "isPseudo": false,
-    "HasBossStats": false,
+    "HasBossStats": true,
     "code": "ahrz7"
   },
   {
@@ -222,7 +260,12 @@
     "abilityName": "big_flame",
     "element": 0,
     "evolution": "metalgreymon",
-    "extraEvolutions": null,
+    "extraEvolutions": [
+      "skullgreymon",
+      "kimeramon",
+      "mastertyrannomon",
+      "majiramon"
+    ],
     "disabled": false,
     "baseLevel": 18,
     "stats": {
@@ -268,7 +311,12 @@
     "abilityName": "garurumon",
     "element": 4,
     "evolution": "weregarurumon",
-    "extraEvolutions": null,
+    "extraEvolutions": [
+      "metalmamemon",
+      "caturamon",
+      "grapleomon",
+      "kimeramon"
+    ],
     "disabled": false,
     "baseLevel": 18,
     "stats": {
@@ -313,7 +361,7 @@
     "spiritType": 6,
     "abilityName": "gigasmon",
     "element": 6,
-    "evolution": "spinomon",
+    "evolution": "vermilimon",
     "extraEvolutions": null,
     "disabled": false,
     "baseLevel": 17,
@@ -1288,7 +1336,7 @@
       "AB": 150
     },
     "isPseudo": false,
-    "HasBossStats": false,
+    "HasBossStats": true,
     "code": "13x8r"
   },
   {
@@ -1316,7 +1364,7 @@
       "AB": 150
     },
     "isPseudo": false,
-    "HasBossStats": false,
+    "HasBossStats": true,
     "code": "zbbwz"
   },
   {
@@ -1883,8 +1931,9 @@
       "CR": 15,
       "AB": 35
     },
+    "bossStats": null,
     "isPseudo": false,
-    "HasBossStats": true,
+    "HasBossStats": false,
     "code": "r0tkk"
   },
   {
@@ -4085,8 +4134,10 @@
     "spiritType": 6,
     "abilityName": "azulongmon",
     "element": 6,
-    "evolution": "rockmon",
-    "extraEvolutions": null,
+    "evolution": "meteormon",
+    "extraEvolutions": [
+      "rockmon"
+    ],
     "disabled": false,
     "baseLevel": 14,
     "stats": {
@@ -4249,7 +4300,9 @@
     "abilityName": "rock_big",
     "element": 8,
     "evolution": "pilevolcamon",
-    "extraEvolutions": null,
+    "extraEvolutions": [
+      "eldoradimon"
+    ],
     "disabled": false,
     "baseLevel": 28,
     "stats": {
@@ -9027,8 +9080,10 @@
     "spiritType": 6,
     "abilityName": "grapleomon",
     "element": 1,
-    "evolution": "bancholeomon",
-    "extraEvolutions": null,
+    "evolution": "saberleomon",
+    "extraEvolutions": [
+      "bancholeomon"
+    ],
     "disabled": false,
     "baseLevel": 33,
     "stats": {
@@ -9911,8 +9966,9 @@
       "CR": 10,
       "AB": 25
     },
+    "bossStats": null,
     "isPseudo": false,
-    "HasBossStats": true,
+    "HasBossStats": false,
     "code": "1mylq"
   },
   {
@@ -10059,7 +10115,7 @@
     "name": "ancientvolcamon",
     "stage": 6,
     "spiritType": 3,
-    "abilityName": "wargreymon",
+    "abilityName": "ancientvolcamon",
     "element": 6,
     "evolution": "",
     "extraEvolutions": null,
@@ -11214,7 +11270,7 @@
     "name": "daipenmon",
     "stage": 6,
     "spiritType": 2,
-    "abilityName": "icedoll",
+    "abilityName": "daipenmon",
     "element": 4,
     "evolution": "",
     "extraEvolutions": null,
@@ -12047,7 +12103,11 @@
     "abilityName": "shuriken",
     "element": 2,
     "evolution": "chirinmon",
-    "extraEvolutions": null,
+    "extraEvolutions": [
+      "kyukimon",
+      "cyberdramon",
+      "orochimon"
+    ],
     "disabled": false,
     "baseLevel": 17,
     "stats": {
@@ -12148,8 +12208,9 @@
       "CR": 30,
       "AB": 10
     },
+    "bossStats": null,
     "isPseudo": false,
-    "HasBossStats": true,
+    "HasBossStats": false,
     "code": "wdie6"
   },
   {
@@ -12183,8 +12244,11 @@
     "spiritType": 6,
     "abilityName": "millenniummon",
     "element": 1,
-    "evolution": "saberleomon",
-    "extraEvolutions": null,
+    "evolution": "bancholeomon",
+    "extraEvolutions": [
+      "saberleomon",
+      "baihumon"
+    ],
     "disabled": false,
     "baseLevel": 34,
     "stats": {

@@ -99,11 +99,9 @@ namespace Kaisa.Digivice {
             AttemptUpdateGame();
             StartCoroutine(IncreaseJackpotValue());
 
-            for(int i = 0; i < 12; i++) {
-                WorldMgr.SetAreaCompleted(0, i, false);
+            for (int i = 0; i < 12; i++) {
+                WorldMgr.SetAreaCompleted(2, i, false);
             }
-
-            //EnqueueAnimation(Animations.StartAppDigiHunter(mark => ended = mark));
 
             //CompleteWorld(0);
 
@@ -201,6 +199,7 @@ namespace Kaisa.Digivice {
         public void CheckPendingEvents() {
             //Don't trigger while an app is loaded. When an app is closed, this is called again.
             if (logicMgr.IsAppLoaded && !(logicMgr.loadedApp is Apps.Status)) return;
+            if (screenMgr.PlayingAnimations) return;
 
             int savedEvent = SavedGame.SavedEvent;
             if (savedEvent == 0) return;
@@ -326,6 +325,19 @@ namespace Kaisa.Digivice {
                 }
             }
             return allDigimon;
+        }
+        public List<string> GetAllUnlockedHumanAndAnimalSpirits() {
+            List<Digimon> allDigimon = new List<Digimon>();
+            foreach (Digimon d in Database.Digimons) {
+                if (d.stage == Stage.Spirit) {
+                    if (d.spiritType == SpiritType.Human || d.spiritType == SpiritType.Animal) {
+                        if (logicMgr.GetDigimonUnlocked(d.name)) {
+                            allDigimon.Add(d);
+                        }
+                    }
+                }
+            }
+            return allDigimon.OrderBy(d => d.order).Select(d => d.name).ToList();
         }
         public List<string> GetAllUnlockedFusionDigimon() {
             List<string> allDigimon = new List<string>();
@@ -507,11 +519,20 @@ namespace Kaisa.Digivice {
 
         public void CompleteWorld(int world) {
             if (world == 0) CompleteWorld0();
+            if (world == 2) CompleteWorld2();
         }
         private void CompleteWorld0() {
             WorldMgr.MoveToArea(1, 0);
             IsCharacterDefeated = true;
             EnqueueAnimation(Animations.TransitionToMap1(PlayerChar));
+        }
+        private void CompleteWorld2() {
+            WorldMgr.MoveToArea(3, 0);
+            IsCharacterDefeated = true;
+            EnqueueAnimation(Animations.TransitionToMap3(PlayerChar, WorldMgr.GetBossOfCurrentArea(), GetAllUnlockedHumanAndAnimalSpirits()));
+            foreach (string s in GetAllUnlockedHumanAndAnimalSpirits()) {
+                logicMgr.LoseSpirit(s);
+            }
         }
 
         #endregion

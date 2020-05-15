@@ -111,6 +111,9 @@ namespace Kaisa.Digivice {
         public Sprite speedRunner_rocketAsteroid;
         public Sprite speedRunner_rocketSpeedMark;
         public Sprite speedRunner_rocketFinish;
+        [Header("End boss animations")]
+        public Sprite[] spirit_absorber = new Sprite[2];
+        public Sprite spirit_explosion;
 
         private void Awake() {
             Constants.SetEmptySprite(emptySprite);

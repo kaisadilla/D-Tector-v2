@@ -145,8 +145,6 @@ namespace Kaisa.Digivice.Apps {
                 if(Random.Range(0, 20) > gm.JackpotValue) {
                     reward = Reward.Empty;
                 }
-
-
             }
 
             //Apply the reward and play its animation.
@@ -200,7 +198,7 @@ namespace Kaisa.Digivice.Apps {
         }
         private IEnumerator TriggerBattle() {
             CloseApp();
-            gm.logicMgr.CallRandomBattle();
+            gm.logicMgr.CallRandomBattle(true);
             yield return null;
         }
 

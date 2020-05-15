@@ -30,7 +30,13 @@ namespace Kaisa.Digivice.Extensions {
             }
         }
         public static SpriteBuilder[] Move(this SpriteBuilder[] scrArray, Direction direction, int amount = 1) {
+            if (scrArray == null || scrArray.Length == 0) return scrArray;
             foreach (SpriteBuilder scr in scrArray) scr.Move(direction, amount);
+            return scrArray;
+        }
+        public static SpriteBuilder[] SetActive(this SpriteBuilder[] scrArray, bool active) {
+            if (scrArray == null || scrArray.Length == 0) return scrArray;
+            foreach (SpriteBuilder scr in scrArray) scr.SetActive(active);
             return scrArray;
         }
     }

@@ -56,6 +56,9 @@ namespace Kaisa.Digivice {
         public AudioClip speedRunner_Crash;
         [Header("Game - DigiHunter")]
         public AudioClip digiHunter_Start;
+        [Header("End boss animations")]
+        public AudioClip stealAllSpirits;
+        public AudioClip destroySpirits;
         public void PlayButtonA() {
             source.clip = buttonA;
             source.Play();

@@ -108,7 +108,7 @@ namespace Kaisa.Digivice.Apps {
             }
             CloseApp();
             if(controller is LogicManager logicMgr) {
-                logicMgr.CallRandomBattle();
+                logicMgr.CallRandomBattle(true);
             }
         }
     }

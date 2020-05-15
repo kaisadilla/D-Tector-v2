@@ -151,7 +151,7 @@ namespace Kaisa.Digivice {
             SavedGame.StepsToNextEvent -= steps;
             SavedGame.Steps += steps;
 
-            if(SavedGame.StepsToNextEvent <= 0) {
+            if(SavedGame.StepsToNextEvent <= 0 && CurrentDistance > 1) {
                 SavedGame.StepsToNextEvent = Random.Range(3, 6) * 100;
                 SavedGame.SavedEvent = 1;
             }

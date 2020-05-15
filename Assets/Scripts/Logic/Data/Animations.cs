@@ -2768,5 +2768,136 @@ namespace Kaisa.Digivice {
             yield return new WaitForSeconds(0.5f);
         }
 
+        public static IEnumerator TransitionToMap3(GameChar character, string enemyDigimon, List<string> stolenSpirits) {
+            Sprite[] sCharacter = spriteDB.GetCharacterSprites(character);
+            Sprite[] sEnemyDigimon = spriteDB.GetAllDigimonSprites(enemyDigimon);
+            Sprite[] sAbsorber = spriteDB.spirit_absorber;
+
+            SpriteBuilder[] sbAllSpirits = new SpriteBuilder[stolenSpirits.Count];
+
+            if (stolenSpirits.Count != 0) {
+                for (int i = 0; i < sbAllSpirits.Length; i++) {
+                    sbAllSpirits[i] = ScreenElement.BuildSprite("Spirit", AnimParent).SetSize(14, 16)
+                        .SetSprite(spriteDB.GetDigimonSprite(stolenSpirits[i], SpriteAction.SpiritSmall));
+                    sbAllSpirits[i].SetPosition(32 + (Mathf.FloorToInt(i / 2f) * 16), ((i % 2) * 16));
+                }
+            }
+
+            SpriteBuilder sbCharacter = ScreenElement.BuildSprite("Character", AnimParent).SetSprite(sCharacter[4]);
+            SpriteBuilder[] sbAbsorber = new SpriteBuilder[2];
+            sbAbsorber[0] = ScreenElement.BuildSprite("Absorber0", AnimParent).SetSize(16, 32).SetPosition(0, 0).SetSprite(sAbsorber[0]).SetActive(false);
+            sbAbsorber[1] = ScreenElement.BuildSprite("Absorber1", AnimParent).SetSize(16, 32).SetPosition(16, 0).SetSprite(sAbsorber[1]).SetActive(false);
+
+            //Character runs.
+            for(int i = 0; i < 5; i++) {
+                sbCharacter.SetSprite(sCharacter[4]);
+                yield return new WaitForSeconds(0.25f);
+                sbCharacter.SetSprite(sCharacter[5]);
+                yield return new WaitForSeconds(0.25f);
+            }
+            //Absorbers appear.
+            audioMgr.PlaySound(audioMgr.stealAllSpirits);
+            for (int i = 0; i < 5; i++) {
+                sbAbsorber.SetActive(true);
+                yield return new WaitForSeconds(0.35f);
+                sbAbsorber.SetActive(false);
+                yield return new WaitForSeconds(0.35f);
+            }
+            //Camera moves to show spirits being absorbed.
+            for (int i = 0; i < 16; i++) {
+                sbCharacter.Move(Direction.Right);
+                yield return new WaitForSeconds(1f / 16);
+            }
+            sbAbsorber[1].SetSprite(sAbsorber[0]);
+            for(int i = 0; i < 192; i++) {
+                sbAbsorber[1].SetActive(Mathf.FloorToInt(i / 7) % 2 == 0);
+                sbAllSpirits.Move(Direction.Left);
+                yield return new WaitForSeconds(1.5f / 32);
+            }
+            yield return new WaitForSeconds(0.35f);
+            sbAbsorber[1].SetActive(false);
+            sbCharacter.SetActive(false);
+
+            //Enemy appears.
+            SpriteBuilder sbEnemyDigimon = ScreenElement.BuildSprite("Enemy", AnimParent).SetSize(24, 24)
+                .FlipHorizontal(true).Center().SetSprite(sEnemyDigimon[0]);
+            RectangleBuilder rbEnemyDigimonInverted = ScreenElement.BuildRectangle("Enemy inverted", AnimParent)
+                .SetSize(32, 32).SetColor(true).SetActive(false);
+            ScreenElement.BuildSprite("Enemy", rbEnemyDigimonInverted.transform).SetSize(24, 24)
+                .FlipHorizontal(true).SetPosition(4, 4).SetSprite(spriteDB.GetInvertedSprite(sEnemyDigimon[1]));
+
+            for (int i = 0; i < 3; i++) {
+                sbEnemyDigimon.SetActive(false);
+                yield return new WaitForSeconds(0.25f);
+                sbEnemyDigimon.SetActive(true);
+                yield return new WaitForSeconds(0.25f);
+            }
+            sbEnemyDigimon.SetSprite(sEnemyDigimon[1]);
+
+            for(int i = 0; i < 3; i++) {
+                rbEnemyDigimonInverted.SetActive(false);
+                yield return new WaitForSeconds(0.25f);
+                rbEnemyDigimonInverted.SetActive(true);
+                yield return new WaitForSeconds(0.25f);
+            }
+            rbEnemyDigimonInverted.SetActive(false);
+            yield return new WaitForSeconds(0.25f);
+            sbEnemyDigimon.SetActive(false);
+
+            //Explode spirits:
+            for (int i = 0; i < stolenSpirits.Count; i += 4) {
+                Sprite sSpirit1, sSpirit2 = null, sSpirit3 = null, sSpirit4 = null;
+                sSpirit1 = spriteDB.GetDigimonSprite(stolenSpirits[i], SpriteAction.SpiritSmall);
+                if (stolenSpirits.Count > i + 1) sSpirit2 = spriteDB.GetDigimonSprite(stolenSpirits[i + 1], SpriteAction.SpiritSmall);
+                if (stolenSpirits.Count > i + 2) sSpirit3 = spriteDB.GetDigimonSprite(stolenSpirits[i + 2], SpriteAction.SpiritSmall);
+                if (stolenSpirits.Count > i + 3) sSpirit4 = spriteDB.GetDigimonSprite(stolenSpirits[i + 3], SpriteAction.SpiritSmall);
+
+                SpriteBuilder[] sbSpirit = new SpriteBuilder[4];
+
+                sbSpirit[0] = ScreenElement.BuildSprite("Spirit1", AnimParent)
+                    .SetSize(14, 16).SetPosition(1, 0).SetSprite(sSpirit1);
+                sbSpirit[1] = ScreenElement.BuildSprite("Spirit2", AnimParent)
+                    .SetSize(14, 16).SetPosition(17, 0).SetSprite(sSpirit2 ?? spriteDB.emptySprite);
+                sbSpirit[2] = ScreenElement.BuildSprite("Spirit3", AnimParent)
+                    .SetSize(14, 16).SetPosition(1, 16).SetSprite(sSpirit3 ?? spriteDB.emptySprite);
+                sbSpirit[3] = ScreenElement.BuildSprite("Spirit4", AnimParent)
+                    .SetSize(14, 16).SetPosition(17, 16).SetSprite(sSpirit4 ?? spriteDB.emptySprite);
+
+                yield return new WaitForSeconds(0.4f);
+
+                audioMgr.PlaySound(audioMgr.destroySpirits);
+                sbSpirit[0].SetSprite(spriteDB.spirit_explosion);
+                yield return new WaitForSeconds(0.2f);
+                sbSpirit[0].SetSprite(spriteDB.emptySprite);
+
+                sbSpirit[3].SetSprite(spriteDB.spirit_explosion);
+                yield return new WaitForSeconds(0.2f);
+                sbSpirit[3].SetSprite(spriteDB.emptySprite);
+
+                sbSpirit[1].SetSprite(spriteDB.spirit_explosion);
+                yield return new WaitForSeconds(0.2f);
+                sbSpirit[1].SetSprite(spriteDB.emptySprite);
+
+                sbSpirit[2].SetSprite(spriteDB.spirit_explosion);
+                yield return new WaitForSeconds(0.2f);
+                sbSpirit[2].SetSprite(spriteDB.emptySprite);
+            }
+            yield return new WaitForSeconds(0.1f);
+
+            ClearAnimParent();
+
+            sbEnemyDigimon = ScreenElement.BuildSprite("Enemy", AnimParent).SetSize(24, 24)
+                .FlipHorizontal(true).Center().SetSprite(sEnemyDigimon[1]);
+            yield return new WaitForSeconds(0.4f);
+            sbEnemyDigimon.SetSprite(sEnemyDigimon[0]);
+            yield return new WaitForSeconds(0.25f);
+
+            for (int i = 0; i < 16; i++) {
+                sbEnemyDigimon.Move(Direction.Up, 2);
+                yield return new WaitForSeconds(0.8f / 16);
+            }
+
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 }

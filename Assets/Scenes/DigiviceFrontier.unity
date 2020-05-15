@@ -1927,6 +1927,11 @@ MonoBehaviour:
     type: 3}
   speedRunner_rocketFinish: {fileID: -6122722847368657884, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
     type: 3}
+  spirit_absorber:
+  - {fileID: -3392568072154712400, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
+  - {fileID: -3729817045237689404, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
+  spirit_explosion: {fileID: 1386095112440340573, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
+    type: 3}
 --- !u!4 &460819917
 Transform:
   m_ObjectHideFlags: 0
@@ -8909,6 +8914,8 @@ MonoBehaviour:
   speedRunner_Finish: {fileID: 8300000, guid: dd258d68f6124144cb5c51f7c8172a82, type: 3}
   speedRunner_Crash: {fileID: 8300000, guid: 9cd9345cb1c93bc4bad7bcacb58c7fe5, type: 3}
   digiHunter_Start: {fileID: 8300000, guid: 6fe5eba4ca1b14b408666987a42b775b, type: 3}
+  stealAllSpirits: {fileID: 8300000, guid: 4ff613d5d7de6d347bac203fee4d1179, type: 3}
+  destroySpirits: {fileID: 8300000, guid: b0fc47423de9f7a4e91780609c66361c, type: 3}
 --- !u!1 &2130378981
 GameObject:
   m_ObjectHideFlags: 0

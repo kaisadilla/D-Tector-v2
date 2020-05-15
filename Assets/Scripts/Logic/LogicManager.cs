@@ -262,7 +262,7 @@ namespace Kaisa.Digivice {
             IsEventPending = true;
 
             if(UnityEngine.Random.Range(0f, 1f) < 0.85f) {
-                triggerEvent = CallRandomBattle;
+                triggerEvent = CallRandomBattleForEvent;
             }
             else {
                 triggerEvent = TriggerDataStorm;
@@ -285,10 +285,11 @@ namespace Kaisa.Digivice {
             };
         }
 
-        public void CallRandomBattle() {
+        public void CallRandomBattleForEvent() => CallRandomBattle(false);
+        public void CallRandomBattle(bool reduceDistance) {
             currentScreen = Screen.App;
             Digimon randomDigimon = Database.GetRandomDigimonForBattle(GetPlayerLevel());
-            loadedApp = gm.appLoader.LoadApp<Battle>(App.Battle, this).Initialize(randomDigimon.name, true);
+            loadedApp = gm.appLoader.LoadApp<Battle>(App.Battle, this).Initialize(randomDigimon.name, reduceDistance);
             loadedApp.StartApp();
         }
 
@@ -778,7 +779,7 @@ namespace Kaisa.Digivice {
                     }
                     break;
                 case Reward.TriggerBattle:
-                    CallRandomBattle();
+                    CallRandomBattle(true);
                     break;
                 default:
                     resultBefore = null;
