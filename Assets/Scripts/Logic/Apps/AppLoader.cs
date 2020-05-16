@@ -78,7 +78,7 @@ namespace Kaisa.Digivice.Apps {
                     appGO = Instantiate(pAppDigiHunter, gm.RootParent);
                     break;
                 case App.Maze:
-                    appGO = Instantiate(pAppMap, gm.RootParent);
+                    appGO = Instantiate(pAppMaze, gm.RootParent);
                     break;
                 default:
                     return null;

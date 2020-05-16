@@ -99,13 +99,16 @@ namespace Kaisa.Digivice {
             AttemptUpdateGame();
             StartCoroutine(IncreaseJackpotValue());
 
+            //SECTION TO DO WEIRD STUFF IN TESTING.
+            #if UNITY_EDITOR
             for (int i = 0; i < 12; i++) {
                 WorldMgr.SetAreaCompleted(2, i, false);
             }
-
             //CompleteWorld(0);
 
             //EnqueueAnimation(Animations.TransitionToMap1(PlayerChar));
+            //EnqueueAnimation(Animations.UnlockDigimon("Kyubimon"));
+            #endif
         }
 
         //Called via InvokeRepeating
@@ -181,11 +184,14 @@ namespace Kaisa.Digivice {
                 VisualDebug.WriteLine($"Leaver Buster triggered. Experience lost: {expLoss}. Digimon lost: {digimonLoss}");
                 logicMgr.RemovePlayerExperience(expLoss);
 
-                if (Database.GetDigimon(digimonLoss).stage != Stage.Spirit) {
-                    logicMgr.PunishDigimon(digimonLoss, out _, out _);
-                }
-                else {
-                    logicMgr.LoseSpirit(digimonLoss);
+                if(digimonLoss != "") {
+                    if (Database.GetDigimon(digimonLoss).stage != Stage.Spirit) {
+                        logicMgr.PunishDigimon(digimonLoss, out _, out _);
+                    }
+                    else {
+                        logicMgr.LoseSpirit(digimonLoss);
+                    }
+
                 }
 
                 WorldMgr.IncreaseDistance(2000);
@@ -198,18 +204,18 @@ namespace Kaisa.Digivice {
         /// </summary>
         public void CheckPendingEvents() {
             //Don't trigger while an app is loaded. When an app is closed, this is called again.
-            if (logicMgr.IsAppLoaded && !(logicMgr.loadedApp is Apps.Status)) return;
+            if (logicMgr.IsAppLoaded && !(logicMgr.loadedApp is Status)) return;
             if (screenMgr.PlayingAnimations) return;
 
             int savedEvent = SavedGame.SavedEvent;
             if (savedEvent == 0) return;
             else if (savedEvent == 1) {
                 logicMgr.EnqueueRegularEvent();
-                logicMgr.CloseLoadedApp();
+                if (logicMgr.IsAppLoaded) logicMgr.CloseLoadedApp();
             }
             else if(savedEvent == 2) {
                 logicMgr.EnqueueBossEvent();
-                logicMgr.CloseLoadedApp();
+                if (logicMgr.IsAppLoaded) logicMgr.CloseLoadedApp();
             }
         }
 

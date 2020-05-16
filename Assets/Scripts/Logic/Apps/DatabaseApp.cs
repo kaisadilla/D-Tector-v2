@@ -83,15 +83,16 @@ namespace Kaisa.Digivice.Apps {
                 OpenPages();
             }
             else if (currentScreen == ScreenDatabase.Pages) {
-                //TODO: Let the player choose DDock for a Digimon already in a DDock, and make it just swap those DDocks.
-                //Armor and Hybrid Digimon can't be put in DDocks.
-                if (menuIndex >= 5 || digimonIsInDDock) {
+                audioMgr.PlayButtonA();
+                OpenDDockList();
+                //Legacy code to prevent Digimons in ddocks to display the ddock menu:
+                /*if (menuIndex >= 5 || digimonIsInDDock) {
                     audioMgr.PlayButtonB();
                 }
                 else {
                     audioMgr.PlayButtonA();
                     OpenDDockList();
-                }
+                }*/
             }
             else if (currentScreen == ScreenDatabase.DDockList) {
                 audioMgr.PlayButtonA();
@@ -435,6 +436,15 @@ namespace Kaisa.Digivice.Apps {
         }
         private void ChooseDDock() {
             gm.EnqueueAnimation(Animations.SwapDDock(ddockIndex, pageDigimon.name));
+            //If the chosen Digimon is already in a ddock, swap those ddocks.
+            if(digimonIsInDDock) {
+                string[] ddocks = gm.logicMgr.GetAllDDockDigimon();
+                for (int i = 0; i < ddocks.Length; i++) {
+                    if(ddocks[i] == pageDigimon.name) {
+                        gm.logicMgr.SetDDockDigimon(i, ddocks[ddockIndex]);
+                    }
+                }
+            }
             gm.logicMgr.SetDDockDigimon(ddockIndex, pageDigimon.name);
             CloseDDockDisplay();
             CloseDDockList();

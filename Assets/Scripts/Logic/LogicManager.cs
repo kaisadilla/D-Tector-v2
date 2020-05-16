@@ -44,10 +44,11 @@ namespace Kaisa.Digivice {
                 if (IsEventPending) {
                     audioMgr.PlayButtonA();
                     triggerEvent();
-                    return;
                 }
-                audioMgr.PlayButtonA();
-                OpenGameMenu();
+                else {
+                    audioMgr.PlayButtonA();
+                    OpenGameMenu();
+                }
             }
             else if (currentScreen == Screen.MainMenu) {
                 if (currentMainMenu == MainMenu.Camp) {
@@ -128,7 +129,6 @@ namespace Kaisa.Digivice {
                 if (IsEventPending) {
                     audioMgr.PlayButtonB();
                     triggerEvent();
-                    return;
                 }
                 else if (gm.WorldMgr.CurrentDistance == 1) { //Alternative to shaking the phone to trigger a boss battle.
                     gm.TakeAStep();
@@ -161,12 +161,11 @@ namespace Kaisa.Digivice {
             }
         }
         public void InputLeft() {
-            if (currentScreen == Screen.App) {
-                if (IsEventPending) {
-                    audioMgr.PlayButtonA();
-                    triggerEvent();
-                    return;
-                }
+            if (IsEventPending) {
+                audioMgr.PlayButtonA();
+                triggerEvent();
+            }
+            else if (currentScreen == Screen.App) {
                 loadedApp.InputLeft();
             }
             else if (currentScreen == Screen.Character) {
@@ -198,9 +197,8 @@ namespace Kaisa.Digivice {
             if (IsEventPending) {
                 audioMgr.PlayButtonA();
                 triggerEvent();
-                return;
             }
-            if (currentScreen == Screen.App) {
+            else if (currentScreen == Screen.App) {
                 loadedApp.InputRight();
             }
             else if (currentScreen == Screen.Character) {
@@ -382,6 +380,8 @@ namespace Kaisa.Digivice {
         }
 
         public void CloseLoadedApp(Screen newScreen = Screen.MainMenu) {
+            if (loadedApp == null) return;
+
             if (loadedApp is CodeInput ci) {
                 string digimon = ci.ReturnedDigimon;
                 if (digimon != null) {

@@ -491,7 +491,12 @@ namespace Kaisa.Digivice.Apps {
             ddockIndex = 0;
         }
         private void CloseDDocks() {
-            currentScreen = BattleScreen.MainMenu;
+            if(ddockPurpose == 0) {
+                currentScreen = BattleScreen.MainMenu;
+            }
+            else if (ddockPurpose == 1) {
+                currentScreen = BattleScreen.Combat_Menu;
+            }
         }
         private void ChooseCurrentDDock() {
             if(ddockPurpose == 0) {

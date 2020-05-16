@@ -44,8 +44,6 @@ namespace Kaisa.Digivice {
         public Sprite[] mainMenu = new Sprite[7];
         [Header("Map")]
         public Sprite map_distanceScreen;
-        public Sprite[] map0_sectors = new Sprite[4];
-        public Sprite[] map0_areas = new Sprite[12];
         [Header("Status")]
         public Sprite status_distance;
         public Sprite status_level;
@@ -98,7 +96,6 @@ namespace Kaisa.Digivice {
         public Sprite battle_callPoints_chooser;
         public Sprite[] battle_gainingSP = new Sprite[2];
         [Header("Game - Jackpot Box")]
-        public Sprite jackpot_box;
         public Sprite jackpot_pad;
         public Sprite[] jackpot_keys = new Sprite[4];
         [Header("Game - DigiHunter")]

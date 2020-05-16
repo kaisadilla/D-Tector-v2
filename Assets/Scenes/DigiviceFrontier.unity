@@ -1616,7 +1616,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 460819915}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad91fac6343777748be07cb950815bbe, type: 3}
+  m_Script: {fileID: 11500000, guid: da82996f9c4a45342be3591c3606bc00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   takuya:
@@ -1720,6 +1720,7 @@ MonoBehaviour:
   - {fileID: -7016929981681943245, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
   - {fileID: -8251062679559881929, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
   - {fileID: 5360645927709239548, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
+  - {fileID: 0}
   bubble: {fileID: -297328165709641742, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
   digistorm:
   - {fileID: -8866480246244444352, guid: b7864b531b3f6f044a0df4d08d2c9e2c, type: 3}
@@ -1742,24 +1743,6 @@ MonoBehaviour:
   - {fileID: -1639677675256097642, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
   map_distanceScreen: {fileID: -7276086656944904512, guid: 9808cb78e43dade47a5fdc1075f4429c,
     type: 3}
-  map0_sectors:
-  - {fileID: 6002816067001272436, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
-  - {fileID: 7321332451134532873, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
-  - {fileID: -3053368712867064051, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
-  - {fileID: -1741817726658632835, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
-  map0_areas:
-  - {fileID: 21300150, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
-  - {fileID: 21300152, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
-  - {fileID: 21300154, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
-  - {fileID: 21300156, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
-  - {fileID: 21300158, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
-  - {fileID: 21300160, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
-  - {fileID: 21300162, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
-  - {fileID: 21300164, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
-  - {fileID: 21300166, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
-  - {fileID: 21300168, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
-  - {fileID: 21300170, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
-  - {fileID: 21300172, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
   status_distance: {fileID: 6179241849971327240, guid: 9808cb78e43dade47a5fdc1075f4429c,
     type: 3}
   status_level: {fileID: -2500526871447472805, guid: 9808cb78e43dade47a5fdc1075f4429c,
@@ -1853,10 +1836,10 @@ MonoBehaviour:
     type: 3}
   curtain: {fileID: 7699648647696747545, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
   curtainSpecial:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: -2462157970874149591, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
+  - {fileID: 2850720695008435870, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
   dTector: {fileID: 741249282245206659, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
-  animDistance: {fileID: 810827957059269702, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
+  animDistance: {fileID: 9002620858183812175, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
     type: 3}
   ancientSpiral:
   - {fileID: -5262102257043538841, guid: 1a7d672ab33564f4ea3128a67ae22fc2, type: 3}
@@ -1900,8 +1883,6 @@ MonoBehaviour:
   battle_gainingSP:
   - {fileID: -3681480723389110861, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
   - {fileID: 9104441157860946041, guid: 9808cb78e43dade47a5fdc1075f4429c, type: 3}
-  jackpot_box: {fileID: -5515913324239714521, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
-    type: 3}
   jackpot_pad: {fileID: -7099948995909975852, guid: b7864b531b3f6f044a0df4d08d2c9e2c,
     type: 3}
   jackpot_keys:

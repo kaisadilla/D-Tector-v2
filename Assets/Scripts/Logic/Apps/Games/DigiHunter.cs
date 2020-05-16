@@ -31,7 +31,7 @@ namespace Kaisa.Digivice.Apps {
         public override void InputB() {
             if (timeRemaining > 0) {
                 audioMgr.PlayButtonB();
-                CloseApp();
+                CloseApp(Screen.GamesTravelMenu);
             }
             else if (timeRemaining == -2) {
                 audioMgr.PlayButtonA();
