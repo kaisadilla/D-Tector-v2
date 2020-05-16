@@ -133,17 +133,6 @@ namespace Kaisa.Digivice.Apps {
             if(sbFaces[y, x] != null) sbFaces[y, x].SetSprite(gm.spriteDB.emptySprite);
         }
 
-        private (int y, int x)? GetRandomNonEmptyFace() {
-            List<(int y, int x)> candidates = new List<(int y, int x)>();
-            for(int y = 0; y < faces.GetLength(0); y++) {
-                for (int x = 0; x < faces.GetLength(1); x++) {
-                    if (faces[y, x] != 0) candidates.Add((y, x));
-                }
-            }
-
-            return candidates.GetRandomElement();
-        }
-
         private void MoveX() {
             playerX = playerX.CircularAdd(1, 2);
             sbArrows[1].SetPosition(6 + (playerX * 8), 5);

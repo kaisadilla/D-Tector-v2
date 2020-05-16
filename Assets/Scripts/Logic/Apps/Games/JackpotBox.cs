@@ -156,36 +156,18 @@ namespace Kaisa.Digivice.Apps {
                 gm.EnqueueRewardAnimation(reward, friendlyDigimon, resultBefore, resultAfter);
             }
             else if (reward == Reward.RewardDigimon) {
-                Rarity rarity;
-                float rng = Random.Range(0f, 1f);
-                if (rng < 0.50f) rarity = Rarity.Common;
-                else if (rng < 0.80f) rarity = Rarity.Rare;
-                else if (rng < 0.95f) rarity = Rarity.Epic;
-                else rarity = Rarity.Legendary;
-                string rewardedDigimon = Database.GetRandomDigimonOfRarity(rarity, gm.logicMgr.GetPlayerLevel() + 20).name;
-                gm.logicMgr.ApplyReward(reward, rewardedDigimon, out object resultBefore, out object resultAfter);
-                gm.EnqueueRewardAnimation(reward, rewardedDigimon, resultBefore, resultAfter);
+                gm.logicMgr.ApplyReward(reward, null, out object resultBefore, out object resultAfter);
+                gm.EnqueueRewardAnimation(reward, null, resultBefore, resultAfter);
             }
             else if (reward == Reward.UnlockDigicodeOwned) {
-                string[] ownedDigimon = gm.logicMgr.GetAllUnlockedDigimon();
-                gm.logicMgr.ApplyReward(reward, ownedDigimon.GetRandomElement(), out object resultBefore, out object resultAfter);
-                gm.EnqueueRewardAnimation(reward, ownedDigimon.GetRandomElement(), resultBefore, resultAfter);
+                gm.logicMgr.ApplyReward(reward, null, out object resultBefore, out object resultAfter);
+                gm.EnqueueRewardAnimation(reward, null, resultBefore, resultAfter);
             }
             else if (reward == Reward.UnlockDigicodeNotOwned) {
-                Rarity rarity;
-                float rng = Random.Range(0f, 1f);
-                if (rng < 0.50f) rarity = Rarity.Common;
-                else if (rng < 0.80f) rarity = Rarity.Rare;
-                else if (rng < 0.95f) rarity = Rarity.Epic;
-                else rarity = Rarity.Legendary;
-                string rewardedDigimon = Database.GetRandomDigimonOfRarity(rarity, 100).name;
-                gm.logicMgr.ApplyReward(reward, rewardedDigimon, out object resultBefore, out object resultAfter);
-                gm.EnqueueRewardAnimation(reward, rewardedDigimon, resultBefore, resultAfter);
+                gm.logicMgr.ApplyReward(reward, null, out object resultBefore, out object resultAfter);
+                gm.EnqueueRewardAnimation(reward, null, resultBefore, resultAfter);
             }
             else if (reward == Reward.TriggerBattle) {
-                //string enemyDigimon = Database.GetRandomDigimonForBattle(gm.logicMgr.GetPlayerLevel()).name;
-                //gm.logicMgr.ApplyReward(reward, enemyDigimon, out object resultBefore, out object resultAfter);
-                //gm.EnqueueRewardAnimation(reward, enemyDigimon, resultBefore, resultAfter);
                 gm.EnqueueAnimation(TriggerBattle());
                 return;
             }

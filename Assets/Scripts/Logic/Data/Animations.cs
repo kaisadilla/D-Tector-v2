@@ -2047,7 +2047,7 @@ namespace Kaisa.Digivice {
                 yield return _CrushVsAbility(); //Reuse this animation because it's identical.
             }
 
-            yield return new WaitForSeconds(0.15f);
+            //yield return new WaitForSeconds(0.15f);
 
             ClearAnimParent();
 
@@ -2100,7 +2100,7 @@ namespace Kaisa.Digivice {
                 SpriteBuilder loserSprite = (winner == 0) ? sbEnemyAttack : sbFriendlyAttack;
                 Direction winnerDirection = (winner == 0) ? Direction.Left : Direction.Right;
                 _TransformAttackIntoCollision(loserSprite);
-                for (int i = 0; i < 40; i++) {
+                for (int i = 0; i < 16; i++) {
                     if (i == 3) loserSprite.Dispose();
                     winnerSprite.Move(winnerDirection);
                     yield return new WaitForSeconds(0.6f / 16f);

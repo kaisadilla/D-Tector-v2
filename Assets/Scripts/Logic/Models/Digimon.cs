@@ -24,6 +24,12 @@ namespace Kaisa.Digivice {
         public readonly bool isPseudo; //If true, the Digimon can't be obtained and is not counted as a Digimon.
         public readonly string code;
 
+        public Rarity Rarity {
+            get {
+                return Database.GetDigimonRarity(name);
+            }
+        }
+
         public Digimon(
                 int number, int order, string name, Stage stage, SpiritType spiritType,
                 string abilityName, Element element, string evolution, string[] extraEvolutions, bool disabled,

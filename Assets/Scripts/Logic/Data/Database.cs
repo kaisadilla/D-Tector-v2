@@ -156,10 +156,10 @@ namespace Kaisa.Digivice {
             return null;
         }
         /// <summary>
-        /// Gets a random Digimon of the given rarity, with level no higher than the level specified.
+        /// Returns all Digimon of the given rarity, with level no higher than the level specified.
         /// </summary>
         /// <returns></returns>
-        public static Digimon GetRandomDigimonOfRarity(Rarity rarity, int maximumLevel) {
+        public static Digimon[] GetAllDigimonOfRarity(Rarity rarity, int maximumLevel) {
             List<Digimon> candidates = new List<Digimon>();
 
             foreach (DigimonRarity r in Rarities) {
@@ -171,7 +171,7 @@ namespace Kaisa.Digivice {
                 }
             }
 
-            return candidates.GetRandomElement();
+            return candidates.ToArray();
         }
 
         /// <summary>

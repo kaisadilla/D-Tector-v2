@@ -2,9 +2,9 @@
 
 using Kaisa.Digivice.Extensions;
 using Kaisa.Digivice.Apps;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 namespace Kaisa.Digivice {
     public class LogicManager : MonoBehaviour, IAppController {
@@ -261,7 +261,7 @@ namespace Kaisa.Digivice {
             audioMgr.PlaySound(audioMgr.triggerEvent);
             IsEventPending = true;
 
-            if(UnityEngine.Random.Range(0f, 1f) < 0.85f) {
+            if(Random.Range(0f, 1f) < 0.85f) {
                 triggerEvent = CallRandomBattleForEvent;
             }
             else {
@@ -319,7 +319,7 @@ namespace Kaisa.Digivice {
         }
         private void NavigateMenu<T>(ref T menuEnum, Direction dir) where T : struct {
             if (!typeof(T).IsEnum) {
-                throw new ArgumentException($"{typeof(T).FullName} is not an enum.");
+                throw new System.ArgumentException($"{typeof(T).FullName} is not an enum.");
             }
 
             if (dir == Direction.Left) {
@@ -569,10 +569,10 @@ namespace Kaisa.Digivice {
         /// <summary>
         /// Returns an array of the names of every unlocked Digimon.
         /// </summary>
-        public string[] GetAllUnlockedDigimon() {
-            List<string> allUnlockedDigimon = new List<string>();
+        public Digimon[] GetAllUnlockedDigimon() {
+            List<Digimon> allUnlockedDigimon = new List<Digimon>();
             foreach(Digimon d in Database.Digimons) {
-                if (GetDigimonUnlocked(d.name)) allUnlockedDigimon.Add(d.name);
+                if (GetDigimonUnlocked(d.name)) allUnlockedDigimon.Add(d);
             }
             return allUnlockedDigimon.ToArray();
         }
@@ -676,115 +676,134 @@ namespace Kaisa.Digivice {
         /// <summary>
         /// Applies a reward, to an objective if necessary. Outputs the result before and after the reward is applied.
         /// </summary>
-        /// <param name="objective">The Digimon that will be awarded, punished, battled against, etc...</param>
+        /// <param name="objective">The Digimon that will be punished, if able, etc...</param>
         /// <param name="resultBefore">A variable holding the result before the reward was applied.</param>
         /// <param name="resultAfter">A variable holding the result after tthe reward is applied.</param>
         public void ApplyReward(Reward reward, string objective, out object resultBefore, out object resultAfter) {
             resultBefore = null;
             resultAfter = null;
-            switch(reward) {
-                case Reward.IncreaseDistance300:
-                    resultBefore = gm.WorldMgr.CurrentDistance;
-                    gm.WorldMgr.IncreaseDistance(300);
-                    resultAfter = gm.WorldMgr.CurrentDistance;
-                    break;
-                case Reward.IncreaseDistance500:
-                    resultBefore = gm.WorldMgr.CurrentDistance;
-                    gm.WorldMgr.IncreaseDistance(500);
-                    resultAfter = gm.WorldMgr.CurrentDistance;
-                    break;
-                case Reward.IncreaseDistance2000:
-                    resultBefore = gm.WorldMgr.CurrentDistance;
-                    gm.WorldMgr.IncreaseDistance(2000);
-                    resultAfter = gm.WorldMgr.CurrentDistance;
-                    break;
-                case Reward.ReduceDistance500:
-                    resultBefore = gm.WorldMgr.CurrentDistance;
-                    gm.WorldMgr.ReduceDistance(500);
-                    resultAfter = gm.WorldMgr.CurrentDistance;
-                    break;
-                case Reward.ReduceDistance1000:
-                    resultBefore = gm.WorldMgr.CurrentDistance;
-                    gm.WorldMgr.ReduceDistance(1000);
-                    resultAfter = gm.WorldMgr.CurrentDistance;
-                    break;
-                case Reward.PunishDigimon:
-                    PunishDigimon(objective, out int pdBef, out int pdAft);
-                    resultBefore = pdBef;
-                    resultAfter = pdAft;
-                    break;
-                case Reward.RewardDigimon:
-                    RewardDigimon(objective, out int rdBef, out int rdAft);
-                    resultBefore = rdBef;
-                    resultAfter = rdAft;
-                    break;
-                case Reward.UnlockDigicodeOwned:
-                    SetDigicodeUnlocked(objective, true);
-                    break;
-                case Reward.UnlockDigicodeNotOwned:
-                    SetDigimonUnlocked(objective, true);
-                    SetDigicodeUnlocked(objective, true);
-                    break;
-                case Reward.DataStorm:
-                    bool moved = ApplyDataStorm(out int newArea);
-                    resultBefore = moved; //resultBefore is a boolean true if the player was moved.
-                    resultAfter = newArea;
-                    break;
-                case Reward.LoseSpiritPower10:
-                    resultBefore = SpiritPower;
-                    SpiritPower -= 10;
-                    resultAfter = SpiritPower;
-                    break;
-                case Reward.LoseSpiritPower50:
-                    resultBefore = SpiritPower;
-                    SpiritPower -= 50;
-                    resultAfter = SpiritPower;
-                    break;
-                case Reward.GainSpiritPower10:
-                    resultBefore = SpiritPower;
-                    SpiritPower += 10;
-                    resultAfter = SpiritPower;
-                    break;
-                case Reward.GainSpiritPowerMax:
-                    resultBefore = SpiritPower;
-                    SpiritPower = Constants.MAX_SPIRIT_POWER;
-                    resultAfter = SpiritPower;
-                    break;
-                case Reward.LevelDown:
-                    if(GetPlayerLevelProgression() < 0.5f) {
-                        resultBefore = GetPlayerLevel();
-                        LevelDownPlayer();
-                        resultAfter = GetPlayerLevel();
-                    }
-                    break;
-                case Reward.LevelUp:
-                    if (GetPlayerLevelProgression() > 0.5f) {
-                        resultBefore = GetPlayerLevel();
-                        LevelUpPlayer();
-                        resultAfter = GetPlayerLevel();
-                    }
-                    break;
-                case Reward.ForceLevelDown:
-                    if (GetPlayerLevelProgression() > 0f) {
-                        resultBefore = GetPlayerLevel();
-                        LevelDownPlayer();
-                        resultAfter = GetPlayerLevel();
-                    }
-                    break;
-                case Reward.ForceLevelUp:
-                    if (GetPlayerLevelProgression() > 0f) {
-                        resultBefore = GetPlayerLevel();
-                        LevelUpPlayer();
-                        resultAfter = GetPlayerLevel();
-                    }
-                    break;
-                case Reward.TriggerBattle:
-                    CallRandomBattle(true);
-                    break;
-                default:
-                    resultBefore = null;
-                    resultAfter = null;
-                    break;
+
+            if (reward == Reward.IncreaseDistance300) {
+                resultBefore = gm.WorldMgr.CurrentDistance;
+                gm.WorldMgr.IncreaseDistance(300);
+                resultAfter = gm.WorldMgr.CurrentDistance;
+            }
+            else if (reward == Reward.IncreaseDistance500) {
+                resultBefore = gm.WorldMgr.CurrentDistance;
+                gm.WorldMgr.IncreaseDistance(500);
+                resultAfter = gm.WorldMgr.CurrentDistance;
+            }
+            else if (reward == Reward.IncreaseDistance2000) {
+                resultBefore = gm.WorldMgr.CurrentDistance;
+                gm.WorldMgr.IncreaseDistance(2000);
+                resultAfter = gm.WorldMgr.CurrentDistance;
+            }
+            else if (reward == Reward.ReduceDistance500) {
+                resultBefore = gm.WorldMgr.CurrentDistance;
+                gm.WorldMgr.ReduceDistance(500);
+                resultAfter = gm.WorldMgr.CurrentDistance;
+            }
+            else if (reward == Reward.ReduceDistance1000) {
+                resultBefore = gm.WorldMgr.CurrentDistance;
+                gm.WorldMgr.ReduceDistance(1000);
+                resultAfter = gm.WorldMgr.CurrentDistance;
+            }
+            else if (reward == Reward.PunishDigimon) {
+                PunishDigimon(objective, out int pdBef, out int pdAft);
+                resultBefore = pdBef;
+                resultAfter = pdAft;
+            }
+            else if (reward == Reward.RewardDigimon) {
+                Rarity rarity;
+                float rng = Random.Range(0f, 1f);
+                if (rng < 0.50f) rarity = Rarity.Common;
+                else if (rng < 0.80f) rarity = Rarity.Rare;
+                else if (rng < 0.95f) rarity = Rarity.Epic;
+                else rarity = Rarity.Legendary;
+                string rewardedDigimon;
+                //30% chance to forcibly select a Digimon already owned.
+                if (Random.Range(0f, 1f) < 0.3f) {
+                    rewardedDigimon = GetAllUnlockedDigimon().Where(d => d.Rarity == rarity).GetRandomElement().name;
+                }
+                //Reward any Digimon, owned or not.
+                else {
+                    rewardedDigimon = Database.GetAllDigimonOfRarity(rarity, gm.logicMgr.GetPlayerLevel() + 20).GetRandomElement().name;
+                }
+
+                RewardDigimon(rewardedDigimon, out int rdBef, out int rdAft);
+                resultBefore = rdBef;
+                resultAfter = rdAft;
+            }
+            else if (reward == Reward.UnlockDigicodeOwned) {
+                Digimon[] ownedDigimon = gm.logicMgr.GetAllUnlockedDigimon();
+                SetDigicodeUnlocked(ownedDigimon.GetRandomElement().name, true);
+            }
+            else if (reward == Reward.UnlockDigicodeNotOwned) {
+                Rarity rarity;
+                float rng = Random.Range(0f, 1f);
+                if (rng < 0.50f) rarity = Rarity.Common;
+                else if (rng < 0.80f) rarity = Rarity.Rare;
+                else if (rng < 0.95f) rarity = Rarity.Epic;
+                else rarity = Rarity.Legendary;
+                string rewardedDigimon2 = Database.GetAllDigimonOfRarity(rarity, 100).GetRandomElement().name;
+                SetDigimonUnlocked(rewardedDigimon2, true);
+                SetDigicodeUnlocked(rewardedDigimon2, true);
+            }
+            else if (reward == Reward.DataStorm) {
+                bool moved = ApplyDataStorm(out int newArea);
+                resultBefore = moved; //resultBefore is a boolean true if the player was moved.
+                resultAfter = newArea;
+            }
+            else if (reward == Reward.LoseSpiritPower10) {
+                resultBefore = SpiritPower;
+                SpiritPower -= 10;
+                resultAfter = SpiritPower;
+            }
+            else if (reward == Reward.LoseSpiritPower50) {
+                resultBefore = SpiritPower;
+                SpiritPower -= 50;
+                resultAfter = SpiritPower;
+            }
+            else if (reward == Reward.GainSpiritPower10) {
+                resultBefore = SpiritPower;
+                SpiritPower += 10;
+                resultAfter = SpiritPower;
+            }
+            else if (reward == Reward.GainSpiritPowerMax) {
+                resultBefore = SpiritPower;
+                SpiritPower = Constants.MAX_SPIRIT_POWER;
+                resultAfter = SpiritPower;
+            }
+            else if (reward == Reward.LevelDown) {
+                if (GetPlayerLevelProgression() < 0.5f) {
+                    resultBefore = GetPlayerLevel();
+                    LevelDownPlayer();
+                    resultAfter = GetPlayerLevel();
+                }
+            }
+            else if (reward == Reward.ForceLevelDown) {
+                if (GetPlayerLevelProgression() > 0f) {
+                    resultBefore = GetPlayerLevel();
+                    LevelDownPlayer();
+                    resultAfter = GetPlayerLevel();
+                }
+            }
+            else if (reward == Reward.LevelUp) {
+                if (GetPlayerLevelProgression() < 0.5f) {
+                    resultBefore = GetPlayerLevel();
+                    LevelDownPlayer();
+                    resultAfter = GetPlayerLevel();
+                }
+            }
+            else if (reward == Reward.ForceLevelUp) {
+                if (GetPlayerLevelProgression() > 0f) {
+                    resultBefore = GetPlayerLevel();
+                    LevelUpPlayer();
+                    resultAfter = GetPlayerLevel();
+                }
+            }
+            else if (reward == Reward.TriggerBattle) {
+                CallRandomBattle(true);
             }
         }
         private void TriggerDataStorm() {
